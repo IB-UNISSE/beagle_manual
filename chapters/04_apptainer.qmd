@@ -1,0 +1,16 @@
+# Uso de contenedores con Apptainer
+
+## Ejecutar un programa dentro de un contenedor
+
+```bash
+apptainer exec /ruta/contenedores/programa.sif programa --help
+```
+
+## Montar carpetas de trabajo
+
+```bash
+apptainer exec \
+  --bind /ruta/proyecto:/work \
+  /ruta/contenedores/programa.sif \
+  bash
+```

@@ -1,0 +1,21 @@
+# Subir y bajar archivos
+
+## Con `scp`
+
+Subir un archivo:
+
+```bash
+scp -P 8413 archivo.fastq.gz usuario@beagle.ib.unam.mx:/ruta/destino/
+```
+
+Bajar un archivo:
+
+```bash
+scp -P 8413 usuario@beagle.ib.unam.mx:/ruta/archivo.txt .
+```
+
+## Con `sftp`
+
+```bash
+sftp -P 8413 usuario@beagle.ib.unam.mx
+```

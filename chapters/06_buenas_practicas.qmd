@@ -1,0 +1,7 @@
+# Buenas prácticas
+
+- No ejecutar análisis largos directamente en el nodo de login.
+- Usar Slurm para trabajos pesados.
+- Guardar scripts y parámetros usados.
+- Evitar duplicar archivos grandes innecesariamente.
+- Documentar cada proyecto con un `README.md`.

@@ -1,0 +1,18 @@
+# Solución de problemas frecuentes
+
+## No puedo entrar por SSH
+
+Revisa usuario, host, puerto y conexión a internet.
+
+```bash
+ssh -vvv -p 8413 usuario@beagle.ib.unam.mx
+```
+
+## Mi trabajo no corre
+
+Revisa el estado con:
+
+```bash
+squeue -u $USER
+sacct -j JOBID --format=JobID,JobName,State,Elapsed,MaxRSS,ExitCode
+```

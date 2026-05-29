@@ -1,0 +1,26 @@
+{
+  "index.qmd": {
+    "index.html": "5d7659ed"
+  },
+  "chapters/01_acceso.qmd": {
+    "01_acceso.html": "dc1bb0cf"
+  },
+  "chapters/02_transferencia.qmd": {
+    "02_transferencia.html": "091d37cd"
+  },
+  "chapters/03_estructura.qmd": {
+    "03_estructura.html": "44b1e483"
+  },
+  "chapters/04_apptainer.qmd": {
+    "04_apptainer.html": "ac22ffd3"
+  },
+  "chapters/05_slurm.qmd": {
+    "05_slurm.html": "7eedfeec"
+  },
+  "chapters/06_buenas_practicas.qmd": {
+    "06_buenas_practicas.html": "fd10f173"
+  },
+  "chapters/07_solucion_problemas.qmd": {
+    "07_solucion_problemas.html": "a4b06565"
+  }
+}

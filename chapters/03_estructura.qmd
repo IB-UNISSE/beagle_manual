@@ -1,0 +1,12 @@
+# Estructura recomendada de proyecto
+
+```bash
+mi_proyecto/
+├── data/
+├── scripts/
+├── results/
+├── logs/
+└── README.md
+```
+
+La idea es separar datos originales, scripts, resultados y bitácoras de ejecución.

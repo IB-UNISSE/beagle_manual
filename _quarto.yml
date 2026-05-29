@@ -1,0 +1,63 @@
+project:
+  type: book
+  output-dir: _book
+  resources:
+    - files/**
+    - images/**
+
+book:
+  title: "Manual de usuario BEAGLE"
+  subtitle: "Servidor de cómputo para bioinformática"
+  author: "IB-UNISSE"
+  date: today
+  favicon: images/logo_beagle_2.png
+  page-navigation: true
+  search: true
+  sidebar:
+    logo: images/beagle_logo_blanco.png
+    title: "BEAGLE"
+    collapse-level: 1
+    pinned: true
+  repo-url: https://github.com/IB-UNISSE/beagle_manual
+  repo-actions: [edit, issue]
+  chapters:
+    - index.qmd
+    - chapters/01_acceso.qmd
+    - chapters/02_transferencia.qmd
+    - chapters/03_estructura.qmd
+    - chapters/04_apptainer.qmd
+    - chapters/05_slurm.qmd
+    - chapters/06_buenas_practicas.qmd
+    - chapters/07_solucion_problemas.qmd
+
+format:
+  html:
+    theme:
+      light: litera
+    css: styles/styles.css
+    toc: true
+    toc-depth: 3
+    number-sections: false
+    code-copy: true
+    code-overflow: wrap
+    smooth-scroll: true
+    link-external-newwindow: true
+    include-in-header:
+      text: |
+        <meta name="description" content="Manual de usuario del servidor BEAGLE: acceso por SSH, transferencia de archivos, Apptainer y envío de trabajos con Slurm.">
+        <meta name="robots" content="index,follow">
+        <meta property="og:title" content="Manual de usuario BEAGLE">
+        <meta property="og:description" content="Guía de uso del servidor BEAGLE para bioinformática.">
+        <meta property="og:image" content="images/beagle_logo.png">
+        <meta property="og:type" content="website">
+        <meta name="twitter:card" content="summary_large_image">
+
+website:
+  site-url: https://ib-unisse.github.io/beagle_manual/
+
+editor: visual
+
+publish:
+  gh-pages:
+    branch: gh-pages
+    dir: _book
