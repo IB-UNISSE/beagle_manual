@@ -1,0 +1,192 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Manual de usuario BEAGLE",
+    "section": "",
+    "text": "Manual de usuario BEAGLE\nGuía práctica para ingresar al servidor, transferir archivos, usar contenedores con Apptainer y enviar trabajos mediante Slurm.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Manual de usuario BEAGLE</span>"
+    ]
+  },
+  {
+    "objectID": "index.html#objetivo",
+    "href": "index.html#objetivo",
+    "title": "Manual de usuario BEAGLE",
+    "section": "Objetivo",
+    "text": "Objetivo\nEste manual reúne los pasos mínimos para que una persona usuaria pueda trabajar de forma ordenada y reproducible en BEAGLE.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Manual de usuario BEAGLE</span>"
+    ]
+  },
+  {
+    "objectID": "index.html#contenido-principal",
+    "href": "index.html#contenido-principal",
+    "title": "Manual de usuario BEAGLE",
+    "section": "Contenido principal",
+    "text": "Contenido principal\n\nAcceso por ssh.\nTransferencia de archivos con scp, sftp o clientes gráficos como Termius.\nOrganización de carpetas de trabajo.\nUso de programas mediante contenedores de Apptainer.\nEnvío y monitoreo de trabajos con Slurm.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Manual de usuario BEAGLE</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/01_acceso.html",
+    "href": "chapters/01_acceso.html",
+    "title": "Acceso al servidor",
+    "section": "",
+    "text": "Conexión por SSH\nSi el servidor utiliza un puerto específico:",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Acceso al servidor</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/01_acceso.html#conexión-por-ssh",
+    "href": "chapters/01_acceso.html#conexión-por-ssh",
+    "title": "Acceso al servidor",
+    "section": "",
+    "text": "ssh usuario@beagle.ib.unam.mx\n\nssh -p 8413 usuario@beagle.ib.unam.mx",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Acceso al servidor</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/01_acceso.html#acceso-con-llave-ssh",
+    "href": "chapters/01_acceso.html#acceso-con-llave-ssh",
+    "title": "Acceso al servidor",
+    "section": "Acceso con llave SSH",
+    "text": "Acceso con llave SSH\nssh-keygen -t ed25519 -C \"usuario_beagle\"\nssh-copy-id -p 8413 usuario@beagle.ib.unam.mx",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Acceso al servidor</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/02_transferencia.html",
+    "href": "chapters/02_transferencia.html",
+    "title": "Subir y bajar archivos",
+    "section": "",
+    "text": "Con scp\nSubir un archivo:\nBajar un archivo:",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Subir y bajar archivos</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/02_transferencia.html#con-scp",
+    "href": "chapters/02_transferencia.html#con-scp",
+    "title": "Subir y bajar archivos",
+    "section": "",
+    "text": "scp -P 8413 archivo.fastq.gz usuario@beagle.ib.unam.mx:/ruta/destino/\n\nscp -P 8413 usuario@beagle.ib.unam.mx:/ruta/archivo.txt .",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Subir y bajar archivos</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/02_transferencia.html#con-sftp",
+    "href": "chapters/02_transferencia.html#con-sftp",
+    "title": "Subir y bajar archivos",
+    "section": "Con sftp",
+    "text": "Con sftp\nsftp -P 8413 usuario@beagle.ib.unam.mx",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Subir y bajar archivos</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/03_estructura.html",
+    "href": "chapters/03_estructura.html",
+    "title": "Estructura recomendada de proyecto",
+    "section": "",
+    "text": "mi_proyecto/\n├── data/\n├── scripts/\n├── results/\n├── logs/\n└── README.md\nLa idea es separar datos originales, scripts, resultados y bitácoras de ejecución.",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Estructura recomendada de proyecto</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/04_apptainer.html",
+    "href": "chapters/04_apptainer.html",
+    "title": "Uso de contenedores con Apptainer",
+    "section": "",
+    "text": "Ejecutar un programa dentro de un contenedor",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Uso de contenedores con Apptainer</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/04_apptainer.html#ejecutar-un-programa-dentro-de-un-contenedor",
+    "href": "chapters/04_apptainer.html#ejecutar-un-programa-dentro-de-un-contenedor",
+    "title": "Uso de contenedores con Apptainer",
+    "section": "",
+    "text": "apptainer exec /ruta/contenedores/programa.sif programa --help",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Uso de contenedores con Apptainer</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/04_apptainer.html#montar-carpetas-de-trabajo",
+    "href": "chapters/04_apptainer.html#montar-carpetas-de-trabajo",
+    "title": "Uso de contenedores con Apptainer",
+    "section": "Montar carpetas de trabajo",
+    "text": "Montar carpetas de trabajo\napptainer exec \\\n  --bind /ruta/proyecto:/work \\\n  /ruta/contenedores/programa.sif \\\n  bash",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Uso de contenedores con Apptainer</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/05_slurm.html",
+    "href": "chapters/05_slurm.html",
+    "title": "Envío de trabajos con Slurm",
+    "section": "",
+    "text": "Script básico de Slurm\nEnviar el trabajo:\nRevisar la cola:",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Envío de trabajos con Slurm</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/05_slurm.html#script-básico-de-slurm",
+    "href": "chapters/05_slurm.html#script-básico-de-slurm",
+    "title": "Envío de trabajos con Slurm",
+    "section": "",
+    "text": "#!/usr/bin/env bash\n#SBATCH --job-name=prueba_beagle\n#SBATCH --cpus-per-task=4\n#SBATCH --mem=8G\n#SBATCH --time=02:00:00\n#SBATCH --output=logs/%x_%j.out\n#SBATCH --error=logs/%x_%j.err\n\nset -euo pipefail\n\nhostname\ndate\n\n# Aquí va el comando principal\n\nsbatch scripts/mi_trabajo.sh\n\nsqueue -u $USER",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Envío de trabajos con Slurm</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/06_buenas_practicas.html",
+    "href": "chapters/06_buenas_practicas.html",
+    "title": "Buenas prácticas",
+    "section": "",
+    "text": "No ejecutar análisis largos directamente en el nodo de login.\nUsar Slurm para trabajos pesados.\nGuardar scripts y parámetros usados.\nEvitar duplicar archivos grandes innecesariamente.\nDocumentar cada proyecto con un README.md.",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Buenas prácticas</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/07_solucion_problemas.html",
+    "href": "chapters/07_solucion_problemas.html",
+    "title": "Solución de problemas frecuentes",
+    "section": "",
+    "text": "No puedo entrar por SSH\nRevisa usuario, host, puerto y conexión a internet.",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Solución de problemas frecuentes</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/07_solucion_problemas.html#no-puedo-entrar-por-ssh",
+    "href": "chapters/07_solucion_problemas.html#no-puedo-entrar-por-ssh",
+    "title": "Solución de problemas frecuentes",
+    "section": "",
+    "text": "ssh -vvv -p 8413 usuario@beagle.ib.unam.mx",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Solución de problemas frecuentes</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/07_solucion_problemas.html#mi-trabajo-no-corre",
+    "href": "chapters/07_solucion_problemas.html#mi-trabajo-no-corre",
+    "title": "Solución de problemas frecuentes",
+    "section": "Mi trabajo no corre",
+    "text": "Mi trabajo no corre\nRevisa el estado con:\nsqueue -u $USER\nsacct -j JOBID --format=JobID,JobName,State,Elapsed,MaxRSS,ExitCode",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Solución de problemas frecuentes</span>"
+    ]
+  }
+]
