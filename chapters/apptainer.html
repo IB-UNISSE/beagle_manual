@@ -1,0 +1,1381 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.26">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Apptainer – Manual de usuario BEAGLE</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../chapters/05_slurm.html" rel="next">
+<link href="../chapters/micromamba.html" rel="prev">
+<link href="../images/logo_beagle_2.png" rel="icon" type="image/png">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-ae5d55f8a41ff9e4654feece7b8084e3.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<style>html{ scroll-behavior: smooth; }</style>
+<meta name="description" content="Manual de usuario del servidor BEAGLE: acceso por SSH, transferencia de archivos, Apptainer y envío de trabajos con Slurm.">
+<meta name="robots" content="index,follow">
+<meta property="og:title" content="Apptainer – Manual de usuario BEAGLE">
+<meta property="og:description" content="">
+<meta property="og:image" content="images/beagle_logo.png">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+
+
+<link rel="stylesheet" href="../styles/styles.css">
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/apptainer.html"><span class="chapter-title">Apptainer</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="../index.html" class="sidebar-logo-link">
+      <img src="../images/beagle_logo_blanco.png" alt="" class="sidebar-logo light-content py-0 d-lg-inline d-none">
+      <img src="../images/beagle_logo_blanco.png" alt="" class="sidebar-logo dark-content py-0 d-lg-inline d-none">
+      </a>
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">BEAGLE</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/IB-UNISSE/beagle_manual" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Manual de usuario BEAGLE</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/01_acceso.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Acceso al servidor</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/02_transferencia.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Subir y bajar archivos</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/03_estructura.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Estructura recomendada de proyecto</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/software.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Software en BEAGLE</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/micromamba.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Micromamba</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/apptainer.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Apptainer</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/05_slurm.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Envío de trabajos con Slurm</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/06_buenas_practicas.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Buenas prácticas</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/07_solucion_problemas.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Solución de problemas frecuentes</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../contacto.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Contacto y soporte</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#en-qué-sistemas-funciona-apptainer" id="toc-en-qué-sistemas-funciona-apptainer" class="nav-link active" data-scroll-target="#en-qué-sistemas-funciona-apptainer">¿En qué sistemas funciona Apptainer?</a></li>
+  <li><a href="#de-dónde-vienen-las-imágenes" id="toc-de-dónde-vienen-las-imágenes" class="nav-link" data-scroll-target="#de-dónde-vienen-las-imágenes">¿De dónde vienen las imágenes?</a>
+  <ul class="collapse">
+  <li><a href="#docker-hub" id="toc-docker-hub" class="nav-link" data-scroll-target="#docker-hub">📦 Docker Hub</a></li>
+  <li><a href="#qué-son-los-biocontainers" id="toc-qué-son-los-biocontainers" class="nav-link" data-scroll-target="#qué-son-los-biocontainers">🧬 ¿Qué son los BioContainers?</a></li>
+  </ul></li>
+  <li><a href="#descargar-imágenes" id="toc-descargar-imágenes" class="nav-link" data-scroll-target="#descargar-imágenes">📥 Descargar imágenes</a>
+  <ul class="collapse">
+  <li><a href="#versiones-específicas" id="toc-versiones-específicas" class="nav-link" data-scroll-target="#versiones-específicas">📦 Versiones específicas</a></li>
+  </ul></li>
+  <li><a href="#uso-básico-de-contenedores" id="toc-uso-básico-de-contenedores" class="nav-link" data-scroll-target="#uso-básico-de-contenedores">Uso básico de contenedores</a>
+  <ul class="collapse">
+  <li><a href="#entrar-a-un-contenedor-modo-interactivo" id="toc-entrar-a-un-contenedor-modo-interactivo" class="nav-link" data-scroll-target="#entrar-a-un-contenedor-modo-interactivo">Entrar a un contenedor (modo interactivo)</a></li>
+  <li><a href="#se-puede-modificar" id="toc-se-puede-modificar" class="nav-link" data-scroll-target="#se-puede-modificar">⚠️ ¿Se puede modificar?</a></li>
+  <li><a href="#ejecutar-comandos-sin-entrar" id="toc-ejecutar-comandos-sin-entrar" class="nav-link" data-scroll-target="#ejecutar-comandos-sin-entrar">Ejecutar comandos sin entrar</a></li>
+  <li><a href="#modificar-un-contenedor-temporalmente---writable" id="toc-modificar-un-contenedor-temporalmente---writable" class="nav-link" data-scroll-target="#modificar-un-contenedor-temporalmente---writable">Modificar un contenedor temporalmente (<code>--writable</code>)</a></li>
+  </ul></li>
+  <li><a href="#qué-es-un-sandbox" id="toc-qué-es-un-sandbox" class="nav-link" data-scroll-target="#qué-es-un-sandbox">¿Qué es un sandbox?</a>
+  <ul class="collapse">
+  <li><a href="#crear-un-sandbox" id="toc-crear-un-sandbox" class="nav-link" data-scroll-target="#crear-un-sandbox">Crear un sandbox</a></li>
+  <li><a href="#explorar-el-contenedor-de-forma-interactiva" id="toc-explorar-el-contenedor-de-forma-interactiva" class="nav-link" data-scroll-target="#explorar-el-contenedor-de-forma-interactiva">Explorar el contenedor de forma interactiva</a></li>
+  <li><a href="#salir-del-contenedor" id="toc-salir-del-contenedor" class="nav-link" data-scroll-target="#salir-del-contenedor">Salir del contenedor</a></li>
+  <li><a href="#entrar-en-modo-escritura-y-con-root-simulado" id="toc-entrar-en-modo-escritura-y-con-root-simulado" class="nav-link" data-scroll-target="#entrar-en-modo-escritura-y-con-root-simulado">Entrar en modo escritura y con root simulado</a></li>
+  </ul></li>
+  <li><a href="#configuración-básica-del-sistema-dentro-del-contenedor" id="toc-configuración-básica-del-sistema-dentro-del-contenedor" class="nav-link" data-scroll-target="#configuración-básica-del-sistema-dentro-del-contenedor">⚙️ Configuración básica del sistema dentro del contenedor</a>
+  <ul class="collapse">
+  <li><a href="#actualizar-el-sistema" id="toc-actualizar-el-sistema" class="nav-link" data-scroll-target="#actualizar-el-sistema">🔄 Actualizar el sistema</a></li>
+  <li><a href="#configurar-idioma-locale" id="toc-configurar-idioma-locale" class="nav-link" data-scroll-target="#configurar-idioma-locale">🌍 Configurar idioma (locale)</a></li>
+  <li><a href="#configurar-zona-horaria" id="toc-configurar-zona-horaria" class="nav-link" data-scroll-target="#configurar-zona-horaria">🕒 Configurar zona horaria</a></li>
+  <li><a href="#instalación-de-programas-y-dependencias" id="toc-instalación-de-programas-y-dependencias" class="nav-link" data-scroll-target="#instalación-de-programas-y-dependencias">📦 Instalación de programas y dependencias</a></li>
+  <li><a href="#qué-es-apt" id="toc-qué-es-apt" class="nav-link" data-scroll-target="#qué-es-apt">¿Qué es <code>apt</code>?</a></li>
+  <li><a href="#qué-son-las-dependencias" id="toc-qué-son-las-dependencias" class="nav-link" data-scroll-target="#qué-son-las-dependencias">🧩 ¿Qué son las dependencias?</a></li>
+  <li><a href="#compilación-desde-código-fuente" id="toc-compilación-desde-código-fuente" class="nav-link" data-scroll-target="#compilación-desde-código-fuente">Compilación desde código fuente</a></li>
+  <li><a href="#qué-significa-compilar" id="toc-qué-significa-compilar" class="nav-link" data-scroll-target="#qué-significa-compilar">¿Qué significa “compilar”?</a></li>
+  </ul></li>
+  <li><a href="#empaquetar-el-sandbox-como-imagen-.sif" id="toc-empaquetar-el-sandbox-como-imagen-.sif" class="nav-link" data-scroll-target="#empaquetar-el-sandbox-como-imagen-.sif">Empaquetar el sandbox como imagen <code>.sif</code></a>
+  <ul class="collapse">
+  <li><a href="#ejecutar-un-programa-dentro-del-contenedor" id="toc-ejecutar-un-programa-dentro-del-contenedor" class="nav-link" data-scroll-target="#ejecutar-un-programa-dentro-del-contenedor">Ejecutar un programa dentro del contenedor</a></li>
+  <li><a href="#ejecutar-con-mpi" id="toc-ejecutar-con-mpi" class="nav-link" data-scroll-target="#ejecutar-con-mpi">Ejecutar con MPI</a></li>
+  </ul></li>
+  <li><a href="#uso-de-volúmenes-montaje-de-carpetas" id="toc-uso-de-volúmenes-montaje-de-carpetas" class="nav-link" data-scroll-target="#uso-de-volúmenes-montaje-de-carpetas">📂 Uso de volúmenes (montaje de carpetas)</a>
+  <ul class="collapse">
+  <li><a href="#montar-una-carpeta" id="toc-montar-una-carpeta" class="nav-link" data-scroll-target="#montar-una-carpeta">Montar una carpeta</a></li>
+  <li><a href="#ejemplo-práctico" id="toc-ejemplo-práctico" class="nav-link" data-scroll-target="#ejemplo-práctico">Ejemplo práctico</a></li>
+  <li><a href="#usar-tus-archivos-en-revbayes" id="toc-usar-tus-archivos-en-revbayes" class="nav-link" data-scroll-target="#usar-tus-archivos-en-revbayes">📂 Usar tus archivos en RevBayes</a></li>
+  <li><a href="#uso-de-pwd-muy-importante" id="toc-uso-de-pwd-muy-importante" class="nav-link" data-scroll-target="#uso-de-pwd-muy-importante">Uso de <code>pwd</code> (muy importante)</a></li>
+  <li><a href="#ejemplo-práctico-con-pwd" id="toc-ejemplo-práctico-con-pwd" class="nav-link" data-scroll-target="#ejemplo-práctico-con-pwd">Ejemplo práctico con <code>pwd</code></a></li>
+  <li><a href="#ventaja-de-usar-pwd" id="toc-ventaja-de-usar-pwd" class="nav-link" data-scroll-target="#ventaja-de-usar-pwd">Ventaja de usar <code>pwd</code></a></li>
+  <li><a href="#nota-importante" id="toc-nota-importante" class="nav-link" data-scroll-target="#nota-importante">⚠️ Nota importante</a></li>
+  <li><a href="#probar-que-el-volumen-funciona" id="toc-probar-que-el-volumen-funciona" class="nav-link" data-scroll-target="#probar-que-el-volumen-funciona">🧪 Probar que el volumen funciona</a></li>
+  <li><a href="#bonus-muy-útil" id="toc-bonus-muy-útil" class="nav-link" data-scroll-target="#bonus-muy-útil">🚀 Bonus (muy útil)</a></li>
+  </ul></li>
+  <li><a href="#qué-es-un-archivo-.def" id="toc-qué-es-un-archivo-.def" class="nav-link" data-scroll-target="#qué-es-un-archivo-.def">¿Qué es un archivo <code>.def</code>?</a>
+  <ul class="collapse">
+  <li><a href="#partes-de-un-archivo-.def-en-apptainer" id="toc-partes-de-un-archivo-.def-en-apptainer" class="nav-link" data-scroll-target="#partes-de-un-archivo-.def-en-apptainer">🧱 Partes de un archivo <code>.def</code> en Apptainer</a></li>
+  <li><a href="#construir-el-contenedor-a-partir-del-archivo-.def" id="toc-construir-el-contenedor-a-partir-del-archivo-.def" class="nav-link" data-scroll-target="#construir-el-contenedor-a-partir-del-archivo-.def">🔧 Construir el contenedor a partir del archivo <code>.def</code></a></li>
+  <li><a href="#probar-el-contenedor" id="toc-probar-el-contenedor" class="nav-link" data-scroll-target="#probar-el-contenedor">Probar el contenedor</a></li>
+  </ul></li>
+  <li><a href="#buscar-imágenes-existentes-antes-de-construir-un-contenedor" id="toc-buscar-imágenes-existentes-antes-de-construir-un-contenedor" class="nav-link" data-scroll-target="#buscar-imágenes-existentes-antes-de-construir-un-contenedor">🔎 Buscar imágenes existentes antes de construir un contenedor</a>
+  <ul class="collapse">
+  <li><a href="#ejemplo-1" id="toc-ejemplo-1" class="nav-link" data-scroll-target="#ejemplo-1">Ejemplo</a></li>
+  <li><a href="#ventajas-de-usar-imágenes-existentes" id="toc-ventajas-de-usar-imágenes-existentes" class="nav-link" data-scroll-target="#ventajas-de-usar-imágenes-existentes">⚖️ Ventajas de usar imágenes existentes</a></li>
+  <li><a href="#desventajas" id="toc-desventajas" class="nav-link" data-scroll-target="#desventajas">⚠️ Desventajas</a></li>
+  <li><a href="#ventajas-de-construir-tu-propio-contenedor" id="toc-ventajas-de-construir-tu-propio-contenedor" class="nav-link" data-scroll-target="#ventajas-de-construir-tu-propio-contenedor">🔧 Ventajas de construir tu propio contenedor</a></li>
+  </ul></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/IB-UNISSE/beagle_manual/edit/main/chapters/apptainer.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/IB-UNISSE/beagle_manual/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-title">Apptainer</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p><strong>Apptainer</strong> es una herramienta para ejecutar contenedores en ambientes de cómputo científico y clústeres HPC. En BEAGLE, Apptainer permite usar software bioinformático, filogenómico o científico sin instalarlo directamente en el sistema operativo del clúster y sin requerir permisos de administrador (<code>sudo</code>).</p>
+<p>Un contenedor puede entenderse como un archivo que incluye un programa junto con muchas de sus dependencias. Esto permite ejecutar software de forma más controlada y reproducible, evitando conflictos con otros programas instalados en el sistema o con los ambientes de otros usuarios.</p>
+<p>En BEAGLE, Apptainer es especialmente útil cuando:</p>
+<ul>
+<li><p>el programa tiene muchas dependencias;</p></li>
+<li><p>se necesita una versión específica de un software;</p></li>
+<li><p>el software ya existe como imagen de contenedor;</p></li>
+<li><p>se desea compartir un flujo de trabajo con otros usuarios;</p></li>
+<li><p>se busca mayor reproducibilidad;</p></li>
+<li><p>se ejecutarán análisis mediante Slurm.</p></li>
+</ul>
+<section id="en-qué-sistemas-funciona-apptainer" class="level2">
+<h2 class="anchored" data-anchor-id="en-qué-sistemas-funciona-apptainer">¿En qué sistemas funciona Apptainer?</h2>
+<p><strong>Apptainer está diseñado para funcionar de manera nativa en sistemas Linux.</strong></p>
+<p>Esto se debe a que utiliza características propias del kernel de Linux, como:</p>
+<ul>
+<li><p>namespaces (aislamiento de procesos)</p></li>
+<li><p>cgroups (control de recursos)</p></li>
+<li><p>sistema de archivos tipo overlay</p></li>
+</ul>
+<p>👉 Estas tecnologías permiten crear contenedores de forma eficiente y segura.</p>
+</section>
+<section id="de-dónde-vienen-las-imágenes" class="level2">
+<h2 class="anchored" data-anchor-id="de-dónde-vienen-las-imágenes">¿De dónde vienen las imágenes?</h2>
+<p>Las imágenes de contenedores provienen generalmente de repositorios en línea como:</p>
+<p>👉 <a href="https://hub.docker.com/"><u>Docker Hub</u></a><br>
+👉 <a href="https://quay.io/"><u>Quay.io</u></a></p>
+<section id="docker-hub" class="level3">
+<h3 class="anchored" data-anchor-id="docker-hub">📦 Docker Hub</h3>
+<p>Docker Hub es una plataforma donde se almacenan miles de imágenes listas para usar:</p>
+<ul>
+<li><p>sistemas operativos</p></li>
+<li><p>lenguajes de programación</p></li>
+<li><p>herramientas científicas</p></li>
+</ul>
+<p>Cada imagen tiene versiones llamadas <strong>tags</strong>, por ejemplo:</p>
+<ul>
+<li><p><code>ubuntu:22.04</code></p></li>
+<li><p><code>ubuntu:20.04</code></p></li>
+<li><p><code>ubuntu:latest</code></p></li>
+</ul>
+<p>💡 Esto permite elegir exactamente qué entorno queremos usar.</p>
+</section>
+<section id="qué-son-los-biocontainers" class="level3">
+<h3 class="anchored" data-anchor-id="qué-son-los-biocontainers">🧬 ¿Qué son los BioContainers?</h3>
+<p>Existen repositorios especializados llamados <strong>BioContainers</strong>, que contienen imágenes enfocadas en bioinformática.</p>
+<p>👉 Son contenedores que ya incluyen software científico instalado, como:</p>
+<ul>
+<li><p>MrBayes</p></li>
+<li><p>BLAST</p></li>
+<li><p>FastQC</p></li>
+<li><p>Bowtie2</p></li>
+</ul>
+<p>👉 Muchos de estos contenedores están disponibles en:</p>
+<ul>
+<li><p>Docker Hub</p></li>
+<li><p>Quay.io (más actualizado en muchos casos)</p></li>
+</ul>
+</section>
+</section>
+<section id="descargar-imágenes" class="level2">
+<h2 class="anchored" data-anchor-id="descargar-imágenes">📥 Descargar imágenes</h2>
+<p>El comando <code>pull</code> permite descargar una imagen y convertirla al formato de Apptainer (<code>.sif</code>), que es el formato estándar para ejecutar contenedores.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">apptainer</span> pull docker://ubuntu</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>👉 Este comando descarga una imagen de Ubuntu desde Docker Hub y genera un archivo como:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">ubuntu_latest.sif</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Este archivo <code>.sif</code> contiene un sistema base listo para usarse con Apptainer.</p>
+<section id="versiones-específicas" class="level3">
+<h3 class="anchored" data-anchor-id="versiones-específicas">📦 Versiones específicas</h3>
+<p>También es posible descargar una versión concreta de una imagen usando una etiqueta (<code>:versión</code>). Esto es útil cuando se necesita trabajar con una versión específica del sistema operativo o del software para mantener compatibilidad y reproducibilidad.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">apptainer</span> pull docker://centos:7</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+</section>
+<section id="uso-básico-de-contenedores" class="level2">
+<h2 class="anchored" data-anchor-id="uso-básico-de-contenedores">Uso básico de contenedores</h2>
+<p>UUna vez que hemos descargado una imagen con <code>pull</code>, podemos comenzar a interactuar con ella.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">apptainer</span> pull docker://ubuntu</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>👉 Esto genera un archivo <code>.sif</code>, que contiene un sistema Linux mínimo.</p>
+<p>Cuando usamos Apptainer, no estamos ejecutando “un programa”, sino un <strong>sistema operativo completo pero ligero</strong>.</p>
+<p>👉 Es como tener una instalación de Linux dentro de un archivo.</p>
+<p>💡 Sin embargo, estas imágenes suelen ser:</p>
+<ul>
+<li><p>muy ligeras</p></li>
+<li><p>sin programas adicionales</p></li>
+<li><p>con solo lo esencial para funcionar</p></li>
+</ul>
+<section id="entrar-a-un-contenedor-modo-interactivo" class="level3">
+<h3 class="anchored" data-anchor-id="entrar-a-un-contenedor-modo-interactivo">Entrar a un contenedor (modo interactivo)</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">apptainer</span> shell ubuntu_latest.sif</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>👉 Esto abre una terminal dentro del contenedor.</p>
+<p>Dentro de esta terminal puedes:</p>
+<ul>
+<li><p>navegar (<code>ls</code>, <code>cd</code>)</p></li>
+<li><p>crear archivos</p></li>
+<li><p>ejecutar comandos</p></li>
+<li><p>instalar software (si es writable)</p></li>
+</ul>
+<p>💡 Es como si estuvieras usando otra computadora con Linux.</p>
+</section>
+<section id="se-puede-modificar" class="level3">
+<h3 class="anchored" data-anchor-id="se-puede-modificar">⚠️ ¿Se puede modificar?</h3>
+<p>Por defecto:</p>
+<ul>
+<li><p>❌ <strong>NO puedes modificar la imagen <code>.sif</code></strong></p></li>
+<li><p>✅ solo puedes explorarla</p></li>
+</ul>
+<p>👉 Si quieres modificarla, necesitas usar:</p>
+<ul>
+<li><p>un <strong>sandbox</strong></p></li>
+<li><p>o entrar con <code>--writable</code></p></li>
+</ul>
+</section>
+<section id="ejecutar-comandos-sin-entrar" class="level3">
+<h3 class="anchored" data-anchor-id="ejecutar-comandos-sin-entrar">Ejecutar comandos sin entrar</h3>
+<p>También puedes ejecutar comandos directamente sin abrir una terminal interactiva:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">apptainer</span> exec ubuntu_latest.sif ls /</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>👉 Esto ejecuta <code>ls /</code> dentro del contenedor y regresa al sistema host.</p>
+<p>Dentro del contenedor puedes usar comandos básicos como:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="bu">pwd</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">whoami</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> /etc/os-release</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>👉 Esto demuestra que:</p>
+<ul>
+<li><p>estás dentro de un sistema Linux independiente</p></li>
+<li><p>con su propia estructura de archivos</p></li>
+<li><p>su propio entorno</p></li>
+</ul>
+</section>
+<section id="modificar-un-contenedor-temporalmente---writable" class="level3">
+<h3 class="anchored" data-anchor-id="modificar-un-contenedor-temporalmente---writable">Modificar un contenedor temporalmente (<code>--writable</code>)</h3>
+<p>Aunque las imágenes <code>.sif</code> no son modificables por defecto, Apptainer permite hacer cambios temporales durante una sesión usando ciertas opciones.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">apptainer</span> shell <span class="at">--writable</span> <span class="at">--fakeroot</span> ubuntu_latest.sif</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<ul>
+<li><p><code>--writable</code> → permite modificar el sistema dentro del contenedor</p></li>
+<li><p><code>--fakeroot</code> → simula permisos de administrador (root)</p></li>
+</ul>
+<p>👉 Esto permite instalar software dentro del contenedor.</p>
+<section id="importante" class="level4">
+<h4 class="anchored" data-anchor-id="importante">⚠️ Importante</h4>
+<p>💡 Este modo funciona mejor con <strong>sandbox</strong><br>
+En archivos <code>.sif</code>, puede no funcionar o ser limitado</p>
+<p>Por eso este ejemplo es solo para entender el concepto</p>
+</section>
+</section>
+</section>
+<section id="qué-es-un-sandbox" class="level2">
+<h2 class="anchored" data-anchor-id="qué-es-un-sandbox">¿Qué es un sandbox?</h2>
+<p>Un sandbox es un contenedor en formato de directorio editable.</p>
+<p>A diferencia de <code>.sif</code>, permite:</p>
+<ul>
+<li><p>instalar programas</p></li>
+<li><p>modificar configuraciones</p></li>
+<li><p>compilar software</p></li>
+</ul>
+<section id="crear-un-sandbox" class="level3">
+<h3 class="anchored" data-anchor-id="crear-un-sandbox">Crear un sandbox</h3>
+<p>El comando <code>build --sandbox</code> crea un contenedor editable a partir de una imagen base.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">apptainer</span> build <span class="at">--sandbox</span> NOMBRE_DEL_DIRECTORIO IMAGEN_BASE.sif</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="ejemplo" class="level4">
+<h4 class="anchored" data-anchor-id="ejemplo">Ejemplo</h4>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">apptainer</span> build <span class="at">--sandbox</span> mrbayes ubuntu_latest.sif</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Puedes usar cualquier nombre:</p>
+<pre><code>mrbayes
+ubuntu_editable
+test_container
+bioinfo_env</code></pre>
+<p>Esto creará una carpeta llamada:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="ex">mrbayes/</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Y dentro:</p>
+<ul>
+<li><p><code>/bin</code></p></li>
+<li><p><code>/etc</code></p></li>
+<li><p><code>/usr</code></p></li>
+<li><p><code>/lib</code></p></li>
+</ul>
+<p>👉 Es decir:</p>
+<blockquote class="blockquote">
+<p>Un sistema Linux completo dentro de una carpeta</p>
+</blockquote>
+</section>
+</section>
+<section id="explorar-el-contenedor-de-forma-interactiva" class="level3">
+<h3 class="anchored" data-anchor-id="explorar-el-contenedor-de-forma-interactiva">Explorar el contenedor de forma interactiva</h3>
+<p>Una vez creado el sandbox, puedes entrar a él con una shell interactiva y trabajar dentro del contenedor como si fuera otro sistema Linux.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="ex">apptainer</span> shell mrbayes/</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>👉 Esto abre una terminal dentro del contenedor, desde donde puedes navegar, revisar archivos o ejecutar comandos.</p>
+</section>
+<section id="salir-del-contenedor" class="level3">
+<h3 class="anchored" data-anchor-id="salir-del-contenedor">Salir del contenedor</h3>
+<p>Para salir del entorno interactivo, solo escribe:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="bu">exit</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="entrar-en-modo-escritura-y-con-root-simulado" class="level3">
+<h3 class="anchored" data-anchor-id="entrar-en-modo-escritura-y-con-root-simulado">Entrar en modo escritura y con root simulado</h3>
+<p>Cuando quieres modificar un sandbox, por ejemplo para instalar paquetes o compilar programas, necesitas abrirlo con opciones adicionales.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="ex">apptainer</span> shell <span class="at">--writable</span> <span class="at">--fakeroot</span> <span class="at">--pwd</span> / mrbayes</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><code>--writable</code></p>
+<p>Permite modificar el contenedor. Sin esta opción, el sistema se abre solo para lectura.</p>
+<p><code>--fakeroot</code></p>
+<p>Simula permisos de administrador dentro del contenedor. Esto permite usar comandos como <code>apt install</code> aunque no tengas root real en el sistema anfitrión.</p>
+<p><code>--pwd /</code></p>
+<p>Hace que la shell inicie en el directorio raíz (<code>/</code>) del contenedor.</p>
+</section>
+</section>
+<section id="configuración-básica-del-sistema-dentro-del-contenedor" class="level2">
+<h2 class="anchored" data-anchor-id="configuración-básica-del-sistema-dentro-del-contenedor">⚙️ Configuración básica del sistema dentro del contenedor</h2>
+<p>Las imágenes base descargadas desde Docker Hub suelen ser <strong>versiones mínimas de Linux</strong>.</p>
+<p>👉 Esto significa que:</p>
+<ul>
+<li><p>No tienen configuraciones completas</p></li>
+<li><p>No incluyen muchos programas</p></li>
+<li><p>Solo contienen lo esencial para funcionar</p></li>
+</ul>
+<p>💡 Por esta razón, antes de trabajar con software, es necesario <strong>configurar el sistema operativo dentro del contenedor</strong>.</p>
+<section id="actualizar-el-sistema" class="level3">
+<h3 class="anchored" data-anchor-id="actualizar-el-sistema">🔄 Actualizar el sistema</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="ex">apt</span> update</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="ex">apt</span> upgrade <span class="at">-y</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<ul>
+<li><p><code>apt update</code> → actualiza la lista de paquetes disponibles</p></li>
+<li><p><code>apt upgrade</code> → actualiza los programas instalados</p></li>
+</ul>
+<blockquote class="blockquote">
+<p>Linux usa repositorios en línea para instalar software<br>
+y estos comandos sincronizan el sistema con esos repositorios</p>
+</blockquote>
+</section>
+<section id="configurar-idioma-locale" class="level3">
+<h3 class="anchored" data-anchor-id="configurar-idioma-locale">🌍 Configurar idioma (locale)</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="ex">apt</span> install <span class="at">-y</span> locales</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="ex">locale-gen</span> en_US.UTF-8</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="ex">update-locale</span> LANG=en_US.UTF-8</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">LANG</span><span class="op">=</span>en_US.UTF-8</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">LC_ALL</span><span class="op">=</span>en_US.UTF-8</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>👉 Esto configura el sistema para trabajar con codificación UTF-8.</p>
+<p><strong>¿Por qué es importante?</strong></p>
+<ul>
+<li><p>Evita errores con caracteres especiales</p></li>
+<li><p>Asegura compatibilidad con muchos programas</p></li>
+<li><p>Mejora la reproducibilidad</p></li>
+</ul>
+</section>
+<section id="configurar-zona-horaria" class="level3">
+<h3 class="anchored" data-anchor-id="configurar-zona-horaria">🕒 Configurar zona horaria</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="ex">apt</span> install <span class="at">-y</span> tzdata</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ln</span> <span class="at">-sf</span> /usr/share/zoneinfo/Etc/UTC /etc/localtime</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>👉 Define la hora del sistema dentro del contenedor.</p>
+<p><strong>¿Por qué importa?</strong></p>
+<ul>
+<li><p>Logs correctos</p></li>
+<li><p>Fechas reproducibles</p></li>
+<li><p>Consistencia en análisis</p></li>
+</ul>
+</section>
+<section id="instalación-de-programas-y-dependencias" class="level3">
+<h3 class="anchored" data-anchor-id="instalación-de-programas-y-dependencias">📦 Instalación de programas y dependencias</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="ex">apt</span> install <span class="at">-y</span> build-essential make pkg-config git wget curl <span class="dt">\</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>latexmk texlive-latex-base texlive-fonts-recommended <span class="dt">\</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>texlive-fonts-extra texlive-latex-extra nano <span class="dt">\</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>openmpi-bin openmpi-common openmpi-doc libopenmpi-dev</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="qué-es-apt" class="level3">
+<h3 class="anchored" data-anchor-id="qué-es-apt">¿Qué es <code>apt</code>?</h3>
+<p><code>apt</code> es un <strong>gestor de paquetes</strong> utilizado en sistemas basados en Debian (como Ubuntu).</p>
+<p>👉 Permite:</p>
+<ul>
+<li><p>instalar programas</p></li>
+<li><p>eliminar programas</p></li>
+<li><p>actualizar software</p></li>
+</ul>
+<hr>
+<p><strong>Otros gestores de paquetes</strong></p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Sistema</th>
+<th>Gestor</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Debian / Ubuntu</td>
+<td><code>apt</code></td>
+</tr>
+<tr class="even">
+<td>RedHat / CentOS / Rocky</td>
+<td><code>yum</code> / <code>dnf</code></td>
+</tr>
+</tbody>
+</table>
+<p>💡 Importante:</p>
+<blockquote class="blockquote">
+<p>Los comandos cambian dependiendo de la distribución Linux</p>
+</blockquote>
+</section>
+<section id="qué-son-las-dependencias" class="level3">
+<h3 class="anchored" data-anchor-id="qué-son-las-dependencias">🧩 ¿Qué son las dependencias?</h3>
+<p>Muchos programas necesitan otras librerías para funcionar.</p>
+<p>Ejemplo:</p>
+<ul>
+<li><p><code>build-essential</code> → compiladores (gcc, g++)</p></li>
+<li><p><code>libopenmpi-dev</code> → paralelización</p></li>
+<li><p><code>pkg-config</code> → encuentra librerías al compilar</p></li>
+</ul>
+<blockquote class="blockquote">
+<p>Un programa no funciona solo, depende de otros componentes</p>
+</blockquote>
+</section>
+<section id="compilación-desde-código-fuente" class="level3">
+<h3 class="anchored" data-anchor-id="compilación-desde-código-fuente">Compilación desde código fuente</h3>
+<p>Una vez que el sistema está listo, podemos instalar programas desde su código fuente.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /opt</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone https://github.com/NBISweden/MrBayes.git</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> MrBayes</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="ex">./configure</span> <span class="at">--with-mpi</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> <span class="at">-j</span><span class="va">$(</span><span class="fu">nproc</span><span class="va">)</span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> install</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="qué-significa-compilar" class="level3">
+<h3 class="anchored" data-anchor-id="qué-significa-compilar">¿Qué significa “compilar”?</h3>
+<p>Compilar es el proceso de:</p>
+<p>👉 Convertir código fuente (legible por humanos)<br>
+👉 en un programa ejecutable (legible por la máquina)</p>
+</section>
+</section>
+<section id="empaquetar-el-sandbox-como-imagen-.sif" class="level2">
+<h2 class="anchored" data-anchor-id="empaquetar-el-sandbox-como-imagen-.sif">Empaquetar el sandbox como imagen <code>.sif</code></h2>
+<p>Cuando ya terminaste de personalizar tu sandbox, puedes convertirlo en una imagen final para transportarlo y ejecutarlo fácilmente.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="ex">apptainer</span> build <span class="at">--fakeroot</span> mrbayes_mpi.sif mrbayes</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>👉 Esto crea un archivo <code>.sif</code> a partir del sandbox <code>mi_contenedor</code>.</p>
+<p>La imagen <code>.sif</code> ya no está pensada para editarse, sino para distribuirse y ejecutarse.</p>
+<section id="ejecutar-un-programa-dentro-del-contenedor" class="level3">
+<h3 class="anchored" data-anchor-id="ejecutar-un-programa-dentro-del-contenedor">Ejecutar un programa dentro del contenedor</h3>
+<p>El comando <code>exec</code> permite correr directamente un programa dentro de la imagen sin necesidad de abrir una shell interactiva.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="ex">apptainer</span> exec mrbayes_mpi.sif mb analisis/data/analysis.nex</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>👉 Aquí se ejecuta MrBayes dentro del contenedor usando un archivo externo como entrada.</p>
+</section>
+<section id="ejecutar-con-mpi" class="level3">
+<h3 class="anchored" data-anchor-id="ejecutar-con-mpi">Ejecutar con MPI</h3>
+<p>Si el programa fue compilado con soporte para MPI, puede ejecutarse usando varios núcleos.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb23"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="ex">apptainer</span> exec mrbayes_mpi.sif mpirun <span class="at">-np</span> 4 mb </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>👉 En este caso, MrBayes se ejecuta usando 4 procesos paralelos.</p>
+</section>
+</section>
+<section id="uso-de-volúmenes-montaje-de-carpetas" class="level2">
+<h2 class="anchored" data-anchor-id="uso-de-volúmenes-montaje-de-carpetas">📂 Uso de volúmenes (montaje de carpetas)</h2>
+<p>Cuando trabajas con contenedores, tus datos normalmente están <strong>fuera del contenedor</strong>, en tu sistema.</p>
+<p>👉 Para que el contenedor pueda verlos, es necesario <strong>montar (bind) directorios</strong>.</p>
+<section id="montar-una-carpeta" class="level3">
+<h3 class="anchored" data-anchor-id="montar-una-carpeta">Montar una carpeta</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb24"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="ex">apptainer</span> exec <span class="at">--bind</span> /ruta/local:/ruta/contenedor contenedor.sif comando</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="ejemplo-práctico" class="level3">
+<h3 class="anchored" data-anchor-id="ejemplo-práctico">Ejemplo práctico</h3>
+<p>Supongamos que tienes tus datos en:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb25"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="ex">/home/usuario/proyecto/datos</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Puedes montarlos dentro del contenedor así:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb26"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="ex">apptainer</span> exec <span class="at">--bind</span> /home/usuario/proyecto/datos:/data revbayes_mpi.sif ls /data</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>👉 Dentro del contenedor, la carpeta aparecerá como:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb27"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="ex">/data</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="usar-tus-archivos-en-revbayes" class="level3">
+<h3 class="anchored" data-anchor-id="usar-tus-archivos-en-revbayes">📂 Usar tus archivos en RevBayes</h3>
+<p>Si tienes un archivo:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb28"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="ex">analysis.Rev</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>puedes ejecutarlo así:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb29"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="ex">apptainer</span> exec <span class="at">--bind</span> /home/usuario/proyecto/datos:/data revbayes_mpi.sif rb-mpi /data/analysis.Rev</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="uso-de-pwd-muy-importante" class="level3">
+<h3 class="anchored" data-anchor-id="uso-de-pwd-muy-importante">Uso de <code>pwd</code> (muy importante)</h3>
+<p>Para evitar escribir rutas largas, puedes usar:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb30"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="bu">pwd</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>👉 Esto muestra tu directorio actual.</p>
+</section>
+<section id="ejemplo-práctico-con-pwd" class="level3">
+<h3 class="anchored" data-anchor-id="ejemplo-práctico-con-pwd">Ejemplo práctico con <code>pwd</code></h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb31"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="ex">apptainer</span> exec <span class="at">--bind</span> <span class="va">$(</span><span class="bu">pwd</span><span class="va">)</span>:/data revbayes_mpi.sif rb-mpi /data/analysis.Rev</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>👉 Aquí:</p>
+<ul>
+<li><p><code>$(pwd)</code> → ruta actual en tu sistema</p></li>
+<li><p><code>/data</code> → ruta dentro del contenedor</p></li>
+</ul>
+</section>
+<section id="ventaja-de-usar-pwd" class="level3">
+<h3 class="anchored" data-anchor-id="ventaja-de-usar-pwd">Ventaja de usar <code>pwd</code></h3>
+<ul>
+<li><p>evita errores de ruta</p></li>
+<li><p>hace scripts más portables</p></li>
+<li><p>facilita reproducibilidad</p></li>
+</ul>
+</section>
+<section id="nota-importante" class="level3">
+<h3 class="anchored" data-anchor-id="nota-importante">⚠️ Nota importante</h3>
+<p>Apptainer ya monta automáticamente algunas rutas como:</p>
+<ul>
+<li><p><code>$HOME</code></p></li>
+<li><p>el directorio actual (en muchos casos)</p></li>
+</ul>
+<p>👉 Pero usar <code>--bind</code> explícito es más claro y reproducible.</p>
+</section>
+<section id="probar-que-el-volumen-funciona" class="level3">
+<h3 class="anchored" data-anchor-id="probar-que-el-volumen-funciona">🧪 Probar que el volumen funciona</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb32"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="ex">apptainer</span> exec <span class="at">--bind</span> <span class="va">$(</span><span class="bu">pwd</span><span class="va">)</span>:/data revbayes_mpi.sif ls /data</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>👉 Si ves tus archivos, el montaje funcionó correctamente.</p>
+</section>
+<section id="bonus-muy-útil" class="level3">
+<h3 class="anchored" data-anchor-id="bonus-muy-útil">🚀 Bonus (muy útil)</h3>
+<p>También puedes montar múltiples carpetas:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb33"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="ex">apptainer</span> exec <span class="at">--bind</span> <span class="va">$(</span><span class="bu">pwd</span><span class="va">)</span>:/data,/otra/ruta:/ref contenedor.sif comando</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+</section>
+<section id="qué-es-un-archivo-.def" class="level2">
+<h2 class="anchored" data-anchor-id="qué-es-un-archivo-.def">¿Qué es un archivo <code>.def</code>?</h2>
+<p>Un archivo <code>.def</code> en Apptainer es un <strong>archivo de definición</strong> que contiene todas las instrucciones necesarias para construir un contenedor reproducible.</p>
+<p>👉 En lugar de instalar programas manualmente dentro de un sandbox, aquí escribimos una receta que describe:</p>
+<ul>
+<li><p>qué sistema operativo usar</p></li>
+<li><p>qué paquetes instalar</p></li>
+<li><p>qué software descargar</p></li>
+<li><p>cómo compilarlo</p></li>
+<li><p>qué variables de entorno definir</p></li>
+<li><p>qué debe hacer el contenedor al ejecutarse</p></li>
+</ul>
+<blockquote class="blockquote">
+<p>Un archivo <code>.def</code> permite reconstruir el mismo contenedor cuantas veces sea necesario.</p>
+</blockquote>
+<section id="partes-de-un-archivo-.def-en-apptainer" class="level3">
+<h3 class="anchored" data-anchor-id="partes-de-un-archivo-.def-en-apptainer">🧱 Partes de un archivo <code>.def</code> en Apptainer</h3>
+<p>Un archivo <code>.def</code> está compuesto por secciones que indican <strong>cómo construir y cómo ejecutar un contenedor</strong>.</p>
+<p><strong>🔹 <code>Bootstrap: docker</code></strong></p>
+<p>Indica el <strong>método de construcción</strong> del contenedor.</p>
+<p>👉 En este caso, significa que la imagen base será obtenida desde un repositorio compatible con Docker (como Docker Hub).</p>
+<p><strong>🔹 <code>From: ubuntu:22.04</code></strong></p>
+<p>Define la <strong>imagen base</strong> sobre la cual se construirá el contenedor.</p>
+<p>👉 Aquí se está utilizando Ubuntu 22.04 como sistema operativo inicial.</p>
+<p><strong>🔹 <code>%environment</code></strong></p>
+<p>Define <strong>variables de entorno</strong> que estarán disponibles cada vez que el contenedor se ejecute.</p>
+<p>👉 Se aplican cuando usas:</p>
+<ul>
+<li><p><code>apptainer shell</code></p></li>
+<li><p><code>apptainer exec</code></p></li>
+<li><p><code>apptainer run</code></p></li>
+</ul>
+<p>💡 Sirve para configurar el entorno automáticamente (idioma, rutas de librerías, etc.).</p>
+<p><strong>🔹 <code>%post</code></strong></p>
+<p>Contiene los comandos que se ejecutan <strong>durante la construcción del contenedor</strong>.</p>
+<p>👉 Aquí es donde se:</p>
+<ul>
+<li><p>instalan paquetes (<code>apt install</code>)</p></li>
+<li><p>descargan programas (<code>git clone</code>)</p></li>
+<li><p>compilan software (<code>make</code>)</p></li>
+</ul>
+<p>💡 Es la sección donde realmente “se arma” el contenedor.</p>
+<p>🔹 <code>%runscript</code></p>
+<p>Define qué ocurre cuando el contenedor se ejecuta con:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb34"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="ex">apptainer</span> run archivo.sif</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>👉 Permite establecer un comportamiento por defecto del contenedor.</p>
+<p>💡 Por ejemplo:</p>
+<ul>
+<li><p>mostrar un mensaje</p></li>
+<li><p>ejecutar automáticamente un programa</p></li>
+</ul>
+<p>Archivo ejemplo <strong><code>revbayes_mpi.def</code></strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb35"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ============================================================</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Archivo de definición de Apptainer para RevBayes con MPI</span></span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="co"># ============================================================</span></span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a><span class="co"># ------------------------------------------------------------</span></span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Bootstrap</span></span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a><span class="co"># ------------------------------------------------------------</span></span>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Indica el tipo de origen de la imagen base.</span></span>
+<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a><span class="co"># En este caso, se utilizará una imagen proveniente de Docker Hub.</span></span>
+<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a><span class="ex">Bootstrap:</span> docker</span>
+<span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-12"><a href="#cb35-12" aria-hidden="true" tabindex="-1"></a><span class="co"># ------------------------------------------------------------</span></span>
+<span id="cb35-13"><a href="#cb35-13" aria-hidden="true" tabindex="-1"></a><span class="co"># From</span></span>
+<span id="cb35-14"><a href="#cb35-14" aria-hidden="true" tabindex="-1"></a><span class="co"># ------------------------------------------------------------</span></span>
+<span id="cb35-15"><a href="#cb35-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Especifica la imagen base sobre la cual se construirá el contenedor.</span></span>
+<span id="cb35-16"><a href="#cb35-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Aquí se usa Ubuntu 22.04 como sistema operativo inicial.</span></span>
+<span id="cb35-17"><a href="#cb35-17" aria-hidden="true" tabindex="-1"></a><span class="ex">From:</span> ubuntu:22.04</span>
+<span id="cb35-18"><a href="#cb35-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-19"><a href="#cb35-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-20"><a href="#cb35-20" aria-hidden="true" tabindex="-1"></a><span class="co"># ============================================================</span></span>
+<span id="cb35-21"><a href="#cb35-21" aria-hidden="true" tabindex="-1"></a><span class="co"># %environment</span></span>
+<span id="cb35-22"><a href="#cb35-22" aria-hidden="true" tabindex="-1"></a><span class="co"># ============================================================</span></span>
+<span id="cb35-23"><a href="#cb35-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Esta sección define variables de entorno que estarán disponibles</span></span>
+<span id="cb35-24"><a href="#cb35-24" aria-hidden="true" tabindex="-1"></a><span class="co"># cada vez que el contenedor se ejecute (shell, exec, run).</span></span>
+<span id="cb35-25"><a href="#cb35-25" aria-hidden="true" tabindex="-1"></a><span class="co"># No se ejecuta durante el build, sino en tiempo de uso.</span></span>
+<span id="cb35-26"><a href="#cb35-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-27"><a href="#cb35-27" aria-hidden="true" tabindex="-1"></a><span class="ex">%environment</span></span>
+<span id="cb35-28"><a href="#cb35-28" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Configuración de idioma y codificación</span></span>
+<span id="cb35-29"><a href="#cb35-29" aria-hidden="true" tabindex="-1"></a>    <span class="bu">export</span> <span class="va">LANG</span><span class="op">=</span>C.UTF-8</span>
+<span id="cb35-30"><a href="#cb35-30" aria-hidden="true" tabindex="-1"></a>    <span class="bu">export</span> <span class="va">LC_ALL</span><span class="op">=</span>C.UTF-8</span>
+<span id="cb35-31"><a href="#cb35-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-32"><a href="#cb35-32" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Ruta donde se buscarán bibliotecas compartidas</span></span>
+<span id="cb35-33"><a href="#cb35-33" aria-hidden="true" tabindex="-1"></a>    <span class="bu">export</span> <span class="va">LD_LIBRARY_PATH</span><span class="op">=</span>/usr/local/lib:<span class="va">$LD_LIBRARY_PATH</span></span>
+<span id="cb35-34"><a href="#cb35-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-35"><a href="#cb35-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-36"><a href="#cb35-36" aria-hidden="true" tabindex="-1"></a><span class="co"># ============================================================</span></span>
+<span id="cb35-37"><a href="#cb35-37" aria-hidden="true" tabindex="-1"></a><span class="co"># %post</span></span>
+<span id="cb35-38"><a href="#cb35-38" aria-hidden="true" tabindex="-1"></a><span class="co"># ============================================================</span></span>
+<span id="cb35-39"><a href="#cb35-39" aria-hidden="true" tabindex="-1"></a><span class="co"># Esta sección se ejecuta durante la construcción del contenedor.</span></span>
+<span id="cb35-40"><a href="#cb35-40" aria-hidden="true" tabindex="-1"></a><span class="co"># Aquí se instala y configura el software.</span></span>
+<span id="cb35-41"><a href="#cb35-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-42"><a href="#cb35-42" aria-hidden="true" tabindex="-1"></a><span class="ex">%post</span></span>
+<span id="cb35-43"><a href="#cb35-43" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Evita preguntas interactivas durante la instalación</span></span>
+<span id="cb35-44"><a href="#cb35-44" aria-hidden="true" tabindex="-1"></a>    <span class="bu">export</span> <span class="va">DEBIAN_FRONTEND</span><span class="op">=</span>noninteractive</span>
+<span id="cb35-45"><a href="#cb35-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-46"><a href="#cb35-46" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --------------------------------------------------------</span></span>
+<span id="cb35-47"><a href="#cb35-47" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Actualizar sistema</span></span>
+<span id="cb35-48"><a href="#cb35-48" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --------------------------------------------------------</span></span>
+<span id="cb35-49"><a href="#cb35-49" aria-hidden="true" tabindex="-1"></a>    <span class="ex">apt</span> update</span>
+<span id="cb35-50"><a href="#cb35-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-51"><a href="#cb35-51" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --------------------------------------------------------</span></span>
+<span id="cb35-52"><a href="#cb35-52" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Instalar dependencias necesarias</span></span>
+<span id="cb35-53"><a href="#cb35-53" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --------------------------------------------------------</span></span>
+<span id="cb35-54"><a href="#cb35-54" aria-hidden="true" tabindex="-1"></a>    <span class="ex">apt</span> install <span class="at">-y</span> <span class="dt">\</span></span>
+<span id="cb35-55"><a href="#cb35-55" aria-hidden="true" tabindex="-1"></a>        build-essential <span class="dt">\</span></span>
+<span id="cb35-56"><a href="#cb35-56" aria-hidden="true" tabindex="-1"></a>        cmake <span class="dt">\</span></span>
+<span id="cb35-57"><a href="#cb35-57" aria-hidden="true" tabindex="-1"></a>        git <span class="dt">\</span></span>
+<span id="cb35-58"><a href="#cb35-58" aria-hidden="true" tabindex="-1"></a>        wget <span class="dt">\</span></span>
+<span id="cb35-59"><a href="#cb35-59" aria-hidden="true" tabindex="-1"></a>        curl <span class="dt">\</span></span>
+<span id="cb35-60"><a href="#cb35-60" aria-hidden="true" tabindex="-1"></a>        ca-certificates <span class="dt">\</span></span>
+<span id="cb35-61"><a href="#cb35-61" aria-hidden="true" tabindex="-1"></a>        libopenmpi-dev <span class="dt">\</span></span>
+<span id="cb35-62"><a href="#cb35-62" aria-hidden="true" tabindex="-1"></a>        openmpi-bin <span class="dt">\</span></span>
+<span id="cb35-63"><a href="#cb35-63" aria-hidden="true" tabindex="-1"></a>        libboost-all-dev <span class="dt">\</span></span>
+<span id="cb35-64"><a href="#cb35-64" aria-hidden="true" tabindex="-1"></a>        bison <span class="dt">\</span></span>
+<span id="cb35-65"><a href="#cb35-65" aria-hidden="true" tabindex="-1"></a>        flex <span class="dt">\</span></span>
+<span id="cb35-66"><a href="#cb35-66" aria-hidden="true" tabindex="-1"></a>        zlib1g-dev</span>
+<span id="cb35-67"><a href="#cb35-67" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-68"><a href="#cb35-68" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --------------------------------------------------------</span></span>
+<span id="cb35-69"><a href="#cb35-69" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Descargar código fuente de RevBayes</span></span>
+<span id="cb35-70"><a href="#cb35-70" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --------------------------------------------------------</span></span>
+<span id="cb35-71"><a href="#cb35-71" aria-hidden="true" tabindex="-1"></a>    <span class="bu">cd</span> /opt</span>
+<span id="cb35-72"><a href="#cb35-72" aria-hidden="true" tabindex="-1"></a>    <span class="fu">git</span> clone <span class="at">--branch</span> development https://github.com/revbayes/revbayes.git</span>
+<span id="cb35-73"><a href="#cb35-73" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-74"><a href="#cb35-74" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --------------------------------------------------------</span></span>
+<span id="cb35-75"><a href="#cb35-75" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Compilar RevBayes con soporte MPI</span></span>
+<span id="cb35-76"><a href="#cb35-76" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --------------------------------------------------------</span></span>
+<span id="cb35-77"><a href="#cb35-77" aria-hidden="true" tabindex="-1"></a>    <span class="bu">cd</span> /opt/revbayes/projects/cmake</span>
+<span id="cb35-78"><a href="#cb35-78" aria-hidden="true" tabindex="-1"></a>    <span class="fu">chmod</span> +x build.sh</span>
+<span id="cb35-79"><a href="#cb35-79" aria-hidden="true" tabindex="-1"></a>    <span class="ex">./build.sh</span> <span class="at">-mpi</span> true</span>
+<span id="cb35-80"><a href="#cb35-80" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-81"><a href="#cb35-81" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --------------------------------------------------------</span></span>
+<span id="cb35-82"><a href="#cb35-82" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Copiar ejecutables a una ruta accesible</span></span>
+<span id="cb35-83"><a href="#cb35-83" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --------------------------------------------------------</span></span>
+<span id="cb35-84"><a href="#cb35-84" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="bu">[</span> <span class="ot">-f</span> rb-mpi <span class="bu">]</span><span class="kw">;</span> <span class="cf">then</span></span>
+<span id="cb35-85"><a href="#cb35-85" aria-hidden="true" tabindex="-1"></a>        <span class="fu">cp</span> rb-mpi /usr/local/bin/rb-mpi</span>
+<span id="cb35-86"><a href="#cb35-86" aria-hidden="true" tabindex="-1"></a>        <span class="fu">chmod</span> 755 /usr/local/bin/rb-mpi</span>
+<span id="cb35-87"><a href="#cb35-87" aria-hidden="true" tabindex="-1"></a>    <span class="cf">fi</span></span>
+<span id="cb35-88"><a href="#cb35-88" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-89"><a href="#cb35-89" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="bu">[</span> <span class="ot">-f</span> rb <span class="bu">]</span><span class="kw">;</span> <span class="cf">then</span></span>
+<span id="cb35-90"><a href="#cb35-90" aria-hidden="true" tabindex="-1"></a>        <span class="fu">cp</span> rb /usr/local/bin/rb</span>
+<span id="cb35-91"><a href="#cb35-91" aria-hidden="true" tabindex="-1"></a>        <span class="fu">chmod</span> 755 /usr/local/bin/rb</span>
+<span id="cb35-92"><a href="#cb35-92" aria-hidden="true" tabindex="-1"></a>    <span class="cf">fi</span></span>
+<span id="cb35-93"><a href="#cb35-93" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-94"><a href="#cb35-94" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-95"><a href="#cb35-95" aria-hidden="true" tabindex="-1"></a><span class="co"># ============================================================</span></span>
+<span id="cb35-96"><a href="#cb35-96" aria-hidden="true" tabindex="-1"></a><span class="co"># %runscript</span></span>
+<span id="cb35-97"><a href="#cb35-97" aria-hidden="true" tabindex="-1"></a><span class="co"># ============================================================</span></span>
+<span id="cb35-98"><a href="#cb35-98" aria-hidden="true" tabindex="-1"></a><span class="co"># Define qué ocurre cuando se ejecuta el contenedor con:</span></span>
+<span id="cb35-99"><a href="#cb35-99" aria-hidden="true" tabindex="-1"></a><span class="co"># apptainer run archivo.sif</span></span>
+<span id="cb35-100"><a href="#cb35-100" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-101"><a href="#cb35-101" aria-hidden="true" tabindex="-1"></a><span class="ex">%runscript</span></span>
+<span id="cb35-102"><a href="#cb35-102" aria-hidden="true" tabindex="-1"></a>    <span class="bu">echo</span> <span class="st">"RevBayes con MPI listo para usarse"</span></span>
+<span id="cb35-103"><a href="#cb35-103" aria-hidden="true" tabindex="-1"></a>    <span class="bu">exec</span> <span class="st">"</span><span class="va">$@</span><span class="st">"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="construir-el-contenedor-a-partir-del-archivo-.def" class="level3">
+<h3 class="anchored" data-anchor-id="construir-el-contenedor-a-partir-del-archivo-.def">🔧 Construir el contenedor a partir del archivo <code>.def</code></h3>
+<p>Una vez que el archivo <code>revbayes_mpi.def</code> está listo, el siguiente paso es construir la imagen <code>.sif</code>.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb36"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="ex">apptainer</span> build revbayes_mpi.sif revbayes_mpi.def</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Si todo sale bien, al final tendrás un archivo como este:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb37"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="ex">revbayes_mpi.sif</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Ese archivo ya contiene:</p>
+<ul>
+<li><p>Ubuntu 22.04</p></li>
+<li><p>dependencias instaladas</p></li>
+<li><p>RevBayes compilado con MPI</p></li>
+<li><p>variables de entorno configuradas</p></li>
+</ul>
+</section>
+<section id="probar-el-contenedor" class="level3">
+<h3 class="anchored" data-anchor-id="probar-el-contenedor">Probar el contenedor</h3>
+<p>Una forma sencilla de verificar que el contenedor se construyó correctamente es ejecutar comandos directamente con <code>exec</code>, sin necesidad de entrar en una shell interactiva.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb38"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="ex">apptainer</span> exec revbayes_mpi.sif which rb-mpi</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>También puedes comprobar que el programa funciona correctamente con:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb39"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="ex">apptainer</span> exec revbayes_mpi.sif rb-mpi <span class="at">--help</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+</section>
+<section id="buscar-imágenes-existentes-antes-de-construir-un-contenedor" class="level2">
+<h2 class="anchored" data-anchor-id="buscar-imágenes-existentes-antes-de-construir-un-contenedor">🔎 Buscar imágenes existentes antes de construir un contenedor</h2>
+<p>Antes de crear un contenedor desde cero, es recomendable revisar si ya existe una imagen disponible en<br>
+👉 <a href="https://hub.docker.com/"><u>Docker Hub</u></a><br>
+👉 <a href="https://quay.io/"><u>Quay.io</u></a></p>
+<p>En este repositorio hay miles de imágenes creadas por la comunidad, incluyendo:</p>
+<ul>
+<li><p>sistemas operativos</p></li>
+<li><p>lenguajes de programación</p></li>
+<li><p>herramientas bioinformáticas</p></li>
+<li><p>pipelines completos</p></li>
+</ul>
+<p>👉 Es muy probable que el software que necesitas ya esté disponible en forma de contenedor.</p>
+<section id="ejemplo-1" class="level3">
+<h3 class="anchored" data-anchor-id="ejemplo-1">Ejemplo</h3>
+<p>En lugar de construir manualmente un contenedor para MrBayes, puedes usar:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb40"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="ex">apptainer</span> pull quay.io/biocontainers/mrbayes</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>👉 Esta imagen ya contiene el software instalado y listo para usarse.</p>
+</section>
+<section id="ventajas-de-usar-imágenes-existentes" class="level3">
+<h3 class="anchored" data-anchor-id="ventajas-de-usar-imágenes-existentes">⚖️ Ventajas de usar imágenes existentes</h3>
+<ul>
+<li><p>✔ Ahorra tiempo</p></li>
+<li><p>✔ No necesitas instalar dependencias</p></li>
+<li><p>✔ Listas para ejecutar</p></li>
+<li><p>✔ Útiles para pruebas rápidas</p></li>
+</ul>
+</section>
+<section id="desventajas" class="level3">
+<h3 class="anchored" data-anchor-id="desventajas">⚠️ Desventajas</h3>
+<ul>
+<li><p>❌ No siempre sabes cómo fue construida la imagen</p></li>
+<li><p>❌ Puede no estar actualizada</p></li>
+<li><p>❌ Puede incluir software innecesario</p></li>
+<li><p>❌ Menor control sobre dependencias y versiones</p></li>
+</ul>
+</section>
+<section id="ventajas-de-construir-tu-propio-contenedor" class="level3">
+<h3 class="anchored" data-anchor-id="ventajas-de-construir-tu-propio-contenedor">🔧 Ventajas de construir tu propio contenedor</h3>
+<ul>
+<li><p>✔ Control total del entorno</p></li>
+<li><p>✔ Puedes documentar cada paso (<code>.def</code>)</p></li>
+<li><p>✔ Reproducibilidad garantizada</p></li>
+<li><p>✔ Ajuste específico a tu análisis</p></li>
+</ul>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../chapters/micromamba.html" class="pagination-link" aria-label="Micromamba">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Micromamba</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../chapters/05_slurm.html" class="pagination-link" aria-label="Envío de trabajos con Slurm">
+        <span class="nav-page-text"><span class="chapter-title">Envío de trabajos con Slurm</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/IB-UNISSE/beagle_manual/edit/main/chapters/apptainer.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/IB-UNISSE/beagle_manual/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer><script src="../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>

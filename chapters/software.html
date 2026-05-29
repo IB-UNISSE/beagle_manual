@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Uso de contenedores con Apptainer – Manual de usuario BEAGLE</title>
+<title>Software en BEAGLE – Manual de usuario BEAGLE</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,41 +20,6 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 </style>
 
 
@@ -64,7 +29,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../chapters/05_slurm.html" rel="next">
+<link href="../chapters/micromamba.html" rel="next">
 <link href="../chapters/03_estructura.html" rel="prev">
 <link href="../images/logo_beagle_2.png" rel="icon" type="image/png">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
@@ -108,7 +73,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <style>html{ scroll-behavior: smooth; }</style>
 <meta name="description" content="Manual de usuario del servidor BEAGLE: acceso por SSH, transferencia de archivos, Apptainer y envío de trabajos con Slurm.">
 <meta name="robots" content="index,follow">
-<meta property="og:title" content="Uso de contenedores con Apptainer – Manual de usuario BEAGLE">
+<meta property="og:title" content="Software en BEAGLE – Manual de usuario BEAGLE">
 <meta property="og:description" content="">
 <meta property="og:image" content="images/beagle_logo.png">
 <meta property="og:type" content="website">
@@ -127,7 +92,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/04_apptainer.html"><span class="chapter-title">Uso de contenedores con Apptainer</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/software.html"><span class="chapter-title">Software en BEAGLE</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -181,7 +146,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/04_apptainer.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Uso de contenedores con Apptainer</span></a>
+  <a href="../chapters/software.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Software en BEAGLE</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/micromamba.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Micromamba</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/apptainer.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Apptainer</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -214,17 +189,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#ejecutar-un-programa-dentro-de-un-contenedor" id="toc-ejecutar-un-programa-dentro-de-un-contenedor" class="nav-link active" data-scroll-target="#ejecutar-un-programa-dentro-de-un-contenedor">Ejecutar un programa dentro de un contenedor</a></li>
-  <li><a href="#montar-carpetas-de-trabajo" id="toc-montar-carpetas-de-trabajo" class="nav-link" data-scroll-target="#montar-carpetas-de-trabajo">Montar carpetas de trabajo</a></li>
+  <li><a href="#qué-es-un-ambiente-de-micromamba" id="toc-qué-es-un-ambiente-de-micromamba" class="nav-link active" data-scroll-target="#qué-es-un-ambiente-de-micromamba">¿Qué es un ambiente de Micromamba?</a></li>
+  <li><a href="#qué-es-un-contenedor" id="toc-qué-es-un-contenedor" class="nav-link" data-scroll-target="#qué-es-un-contenedor">¿Qué es un contenedor?</a></li>
+  <li><a href="#cuándo-usar-micromamba-y-cuándo-usar-apptainer" id="toc-cuándo-usar-micromamba-y-cuándo-usar-apptainer" class="nav-link" data-scroll-target="#cuándo-usar-micromamba-y-cuándo-usar-apptainer">¿Cuándo usar Micromamba y cuándo usar Apptainer?</a></li>
+  <li><a href="#importante" id="toc-importante" class="nav-link" data-scroll-target="#importante">Importante</a></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/IB-UNISSE/beagle_manual/edit/main/chapters/04_apptainer.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/IB-UNISSE/beagle_manual/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/IB-UNISSE/beagle_manual/edit/main/chapters/software.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/IB-UNISSE/beagle_manual/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-title">Uso de contenedores con Apptainer</span></h1>
+<h1 class="title"><span class="chapter-title">Software en BEAGLE</span></h1>
 </div>
 
 
@@ -241,16 +218,85 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="ejecutar-un-programa-dentro-de-un-contenedor" class="level2">
-<h2 class="anchored" data-anchor-id="ejecutar-un-programa-dentro-de-un-contenedor">Ejecutar un programa dentro de un contenedor</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">apptainer</span> exec /ruta/contenedores/programa.sif programa <span class="at">--help</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>BEAGLE es un <strong>clúster de cómputo compartido</strong> utilizado por varias personas para ejecutar análisis bioinformáticos, filogenómicos y otros cálculos científicos que requieren recursos computacionales especializados. Al ser una infraestructura compartida, es importante mantener un entorno estable, seguro y ordenado para todos los usuarios.</p>
+<p>Para evitar conflictos entre programas, reducir riesgos de seguridad, prevenir cambios que puedan afectar a otros usuarios y facilitar la mantenibilidad del clúster, en BEAGLE <strong>no se permite instalar software directamente en el sistema operativo</strong> ni modificar las instalaciones globales del sistema.</p>
+<p>En su lugar, en BEAGLE se priorizan dos estrategias principales para manejar software de forma segura y reproducible:</p>
+<ul>
+<li><p><strong>Ambientes de Micromamba</strong></p></li>
+<li><p><strong>Contenedores con Apptainer</strong></p></li>
+</ul>
+<p>Ambas estrategias permiten ejecutar programas sin alterar el sistema principal del clúster y, en general, <strong>no requieren permisos de administrador (<code>sudo</code>) por parte de los usuarios</strong>. Esto permite instalar o ejecutar software dentro de espacios controlados, manteniendo separado el entorno de trabajo del usuario de las configuraciones globales del clúster.</p>
+<p>La elección entre una u otra dependerá del tipo de software, del nivel de reproducibilidad requerido y de la experiencia del usuario.</p>
+<section id="qué-es-un-ambiente-de-micromamba" class="level3">
+<h3 class="anchored" data-anchor-id="qué-es-un-ambiente-de-micromamba">¿Qué es un ambiente de Micromamba?</h3>
+<p>Un ambiente de <strong>Micromamba</strong> es un espacio aislado donde se pueden instalar programas, librerías y dependencias específicas para un análisis o proyecto, sin modificar el sistema operativo ni requerir permisos de administrador.</p>
+<p>Por ejemplo, un usuario puede tener un ambiente para <code>FastQC</code>, otro para <code>IQ-TREE</code> y otro para <code>BUSCO</code>, cada uno con sus propias versiones de programas y dependencias.</p>
+<p>El uso de ambientes de Micromamba permite:</p>
+<ul>
+<li><p>usar software sin modificar el sistema principal;</p></li>
+<li><p>instalar programas sin utilizar <code>sudo</code>;</p></li>
+<li><p>evitar conflictos entre versiones de programas;</p></li>
+<li><p>organizar herramientas por proyecto o análisis;</p></li>
+<li><p>instalar programas disponibles en canales como <code>conda-forge</code> o <code>bioconda</code>;</p></li>
+<li><p>comenzar a trabajar con una curva de aprendizaje relativamente baja.</p></li>
+</ul>
+<p>En general, <strong>Micromamba suele ser la opción más sencilla para los usuarios</strong>, especialmente cuando el programa que se necesita está disponible en <code>bioconda</code> o <code>conda-forge</code>. Por esta razón, puede ser una buena alternativa para herramientas comunes, análisis exploratorios o flujos de trabajo que no requieren un control estricto del entorno completo.</p>
+<p>Sin embargo, aunque los ambientes de Micromamba ayudan a organizar el software, pueden ser menos reproducibles que un contenedor, ya que las versiones de paquetes y dependencias pueden cambiar con el tiempo si no se documentan o congelan adecuadamente.</p>
 </section>
-<section id="montar-carpetas-de-trabajo" class="level2">
-<h2 class="anchored" data-anchor-id="montar-carpetas-de-trabajo">Montar carpetas de trabajo</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">apptainer</span> exec <span class="dt">\</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">--bind</span> /ruta/proyecto:/work <span class="dt">\</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  /ruta/contenedores/programa.sif <span class="dt">\</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  bash</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="qué-es-un-contenedor" class="level3">
+<h3 class="anchored" data-anchor-id="qué-es-un-contenedor">¿Qué es un contenedor?</h3>
+<p>Un <strong>contenedor</strong> es un archivo que contiene un programa junto con sus librerías, dependencias y parte del entorno necesario para ejecutarse.</p>
+<p>En lugar de instalar un programa directamente en BEAGLE, se puede ejecutar dentro de un contenedor sin modificar el sistema principal del clúster ni requerir permisos de administrador. Esto permite que el software funcione de forma más controlada y reproducible, incluso si requiere versiones específicas de librerías, configuraciones complejas o dependencias difíciles de instalar en el sistema principal.</p>
+<p>En BEAGLE se utilizan contenedores mediante <strong>Apptainer</strong>, una herramienta diseñada para ambientes de cómputo científico y clústeres HPC.</p>
+<p>Los contenedores son especialmente útiles cuando:</p>
+<ul>
+<li><p>el software tiene muchas dependencias;</p></li>
+<li><p>se quiere usar una versión específica de un programa;</p></li>
+<li><p>el programa ya está disponible como imagen de contenedor;</p></li>
+<li><p>se busca mayor reproducibilidad;</p></li>
+<li><p>se requiere compartir un flujo de trabajo con otros usuarios;</p></li>
+<li><p>se ejecutarán análisis dentro de trabajos enviados con Slurm.</p></li>
+</ul>
+<p>A diferencia de un ambiente de Micromamba, un contenedor puede encapsular de forma más completa el entorno de ejecución. Esto hace que <strong>Apptainer sea una estrategia más robusta para análisis reproducibles</strong>, especialmente en proyectos que deben repetirse, publicarse, compartirse o ejecutarse en diferentes infraestructuras de cómputo.</p>
+</section>
+<section id="cuándo-usar-micromamba-y-cuándo-usar-apptainer" class="level3">
+<h3 class="anchored" data-anchor-id="cuándo-usar-micromamba-y-cuándo-usar-apptainer">¿Cuándo usar Micromamba y cuándo usar Apptainer?</h3>
+<p>En BEAGLE se pueden utilizar ambas estrategias. La decisión final depende del usuario, del programa que se desea ejecutar y del nivel de reproducibilidad que se necesita.</p>
+<p>En términos generales, se recomienda usar <strong>Micromamba</strong> cuando se busca una opción más sencilla, flexible y rápida de aprender, especialmente para programas disponibles en <code>bioconda</code> o <code>conda-forge</code>.</p>
+<p>Se recomienda usar <strong>Apptainer</strong> cuando se necesita mayor reproducibilidad, cuando el programa tiene dependencias complejas o cuando ya existe una imagen de contenedor lista para usarse.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Estrategia</th>
+<th>Ventajas principales</th>
+<th>Consideraciones</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Micromamba</td>
+<td>Más sencillo de aprender; permite instalar programas sin <code>sudo</code>; útil para software disponible en <code>bioconda</code> o <code>conda-forge</code>; permite crear ambientes por proyecto</td>
+<td>Puede perder reproducibilidad si no se documentan bien las versiones de paquetes y dependencias</td>
+</tr>
+<tr class="even">
+<td>Apptainer</td>
+<td>Permite ejecutar contenedores sin <code>sudo</code>; ofrece mayor reproducibilidad; encapsula mejor el entorno; útil para software complejo y análisis en HPC</td>
+<td>Puede tener una curva de aprendizaje mayor al inicio</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="importante" class="level2">
+<h2 class="anchored" data-anchor-id="importante">Importante</h2>
+<p>En BEAGLE no se debe instalar software directamente en el sistema operativo ni modificar las instalaciones globales del clúster.</p>
+<p>El uso de <strong>Micromamba</strong> y <strong>Apptainer</strong> permite trabajar con software especializado sin requerir permisos de administrador (<code>sudo</code>) y sin alterar la configuración general del clúster.</p>
+<p>Si necesitas usar un programa nuevo, primero revisa si puede ejecutarse mediante <strong>Micromamba</strong> o <strong>Apptainer</strong>. Ambas opciones están permitidas en BEAGLE, pero se recomienda elegir la estrategia más adecuada según el tipo de análisis, la complejidad del programa y el nivel de reproducibilidad requerido.</p>
+<p>Si el programa requiere una instalación especial o no sabes cuál estrategia conviene usar, consulta con la administración de BEAGLE antes de modificar cualquier configuración del clúster.</p>
 
 
 </section>
@@ -668,8 +714,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../chapters/05_slurm.html" class="pagination-link" aria-label="Envío de trabajos con Slurm">
-        <span class="nav-page-text"><span class="chapter-title">Envío de trabajos con Slurm</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../chapters/micromamba.html" class="pagination-link" aria-label="Micromamba">
+        <span class="nav-page-text"><span class="chapter-title">Micromamba</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
@@ -678,5 +724,5 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/IB-UNISSE/beagle_manual/edit/main/chapters/04_apptainer.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/IB-UNISSE/beagle_manual/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer><script src="../site_libs/quarto-html/zenscroll-min.js"></script>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/IB-UNISSE/beagle_manual/edit/main/chapters/software.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/IB-UNISSE/beagle_manual/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer><script src="../site_libs/quarto-html/zenscroll-min.js"></script>
 </body></html>
