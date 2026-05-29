@@ -1,0 +1,260 @@
+# Micromamba
+
+**Micromamba** es un gestor de ambientes y paquetes compatible con el ecosistema de `conda`. Permite crear espacios de trabajo aislados donde se pueden instalar programas, librerías y dependencias sin modificar el sistema operativo del clúster y sin requerir permisos de administrador (`sudo`).
+
+Micromamba es una herramienta independiente que permite instalar software de distintos tipos: programas escritos en Python, R, C, C++, Perl, Java u otros lenguajes, siempre que estén disponibles en canales compatibles como `conda-forge` o `bioconda`.
+
+En BEAGLE, Micromamba es una opción práctica para instalar y usar herramientas bioinformáticas de forma relativamente sencilla. Su curva de aprendizaje suele ser menor que la de los contenedores, por lo que puede ser una buena primera opción para usuarios que necesitan instalar programas comunes o crear ambientes específicos para sus análisis.
+
+## ¿Para qué sirve Micromamba?
+
+Micromamba permite crear ambientes independientes para distintos programas o proyectos. Cada ambiente puede tener sus propias versiones de software y dependencias.
+
+Por ejemplo, un usuario podría tener:
+
+-   un ambiente para control de calidad con `FastQC` y `MultiQC`;
+
+-   un ambiente para análisis filogenéticos con `IQ-TREE`;
+
+-   un ambiente para ensamblaje o anotación con herramientas específicas;
+
+-   un ambiente para trabajar con paquetes de R o Python.
+
+Esto evita mezclar programas incompatibles entre sí y ayuda a mantener los análisis más organizados.
+
+## Ventajas de usar Micromamba
+
+El uso de Micromamba en BEAGLE permite:
+
+-   instalar software sin utilizar `sudo`;
+
+-   crear ambientes aislados por proyecto o análisis;
+
+-   evitar conflictos entre versiones de programas;
+
+-   instalar paquetes desde canales como `conda-forge` y `bioconda`;
+
+-   activar y desactivar ambientes según sea necesario;
+
+-   compartir la lista de paquetes usados mediante archivos `environment.yml`;
+
+-   comenzar a trabajar con una curva de aprendizaje relativamente baja.
+
+## Instalación de Micromamba sin permisos de administrador
+
+Micromamba puede instalarse directamente en la cuenta del usuario, sin requerir permisos de administrador (`sudo`). Esto resulta especialmente útil en clústeres compartidos y ambientes de HPC, donde los usuarios no deben modificar el sistema operativo ni las instalaciones globales del clúster.
+
+Para instalar Micromamba, ejecuta:
+
+``` bash
+"${SHELL}" <(curl -L micro.mamba.pm/install.sh)
+```
+
+Durante la instalación, Micromamba puede hacer algunas preguntas sobre la ubicación donde se instalará y el tipo de shell que se configurará. En general, puede aceptarse la configuración sugerida por defecto.
+
+Después de la instalación, conviene cerrar y abrir nuevamente la terminal. También se puede recargar el archivo de configuración del shell con:
+
+``` bash
+source ~/.bashrc
+```
+
+Para comprobar que la instalación funcionó correctamente, ejecuta:
+
+``` bash
+micromamba --version
+```
+
+Si el comando muestra un número de versión, Micromamba quedó instalado correctamente.
+
+## Ejemplo general de uso
+
+Crear un ambiente nuevo:
+
+``` bash
+micromamba create -n bioinfo -c conda-forge -c bioconda fastqc multiqc
+```
+
+> Nota: Antes de crear un ambiente, puedes buscar si un programa está disponible en [**Anaconda.org**.](https://anaconda.org/) Por ejemplo, herramientas bioinformáticas como `fastqc` suelen encontrarse en canales como `bioconda` y `conda-forge`.
+
+Activar el ambiente:
+
+``` bash
+micromamba activate bioinfo
+```
+
+Verificar que el programa está disponible:
+
+``` bash
+fastqc --version
+multiqc --version
+```
+
+Desactivar el ambiente:
+
+``` bash
+micromamba deactivate
+```
+
+Listar los ambientes disponibles:
+
+``` bash
+micromamba env list
+```
+
+Instalar un paquete adicional en un ambiente ya creado:
+
+``` bash
+micromamba install -n fastqc-0.12.1 -c conda-forge -c bioconda trimmomatic=0.40
+```
+
+Eliminar un ambiente que ya no se necesita:
+
+``` bash
+micromamba remove -n bioinfo --all
+```
+
+## Crear un ambiente a partir de un archivo YAML
+
+Una forma muy útil de trabajar con Micromamba es definir el ambiente en un archivo de configuración en formato YAML. Esto permite guardar el nombre del ambiente, los canales y los paquetes necesarios en un solo archivo, lo que facilita la reproducibilidad y evita tener que escribir comandos largos cada vez.
+
+Este archivo suele llamarse `environment.yml` o `env.yml`, porque son nombres comunes por convención. Sin embargo, no es obligatorio que tenga ese nombre. Puede llamarse de otra forma, siempre que se indique el archivo correcto al momento de crear el ambiente.
+
+#### Estructura básica de un archivo YAML
+
+Un archivo YAML para un ambiente de Micromamba puede verse así:
+
+``` bash
+name: bioinfo
+channels:
+  - conda-forge
+  - bioconda
+dependencies:
+  - fastqc=0.12.1
+  - seqkit=2.8.2
+  - mafft=7.525
+```
+
+En este ejemplo:
+
+-   `name` indica el nombre del ambiente;
+
+-   `channels` define los repositorios donde se buscarán los paquetes;
+
+-   `dependencies` contiene la lista de programas que se instalarán.
+
+## Consideraciones importantes
+
+Aunque Micromamba facilita la instalación de software, es importante considerar que un ambiente puede cambiar con el tiempo si no se documentan adecuadamente las versiones de los paquetes instalados.
+
+Por esta razón, se recomienda:
+
+-   crear un ambiente por proyecto o por tipo de análisis;
+
+-   evitar instalar todos los programas en un solo ambiente;
+
+-   documentar los paquetes instalados;
+
+-   guardar el archivo `environment.yml` del ambiente;
+
+-   registrar las versiones de los programas usados en cada análisis.
+
+Por ejemplo, después de crear un ambiente, se puede guardar su configuración con:
+
+``` bash
+micromamba env export -n nombre_del_ambiente > environment.yml
+```
+
+Este archivo puede guardarse junto con los scripts del proyecto para facilitar la reproducibilidad.
+
+## Uso de Micromamba dentro de scripts
+
+Cuando se trabaja de forma interactiva en la terminal, es común activar un ambiente antes de ejecutar un programa:
+
+``` bash
+micromamba activate bioinfo
+fastqc --version
+```
+
+Sin embargo, dentro de scripts de Bash o trabajos enviados con Slurm, la activación de ambientes puede ser menos directa, ya que el script se ejecuta en una sesión no interactiva. Por esta razón, en BEAGLE se recomienda usar una de las siguientes estrategias.
+
+### Opción recomendada: usar la ruta directa del ejecutable
+
+Una forma sencilla y robusta de usar un programa instalado en un ambiente de Micromamba es llamar directamente al ejecutable dentro de la carpeta `bin` del ambiente.
+
+Por ejemplo, si `FastQC` está instalado en el ambiente `bioinfo`, se puede localizar su ruta con:
+
+``` bash
+micromamba activate bioinfo
+which fastqc
+```
+
+Esto puede devolver una ruta similar a:
+
+``` bash
+/home/usuario/micromamba/envs/bioinfo/bin/fastqc
+```
+
+Entonces, dentro de un script se puede ejecutar directamente:
+
+``` bash
+/home/usuario/micromamba/envs/bioinfo/bin/fastqc --version
+```
+
+O, en un script de análisis:
+
+``` bash
+#!/bin/bash
+
+FASTQC="/home/usuario/micromamba/envs/bioinfo/bin/fastqc"
+MULTIQC="/home/usuario/micromamba/envs/bioinfo/bin/multiqc"
+
+mkdir -p resultados_fastqc
+
+$FASTQC datos/*.fastq.gz -o resultados_fastqc
+$MULTIQC resultados_fastqc -o resultados_fastqc
+```
+
+Esta estrategia tiene la ventaja de que no depende de activar el ambiente dentro del script. El programa se ejecuta directamente desde el ambiente donde fue instalado.
+
+### Opción alternativa: usar `micromamba run`
+
+Otra opción es ejecutar comandos dentro de un ambiente usando `micromamba run`:
+
+``` bash
+micromamba run -n bioinfo fastqc --version
+```
+
+Por ejemplo, dentro de un script:
+
+``` bash
+#!/bin/bash
+
+micromamba run -n bioinfo fastqc datos/*.fastq.gz -o resultados_fastqc
+micromamba run -n bioinfo multiqc resultados_fastqc -o resultados_fastqc
+```
+
+Esta opción es clara porque indica explícitamente qué ambiente se está usando. Sin embargo, puede ser un poco más lenta si se ejecuta muchas veces dentro de ciclos grandes, ya que Micromamba debe preparar el entorno para cada comando.
+
+### Opción con activación dentro del script
+
+También es posible activar el ambiente dentro del script, pero esto puede requerir inicializar Micromamba correctamente en sesiones no interactivas.
+
+Un ejemplo sería:
+
+``` bash
+#!/bin/bash
+
+eval "$(micromamba shell hook --shell bash)"
+micromamba activate bioinfo
+
+fastqc datos/*.fastq.gz -o resultados_fastqc
+multiqc resultados_fastqc -o resultados_fastqc
+```
+
+Esta opción puede ser útil cuando se ejecutan muchos comandos del mismo ambiente dentro de un solo script. Sin embargo, si hay problemas con la activación del ambiente, puede ser más sencillo usar la ruta directa del ejecutable.
+
+## Recomendación
+
+Micromamba es una buena opción para comenzar a trabajar con software bioinformático en BEAGLE, especialmente por su facilidad de uso. Sin embargo, para análisis que deben repetirse, compartirse o publicarse, se recomienda documentar cuidadosamente el ambiente o considerar el uso de contenedores con Apptainer.
+
+## 

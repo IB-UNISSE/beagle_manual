@@ -9,6 +9,8 @@ subtitle: "Servidor de cómputo para bioinformática"
 Guía práctica para ingresar al servidor, transferir archivos, usar contenedores con Apptainer y enviar trabajos mediante Slurm.
 :::
 
+![](images/baner_beagle.png){fig-align="center" width="550"}
+
 ## Objetivo
 
 Este manual reúne los pasos mínimos para que una persona usuaria pueda trabajar de forma ordenada y reproducible en BEAGLE.

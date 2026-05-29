@@ -1,0 +1,852 @@
+# Apptainer
+
+**Apptainer** es una herramienta para ejecutar contenedores en ambientes de cómputo científico y clústeres HPC. En BEAGLE, Apptainer permite usar software bioinformático, filogenómico o científico sin instalarlo directamente en el sistema operativo del clúster y sin requerir permisos de administrador (`sudo`).
+
+Un contenedor puede entenderse como un archivo que incluye un programa junto con muchas de sus dependencias. Esto permite ejecutar software de forma más controlada y reproducible, evitando conflictos con otros programas instalados en el sistema o con los ambientes de otros usuarios.
+
+En BEAGLE, Apptainer es especialmente útil cuando:
+
+-   el programa tiene muchas dependencias;
+
+-   se necesita una versión específica de un software;
+
+-   el software ya existe como imagen de contenedor;
+
+-   se desea compartir un flujo de trabajo con otros usuarios;
+
+-   se busca mayor reproducibilidad;
+
+-   se ejecutarán análisis mediante Slurm.
+
+## ¿En qué sistemas funciona Apptainer?
+
+**Apptainer está diseñado para funcionar de manera nativa en sistemas Linux.**
+
+Esto se debe a que utiliza características propias del kernel de Linux, como:
+
+-   namespaces (aislamiento de procesos)
+
+-   cgroups (control de recursos)
+
+-   sistema de archivos tipo overlay
+
+👉 Estas tecnologías permiten crear contenedores de forma eficiente y segura.
+
+## ¿De dónde vienen las imágenes?
+
+Las imágenes de contenedores provienen generalmente de repositorios en línea como:
+
+👉 [[Docker Hub]{.underline}](https://hub.docker.com/)\
+👉 [[Quay.io]{.underline}](https://quay.io/)
+
+### 📦 Docker Hub
+
+Docker Hub es una plataforma donde se almacenan miles de imágenes listas para usar:
+
+-   sistemas operativos
+
+-   lenguajes de programación
+
+-   herramientas científicas
+
+Cada imagen tiene versiones llamadas **tags**, por ejemplo:
+
+-   `ubuntu:22.04`
+
+-   `ubuntu:20.04`
+
+-   `ubuntu:latest`
+
+💡 Esto permite elegir exactamente qué entorno queremos usar.
+
+### 🧬 ¿Qué son los BioContainers?
+
+Existen repositorios especializados llamados **BioContainers**, que contienen imágenes enfocadas en bioinformática.
+
+👉 Son contenedores que ya incluyen software científico instalado, como:
+
+-   MrBayes
+
+-   BLAST
+
+-   FastQC
+
+-   Bowtie2
+
+👉 Muchos de estos contenedores están disponibles en:
+
+-   Docker Hub
+
+-   Quay.io (más actualizado en muchos casos)
+
+## 📥 Descargar imágenes
+
+El comando `pull` permite descargar una imagen y convertirla al formato de Apptainer (`.sif`), que es el formato estándar para ejecutar contenedores.
+
+``` bash
+apptainer pull docker://ubuntu
+```
+
+👉 Este comando descarga una imagen de Ubuntu desde Docker Hub y genera un archivo como:
+
+``` bash
+ubuntu_latest.sif
+```
+
+Este archivo `.sif` contiene un sistema base listo para usarse con Apptainer.
+
+### 📦 Versiones específicas
+
+También es posible descargar una versión concreta de una imagen usando una etiqueta (`:versión`). Esto es útil cuando se necesita trabajar con una versión específica del sistema operativo o del software para mantener compatibilidad y reproducibilidad.
+
+``` bash
+apptainer pull docker://centos:7
+```
+
+## Uso básico de contenedores
+
+UUna vez que hemos descargado una imagen con `pull`, podemos comenzar a interactuar con ella.
+
+``` bash
+apptainer pull docker://ubuntu
+```
+
+👉 Esto genera un archivo `.sif`, que contiene un sistema Linux mínimo.
+
+Cuando usamos Apptainer, no estamos ejecutando “un programa”, sino un **sistema operativo completo pero ligero**.
+
+👉 Es como tener una instalación de Linux dentro de un archivo.
+
+💡 Sin embargo, estas imágenes suelen ser:
+
+-   muy ligeras
+
+-   sin programas adicionales
+
+-   con solo lo esencial para funcionar
+
+### Entrar a un contenedor (modo interactivo)
+
+``` bash
+apptainer shell ubuntu_latest.sif
+```
+
+👉 Esto abre una terminal dentro del contenedor.
+
+Dentro de esta terminal puedes:
+
+-   navegar (`ls`, `cd`)
+
+-   crear archivos
+
+-   ejecutar comandos
+
+-   instalar software (si es writable)
+
+💡 Es como si estuvieras usando otra computadora con Linux.
+
+### ⚠️ ¿Se puede modificar?
+
+Por defecto:
+
+-   ❌ **NO puedes modificar la imagen `.sif`**
+
+-   ✅ solo puedes explorarla
+
+👉 Si quieres modificarla, necesitas usar:
+
+-   un **sandbox**
+
+-   o entrar con `--writable`
+
+### Ejecutar comandos sin entrar
+
+También puedes ejecutar comandos directamente sin abrir una terminal interactiva:
+
+``` bash
+apptainer exec ubuntu_latest.sif ls /
+```
+
+👉 Esto ejecuta `ls /` dentro del contenedor y regresa al sistema host.
+
+Dentro del contenedor puedes usar comandos básicos como:
+
+``` bash
+ls
+pwd
+whoami
+cat /etc/os-release
+```
+
+👉 Esto demuestra que:
+
+-   estás dentro de un sistema Linux independiente
+
+-   con su propia estructura de archivos
+
+-   su propio entorno
+
+### Modificar un contenedor temporalmente (`--writable`)
+
+Aunque las imágenes `.sif` no son modificables por defecto, Apptainer permite hacer cambios temporales durante una sesión usando ciertas opciones.
+
+``` bash
+apptainer shell --writable --fakeroot ubuntu_latest.sif
+```
+
+-   `--writable` → permite modificar el sistema dentro del contenedor
+
+-   `--fakeroot` → simula permisos de administrador (root)
+
+👉 Esto permite instalar software dentro del contenedor.
+
+#### ⚠️ Importante
+
+💡 Este modo funciona mejor con **sandbox**\
+En archivos `.sif`, puede no funcionar o ser limitado
+
+Por eso este ejemplo es solo para entender el concepto
+
+## ¿Qué es un sandbox?
+
+Un sandbox es un contenedor en formato de directorio editable.
+
+A diferencia de `.sif`, permite:
+
+-   instalar programas
+
+-   modificar configuraciones
+
+-   compilar software
+
+### Crear un sandbox
+
+El comando `build --sandbox` crea un contenedor editable a partir de una imagen base.
+
+``` bash
+apptainer build --sandbox NOMBRE_DEL_DIRECTORIO IMAGEN_BASE.sif
+```
+
+#### Ejemplo
+
+``` bash
+apptainer build --sandbox mrbayes ubuntu_latest.sif
+```
+
+Puedes usar cualquier nombre:
+
+```         
+mrbayes
+ubuntu_editable
+test_container
+bioinfo_env
+```
+
+Esto creará una carpeta llamada:
+
+``` bash
+mrbayes/
+```
+
+Y dentro:
+
+-   `/bin`
+
+-   `/etc`
+
+-   `/usr`
+
+-   `/lib`
+
+👉 Es decir:
+
+> Un sistema Linux completo dentro de una carpeta
+
+### Explorar el contenedor de forma interactiva
+
+Una vez creado el sandbox, puedes entrar a él con una shell interactiva y trabajar dentro del contenedor como si fuera otro sistema Linux.
+
+``` bash
+apptainer shell mrbayes/
+```
+
+👉 Esto abre una terminal dentro del contenedor, desde donde puedes navegar, revisar archivos o ejecutar comandos.
+
+### Salir del contenedor
+
+Para salir del entorno interactivo, solo escribe:
+
+``` bash
+exit
+```
+
+### Entrar en modo escritura y con root simulado
+
+Cuando quieres modificar un sandbox, por ejemplo para instalar paquetes o compilar programas, necesitas abrirlo con opciones adicionales.
+
+``` bash
+apptainer shell --writable --fakeroot --pwd / mrbayes
+```
+
+`--writable`
+
+Permite modificar el contenedor. Sin esta opción, el sistema se abre solo para lectura.
+
+`--fakeroot`
+
+Simula permisos de administrador dentro del contenedor. Esto permite usar comandos como `apt install` aunque no tengas root real en el sistema anfitrión.
+
+`--pwd /`
+
+Hace que la shell inicie en el directorio raíz (`/`) del contenedor.
+
+## ⚙️ Configuración básica del sistema dentro del contenedor
+
+Las imágenes base descargadas desde Docker Hub suelen ser **versiones mínimas de Linux**.
+
+👉 Esto significa que:
+
+-   No tienen configuraciones completas
+
+-   No incluyen muchos programas
+
+-   Solo contienen lo esencial para funcionar
+
+💡 Por esta razón, antes de trabajar con software, es necesario **configurar el sistema operativo dentro del contenedor**.
+
+### 🔄 Actualizar el sistema
+
+``` bash
+apt update
+apt upgrade -y
+```
+
+-   `apt update` → actualiza la lista de paquetes disponibles
+
+-   `apt upgrade` → actualiza los programas instalados
+
+> Linux usa repositorios en línea para instalar software\
+> y estos comandos sincronizan el sistema con esos repositorios
+
+### 🌍 Configurar idioma (locale)
+
+``` bash
+apt install -y locales
+locale-gen en_US.UTF-8
+update-locale LANG=en_US.UTF-8
+export LANG=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
+```
+
+👉 Esto configura el sistema para trabajar con codificación UTF-8.
+
+**¿Por qué es importante?**
+
+-   Evita errores con caracteres especiales
+
+-   Asegura compatibilidad con muchos programas
+
+-   Mejora la reproducibilidad
+
+### 🕒 Configurar zona horaria
+
+``` bash
+apt install -y tzdata
+ln -sf /usr/share/zoneinfo/Etc/UTC /etc/localtime
+```
+
+👉 Define la hora del sistema dentro del contenedor.
+
+**¿Por qué importa?**
+
+-   Logs correctos
+
+-   Fechas reproducibles
+
+-   Consistencia en análisis
+
+### 📦 Instalación de programas y dependencias
+
+``` bash
+apt install -y build-essential make pkg-config git wget curl \
+latexmk texlive-latex-base texlive-fonts-recommended \
+texlive-fonts-extra texlive-latex-extra nano \
+openmpi-bin openmpi-common openmpi-doc libopenmpi-dev
+```
+
+### ¿Qué es `apt`?
+
+`apt` es un **gestor de paquetes** utilizado en sistemas basados en Debian (como Ubuntu).
+
+👉 Permite:
+
+-   instalar programas
+
+-   eliminar programas
+
+-   actualizar software
+
+------------------------------------------------------------------------
+
+**Otros gestores de paquetes**
+
+| Sistema                 | Gestor        |
+|-------------------------|---------------|
+| Debian / Ubuntu         | `apt`         |
+| RedHat / CentOS / Rocky | `yum` / `dnf` |
+
+💡 Importante:
+
+> Los comandos cambian dependiendo de la distribución Linux
+
+### 🧩 ¿Qué son las dependencias?
+
+Muchos programas necesitan otras librerías para funcionar.
+
+Ejemplo:
+
+-   `build-essential` → compiladores (gcc, g++)
+
+-   `libopenmpi-dev` → paralelización
+
+-   `pkg-config` → encuentra librerías al compilar
+
+> Un programa no funciona solo, depende de otros componentes
+
+### Compilación desde código fuente
+
+Una vez que el sistema está listo, podemos instalar programas desde su código fuente.
+
+``` bash
+cd /opt
+git clone https://github.com/NBISweden/MrBayes.git
+cd MrBayes
+./configure --with-mpi
+make -j$(nproc)
+make install
+```
+
+### ¿Qué significa “compilar”?
+
+Compilar es el proceso de:
+
+👉 Convertir código fuente (legible por humanos)\
+👉 en un programa ejecutable (legible por la máquina)
+
+## Empaquetar el sandbox como imagen `.sif`
+
+Cuando ya terminaste de personalizar tu sandbox, puedes convertirlo en una imagen final para transportarlo y ejecutarlo fácilmente.
+
+``` bash
+apptainer build --fakeroot mrbayes_mpi.sif mrbayes
+```
+
+👉 Esto crea un archivo `.sif` a partir del sandbox `mi_contenedor`.
+
+La imagen `.sif` ya no está pensada para editarse, sino para distribuirse y ejecutarse.
+
+### Ejecutar un programa dentro del contenedor
+
+El comando `exec` permite correr directamente un programa dentro de la imagen sin necesidad de abrir una shell interactiva.
+
+``` bash
+apptainer exec mrbayes_mpi.sif mb analisis/data/analysis.nex
+```
+
+👉 Aquí se ejecuta MrBayes dentro del contenedor usando un archivo externo como entrada.
+
+### Ejecutar con MPI
+
+Si el programa fue compilado con soporte para MPI, puede ejecutarse usando varios núcleos.
+
+``` bash
+apptainer exec mrbayes_mpi.sif mpirun -np 4 mb 
+```
+
+👉 En este caso, MrBayes se ejecuta usando 4 procesos paralelos.
+
+## 📂 Uso de volúmenes (montaje de carpetas)
+
+Cuando trabajas con contenedores, tus datos normalmente están **fuera del contenedor**, en tu sistema.
+
+👉 Para que el contenedor pueda verlos, es necesario **montar (bind) directorios**.
+
+### Montar una carpeta
+
+``` bash
+apptainer exec --bind /ruta/local:/ruta/contenedor contenedor.sif comando
+```
+
+### Ejemplo práctico
+
+Supongamos que tienes tus datos en:
+
+``` bash
+/home/usuario/proyecto/datos
+```
+
+Puedes montarlos dentro del contenedor así:
+
+``` bash
+apptainer exec --bind /home/usuario/proyecto/datos:/data revbayes_mpi.sif ls /data
+```
+
+👉 Dentro del contenedor, la carpeta aparecerá como:
+
+``` bash
+/data
+```
+
+### 📂 Usar tus archivos en RevBayes
+
+Si tienes un archivo:
+
+``` bash
+analysis.Rev
+```
+
+puedes ejecutarlo así:
+
+``` bash
+apptainer exec --bind /home/usuario/proyecto/datos:/data revbayes_mpi.sif rb-mpi /data/analysis.Rev
+```
+
+### Uso de `pwd` (muy importante)
+
+Para evitar escribir rutas largas, puedes usar:
+
+``` bash
+pwd
+```
+
+👉 Esto muestra tu directorio actual.
+
+### Ejemplo práctico con `pwd`
+
+``` bash
+apptainer exec --bind $(pwd):/data revbayes_mpi.sif rb-mpi /data/analysis.Rev
+```
+
+👉 Aquí:
+
+-   `$(pwd)` → ruta actual en tu sistema
+
+-   `/data` → ruta dentro del contenedor
+
+### Ventaja de usar `pwd`
+
+-   evita errores de ruta
+
+-   hace scripts más portables
+
+-   facilita reproducibilidad
+
+### ⚠️ Nota importante
+
+Apptainer ya monta automáticamente algunas rutas como:
+
+-   `$HOME`
+
+-   el directorio actual (en muchos casos)
+
+👉 Pero usar `--bind` explícito es más claro y reproducible.
+
+### 🧪 Probar que el volumen funciona
+
+``` bash
+apptainer exec --bind $(pwd):/data revbayes_mpi.sif ls /data
+```
+
+👉 Si ves tus archivos, el montaje funcionó correctamente.
+
+### 🚀 Bonus (muy útil)
+
+También puedes montar múltiples carpetas:
+
+``` bash
+apptainer exec --bind $(pwd):/data,/otra/ruta:/ref contenedor.sif comando
+```
+
+## ¿Qué es un archivo `.def`?
+
+Un archivo `.def` en Apptainer es un **archivo de definición** que contiene todas las instrucciones necesarias para construir un contenedor reproducible.
+
+👉 En lugar de instalar programas manualmente dentro de un sandbox, aquí escribimos una receta que describe:
+
+-   qué sistema operativo usar
+
+-   qué paquetes instalar
+
+-   qué software descargar
+
+-   cómo compilarlo
+
+-   qué variables de entorno definir
+
+-   qué debe hacer el contenedor al ejecutarse
+
+> Un archivo `.def` permite reconstruir el mismo contenedor cuantas veces sea necesario.
+
+### 🧱 Partes de un archivo `.def` en Apptainer
+
+Un archivo `.def` está compuesto por secciones que indican **cómo construir y cómo ejecutar un contenedor**.
+
+**🔹 `Bootstrap: docker`**
+
+Indica el **método de construcción** del contenedor.
+
+👉 En este caso, significa que la imagen base será obtenida desde un repositorio compatible con Docker (como Docker Hub).
+
+**🔹 `From: ubuntu:22.04`**
+
+Define la **imagen base** sobre la cual se construirá el contenedor.
+
+👉 Aquí se está utilizando Ubuntu 22.04 como sistema operativo inicial.
+
+**🔹 `%environment`**
+
+Define **variables de entorno** que estarán disponibles cada vez que el contenedor se ejecute.
+
+👉 Se aplican cuando usas:
+
+-   `apptainer shell`
+
+-   `apptainer exec`
+
+-   `apptainer run`
+
+💡 Sirve para configurar el entorno automáticamente (idioma, rutas de librerías, etc.).
+
+**🔹 `%post`**
+
+Contiene los comandos que se ejecutan **durante la construcción del contenedor**.
+
+👉 Aquí es donde se:
+
+-   instalan paquetes (`apt install`)
+
+-   descargan programas (`git clone`)
+
+-   compilan software (`make`)
+
+💡 Es la sección donde realmente “se arma” el contenedor.
+
+🔹 `%runscript`
+
+Define qué ocurre cuando el contenedor se ejecuta con:
+
+``` bash
+apptainer run archivo.sif
+```
+
+👉 Permite establecer un comportamiento por defecto del contenedor.
+
+💡 Por ejemplo:
+
+-   mostrar un mensaje
+
+-   ejecutar automáticamente un programa
+
+Archivo ejemplo **`revbayes_mpi.def`**
+
+``` bash
+# ============================================================
+# Archivo de definición de Apptainer para RevBayes con MPI
+# ============================================================
+
+# ------------------------------------------------------------
+# Bootstrap
+# ------------------------------------------------------------
+# Indica el tipo de origen de la imagen base.
+# En este caso, se utilizará una imagen proveniente de Docker Hub.
+Bootstrap: docker
+
+# ------------------------------------------------------------
+# From
+# ------------------------------------------------------------
+# Especifica la imagen base sobre la cual se construirá el contenedor.
+# Aquí se usa Ubuntu 22.04 como sistema operativo inicial.
+From: ubuntu:22.04
+
+
+# ============================================================
+# %environment
+# ============================================================
+# Esta sección define variables de entorno que estarán disponibles
+# cada vez que el contenedor se ejecute (shell, exec, run).
+# No se ejecuta durante el build, sino en tiempo de uso.
+
+%environment
+    # Configuración de idioma y codificación
+    export LANG=C.UTF-8
+    export LC_ALL=C.UTF-8
+
+    # Ruta donde se buscarán bibliotecas compartidas
+    export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
+
+
+# ============================================================
+# %post
+# ============================================================
+# Esta sección se ejecuta durante la construcción del contenedor.
+# Aquí se instala y configura el software.
+
+%post
+    # Evita preguntas interactivas durante la instalación
+    export DEBIAN_FRONTEND=noninteractive
+
+    # --------------------------------------------------------
+    # Actualizar sistema
+    # --------------------------------------------------------
+    apt update
+
+    # --------------------------------------------------------
+    # Instalar dependencias necesarias
+    # --------------------------------------------------------
+    apt install -y \
+        build-essential \
+        cmake \
+        git \
+        wget \
+        curl \
+        ca-certificates \
+        libopenmpi-dev \
+        openmpi-bin \
+        libboost-all-dev \
+        bison \
+        flex \
+        zlib1g-dev
+
+    # --------------------------------------------------------
+    # Descargar código fuente de RevBayes
+    # --------------------------------------------------------
+    cd /opt
+    git clone --branch development https://github.com/revbayes/revbayes.git
+
+    # --------------------------------------------------------
+    # Compilar RevBayes con soporte MPI
+    # --------------------------------------------------------
+    cd /opt/revbayes/projects/cmake
+    chmod +x build.sh
+    ./build.sh -mpi true
+
+    # --------------------------------------------------------
+    # Copiar ejecutables a una ruta accesible
+    # --------------------------------------------------------
+    if [ -f rb-mpi ]; then
+        cp rb-mpi /usr/local/bin/rb-mpi
+        chmod 755 /usr/local/bin/rb-mpi
+    fi
+
+    if [ -f rb ]; then
+        cp rb /usr/local/bin/rb
+        chmod 755 /usr/local/bin/rb
+    fi
+
+
+# ============================================================
+# %runscript
+# ============================================================
+# Define qué ocurre cuando se ejecuta el contenedor con:
+# apptainer run archivo.sif
+
+%runscript
+    echo "RevBayes con MPI listo para usarse"
+    exec "$@"
+```
+
+### 🔧 Construir el contenedor a partir del archivo `.def`
+
+Una vez que el archivo `revbayes_mpi.def` está listo, el siguiente paso es construir la imagen `.sif`.
+
+``` bash
+apptainer build revbayes_mpi.sif revbayes_mpi.def
+```
+
+Si todo sale bien, al final tendrás un archivo como este:
+
+``` bash
+revbayes_mpi.sif
+```
+
+Ese archivo ya contiene:
+
+-   Ubuntu 22.04
+
+-   dependencias instaladas
+
+-   RevBayes compilado con MPI
+
+-   variables de entorno configuradas
+
+### Probar el contenedor
+
+Una forma sencilla de verificar que el contenedor se construyó correctamente es ejecutar comandos directamente con `exec`, sin necesidad de entrar en una shell interactiva.
+
+``` bash
+apptainer exec revbayes_mpi.sif which rb-mpi
+```
+
+También puedes comprobar que el programa funciona correctamente con:
+
+``` bash
+apptainer exec revbayes_mpi.sif rb-mpi --help
+```
+
+## 🔎 Buscar imágenes existentes antes de construir un contenedor
+
+Antes de crear un contenedor desde cero, es recomendable revisar si ya existe una imagen disponible en\
+👉 [[Docker Hub]{.underline}](https://hub.docker.com/)\
+👉 [[Quay.io]{.underline}](https://quay.io/)
+
+En este repositorio hay miles de imágenes creadas por la comunidad, incluyendo:
+
+-   sistemas operativos
+
+-   lenguajes de programación
+
+-   herramientas bioinformáticas
+
+-   pipelines completos
+
+👉 Es muy probable que el software que necesitas ya esté disponible en forma de contenedor.
+
+### Ejemplo
+
+En lugar de construir manualmente un contenedor para MrBayes, puedes usar:
+
+``` bash
+apptainer pull quay.io/biocontainers/mrbayes
+```
+
+👉 Esta imagen ya contiene el software instalado y listo para usarse.
+
+### ⚖️ Ventajas de usar imágenes existentes
+
+-   ✔ Ahorra tiempo
+
+-   ✔ No necesitas instalar dependencias
+
+-   ✔ Listas para ejecutar
+
+-   ✔ Útiles para pruebas rápidas
+
+### ⚠️ Desventajas
+
+-   ❌ No siempre sabes cómo fue construida la imagen
+
+-   ❌ Puede no estar actualizada
+
+-   ❌ Puede incluir software innecesario
+
+-   ❌ Menor control sobre dependencias y versiones
+
+### 🔧 Ventajas de construir tu propio contenedor
+
+-   ✔ Control total del entorno
+
+-   ✔ Puedes documentar cada paso (`.def`)
+
+-   ✔ Reproducibilidad garantizada
+
+-   ✔ Ajuste específico a tu análisis

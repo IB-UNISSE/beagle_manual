@@ -2,7 +2,7 @@
 
 ## Script básico de Slurm
 
-```bash
+``` bash
 #!/usr/bin/env bash
 #SBATCH --job-name=prueba_beagle
 #SBATCH --cpus-per-task=4
@@ -17,17 +17,16 @@ hostname
 date
 
 # Aquí va el comando principal
-
 ```
 
 Enviar el trabajo:
 
-```bash
+``` bash
 sbatch scripts/mi_trabajo.sh
 ```
 
 Revisar la cola:
 
-```bash
+``` bash
 squeue -u $USER
 ```

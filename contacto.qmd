@@ -1,0 +1,31 @@
+---
+title: "Contacto y soporte"
+---
+
+Para consultas generales, dudas sobre el uso del **clúster de cómputo BEAGLE**, comentarios sobre este manual o solicitudes de orientación, puedes contactar a:
+
+**Dr. Cristian Cervantes**\
+Técnico Académico\
+Unidad de Síntesis en Sistemática y Evolución (**UniSSE**)\
+Instituto de Biología, UNAM
+
+📧 [cristian.cervantes\@ib.unam.mx](mailto:tu.correo@ib.unam.mx)
+
+### Antes de solicitar ayuda
+
+Para poder atender mejor tu duda, incluye la siguiente información en tu mensaje:
+
+-   Nombre completo.
+-   Adscripción, laboratorio o grupo de trabajo.
+-   Nombre de usuario en BEAGLE, si ya cuentas con uno.
+-   Descripción breve del problema.
+-   Comando que ejecutaste.
+-   Mensaje de error completo, si aplica.
+
+### Reportar errores o sugerencias del manual
+
+Si encontraste un error en este manual, una instrucción incompleta, un enlace que no funciona o tienes una sugerencia para mejorarlo, puedes reportarlo mediante la sección de **Issues** del repositorio en GitHub.
+
+También puedes enviar tus comentarios directamente por correo electrónico, especialmente si se trata de una duda particular o de una solicitud que requiera seguimiento personalizado.
+
+📧 [cristian.cervantes\@ib.unam.mx](mailto:tu.correo@ib.unam.mx)

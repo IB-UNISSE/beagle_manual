@@ -22,5 +22,17 @@
   },
   "chapters/07_solucion_problemas.qmd": {
     "07_solucion_problemas.html": "a4b06565"
+  },
+  "contacto.qmd": {
+    "contacto.html": "9e03c541"
+  },
+  "chapters/software.qmd": {
+    "software.html": "560e73c8"
+  },
+  "chapters/micromamba.qmd": {
+    "micromamba.html": "fba22af1"
+  },
+  "chapters/apptainer.qmd": {
+    "apptainer.html": "b8627a96"
   }
 }
