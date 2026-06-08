@@ -256,5 +256,3 @@ Esta opción puede ser útil cuando se ejecutan muchos comandos del mismo ambien
 ## Recomendación
 
 Micromamba es una buena opción para comenzar a trabajar con software bioinformático en BEAGLE, especialmente por su facilidad de uso. Sin embargo, para análisis que deben repetirse, compartirse o publicarse, se recomienda documentar cuidadosamente el ambiente o considerar el uso de contenedores con Apptainer.
-
-## 
