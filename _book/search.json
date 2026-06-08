@@ -4,7 +4,7 @@
     "href": "index.html",
     "title": "Manual de usuario BEAGLE",
     "section": "",
-    "text": "Manual de usuario BEAGLE\nGuía práctica para ingresar al servidor, transferir archivos, usar contenedores con Apptainer y enviar trabajos mediante Slurm.",
+    "text": "Manual de usuario BEAGLE\nGuía práctica para ingresar al servidor, organizar archivos, usar software bioinformático mediante Micromamba o Apptainer, y enviar análisis al sistema de colas con Slurm.",
     "crumbs": [
       "<span class='chapter-number'>1</span>  <span class='chapter-title'>Manual de usuario BEAGLE</span>"
     ]
@@ -890,13 +890,13 @@
     ]
   },
   {
-    "objectID": "chapters/bots.html#en-telegram",
-    "href": "chapters/bots.html#en-telegram",
-    "title": "Mensajes a Telegram",
+    "objectID": "chapters/bots.html#mensajes-a-telegram",
+    "href": "chapters/bots.html#mensajes-a-telegram",
+    "title": "Notificaciones automáticas",
     "section": "",
     "text": "Busca @BotFather y ABRIR\n\n\n\n\n\n\n\nCrear un nuevo Bot\n\n\n\n\n\n\n\nPonle un nombre al Bot y elige un nombre de usuario que termine en bot, el usarname tiene que estar disponible\n\n\n\n\n\n\n\nBotFather te dará un TOKEN\n\n\n\n\n\n\n\n\nAbre el chat con tu bot (búscalo por username).\n\n\n\n\n\n\n\nPresiona Iniciar",
     "crumbs": [
-      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Mensajes a Telegram</span>"
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Notificaciones automáticas</span>"
     ]
   },
   {
@@ -947,36 +947,6 @@
     "text": "Archivo .env para Slurm\nPara que el script anterior funcione, el archivo .env debe tener los mismos nombres de variables que usa la función tg_send:\nTELEGRAM_BOT_TOKEN=\"TU_TOKEN_AQUI\"\nTELEGRAM_CHAT_ID=\"TU_CHAT_ID_AQUI\"\nSe recomienda guardar este archivo fuera del repositorio del proyecto y darle permisos restringidos:\nchmod 600 /ruta/a/tu/.env\nSi el archivo .env está dentro del proyecto, debe agregarse al .gitignore:\n.env",
     "crumbs": [
       "<span class='chapter-number'>8</span>  <span class='chapter-title'>Notificaciones automáticas</span>"
-    ]
-  },
-  {
-    "objectID": "contacto.html",
-    "href": "contacto.html",
-    "title": "Contacto y soporte",
-    "section": "",
-    "text": "Para consultas generales, dudas sobre el uso del clúster de cómputo BEAGLE, comentarios sobre este manual o solicitudes de orientación, puedes contactar a:\nDr. Cristian Cervantes\nTécnico Académico\nUnidad de Síntesis en Sistemática y Evolución (UniSSE)\nInstituto de Biología, UNAM\n📧 cristian.cervantes@ib.unam.mx\n\nAntes de solicitar ayuda\nPara poder atender mejor tu duda, incluye la siguiente información en tu mensaje:\n\nNombre completo.\nAdscripción, laboratorio o grupo de trabajo.\nNombre de usuario en BEAGLE, si ya cuentas con uno.\nDescripción breve del problema.\nComando que ejecutaste.\nMensaje de error completo, si aplica.\n\n\n\nReportar errores o sugerencias del manual\nSi encontraste un error en este manual, una instrucción incompleta, un enlace que no funciona o tienes una sugerencia para mejorarlo, puedes reportarlo mediante la sección de Issues del repositorio en GitHub.\nTambién puedes enviar tus comentarios directamente por correo electrónico, especialmente si se trata de una duda particular o de una solicitud que requiera seguimiento personalizado.\n📧 cristian.cervantes@ib.unam.mx",
-    "crumbs": [
-      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Contacto y soporte</span>"
-    ]
-  },
-  {
-    "objectID": "index.html#objetivo",
-    "href": "index.html#objetivo",
-    "title": "Manual de usuario BEAGLE",
-    "section": "Objetivo",
-    "text": "Objetivo\nEste manual reúne los pasos mínimos para que una persona usuaria pueda trabajar de forma ordenada y reproducible en BEAGLE.",
-    "crumbs": [
-      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Manual de usuario BEAGLE</span>"
-    ]
-  },
-  {
-    "objectID": "index.html#contenido-principal",
-    "href": "index.html#contenido-principal",
-    "title": "Manual de usuario BEAGLE",
-    "section": "Contenido principal",
-    "text": "Contenido principal\n\nAcceso por ssh.\nTransferencia de archivos con scp, sftp o clientes gráficos como Termius.\nOrganización de carpetas de trabajo.\nUso de programas mediante contenedores de Apptainer.\nEnvío y monitoreo de trabajos con Slurm.",
-    "crumbs": [
-      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Manual de usuario BEAGLE</span>"
     ]
   },
   {
@@ -1080,13 +1050,13 @@
     ]
   },
   {
-    "objectID": "chapters/bots.html#mensajes-a-telegram",
-    "href": "chapters/bots.html#mensajes-a-telegram",
-    "title": "Notificaciones automáticas",
+    "objectID": "contacto.html",
+    "href": "contacto.html",
+    "title": "Contacto y soporte",
     "section": "",
-    "text": "Busca @BotFather y ABRIR\n\n\n\n\n\n\n\nCrear un nuevo Bot\n\n\n\n\n\n\n\nPonle un nombre al Bot y elige un nombre de usuario que termine en bot, el usarname tiene que estar disponible\n\n\n\n\n\n\n\nBotFather te dará un TOKEN\n\n\n\n\n\n\n\n\nAbre el chat con tu bot (búscalo por username).\n\n\n\n\n\n\n\nPresiona Iniciar",
+    "text": "Para consultas generales, dudas sobre el uso del clúster de cómputo BEAGLE, comentarios sobre este manual o solicitudes de orientación, puedes contactar a:\nDr. Cristian Cervantes\nTécnico Académico\nUnidad de Síntesis en Sistemática y Evolución (UniSSE)\nInstituto de Biología, UNAM\n📧 cristian.cervantes@ib.unam.mx\n\nAntes de solicitar ayuda\nPara poder atender mejor tu duda, incluye la siguiente información en tu mensaje:\n\nNombre completo.\nAdscripción, laboratorio o grupo de trabajo.\nNombre de usuario en BEAGLE, si ya cuentas con uno.\nDescripción breve del problema.\nComando que ejecutaste.\nMensaje de error completo, si aplica.\n\n\n\nReportar errores o sugerencias del manual\nSi encontraste un error en este manual, una instrucción incompleta, un enlace que no funciona o tienes una sugerencia para mejorarlo, puedes reportarlo mediante la sección de Issues del repositorio en GitHub.\nTambién puedes enviar tus comentarios directamente por correo electrónico, especialmente si se trata de una duda particular o de una solicitud que requiera seguimiento personalizado.\n📧 cristian.cervantes@ib.unam.mx",
     "crumbs": [
-      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Notificaciones automáticas</span>"
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Contacto y soporte</span>"
     ]
   }
 ]
