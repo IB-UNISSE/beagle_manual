@@ -25,41 +25,6 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 </style>
 
 
@@ -218,13 +183,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul>
   <li><a href="#manual-de-usuario-beagle" id="toc-manual-de-usuario-beagle" class="nav-link active" data-scroll-target="#manual-de-usuario-beagle">Manual de usuario BEAGLE</a></li>
-  <li><a href="#bienvenida" id="toc-bienvenida" class="nav-link" data-scroll-target="#bienvenida">Bienvenida</a></li>
-  <li><a href="#a-quién-está-dirigido" id="toc-a-quién-está-dirigido" class="nav-link" data-scroll-target="#a-quién-está-dirigido">¿A quién está dirigido?</a></li>
-  <li><a href="#qué-aprenderás-en-este-manual" id="toc-qué-aprenderás-en-este-manual" class="nav-link" data-scroll-target="#qué-aprenderás-en-este-manual">¿Qué aprenderás en este manual?</a></li>
-  <li><a href="#ruta-recomendada-de-lectura" id="toc-ruta-recomendada-de-lectura" class="nav-link" data-scroll-target="#ruta-recomendada-de-lectura">Ruta recomendada de lectura</a></li>
-  <li><a href="#reglas-generales-de-uso" id="toc-reglas-generales-de-uso" class="nav-link" data-scroll-target="#reglas-generales-de-uso">Reglas generales de uso</a></li>
-  <li><a href="#organización-recomendada-de-proyectos" id="toc-organización-recomendada-de-proyectos" class="nav-link" data-scroll-target="#organización-recomendada-de-proyectos">Organización recomendada de proyectos</a></li>
-  <li><a href="#cómo-pedir-ayuda" id="toc-cómo-pedir-ayuda" class="nav-link" data-scroll-target="#cómo-pedir-ayuda">Cómo pedir ayuda</a></li>
+  <li><a href="#objetivo" id="toc-objetivo" class="nav-link" data-scroll-target="#objetivo">Objetivo</a></li>
+  <li><a href="#contenido-principal" id="toc-contenido-principal" class="nav-link" data-scroll-target="#contenido-principal">Contenido principal</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/IB-UNISSE/beagle_manual/edit/main/index.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/IB-UNISSE/beagle_manual/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
@@ -265,185 +225,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <section id="manual-de-usuario-beagle" class="level1 beagle-hero">
 <h1>Manual de usuario BEAGLE</h1>
-<p>Guía práctica para ingresar al servidor, organizar archivos, usar software bioinformático mediante <strong>Micromamba</strong> o <strong>Apptainer</strong>, y enviar análisis al sistema de colas con <strong>Slurm</strong>.</p>
+<p>Guía práctica para ingresar al servidor, transferir archivos, usar contenedores con Apptainer y enviar trabajos mediante Slurm.</p>
 </section>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="images/baner_beagle.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="550"></p>
 </figure>
 </div>
-<section id="bienvenida" class="level2">
-<h2 class="anchored" data-anchor-id="bienvenida">Bienvenida</h2>
-<p>BEAGLE es una infraestructura de cómputo compartida para apoyar análisis bioinformáticos, filogenómicos y otros procesos computacionales utilizados por la comunidad académica del Instituto de Biología, UNAM.</p>
-<p>Este manual está diseñado como una guía de uso práctico. Su objetivo es que las personas usuarias puedan comenzar a trabajar en el servidor de forma ordenada, segura y reproducible, desde el acceso inicial por <strong>SSH</strong> hasta el envío de trabajos mediante <strong>Slurm</strong>.</p>
-<p>No es necesario leer todo el manual de una sola vez. Puedes avanzar por secciones según lo que necesites hacer: conectarte al servidor, transferir archivos, usar la terminal, cargar software, trabajar con contenedores o enviar análisis a la cola de cómputo.</p>
+<section id="objetivo" class="level2">
+<h2 class="anchored" data-anchor-id="objetivo">Objetivo</h2>
+<p>Este manual reúne los pasos mínimos para que una persona usuaria pueda trabajar de forma ordenada y reproducible en BEAGLE.</p>
 </section>
-<section id="a-quién-está-dirigido" class="level2">
-<h2 class="anchored" data-anchor-id="a-quién-está-dirigido">¿A quién está dirigido?</h2>
-<p>Este manual está dirigido principalmente a estudiantes, personal académico, técnico y personas usuarias que realizan análisis en BEAGLE.</p>
-<p>Puede ser útil para quienes:</p>
+<section id="contenido-principal" class="level2">
+<h2 class="anchored" data-anchor-id="contenido-principal">Contenido principal</h2>
 <ul>
-<li>ingresan por primera vez al servidor;</li>
-<li>necesitan transferir archivos desde su computadora;</li>
-<li>quieren aprender comandos básicos de Linux;</li>
-<li>requieren instalar o usar software informático;</li>
-<li>desean ejecutar análisis mediante contenedores de Apptainer;</li>
-<li>necesitan enviar trabajos usando Slurm;</li>
-<li>buscan organizar mejor sus proyectos y resultados.</li>
+<li>Acceso por <code>ssh</code>.</li>
+<li>Transferencia de archivos con <code>scp</code>, <code>sftp</code> o clientes gráficos como Termius.</li>
+<li>Organización de carpetas de trabajo.</li>
+<li>Uso de programas mediante contenedores de Apptainer.</li>
+<li>Envío y monitoreo de trabajos con Slurm.</li>
 </ul>
-</section>
-<section id="qué-aprenderás-en-este-manual" class="level2">
-<h2 class="anchored" data-anchor-id="qué-aprenderás-en-este-manual">¿Qué aprenderás en este manual?</h2>
-<p>Al terminar las secciones principales, deberías poder:</p>
-<ul>
-<li>conectarte al servidor usando <code>ssh</code>;</li>
-<li>cambiar tu contraseña inicial y crear una llave SSH;</li>
-<li>subir y descargar archivos con <code>scp</code>, <code>sftp</code> o clientes gráficos;</li>
-<li>moverte dentro del sistema de archivos de Linux;</li>
-<li>revisar el uso de disco, CPU, RAM y procesos;</li>
-<li>distinguir cuándo usar <strong>Micromamba</strong> y cuándo usar <strong>Apptainer</strong>;</li>
-<li>ejecutar software bioinformático sin modificar el sistema principal;</li>
-<li>enviar trabajos a Slurm con <code>sbatch</code>;</li>
-<li>monitorear, revisar y cancelar trabajos;</li>
-<li>recibir notificaciones básicas de tus análisis mediante Telegram.</li>
-</ul>
-</section>
-<section id="ruta-recomendada-de-lectura" class="level2">
-<h2 class="anchored" data-anchor-id="ruta-recomendada-de-lectura">Ruta recomendada de lectura</h2>
-<p>Si es tu primera vez usando BEAGLE, se recomienda leer las secciones en este orden:</p>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th>Orden</th>
-<th>Sección</th>
-<th>¿Para qué sirve?</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>1</td>
-<td><a href="./chapters/acceso.html">Acceso al servidor</a></td>
-<td>Aprender a conectarte por SSH, cambiar contraseña y transferir archivos.</td>
-</tr>
-<tr class="even">
-<td>2</td>
-<td><a href="./chapters/terminal_linux.html">Comandos básicos de Linux</a></td>
-<td>Conocer los comandos mínimos para moverte, revisar archivos y trabajar en la terminal.</td>
-</tr>
-<tr class="odd">
-<td>3</td>
-<td><a href="./chapters/software.html">Software en BEAGLE</a></td>
-<td>Entender cómo se maneja el software en el clúster sin instalar programas directamente en el sistema.</td>
-</tr>
-<tr class="even">
-<td>4</td>
-<td><a href="./chapters/micromamba.html">Micromamba</a></td>
-<td>Crear ambientes para instalar y usar programas disponibles en canales como <code>bioconda</code> o <code>conda-forge</code>.</td>
-</tr>
-<tr class="odd">
-<td>5</td>
-<td><a href="./chapters/apptainer.html">Apptainer</a></td>
-<td>Ejecutar programas dentro de contenedores reproducibles.</td>
-</tr>
-<tr class="even">
-<td>6</td>
-<td><a href="./chapters/slurm.html">Uso básico de Slurm</a></td>
-<td>Enviar análisis al sistema de colas y solicitar CPU, RAM, tiempo o GPU.</td>
-</tr>
-<tr class="odd">
-<td>7</td>
-<td><a href="./chapters/bots.html">Mensajes a Telegram</a></td>
-<td>Configurar notificaciones para saber cuándo inicia o termina un trabajo.</td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="reglas-generales-de-uso" class="level2">
-<h2 class="anchored" data-anchor-id="reglas-generales-de-uso">Reglas generales de uso</h2>
-<div class="callout callout-style-default callout-caution callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Caution</span>Las cuentas son personales e intransferibles
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Las cuentas de usuario en BEAGLE son personales e intransferibles. No compartas tu contraseña, llaves SSH ni accesos con otras personas, incluso si pertenecen al mismo laboratorio o grupo de trabajo. Cada persona debe ingresar con su propia cuenta, ya que el uso del servidor queda asociado al usuario registrado.</p>
-</div>
-</div>
-<div class="callout callout-style-default callout-important callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Important</span>BEAGLE es un recurso compartido
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Evita ejecutar análisis pesados directamente en la terminal de acceso. Los análisis que consumen muchos recursos deben enviarse mediante <strong>Slurm</strong> usando <code>sbatch</code>.</p>
-</div>
-</div>
-<div class="callout callout-style-default callout-warning callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Warning</span>No instales software en el sistema principal
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>En BEAGLE no se debe modificar el sistema operativo ni instalar programas globalmente con <code>sudo</code>. Para usar software especializado, utiliza <strong>Micromamba</strong> o <strong>Apptainer</strong>.</p>
-</div>
-</div>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Solicita solo los recursos necesarios
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Al enviar trabajos con Slurm, pide una cantidad razonable de CPUs, memoria RAM y tiempo. Solicitar muchos recursos sin necesitarlos puede retrasar tus trabajos y afectar a otras personas usuarias.</p>
-</div>
-</div>
-</section>
-<section id="organización-recomendada-de-proyectos" class="level2">
-<h2 class="anchored" data-anchor-id="organización-recomendada-de-proyectos">Organización recomendada de proyectos</h2>
-<p>Una buena organización de carpetas evita confusiones y facilita encontrar errores. Para cada proyecto o análisis se recomienda usar una estructura similar a:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">mi_proyecto/</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> datos/</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> scripts/</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> resultados/</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> logs/</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="ex">└──</span> metadata/</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Donde:</p>
-<ul>
-<li><code>datos/</code> contiene archivos de entrada, como FASTA, FASTQ, matrices, árboles o tablas;</li>
-<li><code>scripts/</code> contiene scripts de Bash, R, Python o Slurm;</li>
-<li><code>resultados/</code> contiene los archivos generados por los análisis;</li>
-<li><code>logs/</code> contiene las salidas estándar y errores de los trabajos;</li>
-<li><code>metadata/</code> contiene tablas de muestras, accesiones, parámetros o documentación adicional.</li>
-</ul>
-</section>
-<section id="cómo-pedir-ayuda" class="level2">
-<h2 class="anchored" data-anchor-id="cómo-pedir-ayuda">Cómo pedir ayuda</h2>
-<p>Cuando reportes un problema, incluye la mayor cantidad posible de información para facilitar el diagnóstico:</p>
-<ul>
-<li>nombre de usuario en BEAGLE;</li>
-<li>carpeta donde ocurrió el problema;</li>
-<li>comando o script que ejecutaste;</li>
-<li>mensaje de error completo;</li>
-<li>ID del trabajo de Slurm, si aplica;</li>
-<li>archivo <code>.out</code> y <code>.err</code>, si existen;</li>
-<li>programa, ambiente o contenedor utilizado.</li>
-</ul>
-<p>Para dudas generales, consulta la sección de <a href="./contacto.html">contacto y soporte</a>.</p>
 
 
 </section>

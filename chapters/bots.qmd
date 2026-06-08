@@ -1,6 +1,6 @@
-# Mensajes a Telegram
+# Notificaciones automáticas 
 
-## En Telegram:
+## Mensajes a Telegram:
 
 1.  Busca **\@BotFather y ABRIR**
 
@@ -187,3 +187,312 @@ Si el archivo `.env` está dentro del proyecto, debe agregarse al `.gitignore`:
 ``` bash
 .env
 ```
+
+## Mensajes a Discord
+
+Discord puede utilizarse para recibir notificaciones automáticas desde scripts de Bash o trabajos enviados con Slurm. Para este tipo de uso no es necesario crear un bot completo: lo más práctico es usar **webhooks**.
+
+Un **webhook** es una URL especial asociada a un canal de Discord. Cuando un script envía un mensaje a esa URL, el mensaje aparece automáticamente en ese canal.
+
+::: callout-tip
+## Recomendación para BEAGLE
+
+Usa **un webhook por canal**.
+
+Por ejemplo:
+
+| Canal de Discord | Uso sugerido                                        |
+|------------------|-----------------------------------------------------|
+| `#pruebas`       | Probar mensajes antes de usarlos en análisis reales |
+| `#beast`         | Notificaciones de análisis de BEAST/BEAST2          |
+| `#slurm-cpu`     | Trabajos generales enviados a Slurm                 |
+| `#slurm-gpu`     | Trabajos enviados a nodos con GPU                   |
+| `#errores`       | Mensajes cuando un trabajo falla                    |
+:::
+
+En Discord, crea un servidor nuevo para organizar los canales de notificación.
+
+1.  Selecciona **Crear mi propio modelo**.
+
+![](../images/notas_bot/01_discord.jpeg){fig-align="center" width="350"}
+
+2.  Discord puede preguntar si el servidor será para una comunidad o para amigos. Para un grupo de trabajo, curso o laboratorio, puedes elegir **Para un club o una comunidad**. También puedes omitir esta pregunta.
+
+![](../images/notas_bot/02_discord.jpeg){fig-align="center" width="350"}
+
+3.  Asigna un nombre al servidor. En este ejemplo se usa `UniSSE`.
+
+![](../images/notas_bot/03_discord.jpeg){fig-align="center" width="350"}
+
+4.  Discord puede mostrar una pantalla para invitar personas. Puedes copiar el enlace, compartirlo o cerrar esta pantalla y continuar configurando el servidor.
+
+![](../images/notas_bot/04_discord.jpeg){fig-align="center" width="350"}
+
+5.  Una vez creado el servidor, verás los canales disponibles. En este ejemplo se crearon canales como `#pruebas` y `#beast`.
+
+![](../images/notas_bot/05_discord.jpeg){fig-align="center" width="350"}
+
+## Crear canales
+
+Para crear canales desde la aplicación móvil:
+
+1.  Abre el menú del servidor.
+2.  Selecciona **Más opciones**.
+
+![](../images/notas_bot/06_discord.jpeg){fig-align="center" width="350"}
+
+3.  Selecciona **Crear un canal**.
+
+![](../images/notas_bot/07_discord.jpeg){fig-align="center" width="350"}
+
+Puedes crear canales separados para diferentes tipos de análisis:
+
+``` text
+#pruebas
+#beast
+#slurm-cpu
+#slurm-gpu
+#errores
+```
+
+::: callout-note
+## ¿Por qué varios canales?
+
+Separar los mensajes ayuda a evitar ruido. Por ejemplo, los trabajos de prueba pueden llegar a `#pruebas`, los análisis con GPU a `#slurm-gpu` y los errores a `#errores`.
+:::
+
+## Crear un webhook para un canal
+
+Para que Slurm pueda escribir en Discord, se debe crear un webhook en el canal donde quieres recibir los mensajes.
+
+::: callout-warning
+## Los webhooks no se crean desde la app móvil
+
+En la app móvil de Discord puede aparecer el apartado de **Webhooks**, pero Discord indica que, por ahora, los webhooks solo se pueden crear desde la **aplicación de escritorio** o desde Discord en la **web**.
+
+Por eso, para crear y copiar la URL del webhook, usa una computadora o entra a Discord desde el navegador.
+:::
+
+![](../images/notas_bot/13_discord.jpeg){fig-align="center" width="350"}
+
+### Desde Discord de escritorio o navegador
+
+1.  Entra al servidor y selecciona el canal donde quieres recibir mensajes, por ejemplo `#pruebas`.
+
+2.  Coloca el cursor sobre el canal y selecciona el ícono de engrane para abrir la configuración del canal.
+
+![](../images/notas_bot/08_discord.png){fig-align="center" width="650"}
+
+3.  En la configuración del canal, entra a **Integraciones**.
+
+![](../images/notas_bot/09_discord.png){fig-align="center" width="650"}
+
+4.  En **Integraciones**, selecciona **Crear Webhook**.
+
+![](../images/notas_bot/10_discord.png){fig-align="center" width="650"}
+
+5.  Discord creará un webhook. Puedes cambiarle el nombre, seleccionar el canal y copiar la URL.
+
+![](../images/notas_bot/11_discord.png){fig-align="center" width="650"}
+
+6.  Puedes crear más webhooks. En este ejemplo se creó un webhook llamado `beagle`.
+
+![](../images/notas_bot/12_discord.png){fig-align="center" width="650"}
+
+::: callout-important
+## No compartas la URL del webhook
+
+La URL del webhook funciona como una contraseña. Cualquier persona con esa URL puede enviar mensajes al canal.
+
+No la compartas, no la pegues en documentos públicos y no la subas a GitHub.
+:::
+
+## Guardar los webhooks en un archivo `.env`
+
+Crea un archivo `.env` para guardar las URLs de los webhooks.
+
+``` bash
+nano .env
+```
+
+Ejemplo:
+
+``` bash
+DISCORD_WEBHOOK_PRUEBAS="https://discord.com/api/webhooks/XXXX/YYYY"
+DISCORD_WEBHOOK_BEAST="https://discord.com/api/webhooks/XXXX/YYYY"
+DISCORD_WEBHOOK_SLURM_CPU="https://discord.com/api/webhooks/XXXX/YYYY"
+DISCORD_WEBHOOK_SLURM_GPU="https://discord.com/api/webhooks/XXXX/YYYY"
+DISCORD_WEBHOOK_ERRORES="https://discord.com/api/webhooks/XXXX/YYYY"
+```
+
+Dale permisos restringidos al archivo:
+
+``` bash
+chmod 600 .env
+```
+
+Si el archivo `.env` está dentro de un proyecto con Git, agrégalo al archivo `.gitignore`:
+
+``` bash
+nano .gitignore
+```
+
+Y agrega:
+
+``` text
+.env
+```
+
+## Probar un webhook con `curl`
+
+Primero carga las variables del archivo `.env`:
+
+``` bash
+source .env
+```
+
+Después envía un mensaje de prueba:
+
+``` bash
+curl -s -H "Content-Type: application/json" \
+  -X POST \
+  -d '{"content":"Hola 👋 mensaje enviado desde Bash"}' \
+  "$DISCORD_WEBHOOK_PRUEBAS"
+```
+
+Si todo está bien configurado, el mensaje aparecerá en el canal de Discord asociado a ese webhook.
+
+## Función reusable `discord_send`
+
+Para reutilizar el envío de mensajes en varios scripts, puedes definir una función de Bash:
+
+``` bash
+discord_send () {
+  local webhook="$1"
+  local msg="$2"
+
+  payload=$(python3 -c 'import json,sys; print(json.dumps({"content": sys.argv[1]}, ensure_ascii=False))' "$msg")
+
+  curl -s -H "Content-Type: application/json" \
+    -X POST \
+    -d "$payload" \
+    "$webhook" > /dev/null
+}
+```
+
+Uso:
+
+``` bash
+source .env
+
+discord_send "$DISCORD_WEBHOOK_PRUEBAS" "✅ Mensaje enviado desde Bash"
+```
+
+## Usar Discord en un script de Slurm
+
+El siguiente ejemplo envía un mensaje cuando el trabajo inicia y otro cuando termina. Si el trabajo falla, manda el aviso al canal de errores.
+
+``` bash
+#!/bin/bash
+#SBATCH --job-name=prueba_discord
+#SBATCH --partition=ib
+#SBATCH --cpus-per-task=4
+#SBATCH --mem=8G
+#SBATCH --time=01:00:00
+#SBATCH --output=logs/%x_%j.out
+#SBATCH --error=logs/%x_%j.err
+
+mkdir -p logs
+
+# Cargar variables con las URLs de los webhooks
+source /ruta/a/tu/.env
+
+# Función para enviar mensajes a Discord
+discord_send () {
+  local webhook="$1"
+  local msg="$2"
+
+  payload=$(python3 -c 'import json,sys; print(json.dumps({"content": sys.argv[1]}, ensure_ascii=False))' "$msg")
+
+  curl -s -H "Content-Type: application/json" \
+    -X POST \
+    -d "$payload" \
+    "$webhook" > /dev/null
+}
+
+# Aviso automático al terminar el script
+on_exit () {
+  status=$?
+
+  if [ "$status" -eq 0 ]; then
+    discord_send "$DISCORD_WEBHOOK_PRUEBAS" "✅ Terminó correctamente el trabajo ${SLURM_JOB_NAME} con ID ${SLURM_JOB_ID}"
+  else
+    discord_send "${DISCORD_WEBHOOK_ERRORES:-$DISCORD_WEBHOOK_PRUEBAS}" "❌ El trabajo ${SLURM_JOB_NAME} con ID ${SLURM_JOB_ID} terminó con error. Revisa logs/${SLURM_JOB_NAME}_${SLURM_JOB_ID}.err"
+  fi
+}
+
+trap on_exit EXIT
+
+# Aviso al iniciar
+discord_send "$DISCORD_WEBHOOK_PRUEBAS" "🚀 Inició el trabajo ${SLURM_JOB_NAME} con ID ${SLURM_JOB_ID} en ${SLURMD_NODENAME:-nodo-desconocido}"
+
+# A partir de aquí, si algo falla, Slurm terminará el script
+set -euo pipefail
+
+echo "Corriendo análisis..."
+sleep 30
+
+echo "Análisis terminado."
+```
+
+Envía el trabajo con:
+
+``` bash
+sbatch script_discord.slurm
+```
+
+## Ejemplo para un trabajo de BEAST
+
+Si tienes un canal específico para BEAST, puedes enviar los mensajes a ese canal:
+
+``` bash
+discord_send "$DISCORD_WEBHOOK_BEAST" "🧬 Inició análisis de BEAST: ${SLURM_JOB_NAME} ID ${SLURM_JOB_ID}"
+```
+
+Y en caso de error, usar el canal de errores:
+
+``` bash
+discord_send "$DISCORD_WEBHOOK_ERRORES" "⚠️ Falló el análisis de BEAST: ${SLURM_JOB_NAME} ID ${SLURM_JOB_ID}"
+```
+
+## Ejemplo para trabajos con GPU
+
+Para trabajos que usen GPU, puedes usar un webhook específico:
+
+``` bash
+discord_send "$DISCORD_WEBHOOK_SLURM_GPU" "🚀 Inició trabajo GPU ${SLURM_JOB_NAME} con ID ${SLURM_JOB_ID}"
+```
+
+Al finalizar:
+
+``` bash
+discord_send "$DISCORD_WEBHOOK_SLURM_GPU" "✅ Terminó trabajo GPU ${SLURM_JOB_NAME} con ID ${SLURM_JOB_ID}"
+```
+
+## ¿Qué hacer si se filtró una URL de webhook?
+
+Si accidentalmente compartiste una URL de webhook o la subiste a GitHub:
+
+1.  Entra a Discord.
+2.  Abre la configuración del canal.
+3.  Ve a **Integraciones**.
+4.  Entra a **Webhooks**.
+5.  Elimina el webhook comprometido.
+6.  Crea un webhook nuevo.
+7.  Actualiza tu archivo `.env`.
+
+::: callout-warning
+## Importante
+
+No basta con borrar la URL del repositorio si ya fue publicada. Lo más seguro es eliminar ese webhook y crear uno nuevo.
+:::
