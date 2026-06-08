@@ -1,0 +1,189 @@
+# Mensajes a Telegram
+
+## En Telegram:
+
+1.  Busca **\@BotFather y ABRIR**
+
+![](../images/notas_bot/pic1.JPG){fig-align="center" width="350"}
+
+2.  Crear un nuevo Bot
+
+![](../images/notas_bot/pic2.JPG){fig-align="center" width="350"}
+
+3.  Ponle un **nombre al Bot** y elige un **nombre de usuario** que termine en `bot`, el `usarname` tiene que estar disponible
+
+![](../images/notas_bot/pic3.JPG){fig-align="center" width="350"}
+
+4.  BotFather te dará un **TOKEN**
+
+![](../images/notas_bot/pic4.JPG){fig-align="center" width="350"}
+
+✅ Ese token es tu “contraseña” del bot, **No lo compartas**!!!
+
+5.  Abre el chat con tu bot (búscalo por `username`).
+
+![](../images/notas_bot/pic5.jpg){fig-align="center" width="350"}
+
+6.  Presiona **Iniciar**
+
+![](../images/notas_bot/pic6.jpg){fig-align="center" width="350"}
+
+## Conseguir tu `chat_id` (para mandarte mensajes)
+
+``` bash
+TOKEN="TU_TOKEN_AQUI"
+curl -s "https://api.telegram.org/bot${TOKEN}/getUpdates" 
+```
+
+Busca en la salida algo así:
+
+``` bash
+"chat":{"id":123456789,"first_name":"Pedro", ...}
+```
+
+📌 **"id":123456789** ese número es tu `CHAT_ID`.
+
+### Enviar un mensaje con `curl` (lo esencial)
+
+``` bash
+TOKEN="TU_TOKEN_AQUI"
+CHAT_ID="TU_CHAT_ID_AQUI"
+
+curl -s -X POST "https://api.telegram.org/bot${TOKEN}/sendMessage" \
+  -d "chat_id=${CHAT_ID}" \
+  -d "text=Hola 👋 Mensaje enviado desde Bash"
+```
+
+## Buenas prácticas: NO hardcodear el token (y no subirlo a git)
+
+### Archivo `.env` (recomendado)
+
+Crea un archivo `.env` **fuera de tu repo** o ignóralo con `.gitignore`:
+
+``` bash
+nano .env
+```
+
+Pegar la info en el archivo `.env`
+
+``` bash
+TOKEN="TU_TOKEN_AQUI"
+CHAT_ID="TU_CHAT_ID_AQUI"
+```
+
+En tu script agrega estas lineas
+
+``` bash
+source .env
+```
+
+SI esta en tu proyecto `git` agrega el archivo a tu `.gitignore`:
+
+``` bash
+nano .gitignore
+```
+
+Y agrega el archivo
+
+``` bash
+.env
+```
+
+Además agregar seguridad al archivo
+
+``` bash
+chmod 600 .env
+```
+
+## Función reusable `tg_send` (para cualquier script)
+
+``` bash
+tg_send () {
+  local msg="$1"
+  curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
+    -d "chat_id=${TELEGRAM_CHAT_ID}" \
+    -d "text=${msg}" \
+    -d "disable_web_page_preview=true" > /dev/null
+}
+```
+
+Uso:
+
+``` bash
+tg_send "✅ Pipeline terminó correctamente."
+```
+
+## Usar Telegram en un script de Slurm
+
+Una forma útil de usar Telegram es enviar una notificación cuando un trabajo inicia y otra cuando termina. Esto permite saber si el análisis ya comenzó, si finalizó correctamente o si terminó con error.
+
+Ejemplo básico de script de Slurm:
+
+``` bash
+#!/bin/bash
+#SBATCH --job-name=prueba_telegram
+#SBATCH --partition=ib
+#SBATCH --cpus-per-task=4
+#SBATCH --mem=8G
+#SBATCH --time=01:00:00
+#SBATCH --output=logs/%x_%j.out
+#SBATCH --error=logs/%x_%j.err
+
+# Cargar variables de Telegram
+source /ruta/a/tu/.env
+
+# Función para enviar mensajes a Telegram
+tg_send () {
+  local msg="$1"
+  curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
+    -d "chat_id=${TELEGRAM_CHAT_ID}" \
+    -d "text=${msg}" \
+    -d "disable_web_page_preview=true" > /dev/null
+}
+
+# Mensaje al iniciar
+tg_send "🚀 Inició el trabajo ${SLURM_JOB_NAME} con ID ${SLURM_JOB_ID} en el nodo ${SLURMD_NODENAME}"
+
+# Aquí va tu análisis
+echo "Corriendo análisis..."
+sleep 30
+
+# Guardar el estado del último comando
+status=$?
+
+# Mensaje al terminar
+if [ $status -eq 0 ]; then
+  tg_send "✅ Terminó correctamente el trabajo ${SLURM_JOB_NAME} con ID ${SLURM_JOB_ID}"
+else
+  tg_send "❌ El trabajo ${SLURM_JOB_NAME} con ID ${SLURM_JOB_ID} terminó con error"
+fi
+```
+
+Para enviar el trabajo a Slurm:
+
+``` bash
+sbatch script_telegram.slurm
+```
+
+En este ejemplo, Telegram enviará un mensaje cuando el trabajo comience y otro cuando termine.
+
+## Archivo `.env` para Slurm
+
+Para que el script anterior funcione, el archivo `.env` debe tener los mismos nombres de variables que usa la función `tg_send`:
+
+``` bash
+TELEGRAM_BOT_TOKEN="TU_TOKEN_AQUI"
+TELEGRAM_CHAT_ID="TU_CHAT_ID_AQUI"
+```
+
+Se recomienda guardar este archivo fuera del repositorio del proyecto y darle permisos restringidos:
+
+```         
+chmod 600 /ruta/a/tu/.env
+```
+
+Si el archivo `.env` está dentro del proyecto, debe agregarse al `.gitignore`:
+
+``` bash
+.env
+```

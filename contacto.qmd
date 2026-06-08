@@ -15,12 +15,12 @@ Instituto de Biología, UNAM
 
 Para poder atender mejor tu duda, incluye la siguiente información en tu mensaje:
 
--   Nombre completo.
--   Adscripción, laboratorio o grupo de trabajo.
--   Nombre de usuario en BEAGLE, si ya cuentas con uno.
--   Descripción breve del problema.
--   Comando que ejecutaste.
--   Mensaje de error completo, si aplica.
+- Nombre completo.
+- Adscripción, laboratorio o grupo de trabajo.
+- Nombre de usuario en BEAGLE, si ya cuentas con uno.
+- Descripción breve del problema.
+- Comando que ejecutaste.
+- Mensaje de error completo, si aplica.
 
 ### Reportar errores o sugerencias del manual
 

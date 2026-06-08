@@ -34,5 +34,29 @@
   },
   "chapters/apptainer.qmd": {
     "apptainer.html": "b8627a96"
+  },
+  "01_acceso.qmd": {
+    "01_acceso.html": "dd3cbdd2"
+  },
+  "chapters/acceso.qmd": {
+    "acceso.html": "f1f8e41c"
+  },
+  "chapters/slurm.qmd": {
+    "slurm.html": "0b636bc2"
+  },
+  "chapters/terminal_linux.qmd": {
+    "terminal_linux.html": "94f33fcb"
+  },
+  "terminal_linux.qmd": {
+    "terminal_linux.html": "f1a3b9cd"
+  },
+  "slurm.qmd": {
+    "slurm.html": "d57de1e5"
+  },
+  "bots.qmd": {
+    "bots.html": "7acb0374"
+  },
+  "chapters/bots.qmd": {
+    "bots.html": "2e966d1f"
   }
 }

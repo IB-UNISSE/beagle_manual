@@ -1,0 +1,267 @@
+# Acceso al servidor
+
+El acceso al servidor se realiza mediante **SSH** (*Secure Shell*), un protocolo seguro que permite conectarse de forma remota a una computadora o servidor mediante una terminal. SSH permite trabajar en el servidor como si estuviéramos frente a él, ejecutando comandos, administrando archivos y enviando trabajos de análisis.
+
+Actualmente, **Windows, macOS y Linux ya incluyen un cliente SSH por defecto**, por lo que normalmente no es necesario instalar programas adicionales para conectarse al servidor.
+
+En este manual usaremos la siguiente estructura general:
+
+``` bash
+ssh <usuario>@<servidor>
+```
+
+Donde:
+
+- `<usuario>` corresponde a tu nombre de usuario en el servidor.
+
+- `<servidor>` corresponde a la dirección IP o dominio del servidor.
+
+Por ejemplo:
+
+``` bash
+ssh usuario@beagle.ib.unam.mx
+```
+
+O, si se usa una dirección IP:
+
+``` bash
+ssh usuario@192.168.1.100
+```
+
+En Windows 10 y Windows 11 se puede usar **PowerShell** o la **Terminal de Windows**.
+
+Para conectarte al servidor, abre PowerShell y escribe:
+
+La primera vez que te conectes, el sistema puede mostrar un mensaje parecido a este:
+
+``` bash
+The authenticity of host 'servidor' can't be established.
+Are you sure you want to continue connecting (yes/no/[fingerprint])?
+```
+
+Escribe:
+
+``` bash
+yes
+```
+
+Después se solicitará la contraseña de tu usuario.
+
+Después ingresa tu contraseña cuando el sistema la solicite.
+
+## Cambio de contraseña al primer ingreso
+
+Al recibir una cuenta nueva en el servidor, el sistema solicitará cambiar la contraseña inicial durante el **primer inicio de sesión**. Este cambio es obligatorio por seguridad.
+
+Después de conectarte por SSH, el sistema pedirá primero la contraseña temporal o inicial que se te proporcionó. Posteriormente, solicitará que escribas una nueva contraseña y que la confirmes escribiéndola una segunda vez.
+
+Es importante considerar que, en la terminal, **cuando escribes una contraseña no aparecen letras, números, asteriscos ni puntos en la pantalla**. Esto puede dar la impresión de que no se está escribiendo nada, pero sí se está registrando la contraseña. Escribe con cuidado y presiona `Enter` al terminar.
+
+Se recomienda que la nueva contraseña tenga al menos:
+
+- 12 caracteres.
+
+- Una letra mayúscula.
+
+- Una letra minúscula.
+
+- Un número.
+
+- Un carácter especial, por ejemplo: `!`, `@`, `#`, `$`, `%`, `*`.
+
+No uses contraseñas fáciles de adivinar, como nombres propios, fechas de nacimiento, nombres de mascotas o combinaciones simples como `123456`, `password` o `qwerty`.
+
+## Creación de una llave SSH
+
+Aunque se puede ingresar con contraseña, se recomienda usar una **llave SSH**. Esto permite conectarse de forma más segura y evita escribir la contraseña cada vez que se entra al servidor.
+
+Una llave SSH consiste en dos archivos:
+
+- Una **llave privada**, que permanece en tu computadora.
+
+- Una **llave pública**, que se copia al servidor.
+
+La llave privada **no debe compartirse nunca**.
+
+Para crear una llave SSH, ejecuta en tu computadora local:
+
+``` bash
+ssh-keygen -t ed25519 -C "mi_llave_beagle"
+```
+
+El sistema preguntará dónde guardar la llave. Puedes presionar `Enter` para aceptar la ubicación por defecto.
+
+Después preguntará si deseas agregar una frase de seguridad (*passphrase*). Es recomendable usar una, aunque también puedes dejarla vacía presionando `Enter`.
+
+La llave se guardará normalmente en:
+
+``` bash
+~/.ssh/id_ed25519
+```
+
+Y la llave pública en:
+
+``` bash
+~/.ssh/id_ed25519.pub
+```
+
+### Copiar la llave SSH al servidor
+
+#### En macOS y Linux
+
+Puedes copiar tu llave pública al servidor con:
+
+``` bash
+ssh-copy-id <usuario>@<servidor>
+```
+
+Ejemplo:
+
+``` bash
+ssh-copy-id usuario@beagle.ib.unam.mx
+```
+
+Después de ingresar tu contraseña una última vez, la llave quedará registrada en el servidor.
+
+Para probar la conexión, usa:
+
+``` bash
+ssh <usuario>@<servidor>
+```
+
+Si todo está configurado correctamente, podrás ingresar sin escribir la contraseña del servidor.
+
+#### En Windows PowerShell
+
+En Windows, si `ssh-copy-id` no está disponible, puedes copiar la llave pública con este comando desde PowerShell:
+
+``` bash
+type $env:USERPROFILE\.ssh\id_ed25519.pub | ssh <usuario>@<servidor> "mkdir -p ~/.ssh && cat >> ~/.ssh/authorized_keys && chmod 700 ~/.ssh && chmod 600 ~/.ssh/authorized_keys"
+```
+
+Ejemplo:
+
+``` bash
+type $env:USERPROFILE\.ssh\id_ed25519.pub | ssh usuario@beagle.ib.unam.mx "mkdir -p ~/.ssh && cat >> ~/.ssh/authorized_keys && chmod 700 ~/.ssh && chmod 600 ~/.ssh/authorized_keys"
+```
+
+Después puedes probar el acceso con:
+
+```         
+ssh usuario@beagle.ib.unam.mx
+```
+
+## Enviar archivos al servidor con `scp`
+
+El comando `scp` permite copiar archivos de forma segura entre tu computadora y el servidor usando SSH.
+
+La estructura general para enviar un archivo desde tu computadora al servidor es:
+
+``` bash
+scp archivo_local <usuario>@<servidor>:/ruta/en/el/servidor/
+```
+
+Ejemplo:
+
+``` bash
+scp datos.fasta usuario@beagle.ib.unam.mx:/home/usuario/
+```
+
+Esto copia el archivo `datos.fasta` desde tu computadora hacia la carpeta `/home/usuario/` en el servidor.
+
+También puedes enviar archivos a una carpeta específica de trabajo:
+
+``` bash
+scp datos.fasta usuario@beagle.ib.unam.mx:/home/usuario/proyecto/datos/
+```
+
+## Descargar archivos del servidor a tu computadora
+
+Para copiar un archivo desde el servidor hacia tu computadora, se invierte el orden:
+
+``` bash
+scp <usuario>@<servidor>:/ruta/en/el/servidor/archivo .
+```
+
+Ejemplo:
+
+``` bash
+scp usuario@beagle.ib.unam.mx:/home/usuario/resultados/arbol_final.tree .
+```
+
+El punto final `.` indica que el archivo se descargará en la carpeta actual de tu computadora.
+
+También puedes indicar una carpeta específica de destino:
+
+``` bash
+scp usuario@beagle.ib.unam.mx:/home/usuario/resultados/arbol_final.tree /Users/mi_usuario/Downloads/
+```
+
+## Copiar carpetas completas
+
+Para copiar una carpeta completa se usa la opción `-r`, que significa recursivo.
+
+Enviar una carpeta al servidor:
+
+``` bash
+scp -r mi_proyecto <usuario>@<servidor>:/home/usuario/
+```
+
+Descargar una carpeta desde el servidor:
+
+``` bash
+scp -r <usuario>@<servidor>:/home/usuario/resultados .
+```
+
+## Uso de `scp` con un puerto diferente
+
+Si el servidor usa un puerto SSH diferente al puerto estándar 22, se debe usar la opción `-P`.
+
+Ejemplo para conectarse usando el puerto `14420`:
+
+``` bash
+scp -P 14420 archivo.txt <usuario>@<servidor>:/home/usuario/
+```
+
+Para descargar desde un servidor con puerto personalizado:
+
+``` bash
+scp -P 14420 <usuario>@<servidor>:/home/usuario/resultados.txt .
+```
+
+## Recomendaciones generales de seguridad
+
+No compartas tu contraseña ni tu llave privada SSH.
+
+No guardes contraseñas en archivos de texto sin protección.
+
+Usa contraseñas largas y diferentes a las de otros servicios.
+
+Cuando termines de trabajar en el servidor, puedes cerrar la sesión con:
+
+``` bash
+exit
+```
+
+También puedes cerrar la conexión presionando:
+
+``` bash
+Ctrl + D
+```
+
+## Clientes SSH y SFTP recomendados
+
+Aunque es posible conectarse al servidor directamente desde la terminal usando `ssh` y `scp`, algunas personas pueden preferir usar programas con interfaz gráfica. Estos clientes facilitan guardar conexiones, transferir archivos mediante ventanas, arrastrar y soltar carpetas, o conectarse desde dispositivos móviles.
+
+El uso de estos programas es opcional. Para la mayoría de los análisis bioinformáticos será necesario aprender a usar la terminal, pero los clientes gráficos pueden ser muy útiles para transferir archivos o administrar carpetas de manera visual.
+
+| Programa | Sistema operativo | Gratuito | SSH terminal | Transferencia SFTP | Recomendado para |
+|------------|------------|------------|------------|------------|------------|
+| Terminal / OpenSSH | Windows, macOS, Linux | Sí | Sí | Sí, mediante `scp` | Uso general del servidor |
+| [PuTTY](https://putty.org/index.html) | Windows | Sí | Sí | No como interfaz gráfica principal | Usuarios de Windows que quieren una terminal SSH sencilla |
+| [FileZilla](https://filezilla-project.org/) | Windows, macOS, Linux | Sí | No | Sí | Transferir archivos de forma gráfica |
+| [WinSCP](https://winscp.net/eng/download.php) | Windows | Sí | No como terminal principal | Sí | Transferir archivos en Windows |
+| [Cyberduck](https://cyberduck.io/) | Windows, macOS | Sí / donativo | No | Sí | Transferir archivos en macOS o Windows |
+| [Termius](https://termius.com/index.html) | Windows, macOS, Linux, iOS, Android | Plan gratuito y planes de pago | Sí | Sí | Conectarse desde computadora, iPad o celular |
+| [MobaXterm](https://mobaxterm.mobatek.net/) | Windows | Versión gratuita y versión de pago | Sí | Sí | Usuarios de Windows que quieren terminal y transferencia en una sola ventana |
+| [Visual Studio Code](https://code.visualstudio.com/) + Remote SSH | Windows, macOS, Linux | Sí | Sí | Manejo de archivos remotos desde el editor | Editar scripts directamente en el servidor |

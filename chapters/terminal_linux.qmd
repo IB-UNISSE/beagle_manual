@@ -1,0 +1,661 @@
+# Comandos básicos de Linux
+
+Esta sección reúne comandos esenciales para trabajar en **BEAGLE** desde la terminal. No pretende ser un curso completo de Linux, sino una guía práctica para moverse entre carpetas, revisar archivos, consultar el uso de disco, monitorear procesos y trabajar de forma más segura dentro del servidor.
+
+Estos comandos son útiles después de ingresar por **SSH** y antes de comenzar a trabajar con ambientes, contenedores de **Apptainer** o trabajos enviados mediante **Slurm**.
+
+::: callout-warning
+## Importante
+
+Evita ejecutar análisis largos directamente en la terminal de acceso si el servidor utiliza **Slurm** para administrar trabajos. Para análisis pesados, usa scripts de trabajo y envíalos mediante `sbatch`.
+
+La terminal debe usarse principalmente para preparar archivos, revisar resultados, organizar carpetas y monitorear tus procesos.
+:::
+
+## Comandos esenciales para moverte
+
+### ¿Dónde estoy?
+
+Para saber en qué carpeta te encuentras actualmente, usa:
+
+``` bash
+pwd
+```
+
+El comando `pwd` significa *print working directory* y muestra la ruta completa de tu ubicación actual.
+
+### Listar archivos y carpetas
+
+Para listar el contenido de la carpeta actual:
+
+``` bash
+ls
+```
+
+Para ver más detalles, como permisos, tamaño y fecha de modificación:
+
+``` bash
+ls -lh
+```
+
+Para mostrar también archivos ocultos:
+
+``` bash
+ls -lah
+```
+
+::: callout-tip
+## Archivos ocultos
+
+En Linux, los archivos o carpetas que comienzan con punto (`.`) son ocultos. Por ejemplo: `.bashrc`, `.ssh/` o `.config/`.
+:::
+
+### Cambiar de carpeta
+
+Para entrar a una carpeta específica:
+
+``` bash
+cd /ruta/a/la/carpeta
+```
+
+Para ir a tu carpeta personal:
+
+``` bash
+cd ~
+```
+
+Para subir un nivel en la estructura de carpetas:
+
+``` bash
+cd ..
+```
+
+Para regresar a la carpeta anterior:
+
+``` bash
+cd -
+```
+
+::: callout-tip
+## Autocompletado
+
+Puedes usar la tecla `Tab` para autocompletar nombres de archivos y carpetas. Esto reduce errores al escribir rutas largas.
+:::
+
+## Crear, copiar, mover y borrar archivos
+
+### Crear carpetas
+
+Para crear una carpeta:
+
+``` bash
+mkdir proyecto
+```
+
+Para crear varias carpetas dentro de un proyecto:
+
+``` bash
+mkdir -p proyecto/{data,scripts,results,logs,metadata}
+```
+
+Este comando crea una estructura básica útil para organizar análisis bioinformáticos:
+
+``` text
+proyecto/
+├── data/
+├── scripts/
+├── results/
+├── logs/
+└── metadata/
+```
+
+### Copiar archivos y carpetas
+
+Para copiar un archivo:
+
+``` bash
+cp archivoA archivoB
+```
+
+Para copiar una carpeta completa:
+
+``` bash
+cp -r carpetaA carpetaB
+```
+
+### Mover o renombrar archivos
+
+Para renombrar un archivo:
+
+``` bash
+mv viejo.txt nuevo.txt
+```
+
+Para mover una carpeta a otra ruta:
+
+``` bash
+mv carpeta /otra/ruta/
+```
+
+### Borrar archivos y carpetas
+
+Para borrar un archivo:
+
+``` bash
+rm archivo.txt
+```
+
+Para borrar una carpeta completa:
+
+``` bash
+rm -r carpeta/
+```
+
+::: callout-danger
+## Cuidado con `rm`
+
+El comando `rm` borra archivos directamente. En la terminal no hay papelera de reciclaje.
+
+Antes de borrar, revisa con:
+
+``` bash
+ls
+```
+
+También puedes revisar el contenido de una carpeta antes de eliminarla:
+
+``` bash
+ls carpeta/
+```
+:::
+
+## Revisar archivos rápidamente
+
+### Ver el contenido completo de un archivo
+
+``` bash
+cat archivo.txt
+```
+
+Este comando es útil para archivos pequeños. Para archivos grandes, es mejor usar `less`, `head` o `tail`.
+
+### Ver las primeras líneas
+
+``` bash
+head archivo.txt
+```
+
+Para mostrar un número específico de líneas:
+
+``` bash
+head -n 20 archivo.txt
+```
+
+### Ver las últimas líneas
+
+``` bash
+tail archivo.txt
+```
+
+Para mostrar un número específico de líneas:
+
+``` bash
+tail -n 20 archivo.txt
+```
+
+### Seguir un archivo en tiempo real
+
+Esto es útil para revisar archivos de salida o archivos `.log` mientras se está ejecutando un proceso:
+
+``` bash
+tail -f archivo.log
+```
+
+Para salir, presiona:
+
+``` text
+Ctrl + c
+```
+
+### Ver archivos largos página por página
+
+``` bash
+less archivo.txt
+```
+
+Dentro de `less`, puedes moverte con las flechas del teclado o con la barra espaciadora.
+
+Para salir de `less`, presiona:
+
+``` text
+q
+```
+
+## Revisar almacenamiento y tamaño de datos
+
+### Espacio libre por partición
+
+Para revisar el espacio disponible en los discos o particiones montadas:
+
+``` bash
+df -h
+```
+
+La opción `-h` muestra los tamaños en formato legible, por ejemplo en `G` o `T`.
+
+### Tamaño de una carpeta
+
+Para revisar el tamaño total de una carpeta:
+
+``` bash
+du -sh carpeta/
+```
+
+Para revisar el tamaño de todo lo que hay en la carpeta actual:
+
+``` bash
+du -sh *
+```
+
+### Encontrar lo que más pesa
+
+``` bash
+du -sh * | sort -h
+```
+
+Este comando calcula el tamaño de los archivos y carpetas, y luego los ordena por tamaño.
+
+::: callout-tip
+## Buen hábito
+
+Revisa tu uso de disco antes de lanzar análisis grandes, especialmente si trabajarás con archivos FASTQ, BAM, VCF, ensamblajes o resultados intermedios grandes.
+:::
+
+## Revisar recursos disponibles: CPU y RAM
+
+### Revisar CPU
+
+Para ver información del procesador, número de núcleos e hilos disponibles:
+
+``` bash
+lscpu
+```
+
+### Revisar memoria RAM
+
+Para revisar la memoria disponible:
+
+``` bash
+free -h
+```
+
+### Ver procesos en tiempo real
+
+``` bash
+top
+```
+
+Para salir de `top`, presiona:
+
+``` text
+q
+```
+
+Si está instalado, `htop` suele ser más cómodo:
+
+``` bash
+htop
+```
+
+::: callout-note
+## Nota
+
+En servidores administrados con Slurm, la disponibilidad real de CPU y memoria para tus análisis depende de los recursos solicitados en el script de trabajo, no solo de lo que aparece con `lscpu` o `free -h`.
+:::
+
+## Monitoreo básico de procesos
+
+Un proceso es un programa que se está ejecutando. Cada proceso tiene un identificador llamado **PID** (*Process ID*).
+
+### Ver procesos de tu usuario
+
+``` bash
+ps -u $USER
+```
+
+Una versión más legible y ordenada por uso de CPU:
+
+``` bash
+ps -u $USER -o pid,ppid,cmd,%cpu,%mem,etime --sort=-%cpu | head -n 20
+```
+
+### Buscar un proceso por nombre
+
+``` bash
+pgrep -a nombre_programa
+```
+
+Por ejemplo:
+
+``` bash
+pgrep -a mafft
+```
+
+### Ver el PID de un proceso específico
+
+``` bash
+pidof nombre_programa
+```
+
+## Detener procesos
+
+::: callout-warning
+## Antes de detener un proceso
+
+Asegúrate de que el proceso sea tuyo y de que realmente quieras detenerlo. No intentes detener procesos de otros usuarios o procesos del sistema.
+:::
+
+### Detener un proceso por PID
+
+Primero intenta un apagado limpio:
+
+``` bash
+kill PID
+```
+
+Por ejemplo:
+
+``` bash
+kill 12345
+```
+
+Si el proceso no se detiene, puedes forzarlo:
+
+``` bash
+kill -9 PID
+```
+
+::: callout-warning
+## `kill -9` como último recurso
+
+Usa `kill` normal primero. El comando `kill -9` fuerza el cierre inmediato del proceso y puede dejar archivos incompletos o resultados corruptos.
+:::
+
+### Detener varios procesos por nombre
+
+Primero verifica qué procesos coinciden con el nombre:
+
+``` bash
+pgrep -a nombre_programa
+```
+
+Después puedes detenerlos con:
+
+``` bash
+pkill nombre_programa
+```
+
+Por ejemplo:
+
+``` bash
+pgrep -a mafft
+pkill mafft
+```
+
+## Sesiones persistentes con `tmux`
+
+Cuando trabajas por SSH, la conexión puede cortarse por fallas de red, suspensión de la computadora o cierre accidental de la terminal. Para evitar perder tu trabajo, es recomendable usar sesiones persistentes con `tmux`.
+
+### Crear una sesión
+
+``` bash
+tmux new -s mi_sesion
+```
+
+### Salir de la sesión sin cerrarla
+
+Presiona:
+
+``` text
+Ctrl + b
+```
+
+Luego suelta las teclas y presiona:
+
+``` text
+d
+```
+
+Esto te desconecta de la sesión, pero la sesión sigue activa en el servidor.
+
+### Volver a entrar a una sesión
+
+``` bash
+tmux attach -t mi_sesion
+```
+
+### Listar sesiones activas
+
+``` bash
+tmux ls
+```
+
+::: callout-tip
+## Recomendación
+
+Usa `tmux` cuando estés revisando archivos, preparando datos o ejecutando tareas cortas. Para análisis largos o pesados, usa Slurm.
+:::
+
+## Permisos y propiedad
+
+### Ver permisos
+
+``` bash
+ls -l
+```
+
+La salida muestra permisos, propietario, grupo, tamaño, fecha y nombre del archivo.
+
+Ejemplo:
+
+``` text
+-rw-r--r-- 1 usuario grupo 1200 Jun  8  archivo.txt
+```
+
+Los permisos se interpretan de la siguiente forma:
+
+``` text
+rw- r-- r--
+│   │   │
+│   │   └── otros usuarios
+│   └────── grupo
+└────────── dueño
+```
+
+Donde:
+
+- `r` significa lectura.
+- `w` significa escritura.
+- `x` significa ejecución.
+
+### Dar permiso de ejecución a un script
+
+``` bash
+chmod +x script.sh
+```
+
+Esto permite ejecutar el script así:
+
+``` bash
+./script.sh
+```
+
+### Permisos comunes
+
+Para archivos de texto o datos:
+
+``` bash
+chmod 644 archivo.txt
+```
+
+Para carpetas o scripts ejecutables:
+
+``` bash
+chmod 755 carpeta/
+```
+
+De forma general:
+
+- `644`: lectura para todos, escritura solo para el dueño.
+- `755`: el dueño puede escribir; otros pueden leer y entrar.
+
+## Edición rápida de archivos con `nano`
+
+`nano` es un editor de texto sencillo que funciona dentro de la terminal.
+
+Para abrir o crear un archivo:
+
+``` bash
+nano archivo.txt
+```
+
+Atajos útiles:
+
+| Acción       | Atajo                     |
+|--------------|---------------------------|
+| Guardar      | `Ctrl + O`, luego `Enter` |
+| Salir        | `Ctrl + X`                |
+| Buscar texto | `Ctrl + W`                |
+| Cortar línea | `Ctrl + K`                |
+| Pegar línea  | `Ctrl + U`                |
+
+::: callout-note
+## Nota
+
+También existen otros editores como `vim` o `emacs`, pero `nano` suele ser más sencillo para comenzar.
+:::
+
+## Compresión y empaquetado
+
+### Crear un archivo `.tar.gz`
+
+Para comprimir una carpeta completa:
+
+``` bash
+tar -czvf proyecto.tar.gz proyecto/
+```
+
+Donde:
+
+- `c` crea un archivo.
+- `z` comprime con gzip.
+- `v` muestra el progreso.
+- `f` indica el nombre del archivo de salida.
+
+### Extraer un archivo `.tar.gz`
+
+``` bash
+tar -xzvf proyecto.tar.gz
+```
+
+### Comprimir un archivo con `gzip`
+
+``` bash
+gzip archivo.txt
+```
+
+Esto genera:
+
+``` text
+archivo.txt.gz
+```
+
+### Descomprimir un archivo `.gz`
+
+``` bash
+gunzip archivo.txt.gz
+```
+
+## Compresión paralela con `pigz`
+
+`pigz` funciona de forma similar a `gzip`, pero puede usar varios núcleos para comprimir más rápido.
+
+### Comprimir con `pigz`
+
+``` bash
+pigz archivo_grande.fastq
+```
+
+Esto genera:
+
+``` text
+archivo_grande.fastq.gz
+```
+
+### Descomprimir con `unpigz`
+
+``` bash
+unpigz archivo_grande.fastq.gz
+```
+
+::: callout-tip
+## Archivos FASTQ
+
+En bioinformática es común trabajar con archivos `.fastq.gz` o `.fq.gz`. Generalmente no es necesario descomprimirlos para todos los programas, ya que muchas herramientas pueden leerlos comprimidos.
+:::
+
+## Revisar comandos usados previamente
+
+La terminal guarda un historial de comandos. Para verlo:
+
+``` bash
+history
+```
+
+También puedes usar las flechas del teclado para recuperar comandos anteriores.
+
+Para buscar comandos usados anteriormente, presiona:
+
+``` text
+Ctrl + r
+```
+
+y escribe una parte del comando que quieres encontrar.
+
+## Buenas prácticas generales
+
+- Revisa siempre en qué carpeta estás con `pwd` antes de mover, copiar o borrar archivos.
+- Usa `ls` antes de ejecutar comandos destructivos como `rm`.
+- Organiza tus proyectos en carpetas como `data/`, `scripts/`, `results/`, `logs/` y `metadata/`.
+- Guarda los comandos importantes en scripts dentro de la carpeta `scripts/`.
+- Usa nombres de archivos claros, sin espacios y con fechas o identificadores cuando sea necesario.
+- Revisa el espacio disponible con `df -h` y el tamaño de tus carpetas con `du -sh`.
+- Para análisis largos o pesados, usa Slurm en lugar de ejecutar directamente en la terminal.
+
+## Resumen de comandos
+
+| Tarea | Comando |
+|----|----|
+| Ver ubicación actual | `pwd` |
+| Listar archivos | `ls -lh` |
+| Entrar a una carpeta | `cd carpeta/` |
+| Subir un nivel | `cd ..` |
+| Crear carpeta | `mkdir carpeta` |
+| Crear estructura de proyecto | `mkdir -p proyecto/{data,scripts,results,logs,metadata}` |
+| Copiar archivo | `cp archivoA archivoB` |
+| Copiar carpeta | `cp -r carpetaA carpetaB` |
+| Mover o renombrar | `mv origen destino` |
+| Borrar archivo | `rm archivo.txt` |
+| Revisar espacio libre | `df -h` |
+| Revisar tamaño de carpeta | `du -sh carpeta/` |
+| Ver CPU | `lscpu` |
+| Ver RAM | `free -h` |
+| Ver procesos | `top` o `htop` |
+| Buscar proceso | `pgrep -a nombre` |
+| Detener proceso | `kill PID` |
+| Crear sesión tmux | `tmux new -s mi_sesion` |
+| Reentrar a tmux | `tmux attach -t mi_sesion` |
+| Dar ejecución a script | `chmod +x script.sh` |
+| Editar archivo | `nano archivo.txt` |
+| Crear `.tar.gz` | `tar -czvf archivo.tar.gz carpeta/` |
+| Extraer `.tar.gz` | `tar -xzvf archivo.tar.gz` |

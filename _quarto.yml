@@ -22,15 +22,13 @@ book:
   repo-actions: [edit, issue]
   chapters:
     - index.qmd
-    - chapters/01_acceso.qmd
-    - chapters/02_transferencia.qmd
-    - chapters/03_estructura.qmd
+    - chapters/acceso.qmd
+    - chapters/terminal_linux.qmd
     - chapters/software.qmd
     - chapters/micromamba.qmd
     - chapters/apptainer.qmd
-    - chapters/05_slurm.qmd
-    - chapters/06_buenas_practicas.qmd
-    - chapters/07_solucion_problemas.qmd
+    - chapters/slurm.qmd
+    - chapters/bots.qmd
     - contacto.qmd
 
 format:

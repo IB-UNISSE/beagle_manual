@@ -1,1 +1,1 @@
-{"entries":[],"headings":["conexión-por-ssh","acceso-con-llave-ssh"],"options":{"chapters":true}}
+{"entries":[],"headings":["cambio-de-contraseña-al-primer-ingreso","creación-de-una-llave-ssh","copiar-la-llave-ssh-al-servidor","en-macos-y-linux","en-windows-powershell","enviar-archivos-al-servidor-con-scp","descargar-archivos-del-servidor-a-tu-computadora","copiar-carpetas-completas","uso-de-scp-con-un-puerto-diferente","recomendaciones-generales-de-seguridad","clientes-ssh-y-sftp-recomendados"],"options":{"chapters":true}}
