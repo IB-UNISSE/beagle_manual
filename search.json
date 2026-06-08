@@ -882,71 +882,171 @@
   {
     "objectID": "chapters/bots.html",
     "href": "chapters/bots.html",
-    "title": "Mensajes a Telegram",
+    "title": "Notificaciones automáticas",
     "section": "",
-    "text": "En Telegram:\n✅ Ese token es tu “contraseña” del bot, No lo compartas!!!",
+    "text": "Mensajes a Telegram:\n✅ Ese token es tu “contraseña” del bot, No lo compartas!!!",
     "crumbs": [
-      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Mensajes a Telegram</span>"
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Notificaciones automáticas</span>"
     ]
   },
   {
-    "objectID": "chapters/bots.html#en-telegram",
-    "href": "chapters/bots.html#en-telegram",
-    "title": "Mensajes a Telegram",
+    "objectID": "chapters/bots.html#mensajes-a-telegram",
+    "href": "chapters/bots.html#mensajes-a-telegram",
+    "title": "Notificaciones automáticas",
     "section": "",
     "text": "Busca @BotFather y ABRIR\n\n\n\n\n\n\n\nCrear un nuevo Bot\n\n\n\n\n\n\n\nPonle un nombre al Bot y elige un nombre de usuario que termine en bot, el usarname tiene que estar disponible\n\n\n\n\n\n\n\nBotFather te dará un TOKEN\n\n\n\n\n\n\n\n\nAbre el chat con tu bot (búscalo por username).\n\n\n\n\n\n\n\nPresiona Iniciar",
     "crumbs": [
-      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Mensajes a Telegram</span>"
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Notificaciones automáticas</span>"
     ]
   },
   {
     "objectID": "chapters/bots.html#conseguir-tu-chat_id-para-mandarte-mensajes",
     "href": "chapters/bots.html#conseguir-tu-chat_id-para-mandarte-mensajes",
-    "title": "Mensajes a Telegram",
+    "title": "Notificaciones automáticas",
     "section": "Conseguir tu chat_id (para mandarte mensajes)",
     "text": "Conseguir tu chat_id (para mandarte mensajes)\nTOKEN=\"TU_TOKEN_AQUI\"\ncurl -s \"https://api.telegram.org/bot${TOKEN}/getUpdates\" \nBusca en la salida algo así:\n\"chat\":{\"id\":123456789,\"first_name\":\"Pedro\", ...}\n📌 “id”:123456789 ese número es tu CHAT_ID.\n\nEnviar un mensaje con curl (lo esencial)\nTOKEN=\"TU_TOKEN_AQUI\"\nCHAT_ID=\"TU_CHAT_ID_AQUI\"\n\ncurl -s -X POST \"https://api.telegram.org/bot${TOKEN}/sendMessage\" \\\n  -d \"chat_id=${CHAT_ID}\" \\\n  -d \"text=Hola 👋 Mensaje enviado desde Bash\"",
     "crumbs": [
-      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Mensajes a Telegram</span>"
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Notificaciones automáticas</span>"
     ]
   },
   {
     "objectID": "chapters/bots.html#buenas-prácticas-no-hardcodear-el-token-y-no-subirlo-a-git",
     "href": "chapters/bots.html#buenas-prácticas-no-hardcodear-el-token-y-no-subirlo-a-git",
-    "title": "Mensajes a Telegram",
+    "title": "Notificaciones automáticas",
     "section": "Buenas prácticas: NO hardcodear el token (y no subirlo a git)",
     "text": "Buenas prácticas: NO hardcodear el token (y no subirlo a git)\n\nArchivo .env (recomendado)\nCrea un archivo .env fuera de tu repo o ignóralo con .gitignore:\nnano .env\nPegar la info en el archivo .env\nTOKEN=\"TU_TOKEN_AQUI\"\nCHAT_ID=\"TU_CHAT_ID_AQUI\"\nEn tu script agrega estas lineas\nsource .env\nSI esta en tu proyecto git agrega el archivo a tu .gitignore:\nnano .gitignore\nY agrega el archivo\n.env\nAdemás agregar seguridad al archivo\nchmod 600 .env",
     "crumbs": [
-      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Mensajes a Telegram</span>"
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Notificaciones automáticas</span>"
     ]
   },
   {
     "objectID": "chapters/bots.html#función-reusable-tg_send-para-cualquier-script",
     "href": "chapters/bots.html#función-reusable-tg_send-para-cualquier-script",
-    "title": "Mensajes a Telegram",
+    "title": "Notificaciones automáticas",
     "section": "Función reusable tg_send (para cualquier script)",
     "text": "Función reusable tg_send (para cualquier script)\ntg_send () {\n  local msg=\"$1\"\n  curl -s -X POST \"https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage\" \\\n    -d \"chat_id=${TELEGRAM_CHAT_ID}\" \\\n    -d \"text=${msg}\" \\\n    -d \"disable_web_page_preview=true\" &gt; /dev/null\n}\nUso:\ntg_send \"✅ Pipeline terminó correctamente.\"",
     "crumbs": [
-      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Mensajes a Telegram</span>"
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Notificaciones automáticas</span>"
     ]
   },
   {
     "objectID": "chapters/bots.html#usar-telegram-en-un-script-de-slurm",
     "href": "chapters/bots.html#usar-telegram-en-un-script-de-slurm",
-    "title": "Mensajes a Telegram",
+    "title": "Notificaciones automáticas",
     "section": "Usar Telegram en un script de Slurm",
     "text": "Usar Telegram en un script de Slurm\nUna forma útil de usar Telegram es enviar una notificación cuando un trabajo inicia y otra cuando termina. Esto permite saber si el análisis ya comenzó, si finalizó correctamente o si terminó con error.\nEjemplo básico de script de Slurm:\n#!/bin/bash\n#SBATCH --job-name=prueba_telegram\n#SBATCH --partition=ib\n#SBATCH --cpus-per-task=4\n#SBATCH --mem=8G\n#SBATCH --time=01:00:00\n#SBATCH --output=logs/%x_%j.out\n#SBATCH --error=logs/%x_%j.err\n\n# Cargar variables de Telegram\nsource /ruta/a/tu/.env\n\n# Función para enviar mensajes a Telegram\ntg_send () {\n  local msg=\"$1\"\n  curl -s -X POST \"https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage\" \\\n    -d \"chat_id=${TELEGRAM_CHAT_ID}\" \\\n    -d \"text=${msg}\" \\\n    -d \"disable_web_page_preview=true\" &gt; /dev/null\n}\n\n# Mensaje al iniciar\ntg_send \"🚀 Inició el trabajo ${SLURM_JOB_NAME} con ID ${SLURM_JOB_ID} en el nodo ${SLURMD_NODENAME}\"\n\n# Aquí va tu análisis\necho \"Corriendo análisis...\"\nsleep 30\n\n# Guardar el estado del último comando\nstatus=$?\n\n# Mensaje al terminar\nif [ $status -eq 0 ]; then\n  tg_send \"✅ Terminó correctamente el trabajo ${SLURM_JOB_NAME} con ID ${SLURM_JOB_ID}\"\nelse\n  tg_send \"❌ El trabajo ${SLURM_JOB_NAME} con ID ${SLURM_JOB_ID} terminó con error\"\nfi\nPara enviar el trabajo a Slurm:\nsbatch script_telegram.slurm\nEn este ejemplo, Telegram enviará un mensaje cuando el trabajo comience y otro cuando termine.",
     "crumbs": [
-      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Mensajes a Telegram</span>"
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Notificaciones automáticas</span>"
     ]
   },
   {
     "objectID": "chapters/bots.html#archivo-.env-para-slurm",
     "href": "chapters/bots.html#archivo-.env-para-slurm",
-    "title": "Mensajes a Telegram",
+    "title": "Notificaciones automáticas",
     "section": "Archivo .env para Slurm",
     "text": "Archivo .env para Slurm\nPara que el script anterior funcione, el archivo .env debe tener los mismos nombres de variables que usa la función tg_send:\nTELEGRAM_BOT_TOKEN=\"TU_TOKEN_AQUI\"\nTELEGRAM_CHAT_ID=\"TU_CHAT_ID_AQUI\"\nSe recomienda guardar este archivo fuera del repositorio del proyecto y darle permisos restringidos:\nchmod 600 /ruta/a/tu/.env\nSi el archivo .env está dentro del proyecto, debe agregarse al .gitignore:\n.env",
     "crumbs": [
-      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Mensajes a Telegram</span>"
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Notificaciones automáticas</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/bots.html#mensajes-a-discord",
+    "href": "chapters/bots.html#mensajes-a-discord",
+    "title": "Notificaciones automáticas",
+    "section": "Mensajes a Discord",
+    "text": "Mensajes a Discord\nDiscord puede utilizarse para recibir notificaciones automáticas desde scripts de Bash o trabajos enviados con Slurm. Para este tipo de uso no es necesario crear un bot completo: lo más práctico es usar webhooks.\nUn webhook es una URL especial asociada a un canal de Discord. Cuando un script envía un mensaje a esa URL, el mensaje aparece automáticamente en ese canal.\n\n\n\n\n\n\nTipRecomendación para BEAGLE\n\n\n\nUsa un webhook por canal.\nPor ejemplo:\n\n\n\n\n\n\n\nCanal de Discord\nUso sugerido\n\n\n\n\n#pruebas\nProbar mensajes antes de usarlos en análisis reales\n\n\n#beast\nNotificaciones de análisis de BEAST/BEAST2\n\n\n#slurm-cpu\nTrabajos generales enviados a Slurm\n\n\n#slurm-gpu\nTrabajos enviados a nodos con GPU\n\n\n#errores\nMensajes cuando un trabajo falla\n\n\n\n\n\nEn Discord, crea un servidor nuevo para organizar los canales de notificación.\n\nSelecciona Crear mi propio modelo.\n\n\n\n\n\n\n\nDiscord puede preguntar si el servidor será para una comunidad o para amigos. Para un grupo de trabajo, curso o laboratorio, puedes elegir Para un club o una comunidad. También puedes omitir esta pregunta.\n\n\n\n\n\n\n\nAsigna un nombre al servidor. En este ejemplo se usa UniSSE.\n\n\n\n\n\n\n\nDiscord puede mostrar una pantalla para invitar personas. Puedes copiar el enlace, compartirlo o cerrar esta pantalla y continuar configurando el servidor.\n\n\n\n\n\n\n\nUna vez creado el servidor, verás los canales disponibles. En este ejemplo se crearon canales como #pruebas y #beast.",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Notificaciones automáticas</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/bots.html#crear-canales",
+    "href": "chapters/bots.html#crear-canales",
+    "title": "Notificaciones automáticas",
+    "section": "Crear canales",
+    "text": "Crear canales\nPara crear canales desde la aplicación móvil:\n\nAbre el menú del servidor.\nSelecciona Más opciones.\n\n\n\n\n\n\n\nSelecciona Crear un canal.\n\n\n\n\n\n\nPuedes crear canales separados para diferentes tipos de análisis:\n#pruebas\n#beast\n#slurm-cpu\n#slurm-gpu\n#errores\n\n\n\n\n\n\nNote¿Por qué varios canales?\n\n\n\nSeparar los mensajes ayuda a evitar ruido. Por ejemplo, los trabajos de prueba pueden llegar a #pruebas, los análisis con GPU a #slurm-gpu y los errores a #errores.",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Notificaciones automáticas</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/bots.html#crear-un-webhook-para-un-canal",
+    "href": "chapters/bots.html#crear-un-webhook-para-un-canal",
+    "title": "Notificaciones automáticas",
+    "section": "Crear un webhook para un canal",
+    "text": "Crear un webhook para un canal\nPara que Slurm pueda escribir en Discord, se debe crear un webhook en el canal donde quieres recibir los mensajes.\n\n\n\n\n\n\nWarningLos webhooks no se crean desde la app móvil\n\n\n\nEn la app móvil de Discord puede aparecer el apartado de Webhooks, pero Discord indica que, por ahora, los webhooks solo se pueden crear desde la aplicación de escritorio o desde Discord en la web.\nPor eso, para crear y copiar la URL del webhook, usa una computadora o entra a Discord desde el navegador.\n\n\n\n\n\n\n\n\nDesde Discord de escritorio o navegador\n\nEntra al servidor y selecciona el canal donde quieres recibir mensajes, por ejemplo #pruebas.\nColoca el cursor sobre el canal y selecciona el ícono de engrane para abrir la configuración del canal.\n\n\n\n\n\n\n\nEn la configuración del canal, entra a Integraciones.\n\n\n\n\n\n\n\nEn Integraciones, selecciona Crear Webhook.\n\n\n\n\n\n\n\nDiscord creará un webhook. Puedes cambiarle el nombre, seleccionar el canal y copiar la URL.\n\n\n\n\n\n\n\nPuedes crear más webhooks. En este ejemplo se creó un webhook llamado beagle.\n\n\n\n\n\n\n\n\n\n\n\n\nImportantNo compartas la URL del webhook\n\n\n\nLa URL del webhook funciona como una contraseña. Cualquier persona con esa URL puede enviar mensajes al canal.\nNo la compartas, no la pegues en documentos públicos y no la subas a GitHub.",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Notificaciones automáticas</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/bots.html#guardar-los-webhooks-en-un-archivo-.env",
+    "href": "chapters/bots.html#guardar-los-webhooks-en-un-archivo-.env",
+    "title": "Notificaciones automáticas",
+    "section": "Guardar los webhooks en un archivo .env",
+    "text": "Guardar los webhooks en un archivo .env\nCrea un archivo .env para guardar las URLs de los webhooks.\nnano .env\nEjemplo:\nDISCORD_WEBHOOK_PRUEBAS=\"https://discord.com/api/webhooks/XXXX/YYYY\"\nDISCORD_WEBHOOK_BEAST=\"https://discord.com/api/webhooks/XXXX/YYYY\"\nDISCORD_WEBHOOK_SLURM_CPU=\"https://discord.com/api/webhooks/XXXX/YYYY\"\nDISCORD_WEBHOOK_SLURM_GPU=\"https://discord.com/api/webhooks/XXXX/YYYY\"\nDISCORD_WEBHOOK_ERRORES=\"https://discord.com/api/webhooks/XXXX/YYYY\"\nDale permisos restringidos al archivo:\nchmod 600 .env\nSi el archivo .env está dentro de un proyecto con Git, agrégalo al archivo .gitignore:\nnano .gitignore\nY agrega:\n.env",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Notificaciones automáticas</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/bots.html#probar-un-webhook-con-curl",
+    "href": "chapters/bots.html#probar-un-webhook-con-curl",
+    "title": "Notificaciones automáticas",
+    "section": "Probar un webhook con curl",
+    "text": "Probar un webhook con curl\nPrimero carga las variables del archivo .env:\nsource .env\nDespués envía un mensaje de prueba:\ncurl -s -H \"Content-Type: application/json\" \\\n  -X POST \\\n  -d '{\"content\":\"Hola 👋 mensaje enviado desde Bash\"}' \\\n  \"$DISCORD_WEBHOOK_PRUEBAS\"\nSi todo está bien configurado, el mensaje aparecerá en el canal de Discord asociado a ese webhook.",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Notificaciones automáticas</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/bots.html#función-reusable-discord_send",
+    "href": "chapters/bots.html#función-reusable-discord_send",
+    "title": "Notificaciones automáticas",
+    "section": "Función reusable discord_send",
+    "text": "Función reusable discord_send\nPara reutilizar el envío de mensajes en varios scripts, puedes definir una función de Bash:\ndiscord_send () {\n  local webhook=\"$1\"\n  local msg=\"$2\"\n\n  payload=$(python3 -c 'import json,sys; print(json.dumps({\"content\": sys.argv[1]}, ensure_ascii=False))' \"$msg\")\n\n  curl -s -H \"Content-Type: application/json\" \\\n    -X POST \\\n    -d \"$payload\" \\\n    \"$webhook\" &gt; /dev/null\n}\nUso:\nsource .env\n\ndiscord_send \"$DISCORD_WEBHOOK_PRUEBAS\" \"✅ Mensaje enviado desde Bash\"",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Notificaciones automáticas</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/bots.html#usar-discord-en-un-script-de-slurm",
+    "href": "chapters/bots.html#usar-discord-en-un-script-de-slurm",
+    "title": "Notificaciones automáticas",
+    "section": "Usar Discord en un script de Slurm",
+    "text": "Usar Discord en un script de Slurm\nEl siguiente ejemplo envía un mensaje cuando el trabajo inicia y otro cuando termina. Si el trabajo falla, manda el aviso al canal de errores.\n#!/bin/bash\n#SBATCH --job-name=prueba_discord\n#SBATCH --partition=ib\n#SBATCH --cpus-per-task=4\n#SBATCH --mem=8G\n#SBATCH --time=01:00:00\n#SBATCH --output=logs/%x_%j.out\n#SBATCH --error=logs/%x_%j.err\n\nmkdir -p logs\n\n# Cargar variables con las URLs de los webhooks\nsource /ruta/a/tu/.env\n\n# Función para enviar mensajes a Discord\ndiscord_send () {\n  local webhook=\"$1\"\n  local msg=\"$2\"\n\n  payload=$(python3 -c 'import json,sys; print(json.dumps({\"content\": sys.argv[1]}, ensure_ascii=False))' \"$msg\")\n\n  curl -s -H \"Content-Type: application/json\" \\\n    -X POST \\\n    -d \"$payload\" \\\n    \"$webhook\" &gt; /dev/null\n}\n\n# Aviso automático al terminar el script\non_exit () {\n  status=$?\n\n  if [ \"$status\" -eq 0 ]; then\n    discord_send \"$DISCORD_WEBHOOK_PRUEBAS\" \"✅ Terminó correctamente el trabajo ${SLURM_JOB_NAME} con ID ${SLURM_JOB_ID}\"\n  else\n    discord_send \"${DISCORD_WEBHOOK_ERRORES:-$DISCORD_WEBHOOK_PRUEBAS}\" \"❌ El trabajo ${SLURM_JOB_NAME} con ID ${SLURM_JOB_ID} terminó con error. Revisa logs/${SLURM_JOB_NAME}_${SLURM_JOB_ID}.err\"\n  fi\n}\n\ntrap on_exit EXIT\n\n# Aviso al iniciar\ndiscord_send \"$DISCORD_WEBHOOK_PRUEBAS\" \"🚀 Inició el trabajo ${SLURM_JOB_NAME} con ID ${SLURM_JOB_ID} en ${SLURMD_NODENAME:-nodo-desconocido}\"\n\n# A partir de aquí, si algo falla, Slurm terminará el script\nset -euo pipefail\n\necho \"Corriendo análisis...\"\nsleep 30\n\necho \"Análisis terminado.\"\nEnvía el trabajo con:\nsbatch script_discord.slurm",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Notificaciones automáticas</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/bots.html#ejemplo-para-un-trabajo-de-beast",
+    "href": "chapters/bots.html#ejemplo-para-un-trabajo-de-beast",
+    "title": "Notificaciones automáticas",
+    "section": "Ejemplo para un trabajo de BEAST",
+    "text": "Ejemplo para un trabajo de BEAST\nSi tienes un canal específico para BEAST, puedes enviar los mensajes a ese canal:\ndiscord_send \"$DISCORD_WEBHOOK_BEAST\" \"🧬 Inició análisis de BEAST: ${SLURM_JOB_NAME} ID ${SLURM_JOB_ID}\"\nY en caso de error, usar el canal de errores:\ndiscord_send \"$DISCORD_WEBHOOK_ERRORES\" \"⚠️ Falló el análisis de BEAST: ${SLURM_JOB_NAME} ID ${SLURM_JOB_ID}\"",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Notificaciones automáticas</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/bots.html#ejemplo-para-trabajos-con-gpu",
+    "href": "chapters/bots.html#ejemplo-para-trabajos-con-gpu",
+    "title": "Notificaciones automáticas",
+    "section": "Ejemplo para trabajos con GPU",
+    "text": "Ejemplo para trabajos con GPU\nPara trabajos que usen GPU, puedes usar un webhook específico:\ndiscord_send \"$DISCORD_WEBHOOK_SLURM_GPU\" \"🚀 Inició trabajo GPU ${SLURM_JOB_NAME} con ID ${SLURM_JOB_ID}\"\nAl finalizar:\ndiscord_send \"$DISCORD_WEBHOOK_SLURM_GPU\" \"✅ Terminó trabajo GPU ${SLURM_JOB_NAME} con ID ${SLURM_JOB_ID}\"",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Notificaciones automáticas</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/bots.html#qué-hacer-si-se-filtró-una-url-de-webhook",
+    "href": "chapters/bots.html#qué-hacer-si-se-filtró-una-url-de-webhook",
+    "title": "Notificaciones automáticas",
+    "section": "¿Qué hacer si se filtró una URL de webhook?",
+    "text": "¿Qué hacer si se filtró una URL de webhook?\nSi accidentalmente compartiste una URL de webhook o la subiste a GitHub:\n\nEntra a Discord.\nAbre la configuración del canal.\nVe a Integraciones.\nEntra a Webhooks.\nElimina el webhook comprometido.\nCrea un webhook nuevo.\nActualiza tu archivo .env.\n\n\n\n\n\n\n\nWarningImportante\n\n\n\nNo basta con borrar la URL del repositorio si ya fue publicada. Lo más seguro es eliminar ese webhook y crear uno nuevo.",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Notificaciones automáticas</span>"
     ]
   },
   {
