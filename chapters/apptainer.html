@@ -67,7 +67,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../chapters/05_slurm.html" rel="next">
+<link href="../chapters/slurm.html" rel="next">
 <link href="../chapters/micromamba.html" rel="prev">
 <link href="../images/logo_beagle_2.png" rel="icon" type="image/png">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
@@ -168,17 +168,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/01_acceso.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Acceso al servidor</span></a>
+  <a href="../chapters/acceso.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Acceso al servidor</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/02_transferencia.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Subir y bajar archivos</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/03_estructura.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Estructura recomendada de proyecto</span></a>
+  <a href="../chapters/terminal_linux.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Comandos básicos de Linux</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -198,17 +193,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/05_slurm.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Envío de trabajos con Slurm</span></a>
+  <a href="../chapters/slurm.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Uso básico de Slurm</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/06_buenas_practicas.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Buenas prácticas</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/07_solucion_problemas.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Solución de problemas frecuentes</span></a>
+  <a href="../chapters/bots.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Mensajes a Telegram</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -226,16 +216,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#en-qué-sistemas-funciona-apptainer" id="toc-en-qué-sistemas-funciona-apptainer" class="nav-link active" data-scroll-target="#en-qué-sistemas-funciona-apptainer">¿En qué sistemas funciona Apptainer?</a></li>
-  <li><a href="#de-dónde-vienen-las-imágenes" id="toc-de-dónde-vienen-las-imágenes" class="nav-link" data-scroll-target="#de-dónde-vienen-las-imágenes">¿De dónde vienen las imágenes?</a>
+  <li><a href="#apptainer" id="toc-apptainer" class="nav-link active" data-scroll-target="#apptainer">Apptainer</a>
   <ul class="collapse">
-  <li><a href="#docker-hub" id="toc-docker-hub" class="nav-link" data-scroll-target="#docker-hub">📦 Docker Hub</a></li>
-  <li><a href="#qué-son-los-biocontainers" id="toc-qué-son-los-biocontainers" class="nav-link" data-scroll-target="#qué-son-los-biocontainers">🧬 ¿Qué son los BioContainers?</a></li>
+  <li><a href="#en-qué-sistemas-funciona-apptainer" id="toc-en-qué-sistemas-funciona-apptainer" class="nav-link" data-scroll-target="#en-qué-sistemas-funciona-apptainer">¿En qué sistemas funciona Apptainer?</a></li>
+  <li><a href="#de-dónde-vienen-las-imágenes" id="toc-de-dónde-vienen-las-imágenes" class="nav-link" data-scroll-target="#de-dónde-vienen-las-imágenes">¿De dónde vienen las imágenes?</a></li>
   </ul></li>
-  <li><a href="#descargar-imágenes" id="toc-descargar-imágenes" class="nav-link" data-scroll-target="#descargar-imágenes">📥 Descargar imágenes</a>
-  <ul class="collapse">
-  <li><a href="#versiones-específicas" id="toc-versiones-específicas" class="nav-link" data-scroll-target="#versiones-específicas">📦 Versiones específicas</a></li>
-  </ul></li>
+  <li><a href="#descargar-imágenes" id="toc-descargar-imágenes" class="nav-link" data-scroll-target="#descargar-imágenes">📥 Descargar imágenes</a></li>
   <li><a href="#uso-básico-de-contenedores" id="toc-uso-básico-de-contenedores" class="nav-link" data-scroll-target="#uso-básico-de-contenedores">Uso básico de contenedores</a>
   <ul class="collapse">
   <li><a href="#entrar-a-un-contenedor-modo-interactivo" id="toc-entrar-a-un-contenedor-modo-interactivo" class="nav-link" data-scroll-target="#entrar-a-un-contenedor-modo-interactivo">Entrar a un contenedor (modo interactivo)</a></li>
@@ -316,19 +302,73 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p><strong>Apptainer</strong> es una herramienta para ejecutar contenedores en ambientes de cómputo científico y clústeres HPC. En BEAGLE, Apptainer permite usar software bioinformático, filogenómico o científico sin instalarlo directamente en el sistema operativo del clúster y sin requerir permisos de administrador (<code>sudo</code>).</p>
-<p>Un contenedor puede entenderse como un archivo que incluye un programa junto con muchas de sus dependencias. Esto permite ejecutar software de forma más controlada y reproducible, evitando conflictos con otros programas instalados en el sistema o con los ambientes de otros usuarios.</p>
-<p>En BEAGLE, Apptainer es especialmente útil cuando:</p>
+<section id="qué-es-un-contenedor" class="level4">
+<h4 class="anchored" data-anchor-id="qué-es-un-contenedor">¿Qué es un contenedor?</h4>
+<p>Un contenedor es un entorno aislado que incluye:</p>
 <ul>
-<li><p>el programa tiene muchas dependencias;</p></li>
-<li><p>se necesita una versión específica de un software;</p></li>
-<li><p>el software ya existe como imagen de contenedor;</p></li>
-<li><p>se desea compartir un flujo de trabajo con otros usuarios;</p></li>
-<li><p>se busca mayor reproducibilidad;</p></li>
-<li><p>se ejecutarán análisis mediante Slurm.</p></li>
+<li><p>Sistema operativo base</p></li>
+<li><p>Librerías</p></li>
+<li><p>Dependencias</p></li>
+<li><p>Software específico</p></li>
 </ul>
-<section id="en-qué-sistemas-funciona-apptainer" class="level2">
-<h2 class="anchored" data-anchor-id="en-qué-sistemas-funciona-apptainer">¿En qué sistemas funciona Apptainer?</h2>
+</section>
+<section id="docker-vs-podman-vs-apptainer" class="level4">
+<h4 class="anchored" data-anchor-id="docker-vs-podman-vs-apptainer">Docker vs Podman vs Apptainer</h4>
+<p>Actualmente hay decenas de proyectos involucrados en el desarrollo, adopción y uso de contenedores: <a href="https://landscape.cncf.io" class="uri">https://landscape.cncf.io</a></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 26%">
+<col style="width: 17%">
+<col style="width: 33%">
+<col style="width: 22%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Característica</th>
+<th>Docker</th>
+<th>Podman</th>
+<th>Apptainer</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Uso principal</td>
+<td>Desarrollo</td>
+<td>Desarrollo sin daemon</td>
+<td>HPC / ciencia</td>
+</tr>
+<tr class="even">
+<td>Requiere root</td>
+<td>Sí</td>
+<td>No siempre</td>
+<td>No</td>
+</tr>
+<tr class="odd">
+<td>Seguridad en HPC</td>
+<td>Baja</td>
+<td>Media</td>
+<td>Alta</td>
+</tr>
+<tr class="even">
+<td>Integración HPC</td>
+<td>❌</td>
+<td>⚠️</td>
+<td>✅</td>
+</tr>
+<tr class="odd">
+<td>Formato imagen</td>
+<td>layered</td>
+<td>layered</td>
+<td><code>.sif</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="apptainer" class="level2">
+<h2 class="anchored" data-anchor-id="apptainer"><a href="https://apptainer.org/">Apptainer</a></h2>
+<p><strong>Apptainer</strong> es una plataforma de contenedores de código abierto enfocada en ciencia y cómputo de alto rendimiento (HPC). Permite ejecutar aplicaciones dentro de entornos aislados que incluyen todas sus dependencias, facilitando la reproducibilidad y evitando conflictos de software, sin requerir privilegios de administrador.</p>
+<section id="en-qué-sistemas-funciona-apptainer" class="level3">
+<h3 class="anchored" data-anchor-id="en-qué-sistemas-funciona-apptainer">¿En qué sistemas funciona Apptainer?</h3>
 <p><strong>Apptainer está diseñado para funcionar de manera nativa en sistemas Linux.</strong></p>
 <p>Esto se debe a que utiliza características propias del kernel de Linux, como:</p>
 <ul>
@@ -338,13 +378,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 <p>👉 Estas tecnologías permiten crear contenedores de forma eficiente y segura.</p>
 </section>
-<section id="de-dónde-vienen-las-imágenes" class="level2">
-<h2 class="anchored" data-anchor-id="de-dónde-vienen-las-imágenes">¿De dónde vienen las imágenes?</h2>
+<section id="de-dónde-vienen-las-imágenes" class="level3">
+<h3 class="anchored" data-anchor-id="de-dónde-vienen-las-imágenes">¿De dónde vienen las imágenes?</h3>
 <p>Las imágenes de contenedores provienen generalmente de repositorios en línea como:</p>
 <p>👉 <a href="https://hub.docker.com/"><u>Docker Hub</u></a><br>
 👉 <a href="https://quay.io/"><u>Quay.io</u></a></p>
-<section id="docker-hub" class="level3">
-<h3 class="anchored" data-anchor-id="docker-hub">📦 Docker Hub</h3>
+<section id="docker-hub" class="level4">
+<h4 class="anchored" data-anchor-id="docker-hub">📦 Docker Hub</h4>
 <p>Docker Hub es una plataforma donde se almacenan miles de imágenes listas para usar:</p>
 <ul>
 <li><p>sistemas operativos</p></li>
@@ -359,8 +399,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 <p>💡 Esto permite elegir exactamente qué entorno queremos usar.</p>
 </section>
-<section id="qué-son-los-biocontainers" class="level3">
-<h3 class="anchored" data-anchor-id="qué-son-los-biocontainers">🧬 ¿Qué son los BioContainers?</h3>
+<section id="qué-son-los-biocontainers" class="level4">
+<h4 class="anchored" data-anchor-id="qué-son-los-biocontainers">🧬 ¿Qué son los BioContainers?</h4>
 <p>Existen repositorios especializados llamados <strong>BioContainers</strong>, que contienen imágenes enfocadas en bioinformática.</p>
 <p>👉 Son contenedores que ya incluyen software científico instalado, como:</p>
 <ul>
@@ -376,6 +416,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 </section>
 </section>
+</section>
 <section id="descargar-imágenes" class="level2">
 <h2 class="anchored" data-anchor-id="descargar-imágenes">📥 Descargar imágenes</h2>
 <p>El comando <code>pull</code> permite descargar una imagen y convertirla al formato de Apptainer (<code>.sif</code>), que es el formato estándar para ejecutar contenedores.</p>
@@ -383,8 +424,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>👉 Este comando descarga una imagen de Ubuntu desde Docker Hub y genera un archivo como:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">ubuntu_latest.sif</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Este archivo <code>.sif</code> contiene un sistema base listo para usarse con Apptainer.</p>
-<section id="versiones-específicas" class="level3">
-<h3 class="anchored" data-anchor-id="versiones-específicas">📦 Versiones específicas</h3>
+<section id="versiones-específicas" class="level4">
+<h4 class="anchored" data-anchor-id="versiones-específicas">📦 Versiones específicas</h4>
 <p>También es posible descargar una versión concreta de una imagen usando una etiqueta (<code>:versión</code>). Esto es útil cuando se necesita trabajar con una versión específica del sistema operativo o del software para mantener compatibilidad y reproducibilidad.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">apptainer</span> pull docker://centos:7</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
@@ -1369,8 +1410,8 @@ y estos comandos sincronizan el sistema con esos repositorios</p>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../chapters/05_slurm.html" class="pagination-link" aria-label="Envío de trabajos con Slurm">
-        <span class="nav-page-text"><span class="chapter-title">Envío de trabajos con Slurm</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../chapters/slurm.html" class="pagination-link" aria-label="Uso básico de Slurm">
+        <span class="nav-page-text"><span class="chapter-title">Uso básico de Slurm</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

@@ -1,0 +1,1345 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.38">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Comandos básicos de Linux – Manual de usuario BEAGLE</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../chapters/software.html" rel="next">
+<link href="../chapters/acceso.html" rel="prev">
+<link href="../images/logo_beagle_2.png" rel="icon" type="image/png">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-800c05bdab33725db911233aec3012ab.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<style>html{ scroll-behavior: smooth; }</style>
+<meta name="description" content="Manual de usuario del servidor BEAGLE: acceso por SSH, transferencia de archivos, Apptainer y envío de trabajos con Slurm.">
+<meta name="robots" content="index,follow">
+<meta property="og:title" content="Comandos básicos de Linux – Manual de usuario BEAGLE">
+<meta property="og:description" content="">
+<meta property="og:image" content="images/beagle_logo.png">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+
+
+<link rel="stylesheet" href="../styles/styles.css">
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/terminal_linux.html"><span class="chapter-title">Comandos básicos de Linux</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="../index.html" class="sidebar-logo-link">
+      <img src="../images/beagle_logo_blanco.png" alt="" class="sidebar-logo light-content py-0 d-lg-inline d-none">
+      <img src="../images/beagle_logo_blanco.png" alt="" class="sidebar-logo dark-content py-0 d-lg-inline d-none">
+      </a>
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">BEAGLE</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/IB-UNISSE/beagle_manual" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Manual de usuario BEAGLE</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/acceso.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Acceso al servidor</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/terminal_linux.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Comandos básicos de Linux</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/software.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Software en BEAGLE</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/micromamba.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Micromamba</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/apptainer.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Apptainer</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/slurm.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Uso básico de Slurm</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/bots.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Mensajes a Telegram</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../contacto.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Contacto y soporte</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#comandos-esenciales-para-moverte" id="toc-comandos-esenciales-para-moverte" class="nav-link active" data-scroll-target="#comandos-esenciales-para-moverte">Comandos esenciales para moverte</a>
+  <ul class="collapse">
+  <li><a href="#dónde-estoy" id="toc-dónde-estoy" class="nav-link" data-scroll-target="#dónde-estoy">¿Dónde estoy?</a></li>
+  <li><a href="#listar-archivos-y-carpetas" id="toc-listar-archivos-y-carpetas" class="nav-link" data-scroll-target="#listar-archivos-y-carpetas">Listar archivos y carpetas</a></li>
+  <li><a href="#cambiar-de-carpeta" id="toc-cambiar-de-carpeta" class="nav-link" data-scroll-target="#cambiar-de-carpeta">Cambiar de carpeta</a></li>
+  </ul></li>
+  <li><a href="#crear-copiar-mover-y-borrar-archivos" id="toc-crear-copiar-mover-y-borrar-archivos" class="nav-link" data-scroll-target="#crear-copiar-mover-y-borrar-archivos">Crear, copiar, mover y borrar archivos</a>
+  <ul class="collapse">
+  <li><a href="#crear-carpetas" id="toc-crear-carpetas" class="nav-link" data-scroll-target="#crear-carpetas">Crear carpetas</a></li>
+  <li><a href="#copiar-archivos-y-carpetas" id="toc-copiar-archivos-y-carpetas" class="nav-link" data-scroll-target="#copiar-archivos-y-carpetas">Copiar archivos y carpetas</a></li>
+  <li><a href="#mover-o-renombrar-archivos" id="toc-mover-o-renombrar-archivos" class="nav-link" data-scroll-target="#mover-o-renombrar-archivos">Mover o renombrar archivos</a></li>
+  <li><a href="#borrar-archivos-y-carpetas" id="toc-borrar-archivos-y-carpetas" class="nav-link" data-scroll-target="#borrar-archivos-y-carpetas">Borrar archivos y carpetas</a></li>
+  </ul></li>
+  <li><a href="#cuidado-con-rm" id="toc-cuidado-con-rm" class="nav-link" data-scroll-target="#cuidado-con-rm">Cuidado con <code>rm</code></a></li>
+  <li><a href="#revisar-archivos-rápidamente" id="toc-revisar-archivos-rápidamente" class="nav-link" data-scroll-target="#revisar-archivos-rápidamente">Revisar archivos rápidamente</a>
+  <ul class="collapse">
+  <li><a href="#ver-el-contenido-completo-de-un-archivo" id="toc-ver-el-contenido-completo-de-un-archivo" class="nav-link" data-scroll-target="#ver-el-contenido-completo-de-un-archivo">Ver el contenido completo de un archivo</a></li>
+  <li><a href="#ver-las-primeras-líneas" id="toc-ver-las-primeras-líneas" class="nav-link" data-scroll-target="#ver-las-primeras-líneas">Ver las primeras líneas</a></li>
+  <li><a href="#ver-las-últimas-líneas" id="toc-ver-las-últimas-líneas" class="nav-link" data-scroll-target="#ver-las-últimas-líneas">Ver las últimas líneas</a></li>
+  <li><a href="#seguir-un-archivo-en-tiempo-real" id="toc-seguir-un-archivo-en-tiempo-real" class="nav-link" data-scroll-target="#seguir-un-archivo-en-tiempo-real">Seguir un archivo en tiempo real</a></li>
+  <li><a href="#ver-archivos-largos-página-por-página" id="toc-ver-archivos-largos-página-por-página" class="nav-link" data-scroll-target="#ver-archivos-largos-página-por-página">Ver archivos largos página por página</a></li>
+  </ul></li>
+  <li><a href="#revisar-almacenamiento-y-tamaño-de-datos" id="toc-revisar-almacenamiento-y-tamaño-de-datos" class="nav-link" data-scroll-target="#revisar-almacenamiento-y-tamaño-de-datos">Revisar almacenamiento y tamaño de datos</a>
+  <ul class="collapse">
+  <li><a href="#espacio-libre-por-partición" id="toc-espacio-libre-por-partición" class="nav-link" data-scroll-target="#espacio-libre-por-partición">Espacio libre por partición</a></li>
+  <li><a href="#tamaño-de-una-carpeta" id="toc-tamaño-de-una-carpeta" class="nav-link" data-scroll-target="#tamaño-de-una-carpeta">Tamaño de una carpeta</a></li>
+  <li><a href="#encontrar-lo-que-más-pesa" id="toc-encontrar-lo-que-más-pesa" class="nav-link" data-scroll-target="#encontrar-lo-que-más-pesa">Encontrar lo que más pesa</a></li>
+  </ul></li>
+  <li><a href="#revisar-recursos-disponibles-cpu-y-ram" id="toc-revisar-recursos-disponibles-cpu-y-ram" class="nav-link" data-scroll-target="#revisar-recursos-disponibles-cpu-y-ram">Revisar recursos disponibles: CPU y RAM</a>
+  <ul class="collapse">
+  <li><a href="#revisar-cpu" id="toc-revisar-cpu" class="nav-link" data-scroll-target="#revisar-cpu">Revisar CPU</a></li>
+  <li><a href="#revisar-memoria-ram" id="toc-revisar-memoria-ram" class="nav-link" data-scroll-target="#revisar-memoria-ram">Revisar memoria RAM</a></li>
+  <li><a href="#ver-procesos-en-tiempo-real" id="toc-ver-procesos-en-tiempo-real" class="nav-link" data-scroll-target="#ver-procesos-en-tiempo-real">Ver procesos en tiempo real</a></li>
+  </ul></li>
+  <li><a href="#monitoreo-básico-de-procesos" id="toc-monitoreo-básico-de-procesos" class="nav-link" data-scroll-target="#monitoreo-básico-de-procesos">Monitoreo básico de procesos</a>
+  <ul class="collapse">
+  <li><a href="#ver-procesos-de-tu-usuario" id="toc-ver-procesos-de-tu-usuario" class="nav-link" data-scroll-target="#ver-procesos-de-tu-usuario">Ver procesos de tu usuario</a></li>
+  <li><a href="#buscar-un-proceso-por-nombre" id="toc-buscar-un-proceso-por-nombre" class="nav-link" data-scroll-target="#buscar-un-proceso-por-nombre">Buscar un proceso por nombre</a></li>
+  <li><a href="#ver-el-pid-de-un-proceso-específico" id="toc-ver-el-pid-de-un-proceso-específico" class="nav-link" data-scroll-target="#ver-el-pid-de-un-proceso-específico">Ver el PID de un proceso específico</a></li>
+  </ul></li>
+  <li><a href="#detener-procesos" id="toc-detener-procesos" class="nav-link" data-scroll-target="#detener-procesos">Detener procesos</a>
+  <ul class="collapse">
+  <li><a href="#detener-un-proceso-por-pid" id="toc-detener-un-proceso-por-pid" class="nav-link" data-scroll-target="#detener-un-proceso-por-pid">Detener un proceso por PID</a></li>
+  <li><a href="#detener-varios-procesos-por-nombre" id="toc-detener-varios-procesos-por-nombre" class="nav-link" data-scroll-target="#detener-varios-procesos-por-nombre">Detener varios procesos por nombre</a></li>
+  </ul></li>
+  <li><a href="#sesiones-persistentes-con-tmux" id="toc-sesiones-persistentes-con-tmux" class="nav-link" data-scroll-target="#sesiones-persistentes-con-tmux">Sesiones persistentes con <code>tmux</code></a>
+  <ul class="collapse">
+  <li><a href="#crear-una-sesión" id="toc-crear-una-sesión" class="nav-link" data-scroll-target="#crear-una-sesión">Crear una sesión</a></li>
+  <li><a href="#salir-de-la-sesión-sin-cerrarla" id="toc-salir-de-la-sesión-sin-cerrarla" class="nav-link" data-scroll-target="#salir-de-la-sesión-sin-cerrarla">Salir de la sesión sin cerrarla</a></li>
+  <li><a href="#volver-a-entrar-a-una-sesión" id="toc-volver-a-entrar-a-una-sesión" class="nav-link" data-scroll-target="#volver-a-entrar-a-una-sesión">Volver a entrar a una sesión</a></li>
+  <li><a href="#listar-sesiones-activas" id="toc-listar-sesiones-activas" class="nav-link" data-scroll-target="#listar-sesiones-activas">Listar sesiones activas</a></li>
+  </ul></li>
+  <li><a href="#permisos-y-propiedad" id="toc-permisos-y-propiedad" class="nav-link" data-scroll-target="#permisos-y-propiedad">Permisos y propiedad</a>
+  <ul class="collapse">
+  <li><a href="#ver-permisos" id="toc-ver-permisos" class="nav-link" data-scroll-target="#ver-permisos">Ver permisos</a></li>
+  <li><a href="#dar-permiso-de-ejecución-a-un-script" id="toc-dar-permiso-de-ejecución-a-un-script" class="nav-link" data-scroll-target="#dar-permiso-de-ejecución-a-un-script">Dar permiso de ejecución a un script</a></li>
+  <li><a href="#permisos-comunes" id="toc-permisos-comunes" class="nav-link" data-scroll-target="#permisos-comunes">Permisos comunes</a></li>
+  </ul></li>
+  <li><a href="#edición-rápida-de-archivos-con-nano" id="toc-edición-rápida-de-archivos-con-nano" class="nav-link" data-scroll-target="#edición-rápida-de-archivos-con-nano">Edición rápida de archivos con <code>nano</code></a></li>
+  <li><a href="#compresión-y-empaquetado" id="toc-compresión-y-empaquetado" class="nav-link" data-scroll-target="#compresión-y-empaquetado">Compresión y empaquetado</a>
+  <ul class="collapse">
+  <li><a href="#crear-un-archivo-.tar.gz" id="toc-crear-un-archivo-.tar.gz" class="nav-link" data-scroll-target="#crear-un-archivo-.tar.gz">Crear un archivo <code>.tar.gz</code></a></li>
+  <li><a href="#extraer-un-archivo-.tar.gz" id="toc-extraer-un-archivo-.tar.gz" class="nav-link" data-scroll-target="#extraer-un-archivo-.tar.gz">Extraer un archivo <code>.tar.gz</code></a></li>
+  <li><a href="#comprimir-un-archivo-con-gzip" id="toc-comprimir-un-archivo-con-gzip" class="nav-link" data-scroll-target="#comprimir-un-archivo-con-gzip">Comprimir un archivo con <code>gzip</code></a></li>
+  <li><a href="#descomprimir-un-archivo-.gz" id="toc-descomprimir-un-archivo-.gz" class="nav-link" data-scroll-target="#descomprimir-un-archivo-.gz">Descomprimir un archivo <code>.gz</code></a></li>
+  </ul></li>
+  <li><a href="#compresión-paralela-con-pigz" id="toc-compresión-paralela-con-pigz" class="nav-link" data-scroll-target="#compresión-paralela-con-pigz">Compresión paralela con <code>pigz</code></a>
+  <ul class="collapse">
+  <li><a href="#comprimir-con-pigz" id="toc-comprimir-con-pigz" class="nav-link" data-scroll-target="#comprimir-con-pigz">Comprimir con <code>pigz</code></a></li>
+  <li><a href="#descomprimir-con-unpigz" id="toc-descomprimir-con-unpigz" class="nav-link" data-scroll-target="#descomprimir-con-unpigz">Descomprimir con <code>unpigz</code></a></li>
+  </ul></li>
+  <li><a href="#revisar-comandos-usados-previamente" id="toc-revisar-comandos-usados-previamente" class="nav-link" data-scroll-target="#revisar-comandos-usados-previamente">Revisar comandos usados previamente</a></li>
+  <li><a href="#buenas-prácticas-generales" id="toc-buenas-prácticas-generales" class="nav-link" data-scroll-target="#buenas-prácticas-generales">Buenas prácticas generales</a></li>
+  <li><a href="#resumen-de-comandos" id="toc-resumen-de-comandos" class="nav-link" data-scroll-target="#resumen-de-comandos">Resumen de comandos</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/IB-UNISSE/beagle_manual/edit/main/chapters/terminal_linux.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/IB-UNISSE/beagle_manual/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-title">Comandos básicos de Linux</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>Esta sección reúne comandos esenciales para trabajar en <strong>BEAGLE</strong> desde la terminal. No pretende ser un curso completo de Linux, sino una guía práctica para moverse entre carpetas, revisar archivos, consultar el uso de disco, monitorear procesos y trabajar de forma más segura dentro del servidor.</p>
+<p>Estos comandos son útiles después de ingresar por <strong>SSH</strong> y antes de comenzar a trabajar con ambientes, contenedores de <strong>Apptainer</strong> o trabajos enviados mediante <strong>Slurm</strong>.</p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>Importante
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Evita ejecutar análisis largos directamente en la terminal de acceso si el servidor utiliza <strong>Slurm</strong> para administrar trabajos. Para análisis pesados, usa scripts de trabajo y envíalos mediante <code>sbatch</code>.</p>
+<p>La terminal debe usarse principalmente para preparar archivos, revisar resultados, organizar carpetas y monitorear tus procesos.</p>
+</div>
+</div>
+<section id="comandos-esenciales-para-moverte" class="level2">
+<h2 class="anchored" data-anchor-id="comandos-esenciales-para-moverte">Comandos esenciales para moverte</h2>
+<section id="dónde-estoy" class="level3">
+<h3 class="anchored" data-anchor-id="dónde-estoy">¿Dónde estoy?</h3>
+<p>Para saber en qué carpeta te encuentras actualmente, usa:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="bu">pwd</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>El comando <code>pwd</code> significa <em>print working directory</em> y muestra la ruta completa de tu ubicación actual.</p>
+</section>
+<section id="listar-archivos-y-carpetas" class="level3">
+<h3 class="anchored" data-anchor-id="listar-archivos-y-carpetas">Listar archivos y carpetas</h3>
+<p>Para listar el contenido de la carpeta actual:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Para ver más detalles, como permisos, tamaño y fecha de modificación:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-lh</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Para mostrar también archivos ocultos:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-lah</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Archivos ocultos
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>En Linux, los archivos o carpetas que comienzan con punto (<code>.</code>) son ocultos. Por ejemplo: <code>.bashrc</code>, <code>.ssh/</code> o <code>.config/</code>.</p>
+</div>
+</div>
+</section>
+<section id="cambiar-de-carpeta" class="level3">
+<h3 class="anchored" data-anchor-id="cambiar-de-carpeta">Cambiar de carpeta</h3>
+<p>Para entrar a una carpeta específica:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /ruta/a/la/carpeta</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Para ir a tu carpeta personal:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ~</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Para subir un nivel en la estructura de carpetas:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ..</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Para regresar a la carpeta anterior:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> <span class="at">-</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Autocompletado
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Puedes usar la tecla <code>Tab</code> para autocompletar nombres de archivos y carpetas. Esto reduce errores al escribir rutas largas.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="crear-copiar-mover-y-borrar-archivos" class="level2">
+<h2 class="anchored" data-anchor-id="crear-copiar-mover-y-borrar-archivos">Crear, copiar, mover y borrar archivos</h2>
+<section id="crear-carpetas" class="level3">
+<h3 class="anchored" data-anchor-id="crear-carpetas">Crear carpetas</h3>
+<p>Para crear una carpeta:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> proyecto</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Para crear varias carpetas dentro de un proyecto:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> proyecto/<span class="dt">{data</span><span class="op">,</span><span class="dt">scripts</span><span class="op">,</span><span class="dt">results</span><span class="op">,</span><span class="dt">logs</span><span class="op">,</span><span class="dt">metadata}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Este comando crea una estructura básica útil para organizar análisis bioinformáticos:</p>
+<pre class="text"><code>proyecto/
+├── data/
+├── scripts/
+├── results/
+├── logs/
+└── metadata/</code></pre>
+</section>
+<section id="copiar-archivos-y-carpetas" class="level3">
+<h3 class="anchored" data-anchor-id="copiar-archivos-y-carpetas">Copiar archivos y carpetas</h3>
+<p>Para copiar un archivo:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> archivoA archivoB</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Para copiar una carpeta completa:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> <span class="at">-r</span> carpetaA carpetaB</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="mover-o-renombrar-archivos" class="level3">
+<h3 class="anchored" data-anchor-id="mover-o-renombrar-archivos">Mover o renombrar archivos</h3>
+<p>Para renombrar un archivo:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mv</span> viejo.txt nuevo.txt</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Para mover una carpeta a otra ruta:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mv</span> carpeta /otra/ruta/</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="borrar-archivos-y-carpetas" class="level3">
+<h3 class="anchored" data-anchor-id="borrar-archivos-y-carpetas">Borrar archivos y carpetas</h3>
+<p>Para borrar un archivo:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span> archivo.txt</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Para borrar una carpeta completa:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span> <span class="at">-r</span> carpeta/</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+</section>
+<section id="cuidado-con-rm" class="level2 callout-danger">
+<h2 class="anchored" data-anchor-id="cuidado-con-rm">Cuidado con <code>rm</code></h2>
+<p>El comando <code>rm</code> borra archivos directamente. En la terminal no hay papelera de reciclaje.</p>
+<p>Antes de borrar, revisa con:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>También puedes revisar el contenido de una carpeta antes de eliminarla:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> carpeta/</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="revisar-archivos-rápidamente" class="level2">
+<h2 class="anchored" data-anchor-id="revisar-archivos-rápidamente">Revisar archivos rápidamente</h2>
+<section id="ver-el-contenido-completo-de-un-archivo" class="level3">
+<h3 class="anchored" data-anchor-id="ver-el-contenido-completo-de-un-archivo">Ver el contenido completo de un archivo</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> archivo.txt</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Este comando es útil para archivos pequeños. Para archivos grandes, es mejor usar <code>less</code>, <code>head</code> o <code>tail</code>.</p>
+</section>
+<section id="ver-las-primeras-líneas" class="level3">
+<h3 class="anchored" data-anchor-id="ver-las-primeras-líneas">Ver las primeras líneas</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> archivo.txt</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Para mostrar un número específico de líneas:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> <span class="at">-n</span> 20 archivo.txt</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="ver-las-últimas-líneas" class="level3">
+<h3 class="anchored" data-anchor-id="ver-las-últimas-líneas">Ver las últimas líneas</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb23"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span> archivo.txt</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Para mostrar un número específico de líneas:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb24"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span> <span class="at">-n</span> 20 archivo.txt</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="seguir-un-archivo-en-tiempo-real" class="level3">
+<h3 class="anchored" data-anchor-id="seguir-un-archivo-en-tiempo-real">Seguir un archivo en tiempo real</h3>
+<p>Esto es útil para revisar archivos de salida o archivos <code>.log</code> mientras se está ejecutando un proceso:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb25"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span> <span class="at">-f</span> archivo.log</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Para salir, presiona:</p>
+<pre class="text"><code>Ctrl + c</code></pre>
+</section>
+<section id="ver-archivos-largos-página-por-página" class="level3">
+<h3 class="anchored" data-anchor-id="ver-archivos-largos-página-por-página">Ver archivos largos página por página</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb27"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">less</span> archivo.txt</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Dentro de <code>less</code>, puedes moverte con las flechas del teclado o con la barra espaciadora.</p>
+<p>Para salir de <code>less</code>, presiona:</p>
+<pre class="text"><code>q</code></pre>
+</section>
+</section>
+<section id="revisar-almacenamiento-y-tamaño-de-datos" class="level2">
+<h2 class="anchored" data-anchor-id="revisar-almacenamiento-y-tamaño-de-datos">Revisar almacenamiento y tamaño de datos</h2>
+<section id="espacio-libre-por-partición" class="level3">
+<h3 class="anchored" data-anchor-id="espacio-libre-por-partición">Espacio libre por partición</h3>
+<p>Para revisar el espacio disponible en los discos o particiones montadas:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb29"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">df</span> <span class="at">-h</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>La opción <code>-h</code> muestra los tamaños en formato legible, por ejemplo en <code>G</code> o <code>T</code>.</p>
+</section>
+<section id="tamaño-de-una-carpeta" class="level3">
+<h3 class="anchored" data-anchor-id="tamaño-de-una-carpeta">Tamaño de una carpeta</h3>
+<p>Para revisar el tamaño total de una carpeta:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb30"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">du</span> <span class="at">-sh</span> carpeta/</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Para revisar el tamaño de todo lo que hay en la carpeta actual:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb31"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">du</span> <span class="at">-sh</span> <span class="pp">*</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="encontrar-lo-que-más-pesa" class="level3">
+<h3 class="anchored" data-anchor-id="encontrar-lo-que-más-pesa">Encontrar lo que más pesa</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb32"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">du</span> <span class="at">-sh</span> <span class="pp">*</span> <span class="kw">|</span> <span class="fu">sort</span> <span class="at">-h</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Este comando calcula el tamaño de los archivos y carpetas, y luego los ordena por tamaño.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Buen hábito
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Revisa tu uso de disco antes de lanzar análisis grandes, especialmente si trabajarás con archivos FASTQ, BAM, VCF, ensamblajes o resultados intermedios grandes.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="revisar-recursos-disponibles-cpu-y-ram" class="level2">
+<h2 class="anchored" data-anchor-id="revisar-recursos-disponibles-cpu-y-ram">Revisar recursos disponibles: CPU y RAM</h2>
+<section id="revisar-cpu" class="level3">
+<h3 class="anchored" data-anchor-id="revisar-cpu">Revisar CPU</h3>
+<p>Para ver información del procesador, número de núcleos e hilos disponibles:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb33"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="ex">lscpu</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="revisar-memoria-ram" class="level3">
+<h3 class="anchored" data-anchor-id="revisar-memoria-ram">Revisar memoria RAM</h3>
+<p>Para revisar la memoria disponible:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb34"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">free</span> <span class="at">-h</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="ver-procesos-en-tiempo-real" class="level3">
+<h3 class="anchored" data-anchor-id="ver-procesos-en-tiempo-real">Ver procesos en tiempo real</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb35"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="ex">top</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Para salir de <code>top</code>, presiona:</p>
+<pre class="text"><code>q</code></pre>
+<p>Si está instalado, <code>htop</code> suele ser más cómodo:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb37"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="ex">htop</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Nota
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>En servidores administrados con Slurm, la disponibilidad real de CPU y memoria para tus análisis depende de los recursos solicitados en el script de trabajo, no solo de lo que aparece con <code>lscpu</code> o <code>free -h</code>.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="monitoreo-básico-de-procesos" class="level2">
+<h2 class="anchored" data-anchor-id="monitoreo-básico-de-procesos">Monitoreo básico de procesos</h2>
+<p>Un proceso es un programa que se está ejecutando. Cada proceso tiene un identificador llamado <strong>PID</strong> (<em>Process ID</em>).</p>
+<section id="ver-procesos-de-tu-usuario" class="level3">
+<h3 class="anchored" data-anchor-id="ver-procesos-de-tu-usuario">Ver procesos de tu usuario</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb38"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ps</span> <span class="at">-u</span> <span class="va">$USER</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Una versión más legible y ordenada por uso de CPU:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb39"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ps</span> <span class="at">-u</span> <span class="va">$USER</span> <span class="at">-o</span> pid,ppid,cmd,%cpu,%mem,etime <span class="at">--sort</span><span class="op">=</span>-%cpu <span class="kw">|</span> <span class="fu">head</span> <span class="at">-n</span> 20</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="buscar-un-proceso-por-nombre" class="level3">
+<h3 class="anchored" data-anchor-id="buscar-un-proceso-por-nombre">Buscar un proceso por nombre</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb40"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pgrep</span> <span class="at">-a</span> nombre_programa</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Por ejemplo:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb41"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pgrep</span> <span class="at">-a</span> mafft</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="ver-el-pid-de-un-proceso-específico" class="level3">
+<h3 class="anchored" data-anchor-id="ver-el-pid-de-un-proceso-específico">Ver el PID de un proceso específico</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb42"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pidof</span> nombre_programa</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+</section>
+<section id="detener-procesos" class="level2">
+<h2 class="anchored" data-anchor-id="detener-procesos">Detener procesos</h2>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>Antes de detener un proceso
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Asegúrate de que el proceso sea tuyo y de que realmente quieras detenerlo. No intentes detener procesos de otros usuarios o procesos del sistema.</p>
+</div>
+</div>
+<section id="detener-un-proceso-por-pid" class="level3">
+<h3 class="anchored" data-anchor-id="detener-un-proceso-por-pid">Detener un proceso por PID</h3>
+<p>Primero intenta un apagado limpio:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb43"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="bu">kill</span> PID</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Por ejemplo:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb44"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="bu">kill</span> 12345</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Si el proceso no se detiene, puedes forzarlo:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb45"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="bu">kill</span> <span class="at">-9</span> PID</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span><code>kill -9</code> como último recurso
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Usa <code>kill</code> normal primero. El comando <code>kill -9</code> fuerza el cierre inmediato del proceso y puede dejar archivos incompletos o resultados corruptos.</p>
+</div>
+</div>
+</section>
+<section id="detener-varios-procesos-por-nombre" class="level3">
+<h3 class="anchored" data-anchor-id="detener-varios-procesos-por-nombre">Detener varios procesos por nombre</h3>
+<p>Primero verifica qué procesos coinciden con el nombre:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb46"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pgrep</span> <span class="at">-a</span> nombre_programa</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Después puedes detenerlos con:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb47"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pkill</span> nombre_programa</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Por ejemplo:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb48"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pgrep</span> <span class="at">-a</span> mafft</span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="ex">pkill</span> mafft</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+</section>
+<section id="sesiones-persistentes-con-tmux" class="level2">
+<h2 class="anchored" data-anchor-id="sesiones-persistentes-con-tmux">Sesiones persistentes con <code>tmux</code></h2>
+<p>Cuando trabajas por SSH, la conexión puede cortarse por fallas de red, suspensión de la computadora o cierre accidental de la terminal. Para evitar perder tu trabajo, es recomendable usar sesiones persistentes con <code>tmux</code>.</p>
+<section id="crear-una-sesión" class="level3">
+<h3 class="anchored" data-anchor-id="crear-una-sesión">Crear una sesión</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb49"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="ex">tmux</span> new <span class="at">-s</span> mi_sesion</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="salir-de-la-sesión-sin-cerrarla" class="level3">
+<h3 class="anchored" data-anchor-id="salir-de-la-sesión-sin-cerrarla">Salir de la sesión sin cerrarla</h3>
+<p>Presiona:</p>
+<pre class="text"><code>Ctrl + b</code></pre>
+<p>Luego suelta las teclas y presiona:</p>
+<pre class="text"><code>d</code></pre>
+<p>Esto te desconecta de la sesión, pero la sesión sigue activa en el servidor.</p>
+</section>
+<section id="volver-a-entrar-a-una-sesión" class="level3">
+<h3 class="anchored" data-anchor-id="volver-a-entrar-a-una-sesión">Volver a entrar a una sesión</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb52"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="ex">tmux</span> attach <span class="at">-t</span> mi_sesion</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="listar-sesiones-activas" class="level3">
+<h3 class="anchored" data-anchor-id="listar-sesiones-activas">Listar sesiones activas</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb53"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="ex">tmux</span> ls</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Recomendación
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Usa <code>tmux</code> cuando estés revisando archivos, preparando datos o ejecutando tareas cortas. Para análisis largos o pesados, usa Slurm.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="permisos-y-propiedad" class="level2">
+<h2 class="anchored" data-anchor-id="permisos-y-propiedad">Permisos y propiedad</h2>
+<section id="ver-permisos" class="level3">
+<h3 class="anchored" data-anchor-id="ver-permisos">Ver permisos</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb54"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-l</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>La salida muestra permisos, propietario, grupo, tamaño, fecha y nombre del archivo.</p>
+<p>Ejemplo:</p>
+<pre class="text"><code>-rw-r--r-- 1 usuario grupo 1200 Jun  8  archivo.txt</code></pre>
+<p>Los permisos se interpretan de la siguiente forma:</p>
+<pre class="text"><code>rw- r-- r--
+│   │   │
+│   │   └── otros usuarios
+│   └────── grupo
+└────────── dueño</code></pre>
+<p>Donde:</p>
+<ul>
+<li><code>r</code> significa lectura.</li>
+<li><code>w</code> significa escritura.</li>
+<li><code>x</code> significa ejecución.</li>
+</ul>
+</section>
+<section id="dar-permiso-de-ejecución-a-un-script" class="level3">
+<h3 class="anchored" data-anchor-id="dar-permiso-de-ejecución-a-un-script">Dar permiso de ejecución a un script</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb57"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chmod</span> +x script.sh</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Esto permite ejecutar el script así:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb58"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="ex">./script.sh</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="permisos-comunes" class="level3">
+<h3 class="anchored" data-anchor-id="permisos-comunes">Permisos comunes</h3>
+<p>Para archivos de texto o datos:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb59"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chmod</span> 644 archivo.txt</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Para carpetas o scripts ejecutables:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb60"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chmod</span> 755 carpeta/</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>De forma general:</p>
+<ul>
+<li><code>644</code>: lectura para todos, escritura solo para el dueño.</li>
+<li><code>755</code>: el dueño puede escribir; otros pueden leer y entrar.</li>
+</ul>
+</section>
+</section>
+<section id="edición-rápida-de-archivos-con-nano" class="level2">
+<h2 class="anchored" data-anchor-id="edición-rápida-de-archivos-con-nano">Edición rápida de archivos con <code>nano</code></h2>
+<p><code>nano</code> es un editor de texto sencillo que funciona dentro de la terminal.</p>
+<p>Para abrir o crear un archivo:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb61"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nano</span> archivo.txt</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Atajos útiles:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Acción</th>
+<th>Atajo</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Guardar</td>
+<td><code>Ctrl + O</code>, luego <code>Enter</code></td>
+</tr>
+<tr class="even">
+<td>Salir</td>
+<td><code>Ctrl + X</code></td>
+</tr>
+<tr class="odd">
+<td>Buscar texto</td>
+<td><code>Ctrl + W</code></td>
+</tr>
+<tr class="even">
+<td>Cortar línea</td>
+<td><code>Ctrl + K</code></td>
+</tr>
+<tr class="odd">
+<td>Pegar línea</td>
+<td><code>Ctrl + U</code></td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Nota
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>También existen otros editores como <code>vim</code> o <code>emacs</code>, pero <code>nano</code> suele ser más sencillo para comenzar.</p>
+</div>
+</div>
+</section>
+<section id="compresión-y-empaquetado" class="level2">
+<h2 class="anchored" data-anchor-id="compresión-y-empaquetado">Compresión y empaquetado</h2>
+<section id="crear-un-archivo-.tar.gz" class="level3">
+<h3 class="anchored" data-anchor-id="crear-un-archivo-.tar.gz">Crear un archivo <code>.tar.gz</code></h3>
+<p>Para comprimir una carpeta completa:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb62"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tar</span> <span class="at">-czvf</span> proyecto.tar.gz proyecto/</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Donde:</p>
+<ul>
+<li><code>c</code> crea un archivo.</li>
+<li><code>z</code> comprime con gzip.</li>
+<li><code>v</code> muestra el progreso.</li>
+<li><code>f</code> indica el nombre del archivo de salida.</li>
+</ul>
+</section>
+<section id="extraer-un-archivo-.tar.gz" class="level3">
+<h3 class="anchored" data-anchor-id="extraer-un-archivo-.tar.gz">Extraer un archivo <code>.tar.gz</code></h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb63"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tar</span> <span class="at">-xzvf</span> proyecto.tar.gz</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="comprimir-un-archivo-con-gzip" class="level3">
+<h3 class="anchored" data-anchor-id="comprimir-un-archivo-con-gzip">Comprimir un archivo con <code>gzip</code></h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb64"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="fu">gzip</span> archivo.txt</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Esto genera:</p>
+<pre class="text"><code>archivo.txt.gz</code></pre>
+</section>
+<section id="descomprimir-un-archivo-.gz" class="level3">
+<h3 class="anchored" data-anchor-id="descomprimir-un-archivo-.gz">Descomprimir un archivo <code>.gz</code></h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb66"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="fu">gunzip</span> archivo.txt.gz</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+</section>
+<section id="compresión-paralela-con-pigz" class="level2">
+<h2 class="anchored" data-anchor-id="compresión-paralela-con-pigz">Compresión paralela con <code>pigz</code></h2>
+<p><code>pigz</code> funciona de forma similar a <code>gzip</code>, pero puede usar varios núcleos para comprimir más rápido.</p>
+<section id="comprimir-con-pigz" class="level3">
+<h3 class="anchored" data-anchor-id="comprimir-con-pigz">Comprimir con <code>pigz</code></h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb67"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pigz</span> archivo_grande.fastq</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Esto genera:</p>
+<pre class="text"><code>archivo_grande.fastq.gz</code></pre>
+</section>
+<section id="descomprimir-con-unpigz" class="level3">
+<h3 class="anchored" data-anchor-id="descomprimir-con-unpigz">Descomprimir con <code>unpigz</code></h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb69"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="ex">unpigz</span> archivo_grande.fastq.gz</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Archivos FASTQ
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>En bioinformática es común trabajar con archivos <code>.fastq.gz</code> o <code>.fq.gz</code>. Generalmente no es necesario descomprimirlos para todos los programas, ya que muchas herramientas pueden leerlos comprimidos.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="revisar-comandos-usados-previamente" class="level2">
+<h2 class="anchored" data-anchor-id="revisar-comandos-usados-previamente">Revisar comandos usados previamente</h2>
+<p>La terminal guarda un historial de comandos. Para verlo:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb70"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="bu">history</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>También puedes usar las flechas del teclado para recuperar comandos anteriores.</p>
+<p>Para buscar comandos usados anteriormente, presiona:</p>
+<pre class="text"><code>Ctrl + r</code></pre>
+<p>y escribe una parte del comando que quieres encontrar.</p>
+</section>
+<section id="buenas-prácticas-generales" class="level2">
+<h2 class="anchored" data-anchor-id="buenas-prácticas-generales">Buenas prácticas generales</h2>
+<ul>
+<li>Revisa siempre en qué carpeta estás con <code>pwd</code> antes de mover, copiar o borrar archivos.</li>
+<li>Usa <code>ls</code> antes de ejecutar comandos destructivos como <code>rm</code>.</li>
+<li>Organiza tus proyectos en carpetas como <code>data/</code>, <code>scripts/</code>, <code>results/</code>, <code>logs/</code> y <code>metadata/</code>.</li>
+<li>Guarda los comandos importantes en scripts dentro de la carpeta <code>scripts/</code>.</li>
+<li>Usa nombres de archivos claros, sin espacios y con fechas o identificadores cuando sea necesario.</li>
+<li>Revisa el espacio disponible con <code>df -h</code> y el tamaño de tus carpetas con <code>du -sh</code>.</li>
+<li>Para análisis largos o pesados, usa Slurm en lugar de ejecutar directamente en la terminal.</li>
+</ul>
+</section>
+<section id="resumen-de-comandos" class="level2">
+<h2 class="anchored" data-anchor-id="resumen-de-comandos">Resumen de comandos</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Tarea</th>
+<th>Comando</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Ver ubicación actual</td>
+<td><code>pwd</code></td>
+</tr>
+<tr class="even">
+<td>Listar archivos</td>
+<td><code>ls -lh</code></td>
+</tr>
+<tr class="odd">
+<td>Entrar a una carpeta</td>
+<td><code>cd carpeta/</code></td>
+</tr>
+<tr class="even">
+<td>Subir un nivel</td>
+<td><code>cd ..</code></td>
+</tr>
+<tr class="odd">
+<td>Crear carpeta</td>
+<td><code>mkdir carpeta</code></td>
+</tr>
+<tr class="even">
+<td>Crear estructura de proyecto</td>
+<td><code>mkdir -p proyecto/{data,scripts,results,logs,metadata}</code></td>
+</tr>
+<tr class="odd">
+<td>Copiar archivo</td>
+<td><code>cp archivoA archivoB</code></td>
+</tr>
+<tr class="even">
+<td>Copiar carpeta</td>
+<td><code>cp -r carpetaA carpetaB</code></td>
+</tr>
+<tr class="odd">
+<td>Mover o renombrar</td>
+<td><code>mv origen destino</code></td>
+</tr>
+<tr class="even">
+<td>Borrar archivo</td>
+<td><code>rm archivo.txt</code></td>
+</tr>
+<tr class="odd">
+<td>Revisar espacio libre</td>
+<td><code>df -h</code></td>
+</tr>
+<tr class="even">
+<td>Revisar tamaño de carpeta</td>
+<td><code>du -sh carpeta/</code></td>
+</tr>
+<tr class="odd">
+<td>Ver CPU</td>
+<td><code>lscpu</code></td>
+</tr>
+<tr class="even">
+<td>Ver RAM</td>
+<td><code>free -h</code></td>
+</tr>
+<tr class="odd">
+<td>Ver procesos</td>
+<td><code>top</code> o <code>htop</code></td>
+</tr>
+<tr class="even">
+<td>Buscar proceso</td>
+<td><code>pgrep -a nombre</code></td>
+</tr>
+<tr class="odd">
+<td>Detener proceso</td>
+<td><code>kill PID</code></td>
+</tr>
+<tr class="even">
+<td>Crear sesión tmux</td>
+<td><code>tmux new -s mi_sesion</code></td>
+</tr>
+<tr class="odd">
+<td>Reentrar a tmux</td>
+<td><code>tmux attach -t mi_sesion</code></td>
+</tr>
+<tr class="even">
+<td>Dar ejecución a script</td>
+<td><code>chmod +x script.sh</code></td>
+</tr>
+<tr class="odd">
+<td>Editar archivo</td>
+<td><code>nano archivo.txt</code></td>
+</tr>
+<tr class="even">
+<td>Crear <code>.tar.gz</code></td>
+<td><code>tar -czvf archivo.tar.gz carpeta/</code></td>
+</tr>
+<tr class="odd">
+<td>Extraer <code>.tar.gz</code></td>
+<td><code>tar -xzvf archivo.tar.gz</code></td>
+</tr>
+</tbody>
+</table>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../chapters/acceso.html" class="pagination-link" aria-label="Acceso al servidor">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Acceso al servidor</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../chapters/software.html" class="pagination-link" aria-label="Software en BEAGLE">
+        <span class="nav-page-text"><span class="chapter-title">Software en BEAGLE</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/IB-UNISSE/beagle_manual/edit/main/chapters/terminal_linux.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/IB-UNISSE/beagle_manual/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer><script src="../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>
