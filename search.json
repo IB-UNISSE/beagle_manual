@@ -340,123 +340,23 @@
     ]
   },
   {
-    "objectID": "chapters/software.html",
-    "href": "chapters/software.html",
-    "title": "Software en BEAGLE",
-    "section": "",
-    "text": "¿Qué es un ambiente de Micromamba?\nBEAGLE es un clúster de cómputo compartido utilizado por varias personas para ejecutar análisis bioinformáticos, filogenómicos y otros cálculos científicos que requieren recursos computacionales especializados. Al ser una infraestructura compartida, es importante mantener un entorno estable, seguro y ordenado para todos los usuarios.\nPara evitar conflictos entre programas, reducir riesgos de seguridad, prevenir cambios que puedan afectar a otros usuarios y facilitar la mantenibilidad del clúster, en BEAGLE no se permite instalar software directamente en el sistema operativo ni modificar las instalaciones globales del sistema.\nEn su lugar, en BEAGLE se priorizan dos estrategias principales para manejar software de forma segura y reproducible:\nAmbas estrategias permiten ejecutar programas sin alterar el sistema principal del clúster y, en general, no requieren permisos de administrador (sudo) por parte de los usuarios. Esto permite instalar o ejecutar software dentro de espacios controlados, manteniendo separado el entorno de trabajo del usuario de las configuraciones globales del clúster.\nLa elección entre una u otra dependerá del tipo de software, del nivel de reproducibilidad requerido y de la experiencia del usuario.\nUn ambiente de Micromamba es un espacio aislado donde se pueden instalar programas, librerías y dependencias específicas para un análisis o proyecto, sin modificar el sistema operativo ni requerir permisos de administrador.\nPor ejemplo, un usuario puede tener un ambiente para FastQC, otro para IQ-TREE y otro para BUSCO, cada uno con sus propias versiones de programas y dependencias.\nEl uso de ambientes de Micromamba permite:\nEn general, Micromamba suele ser la opción más sencilla para los usuarios, especialmente cuando el programa que se necesita está disponible en bioconda o conda-forge. Por esta razón, puede ser una buena alternativa para herramientas comunes, análisis exploratorios o flujos de trabajo que no requieren un control estricto del entorno completo.\nSin embargo, aunque los ambientes de Micromamba ayudan a organizar el software, pueden ser menos reproducibles que un contenedor, ya que las versiones de paquetes y dependencias pueden cambiar con el tiempo si no se documentan o congelan adecuadamente.",
-    "crumbs": [
-      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Software en BEAGLE</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/software.html#importante",
-    "href": "chapters/software.html#importante",
-    "title": "Software en BEAGLE",
-    "section": "Importante",
-    "text": "Importante\nEn BEAGLE no se debe instalar software directamente en el sistema operativo ni modificar las instalaciones globales del clúster.\nEl uso de Micromamba y Apptainer permite trabajar con software especializado sin requerir permisos de administrador (sudo) y sin alterar la configuración general del clúster.\nSi necesitas usar un programa nuevo, primero revisa si puede ejecutarse mediante Micromamba o Apptainer. Ambas opciones están permitidas en BEAGLE, pero se recomienda elegir la estrategia más adecuada según el tipo de análisis, la complejidad del programa y el nivel de reproducibilidad requerido.\nSi el programa requiere una instalación especial o no sabes cuál estrategia conviene usar, consulta con la administración de BEAGLE antes de modificar cualquier configuración del clúster.",
-    "crumbs": [
-      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Software en BEAGLE</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/micromamba.html",
-    "href": "chapters/micromamba.html",
-    "title": "Micromamba",
-    "section": "",
-    "text": "¿Para qué sirve Micromamba?\nMicromamba es un gestor de ambientes y paquetes compatible con el ecosistema de conda. Permite crear espacios de trabajo aislados donde se pueden instalar programas, librerías y dependencias sin modificar el sistema operativo del clúster y sin requerir permisos de administrador (sudo).\nMicromamba es una herramienta independiente que permite instalar software de distintos tipos: programas escritos en Python, R, C, C++, Perl, Java u otros lenguajes, siempre que estén disponibles en canales compatibles como conda-forge o bioconda.\nEn BEAGLE, Micromamba es una opción práctica para instalar y usar herramientas bioinformáticas de forma relativamente sencilla. Su curva de aprendizaje suele ser menor que la de los contenedores, por lo que puede ser una buena primera opción para usuarios que necesitan instalar programas comunes o crear ambientes específicos para sus análisis.\nMicromamba permite crear ambientes independientes para distintos programas o proyectos. Cada ambiente puede tener sus propias versiones de software y dependencias.\nPor ejemplo, un usuario podría tener:\nEsto evita mezclar programas incompatibles entre sí y ayuda a mantener los análisis más organizados.",
-    "crumbs": [
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Micromamba</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/micromamba.html#para-qué-sirve-micromamba",
-    "href": "chapters/micromamba.html#para-qué-sirve-micromamba",
-    "title": "Micromamba",
-    "section": "",
-    "text": "un ambiente para control de calidad con FastQC y MultiQC;\nun ambiente para análisis filogenéticos con IQ-TREE;\nun ambiente para ensamblaje o anotación con herramientas específicas;\nun ambiente para trabajar con paquetes de R o Python.",
-    "crumbs": [
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Micromamba</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/micromamba.html#ventajas-de-usar-micromamba",
-    "href": "chapters/micromamba.html#ventajas-de-usar-micromamba",
-    "title": "Micromamba",
-    "section": "Ventajas de usar Micromamba",
-    "text": "Ventajas de usar Micromamba\nEl uso de Micromamba en BEAGLE permite:\n\ninstalar software sin utilizar sudo;\ncrear ambientes aislados por proyecto o análisis;\nevitar conflictos entre versiones de programas;\ninstalar paquetes desde canales como conda-forge y bioconda;\nactivar y desactivar ambientes según sea necesario;\ncompartir la lista de paquetes usados mediante archivos environment.yml;\ncomenzar a trabajar con una curva de aprendizaje relativamente baja.",
-    "crumbs": [
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Micromamba</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/micromamba.html#instalación-de-micromamba-sin-permisos-de-administrador",
-    "href": "chapters/micromamba.html#instalación-de-micromamba-sin-permisos-de-administrador",
-    "title": "Micromamba",
-    "section": "Instalación de Micromamba sin permisos de administrador",
-    "text": "Instalación de Micromamba sin permisos de administrador\nMicromamba puede instalarse directamente en la cuenta del usuario, sin requerir permisos de administrador (sudo). Esto resulta especialmente útil en clústeres compartidos y ambientes de HPC, donde los usuarios no deben modificar el sistema operativo ni las instalaciones globales del clúster.\nPara instalar Micromamba, ejecuta:\n\"${SHELL}\" &lt;(curl -L micro.mamba.pm/install.sh)\nDurante la instalación, Micromamba puede hacer algunas preguntas sobre la ubicación donde se instalará y el tipo de shell que se configurará. En general, puede aceptarse la configuración sugerida por defecto.\nDespués de la instalación, conviene cerrar y abrir nuevamente la terminal. También se puede recargar el archivo de configuración del shell con:\nsource ~/.bashrc\nPara comprobar que la instalación funcionó correctamente, ejecuta:\nmicromamba --version\nSi el comando muestra un número de versión, Micromamba quedó instalado correctamente.",
-    "crumbs": [
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Micromamba</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/micromamba.html#ejemplo-general-de-uso",
-    "href": "chapters/micromamba.html#ejemplo-general-de-uso",
-    "title": "Micromamba",
-    "section": "Ejemplo general de uso",
-    "text": "Ejemplo general de uso\nCrear un ambiente nuevo:\nmicromamba create -n bioinfo -c conda-forge -c bioconda fastqc multiqc\n\nNota: Antes de crear un ambiente, puedes buscar si un programa está disponible en Anaconda.org. Por ejemplo, herramientas bioinformáticas como fastqc suelen encontrarse en canales como bioconda y conda-forge.\n\nActivar el ambiente:\nmicromamba activate bioinfo\nVerificar que el programa está disponible:\nfastqc --version\nmultiqc --version\nDesactivar el ambiente:\nmicromamba deactivate\nListar los ambientes disponibles:\nmicromamba env list\nInstalar un paquete adicional en un ambiente ya creado:\nmicromamba install -n fastqc-0.12.1 -c conda-forge -c bioconda trimmomatic=0.40\nEliminar un ambiente que ya no se necesita:\nmicromamba remove -n bioinfo --all",
-    "crumbs": [
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Micromamba</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/micromamba.html#crear-un-ambiente-a-partir-de-un-archivo-yaml",
-    "href": "chapters/micromamba.html#crear-un-ambiente-a-partir-de-un-archivo-yaml",
-    "title": "Micromamba",
-    "section": "Crear un ambiente a partir de un archivo YAML",
-    "text": "Crear un ambiente a partir de un archivo YAML\nUna forma muy útil de trabajar con Micromamba es definir el ambiente en un archivo de configuración en formato YAML. Esto permite guardar el nombre del ambiente, los canales y los paquetes necesarios en un solo archivo, lo que facilita la reproducibilidad y evita tener que escribir comandos largos cada vez.\nEste archivo suele llamarse environment.yml o env.yml, porque son nombres comunes por convención. Sin embargo, no es obligatorio que tenga ese nombre. Puede llamarse de otra forma, siempre que se indique el archivo correcto al momento de crear el ambiente.\n\nEstructura básica de un archivo YAML\nUn archivo YAML para un ambiente de Micromamba puede verse así:\nname: bioinfo\nchannels:\n  - conda-forge\n  - bioconda\ndependencies:\n  - fastqc=0.12.1\n  - seqkit=2.8.2\n  - mafft=7.525\nEn este ejemplo:\n\nname indica el nombre del ambiente;\nchannels define los repositorios donde se buscarán los paquetes;\ndependencies contiene la lista de programas que se instalarán.",
-    "crumbs": [
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Micromamba</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/micromamba.html#consideraciones-importantes",
-    "href": "chapters/micromamba.html#consideraciones-importantes",
-    "title": "Micromamba",
-    "section": "Consideraciones importantes",
-    "text": "Consideraciones importantes\nAunque Micromamba facilita la instalación de software, es importante considerar que un ambiente puede cambiar con el tiempo si no se documentan adecuadamente las versiones de los paquetes instalados.\nPor esta razón, se recomienda:\n\ncrear un ambiente por proyecto o por tipo de análisis;\nevitar instalar todos los programas en un solo ambiente;\ndocumentar los paquetes instalados;\nguardar el archivo environment.yml del ambiente;\nregistrar las versiones de los programas usados en cada análisis.\n\nPor ejemplo, después de crear un ambiente, se puede guardar su configuración con:\nmicromamba env export -n nombre_del_ambiente &gt; environment.yml\nEste archivo puede guardarse junto con los scripts del proyecto para facilitar la reproducibilidad.",
-    "crumbs": [
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Micromamba</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/micromamba.html#uso-de-micromamba-dentro-de-scripts",
-    "href": "chapters/micromamba.html#uso-de-micromamba-dentro-de-scripts",
-    "title": "Micromamba",
-    "section": "Uso de Micromamba dentro de scripts",
-    "text": "Uso de Micromamba dentro de scripts\nCuando se trabaja de forma interactiva en la terminal, es común activar un ambiente antes de ejecutar un programa:\nmicromamba activate bioinfo\nfastqc --version\nSin embargo, dentro de scripts de Bash o trabajos enviados con Slurm, la activación de ambientes puede ser menos directa, ya que el script se ejecuta en una sesión no interactiva. Por esta razón, en BEAGLE se recomienda usar una de las siguientes estrategias.\n\nOpción recomendada: usar la ruta directa del ejecutable\nUna forma sencilla y robusta de usar un programa instalado en un ambiente de Micromamba es llamar directamente al ejecutable dentro de la carpeta bin del ambiente.\nPor ejemplo, si FastQC está instalado en el ambiente bioinfo, se puede localizar su ruta con:\nmicromamba activate bioinfo\nwhich fastqc\nEsto puede devolver una ruta similar a:\n/home/usuario/micromamba/envs/bioinfo/bin/fastqc\nEntonces, dentro de un script se puede ejecutar directamente:\n/home/usuario/micromamba/envs/bioinfo/bin/fastqc --version\nO, en un script de análisis:\n#!/bin/bash\n\nFASTQC=\"/home/usuario/micromamba/envs/bioinfo/bin/fastqc\"\nMULTIQC=\"/home/usuario/micromamba/envs/bioinfo/bin/multiqc\"\n\nmkdir -p resultados_fastqc\n\n$FASTQC datos/*.fastq.gz -o resultados_fastqc\n$MULTIQC resultados_fastqc -o resultados_fastqc\nEsta estrategia tiene la ventaja de que no depende de activar el ambiente dentro del script. El programa se ejecuta directamente desde el ambiente donde fue instalado.\n\n\nOpción alternativa: usar micromamba run\nOtra opción es ejecutar comandos dentro de un ambiente usando micromamba run:\nmicromamba run -n bioinfo fastqc --version\nPor ejemplo, dentro de un script:\n#!/bin/bash\n\nmicromamba run -n bioinfo fastqc datos/*.fastq.gz -o resultados_fastqc\nmicromamba run -n bioinfo multiqc resultados_fastqc -o resultados_fastqc\nEsta opción es clara porque indica explícitamente qué ambiente se está usando. Sin embargo, puede ser un poco más lenta si se ejecuta muchas veces dentro de ciclos grandes, ya que Micromamba debe preparar el entorno para cada comando.\n\n\nOpción con activación dentro del script\nTambién es posible activar el ambiente dentro del script, pero esto puede requerir inicializar Micromamba correctamente en sesiones no interactivas.\nUn ejemplo sería:\n#!/bin/bash\n\neval \"$(micromamba shell hook --shell bash)\"\nmicromamba activate bioinfo\n\nfastqc datos/*.fastq.gz -o resultados_fastqc\nmultiqc resultados_fastqc -o resultados_fastqc\nEsta opción puede ser útil cuando se ejecutan muchos comandos del mismo ambiente dentro de un solo script. Sin embargo, si hay problemas con la activación del ambiente, puede ser más sencillo usar la ruta directa del ejecutable.",
-    "crumbs": [
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Micromamba</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/micromamba.html#recomendación",
-    "href": "chapters/micromamba.html#recomendación",
-    "title": "Micromamba",
-    "section": "Recomendación",
-    "text": "Recomendación\nMicromamba es una buena opción para comenzar a trabajar con software bioinformático en BEAGLE, especialmente por su facilidad de uso. Sin embargo, para análisis que deben repetirse, compartirse o publicarse, se recomienda documentar cuidadosamente el ambiente o considerar el uso de contenedores con Apptainer.",
-    "crumbs": [
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Micromamba</span>"
-    ]
-  },
-  {
     "objectID": "chapters/apptainer.html",
     "href": "chapters/apptainer.html",
     "title": "Apptainer",
     "section": "",
-    "text": "¿Qué es un contenedor?\nUn contenedor es un entorno aislado que incluye:",
+    "text": "¿Qué es un contenedor?\nBEAGLE es un clúster de cómputo compartido. Para mantenerlo estable, seguro y funcional para todas las personas usuarias, no se debe instalar software directamente en el sistema operativo, modificar instalaciones globales ni usar sudo.\nEl software especializado en BEAGLE debe ejecutarse mediante contenedores con Apptainer. Esta estrategia permite usar programas bioinformáticos y científicos en entornos aislados, sin alterar el sistema principal del clúster y con mayor reproducibilidad.\nUn contenedor es un entorno aislado que incluye:",
     "crumbs": [
-      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Apptainer</span>"
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Apptainer</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/apptainer.html#qué-es-un-contenedor",
+    "href": "chapters/apptainer.html#qué-es-un-contenedor",
+    "title": "Apptainer",
+    "section": "",
+    "text": "Sistema operativo base\nLibrerías\nDependencias\nSoftware específico\n\n\nDocker vs Podman vs Apptainer\nActualmente hay decenas de proyectos involucrados en el desarrollo, adopción y uso de contenedores: https://landscape.cncf.io\n\n\n\n\n\n\n\n\n\nCaracterística\nDocker\nPodman\nApptainer\n\n\n\n\nUso principal\nDesarrollo\nDesarrollo sin daemon\nHPC / ciencia\n\n\nRequiere root\nSí\nNo siempre\nNo\n\n\nSeguridad en HPC\nBaja\nMedia\nAlta\n\n\nIntegración HPC\n❌\n⚠️\n✅\n\n\nFormato imagen\nlayered\nlayered\n.sif",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Apptainer</span>"
     ]
   },
   {
@@ -466,7 +366,7 @@
     "section": "Apptainer",
     "text": "Apptainer\nApptainer es una plataforma de contenedores de código abierto enfocada en ciencia y cómputo de alto rendimiento (HPC). Permite ejecutar aplicaciones dentro de entornos aislados que incluyen todas sus dependencias, facilitando la reproducibilidad y evitando conflictos de software, sin requerir privilegios de administrador.\n\n¿En qué sistemas funciona Apptainer?\nApptainer está diseñado para funcionar de manera nativa en sistemas Linux.\nEsto se debe a que utiliza características propias del kernel de Linux, como:\n\nnamespaces (aislamiento de procesos)\ncgroups (control de recursos)\nsistema de archivos tipo overlay\n\n👉 Estas tecnologías permiten crear contenedores de forma eficiente y segura.\n\n\n¿De dónde vienen las imágenes?\nLas imágenes de contenedores provienen generalmente de repositorios en línea como:\n👉 Docker Hub\n👉 Quay.io\n\n📦 Docker Hub\nDocker Hub es una plataforma donde se almacenan miles de imágenes listas para usar:\n\nsistemas operativos\nlenguajes de programación\nherramientas científicas\n\nCada imagen tiene versiones llamadas tags, por ejemplo:\n\nubuntu:22.04\nubuntu:20.04\nubuntu:latest\n\n💡 Esto permite elegir exactamente qué entorno queremos usar.\n\n\n🧬 ¿Qué son los BioContainers?\nExisten repositorios especializados llamados BioContainers, que contienen imágenes enfocadas en bioinformática.\n👉 Son contenedores que ya incluyen software científico instalado, como:\n\nMrBayes\nBLAST\nFastQC\nBowtie2\n\n👉 Muchos de estos contenedores están disponibles en:\n\nDocker Hub\nQuay.io (más actualizado en muchos casos)",
     "crumbs": [
-      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Apptainer</span>"
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Apptainer</span>"
     ]
   },
   {
@@ -476,7 +376,7 @@
     "section": "📥 Descargar imágenes",
     "text": "📥 Descargar imágenes\nEl comando pull permite descargar una imagen y convertirla al formato de Apptainer (.sif), que es el formato estándar para ejecutar contenedores.\napptainer pull docker://ubuntu\n👉 Este comando descarga una imagen de Ubuntu desde Docker Hub y genera un archivo como:\nubuntu_latest.sif\nEste archivo .sif contiene un sistema base listo para usarse con Apptainer.\n\n📦 Versiones específicas\nTambién es posible descargar una versión concreta de una imagen usando una etiqueta (:versión). Esto es útil cuando se necesita trabajar con una versión específica del sistema operativo o del software para mantener compatibilidad y reproducibilidad.\napptainer pull docker://centos:7",
     "crumbs": [
-      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Apptainer</span>"
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Apptainer</span>"
     ]
   },
   {
@@ -486,7 +386,7 @@
     "section": "Uso básico de contenedores",
     "text": "Uso básico de contenedores\nUUna vez que hemos descargado una imagen con pull, podemos comenzar a interactuar con ella.\napptainer pull docker://ubuntu\n👉 Esto genera un archivo .sif, que contiene un sistema Linux mínimo.\nCuando usamos Apptainer, no estamos ejecutando “un programa”, sino un sistema operativo completo pero ligero.\n👉 Es como tener una instalación de Linux dentro de un archivo.\n💡 Sin embargo, estas imágenes suelen ser:\n\nmuy ligeras\nsin programas adicionales\ncon solo lo esencial para funcionar\n\n\nEntrar a un contenedor (modo interactivo)\napptainer shell ubuntu_latest.sif\n👉 Esto abre una terminal dentro del contenedor.\nDentro de esta terminal puedes:\n\nnavegar (ls, cd)\ncrear archivos\nejecutar comandos\ninstalar software (si es writable)\n\n💡 Es como si estuvieras usando otra computadora con Linux.\n\n\n⚠️ ¿Se puede modificar?\nPor defecto:\n\n❌ NO puedes modificar la imagen .sif\n✅ solo puedes explorarla\n\n👉 Si quieres modificarla, necesitas usar:\n\nun sandbox\no entrar con --writable\n\n\n\nEjecutar comandos sin entrar\nTambién puedes ejecutar comandos directamente sin abrir una terminal interactiva:\napptainer exec ubuntu_latest.sif ls /\n👉 Esto ejecuta ls / dentro del contenedor y regresa al sistema host.\nDentro del contenedor puedes usar comandos básicos como:\nls\npwd\nwhoami\ncat /etc/os-release\n👉 Esto demuestra que:\n\nestás dentro de un sistema Linux independiente\ncon su propia estructura de archivos\nsu propio entorno\n\n\n\nModificar un contenedor temporalmente (--writable)\nAunque las imágenes .sif no son modificables por defecto, Apptainer permite hacer cambios temporales durante una sesión usando ciertas opciones.\napptainer shell --writable --fakeroot ubuntu_latest.sif\n\n--writable → permite modificar el sistema dentro del contenedor\n--fakeroot → simula permisos de administrador (root)\n\n👉 Esto permite instalar software dentro del contenedor.\n\n⚠️ Importante\n💡 Este modo funciona mejor con sandbox\nEn archivos .sif, puede no funcionar o ser limitado\nPor eso este ejemplo es solo para entender el concepto",
     "crumbs": [
-      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Apptainer</span>"
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Apptainer</span>"
     ]
   },
   {
@@ -496,7 +396,7 @@
     "section": "¿Qué es un sandbox?",
     "text": "¿Qué es un sandbox?\nUn sandbox es un contenedor en formato de directorio editable.\nA diferencia de .sif, permite:\n\ninstalar programas\nmodificar configuraciones\ncompilar software\n\n\nCrear un sandbox\nEl comando build --sandbox crea un contenedor editable a partir de una imagen base.\napptainer build --sandbox NOMBRE_DEL_DIRECTORIO IMAGEN_BASE.sif\n\nEjemplo\napptainer build --sandbox mrbayes ubuntu_latest.sif\nPuedes usar cualquier nombre:\nmrbayes\nubuntu_editable\ntest_container\nbioinfo_env\nEsto creará una carpeta llamada:\nmrbayes/\nY dentro:\n\n/bin\n/etc\n/usr\n/lib\n\n👉 Es decir:\n\nUn sistema Linux completo dentro de una carpeta\n\n\n\n\nExplorar el contenedor de forma interactiva\nUna vez creado el sandbox, puedes entrar a él con una shell interactiva y trabajar dentro del contenedor como si fuera otro sistema Linux.\napptainer shell mrbayes/\n👉 Esto abre una terminal dentro del contenedor, desde donde puedes navegar, revisar archivos o ejecutar comandos.\n\n\nSalir del contenedor\nPara salir del entorno interactivo, solo escribe:\nexit\n\n\nEntrar en modo escritura y con root simulado\nCuando quieres modificar un sandbox, por ejemplo para instalar paquetes o compilar programas, necesitas abrirlo con opciones adicionales.\napptainer shell --writable --fakeroot --pwd / mrbayes\n--writable\nPermite modificar el contenedor. Sin esta opción, el sistema se abre solo para lectura.\n--fakeroot\nSimula permisos de administrador dentro del contenedor. Esto permite usar comandos como apt install aunque no tengas root real en el sistema anfitrión.\n--pwd /\nHace que la shell inicie en el directorio raíz (/) del contenedor.",
     "crumbs": [
-      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Apptainer</span>"
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Apptainer</span>"
     ]
   },
   {
@@ -506,7 +406,7 @@
     "section": "⚙️ Configuración básica del sistema dentro del contenedor",
     "text": "⚙️ Configuración básica del sistema dentro del contenedor\nLas imágenes base descargadas desde Docker Hub suelen ser versiones mínimas de Linux.\n👉 Esto significa que:\n\nNo tienen configuraciones completas\nNo incluyen muchos programas\nSolo contienen lo esencial para funcionar\n\n💡 Por esta razón, antes de trabajar con software, es necesario configurar el sistema operativo dentro del contenedor.\n\n🔄 Actualizar el sistema\napt update\napt upgrade -y\n\napt update → actualiza la lista de paquetes disponibles\napt upgrade → actualiza los programas instalados\n\n\nLinux usa repositorios en línea para instalar software\ny estos comandos sincronizan el sistema con esos repositorios\n\n\n\n🌍 Configurar idioma (locale)\napt install -y locales\nlocale-gen en_US.UTF-8\nupdate-locale LANG=en_US.UTF-8\nexport LANG=en_US.UTF-8\nexport LC_ALL=en_US.UTF-8\n👉 Esto configura el sistema para trabajar con codificación UTF-8.\n¿Por qué es importante?\n\nEvita errores con caracteres especiales\nAsegura compatibilidad con muchos programas\nMejora la reproducibilidad\n\n\n\n🕒 Configurar zona horaria\napt install -y tzdata\nln -sf /usr/share/zoneinfo/Etc/UTC /etc/localtime\n👉 Define la hora del sistema dentro del contenedor.\n¿Por qué importa?\n\nLogs correctos\nFechas reproducibles\nConsistencia en análisis\n\n\n\n📦 Instalación de programas y dependencias\napt install -y build-essential make pkg-config git wget curl \\\nlatexmk texlive-latex-base texlive-fonts-recommended \\\ntexlive-fonts-extra texlive-latex-extra nano \\\nopenmpi-bin openmpi-common openmpi-doc libopenmpi-dev\n\n\n¿Qué es apt?\napt es un gestor de paquetes utilizado en sistemas basados en Debian (como Ubuntu).\n👉 Permite:\n\ninstalar programas\neliminar programas\nactualizar software\n\n\nOtros gestores de paquetes\n\n\n\nSistema\nGestor\n\n\n\n\nDebian / Ubuntu\napt\n\n\nRedHat / CentOS / Rocky\nyum / dnf\n\n\n\n💡 Importante:\n\nLos comandos cambian dependiendo de la distribución Linux\n\n\n\n🧩 ¿Qué son las dependencias?\nMuchos programas necesitan otras librerías para funcionar.\nEjemplo:\n\nbuild-essential → compiladores (gcc, g++)\nlibopenmpi-dev → paralelización\npkg-config → encuentra librerías al compilar\n\n\nUn programa no funciona solo, depende de otros componentes\n\n\n\nCompilación desde código fuente\nUna vez que el sistema está listo, podemos instalar programas desde su código fuente.\ncd /opt\ngit clone https://github.com/NBISweden/MrBayes.git\ncd MrBayes\n./configure --with-mpi\nmake -j$(nproc)\nmake install\n\n\n¿Qué significa “compilar”?\nCompilar es el proceso de:\n👉 Convertir código fuente (legible por humanos)\n👉 en un programa ejecutable (legible por la máquina)",
     "crumbs": [
-      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Apptainer</span>"
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Apptainer</span>"
     ]
   },
   {
@@ -516,7 +416,7 @@
     "section": "Empaquetar el sandbox como imagen .sif",
     "text": "Empaquetar el sandbox como imagen .sif\nCuando ya terminaste de personalizar tu sandbox, puedes convertirlo en una imagen final para transportarlo y ejecutarlo fácilmente.\napptainer build --fakeroot mrbayes_mpi.sif mrbayes\n👉 Esto crea un archivo .sif a partir del sandbox mi_contenedor.\nLa imagen .sif ya no está pensada para editarse, sino para distribuirse y ejecutarse.\n\nEjecutar un programa dentro del contenedor\nEl comando exec permite correr directamente un programa dentro de la imagen sin necesidad de abrir una shell interactiva.\napptainer exec mrbayes_mpi.sif mb analisis/data/analysis.nex\n👉 Aquí se ejecuta MrBayes dentro del contenedor usando un archivo externo como entrada.\n\n\nEjecutar con MPI\nSi el programa fue compilado con soporte para MPI, puede ejecutarse usando varios núcleos.\napptainer exec mrbayes_mpi.sif mpirun -np 4 mb \n👉 En este caso, MrBayes se ejecuta usando 4 procesos paralelos.",
     "crumbs": [
-      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Apptainer</span>"
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Apptainer</span>"
     ]
   },
   {
@@ -526,7 +426,7 @@
     "section": "📂 Uso de volúmenes (montaje de carpetas)",
     "text": "📂 Uso de volúmenes (montaje de carpetas)\nCuando trabajas con contenedores, tus datos normalmente están fuera del contenedor, en tu sistema.\n👉 Para que el contenedor pueda verlos, es necesario montar (bind) directorios.\n\nMontar una carpeta\napptainer exec --bind /ruta/local:/ruta/contenedor contenedor.sif comando\n\n\nEjemplo práctico\nSupongamos que tienes tus datos en:\n/home/usuario/proyecto/datos\nPuedes montarlos dentro del contenedor así:\napptainer exec --bind /home/usuario/proyecto/datos:/data revbayes_mpi.sif ls /data\n👉 Dentro del contenedor, la carpeta aparecerá como:\n/data\n\n\n📂 Usar tus archivos en RevBayes\nSi tienes un archivo:\nanalysis.Rev\npuedes ejecutarlo así:\napptainer exec --bind /home/usuario/proyecto/datos:/data revbayes_mpi.sif rb-mpi /data/analysis.Rev\n\n\nUso de pwd (muy importante)\nPara evitar escribir rutas largas, puedes usar:\npwd\n👉 Esto muestra tu directorio actual.\n\n\nEjemplo práctico con pwd\napptainer exec --bind $(pwd):/data revbayes_mpi.sif rb-mpi /data/analysis.Rev\n👉 Aquí:\n\n$(pwd) → ruta actual en tu sistema\n/data → ruta dentro del contenedor\n\n\n\nVentaja de usar pwd\n\nevita errores de ruta\nhace scripts más portables\nfacilita reproducibilidad\n\n\n\n⚠️ Nota importante\nApptainer ya monta automáticamente algunas rutas como:\n\n$HOME\nel directorio actual (en muchos casos)\n\n👉 Pero usar --bind explícito es más claro y reproducible.\n\n\n🧪 Probar que el volumen funciona\napptainer exec --bind $(pwd):/data revbayes_mpi.sif ls /data\n👉 Si ves tus archivos, el montaje funcionó correctamente.\n\n\n🚀 Bonus (muy útil)\nTambién puedes montar múltiples carpetas:\napptainer exec --bind $(pwd):/data,/otra/ruta:/ref contenedor.sif comando",
     "crumbs": [
-      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Apptainer</span>"
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Apptainer</span>"
     ]
   },
   {
@@ -536,7 +436,7 @@
     "section": "¿Qué es un archivo .def?",
     "text": "¿Qué es un archivo .def?\nUn archivo .def en Apptainer es un archivo de definición que contiene todas las instrucciones necesarias para construir un contenedor reproducible.\n👉 En lugar de instalar programas manualmente dentro de un sandbox, aquí escribimos una receta que describe:\n\nqué sistema operativo usar\nqué paquetes instalar\nqué software descargar\ncómo compilarlo\nqué variables de entorno definir\nqué debe hacer el contenedor al ejecutarse\n\n\nUn archivo .def permite reconstruir el mismo contenedor cuantas veces sea necesario.\n\n\n🧱 Partes de un archivo .def en Apptainer\nUn archivo .def está compuesto por secciones que indican cómo construir y cómo ejecutar un contenedor.\n🔹 Bootstrap: docker\nIndica el método de construcción del contenedor.\n👉 En este caso, significa que la imagen base será obtenida desde un repositorio compatible con Docker (como Docker Hub).\n🔹 From: ubuntu:22.04\nDefine la imagen base sobre la cual se construirá el contenedor.\n👉 Aquí se está utilizando Ubuntu 22.04 como sistema operativo inicial.\n🔹 %environment\nDefine variables de entorno que estarán disponibles cada vez que el contenedor se ejecute.\n👉 Se aplican cuando usas:\n\napptainer shell\napptainer exec\napptainer run\n\n💡 Sirve para configurar el entorno automáticamente (idioma, rutas de librerías, etc.).\n🔹 %post\nContiene los comandos que se ejecutan durante la construcción del contenedor.\n👉 Aquí es donde se:\n\ninstalan paquetes (apt install)\ndescargan programas (git clone)\ncompilan software (make)\n\n💡 Es la sección donde realmente “se arma” el contenedor.\n🔹 %runscript\nDefine qué ocurre cuando el contenedor se ejecuta con:\napptainer run archivo.sif\n👉 Permite establecer un comportamiento por defecto del contenedor.\n💡 Por ejemplo:\n\nmostrar un mensaje\nejecutar automáticamente un programa\n\nArchivo ejemplo revbayes_mpi.def\n# ============================================================\n# Archivo de definición de Apptainer para RevBayes con MPI\n# ============================================================\n\n# ------------------------------------------------------------\n# Bootstrap\n# ------------------------------------------------------------\n# Indica el tipo de origen de la imagen base.\n# En este caso, se utilizará una imagen proveniente de Docker Hub.\nBootstrap: docker\n\n# ------------------------------------------------------------\n# From\n# ------------------------------------------------------------\n# Especifica la imagen base sobre la cual se construirá el contenedor.\n# Aquí se usa Ubuntu 22.04 como sistema operativo inicial.\nFrom: ubuntu:22.04\n\n\n# ============================================================\n# %environment\n# ============================================================\n# Esta sección define variables de entorno que estarán disponibles\n# cada vez que el contenedor se ejecute (shell, exec, run).\n# No se ejecuta durante el build, sino en tiempo de uso.\n\n%environment\n    # Configuración de idioma y codificación\n    export LANG=C.UTF-8\n    export LC_ALL=C.UTF-8\n\n    # Ruta donde se buscarán bibliotecas compartidas\n    export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH\n\n\n# ============================================================\n# %post\n# ============================================================\n# Esta sección se ejecuta durante la construcción del contenedor.\n# Aquí se instala y configura el software.\n\n%post\n    # Evita preguntas interactivas durante la instalación\n    export DEBIAN_FRONTEND=noninteractive\n\n    # --------------------------------------------------------\n    # Actualizar sistema\n    # --------------------------------------------------------\n    apt update\n\n    # --------------------------------------------------------\n    # Instalar dependencias necesarias\n    # --------------------------------------------------------\n    apt install -y \\\n        build-essential \\\n        cmake \\\n        git \\\n        wget \\\n        curl \\\n        ca-certificates \\\n        libopenmpi-dev \\\n        openmpi-bin \\\n        libboost-all-dev \\\n        bison \\\n        flex \\\n        zlib1g-dev\n\n    # --------------------------------------------------------\n    # Descargar código fuente de RevBayes\n    # --------------------------------------------------------\n    cd /opt\n    git clone --branch development https://github.com/revbayes/revbayes.git\n\n    # --------------------------------------------------------\n    # Compilar RevBayes con soporte MPI\n    # --------------------------------------------------------\n    cd /opt/revbayes/projects/cmake\n    chmod +x build.sh\n    ./build.sh -mpi true\n\n    # --------------------------------------------------------\n    # Copiar ejecutables a una ruta accesible\n    # --------------------------------------------------------\n    if [ -f rb-mpi ]; then\n        cp rb-mpi /usr/local/bin/rb-mpi\n        chmod 755 /usr/local/bin/rb-mpi\n    fi\n\n    if [ -f rb ]; then\n        cp rb /usr/local/bin/rb\n        chmod 755 /usr/local/bin/rb\n    fi\n\n\n# ============================================================\n# %runscript\n# ============================================================\n# Define qué ocurre cuando se ejecuta el contenedor con:\n# apptainer run archivo.sif\n\n%runscript\n    echo \"RevBayes con MPI listo para usarse\"\n    exec \"$@\"\n\n\n🔧 Construir el contenedor a partir del archivo .def\nUna vez que el archivo revbayes_mpi.def está listo, el siguiente paso es construir la imagen .sif.\napptainer build revbayes_mpi.sif revbayes_mpi.def\nSi todo sale bien, al final tendrás un archivo como este:\nrevbayes_mpi.sif\nEse archivo ya contiene:\n\nUbuntu 22.04\ndependencias instaladas\nRevBayes compilado con MPI\nvariables de entorno configuradas\n\n\n\nProbar el contenedor\nUna forma sencilla de verificar que el contenedor se construyó correctamente es ejecutar comandos directamente con exec, sin necesidad de entrar en una shell interactiva.\napptainer exec revbayes_mpi.sif which rb-mpi\nTambién puedes comprobar que el programa funciona correctamente con:\napptainer exec revbayes_mpi.sif rb-mpi --help",
     "crumbs": [
-      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Apptainer</span>"
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Apptainer</span>"
     ]
   },
   {
@@ -546,7 +446,7 @@
     "section": "🔎 Buscar imágenes existentes antes de construir un contenedor",
     "text": "🔎 Buscar imágenes existentes antes de construir un contenedor\nAntes de crear un contenedor desde cero, es recomendable revisar si ya existe una imagen disponible en\n👉 Docker Hub\n👉 Quay.io\nEn este repositorio hay miles de imágenes creadas por la comunidad, incluyendo:\n\nsistemas operativos\nlenguajes de programación\nherramientas bioinformáticas\npipelines completos\n\n👉 Es muy probable que el software que necesitas ya esté disponible en forma de contenedor.\n\nEjemplo\nEn lugar de construir manualmente un contenedor para MrBayes, puedes usar:\napptainer pull quay.io/biocontainers/mrbayes\n👉 Esta imagen ya contiene el software instalado y listo para usarse.\n\n\n⚖️ Ventajas de usar imágenes existentes\n\n✔ Ahorra tiempo\n✔ No necesitas instalar dependencias\n✔ Listas para ejecutar\n✔ Útiles para pruebas rápidas\n\n\n\n⚠️ Desventajas\n\n❌ No siempre sabes cómo fue construida la imagen\n❌ Puede no estar actualizada\n❌ Puede incluir software innecesario\n❌ Menor control sobre dependencias y versiones\n\n\n\n🔧 Ventajas de construir tu propio contenedor\n\n✔ Control total del entorno\n✔ Puedes documentar cada paso (.def)\n✔ Reproducibilidad garantizada\n✔ Ajuste específico a tu análisis",
     "crumbs": [
-      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Apptainer</span>"
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Apptainer</span>"
     ]
   },
   {
@@ -556,7 +456,7 @@
     "section": "",
     "text": "¿Qué es Slurm?\nSlurm es un sistema de administración de trabajos para servidores y clústeres de cómputo. Su función es organizar el uso de los recursos disponibles, como CPUs, memoria RAM, tarjetas GPU y tiempo de ejecución.\nEn lugar de ejecutar análisis pesados directamente en la terminal, los usuarios envían sus trabajos a una cola mediante Slurm. El sistema decide cuándo y dónde correrlos, de acuerdo con los recursos solicitados y la disponibilidad de los nodos.\nEsto ayuda a:",
     "crumbs": [
-      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
     ]
   },
   {
@@ -566,7 +466,7 @@
     "section": "",
     "text": "evitar que una sola persona sature el servidor;\norganizar los análisis de varios usuarios;\nasignar CPUs, memoria y GPUs de manera controlada;\ndejar registro de los trabajos ejecutados;\nmejorar la reproducibilidad de los análisis.",
     "crumbs": [
-      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
     ]
   },
   {
@@ -576,7 +476,7 @@
     "section": "Particiones disponibles para usuarios del IB-UNAM",
     "text": "Particiones disponibles para usuarios del IB-UNAM\nEn Atocatl existen varias particiones de Slurm. Sin embargo, para los usuarios del Instituto de Biología, UNAM, las particiones principales de interés son:\n\n\n\n\n\n\n\n\n\nPartición\nNodo(s)\nRecursos principales\nUso recomendado\n\n\n\n\nib\nbeagle-01, beagle-02\nCPUs y memoria RAM\nTrabajos generales de bioinformática con CPU\n\n\ngpu_V100\nbeagle-gpu-01\n80 CPUs, ~754 GB RAM y 3 GPUs NVIDIA V100\nTrabajos que requieren GPU o análisis grandes que necesitan muchos CPUs y memoria\n\n\n\nPuedes revisar el estado de estas particiones con:\nsinfo -p ib,gpu_V100\nUna salida esperada puede verse así:\nPARTITION AVAIL  TIMELIMIT  NODES  STATE NODELIST\nib           up 5-00:00:00      2   idle beagle-[01-02]\ngpu_V100     up   infinite      1   idle beagle-gpu-01\nPara ver los recursos disponibles por nodo:\nsinfo -N -p ib,gpu_V100 -o \"%N %c CPUs %m MB %G %T\"\nEjemplo de salida:\nNODELIST       CPUS  MEMORY MB  GRES   STATE\nbeagle-01      32    96064      (null) idle\nbeagle-02      20    192616     (null) idle\nbeagle-gpu-01  80    772109     gpu:3  idle\nEsto indica que:\n\nbeagle-01 tiene 32 CPUs y aproximadamente 94 GB de RAM.\nbeagle-02 tiene 20 CPUs y aproximadamente 188 GB de RAM.\nbeagle-gpu-01 tiene 80 CPUs, aproximadamente 754 GB de RAM y 3 GPUs NVIDIA V100.\n\nPor esta razón, la partición gpu_V100 puede ser útil para trabajos que requieren GPU, pero también representa el nodo con mayor capacidad de CPU y memoria dentro de BEAGLE.",
     "crumbs": [
-      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
     ]
   },
   {
@@ -586,7 +486,7 @@
     "section": "Conceptos básicos",
     "text": "Conceptos básicos\n\nJob\nUn job es un trabajo enviado a Slurm. Puede ser un script de Bash que ejecuta un análisis bioinformático, un programa de R, Python, Apptainer, BLAST, IQ-TREE, MAFFT, BEAST, RevBayes, entre otros.\n\n\nCola\nLa cola es la lista de trabajos que están esperando, corriendo o terminando dentro del sistema Slurm.\n\n\nPartición\nUna partición es una sección lógica del clúster. En este caso, las particiones principales para usuarios del IB-UNAM son:\nib\ngpu_V100\nUsar una partición significa indicar en qué grupo de nodos quieres ejecutar tu trabajo.\nPor ejemplo:\n#SBATCH -p ib\nsignifica:\n\nenviar mi trabajo a la partición ib.\n\nMientras que:\n#SBATCH -p gpu_V100\nsignifica:\n\nenviar mi trabajo a la partición con GPU V100.\n\n\n\nRecursos\nCuando envías un trabajo, debes indicar los recursos que necesitas. Por ejemplo:\n\nnúmero de CPUs;\nmemoria RAM;\ntiempo máximo de ejecución;\nnombre del trabajo;\npartición donde se ejecutará;\nnúmero de GPUs, si aplica.",
     "crumbs": [
-      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
     ]
   },
   {
@@ -596,7 +496,7 @@
     "section": "Comandos básicos",
     "text": "Comandos básicos\n\nVer el estado del clúster\nsinfo\n\n\nVer solo las particiones del IB-UNAM\nsinfo -p ib,gpu_V100\n\n\nEstados comunes de los nodos\n\n\n\nEstado\nSignificado\n\n\n\n\nidle\nEl nodo está libre\n\n\nalloc\nEl nodo está ocupado\n\n\nmix\nEl nodo tiene algunos recursos ocupados y otros libres\n\n\ndown\nEl nodo no está disponible\n\n\ndrain\nEl nodo no acepta nuevos trabajos",
     "crumbs": [
-      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
     ]
   },
   {
@@ -606,7 +506,7 @@
     "section": "Ver trabajos en cola",
     "text": "Ver trabajos en cola\nsqueue\nEjemplo:\nJOBID PARTITION     NAME     USER ST       TIME  NODES NODELIST(REASON)\n1234        ib  analisis cristian  R       1:23      1 beagle-01\n\nEstados comunes de los trabajos\n\n\n\nEstado\nSignificado\n\n\n\n\nR\nRunning, el trabajo está corriendo\n\n\nPD\nPending, el trabajo está esperando\n\n\nCG\nCompleting, el trabajo está terminando\n\n\nCD\nCompleted, el trabajo terminó correctamente\n\n\nF\nFailed, el trabajo falló\n\n\nCA\nCancelled, el trabajo fue cancelado",
     "crumbs": [
-      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
     ]
   },
   {
@@ -616,7 +516,7 @@
     "section": "Ver solo tus trabajos",
     "text": "Ver solo tus trabajos\nsqueue -u $USER",
     "crumbs": [
-      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
     ]
   },
   {
@@ -626,7 +526,7 @@
     "section": "Cancelar un trabajo",
     "text": "Cancelar un trabajo\nscancel JOBID\nEjemplo:\nscancel 1234",
     "crumbs": [
-      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
     ]
   },
   {
@@ -636,7 +536,7 @@
     "section": "Cancelar todos tus trabajos",
     "text": "Cancelar todos tus trabajos\nUsar con cuidado:\nscancel -u $USER",
     "crumbs": [
-      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
     ]
   },
   {
@@ -646,7 +546,7 @@
     "section": "Primer ejemplo: ejecutar un comando simple",
     "text": "Primer ejemplo: ejecutar un comando simple\nPuedes probar Slurm ejecutando el comando hostname en la partición ib:\nsrun -p ib -N1 -n1 hostname\nLa salida esperada será el nombre de alguno de los nodos asignados, por ejemplo:\nbeagle-01.lamod.unam.mx\no:\nbeagle-02.lamod.unam.mx\nEsto significa que Slurm ejecutó el comando en uno de los nodos de la partición ib.",
     "crumbs": [
-      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
     ]
   },
   {
@@ -656,7 +556,7 @@
     "section": "Enviar trabajos con sbatch",
     "text": "Enviar trabajos con sbatch\nLa forma recomendada de usar Slurm es crear un script y enviarlo con:\nsbatch script.sh\nUn script de Slurm es un archivo de Bash con instrucciones especiales que empiezan con:\n#SBATCH\nEstas líneas le dicen a Slurm qué recursos necesitas.",
     "crumbs": [
-      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
     ]
   },
   {
@@ -666,7 +566,7 @@
     "section": "Script mínimo de ejemplo para CPU",
     "text": "Script mínimo de ejemplo para CPU\nCrea un archivo llamado prueba_slurm.sh:\nnano prueba_slurm.sh\nContenido:\n#!/bin/bash\n#SBATCH -J prueba\n#SBATCH -p ib\n#SBATCH -N 1\n#SBATCH -n 1\n#SBATCH -c 2\n#SBATCH --mem=4G\n#SBATCH --time=00:05:00\n\necho \"Inicio: $(date)\"\necho \"Host: $(hostname)\"\necho \"Job ID: $SLURM_JOB_ID\"\necho \"Nombre del trabajo: $SLURM_JOB_NAME\"\necho \"CPUs asignadas: $SLURM_CPUS_PER_TASK\"\n\nsleep 10\n\necho \"Fin: $(date)\"\nEnviar el trabajo:\nsbatch prueba_slurm.sh\nSlurm responderá algo como:\nSubmitted batch job 1234",
     "crumbs": [
-      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
     ]
   },
   {
@@ -676,7 +576,7 @@
     "section": "Revisar la salida del trabajo",
     "text": "Revisar la salida del trabajo\nPor defecto, Slurm crea un archivo llamado:\nslurm-JOBID.out\nPor ejemplo:\ncat slurm-1234.out",
     "crumbs": [
-      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
     ]
   },
   {
@@ -686,7 +586,7 @@
     "section": "Personalizar el nombre de salida",
     "text": "Personalizar el nombre de salida\nEs recomendable guardar las salidas y errores en una carpeta llamada logs.\nCrear la carpeta:\nmkdir -p logs\nEjemplo de script:\n#!/bin/bash\n#SBATCH -J prueba\n#SBATCH -p ib\n#SBATCH -N 1\n#SBATCH -n 1\n#SBATCH -c 2\n#SBATCH --mem=4G\n#SBATCH --time=00:05:00\n#SBATCH -o logs/%x_%j.out\n#SBATCH -e logs/%x_%j.err\n\necho \"Inicio: $(date)\"\necho \"Host: $(hostname)\"\necho \"Job ID: $SLURM_JOB_ID\"\necho \"Fin: $(date)\"\nDonde:\n\n\n\nCódigo\nSignificado\n\n\n\n\n%x\nNombre del trabajo\n\n\n%j\nID del trabajo\n\n\n\nAsí se generan archivos como:\nlogs/prueba_1234.out\nlogs/prueba_1234.err",
     "crumbs": [
-      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
     ]
   },
   {
@@ -696,7 +596,7 @@
     "section": "Parámetros principales de Slurm",
     "text": "Parámetros principales de Slurm\n\n\n\nOpción\nSignificado\n\n\n\n\n#SBATCH -J nombre\nNombre del trabajo\n\n\n#SBATCH -p ib\nPartición donde se ejecuta\n\n\n#SBATCH -N 1\nNúmero de nodos\n\n\n#SBATCH -n 1\nNúmero de tareas\n\n\n#SBATCH -c 4\nCPUs por tarea\n\n\n#SBATCH --mem=16G\nMemoria solicitada\n\n\n#SBATCH --time=01:00:00\nTiempo máximo\n\n\n#SBATCH -o archivo.out\nArchivo de salida estándar\n\n\n#SBATCH -e archivo.err\nArchivo de error\n\n\n#SBATCH --gres=gpu:1\nSolicitar una GPU, cuando aplique",
     "crumbs": [
-      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
     ]
   },
   {
@@ -706,7 +606,7 @@
     "section": "¿Cuántas CPUs pedir?",
     "text": "¿Cuántas CPUs pedir?\nNo siempre conviene pedir muchas CPUs. Solo deben solicitarse más CPUs si el programa realmente puede usarlas.\nEjemplos:\n\nPrograma de un solo hilo\n#SBATCH -c 1\n\n\nPrograma con 4 hilos\n#SBATCH -c 4\n\n\nPrograma con 16 hilos\n#SBATCH -c 16\nAdemás, dentro del comando del programa hay que indicar el mismo número de hilos usando la variable:\n$SLURM_CPUS_PER_TASK\nEjemplo con fastp:\nfastp \\\n  -i muestra_R1.fastq.gz \\\n  -I muestra_R2.fastq.gz \\\n  -o limpia_R1.fastq.gz \\\n  -O limpia_R2.fastq.gz \\\n  -w $SLURM_CPUS_PER_TASK\nEjemplo con iqtree2:\niqtree2 -s alineamiento.phy -T $SLURM_CPUS_PER_TASK\nEjemplo con mafft:\nmafft --thread $SLURM_CPUS_PER_TASK entrada.fasta &gt; alineado.fasta",
     "crumbs": [
-      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
     ]
   },
   {
@@ -716,7 +616,7 @@
     "section": "Ejemplo para un programa bioinformático en CPU",
     "text": "Ejemplo para un programa bioinformático en CPU\nArchivo sugerido:\nmafft_test.sh\nContenido:\n#!/bin/bash\n#SBATCH -J mafft_test\n#SBATCH -p ib\n#SBATCH -N 1\n#SBATCH -n 1\n#SBATCH -c 8\n#SBATCH --mem=16G\n#SBATCH --time=02:00:00\n#SBATCH -o logs/%x_%j.out\n#SBATCH -e logs/%x_%j.err\n\nset -euo pipefail\n\nmkdir -p logs resultados\n\necho \"====================================\"\necho \"Trabajo: $SLURM_JOB_NAME\"\necho \"Job ID: $SLURM_JOB_ID\"\necho \"Usuario: $USER\"\necho \"Host: $(hostname)\"\necho \"Inicio: $(date)\"\necho \"CPUs asignadas: $SLURM_CPUS_PER_TASK\"\necho \"Directorio de envío: $SLURM_SUBMIT_DIR\"\necho \"====================================\"\n\nmafft --thread $SLURM_CPUS_PER_TASK \\\n  datos/secuencias.fasta \\\n  &gt; resultados/secuencias_alineadas.fasta\n\necho \"====================================\"\necho \"Fin: $(date)\"\necho \"====================================\"\nEnviar:\nsbatch mafft_test.sh",
     "crumbs": [
-      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
     ]
   },
   {
@@ -726,7 +626,7 @@
     "section": "Ejemplo con Apptainer en CPU",
     "text": "Ejemplo con Apptainer en CPU\nSi el análisis usa un contenedor de Apptainer, puedes usar la partición ib.\n#!/bin/bash\n#SBATCH -J apptainer_cpu\n#SBATCH -p ib\n#SBATCH -N 1\n#SBATCH -n 1\n#SBATCH -c 4\n#SBATCH --mem=8G\n#SBATCH --time=01:00:00\n#SBATCH -o logs/%x_%j.out\n#SBATCH -e logs/%x_%j.err\n\nset -euo pipefail\n\nmkdir -p logs resultados\n\necho \"Inicio: $(date)\"\necho \"Host: $(hostname)\"\necho \"Job ID: $SLURM_JOB_ID\"\n\napptainer exec programa.sif programa --help\n\necho \"Fin: $(date)\"",
     "crumbs": [
-      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
     ]
   },
   {
@@ -736,7 +636,7 @@
     "section": "Ejemplo con carpetas enlazadas en Apptainer",
     "text": "Ejemplo con carpetas enlazadas en Apptainer\nCuando se trabaja con contenedores, es útil enlazar la carpeta actual como /work dentro del contenedor.\n#!/bin/bash\n#SBATCH -J apptainer_cpu\n#SBATCH -p ib\n#SBATCH -N 1\n#SBATCH -n 1\n#SBATCH -c 4\n#SBATCH --mem=8G\n#SBATCH --time=01:00:00\n#SBATCH -o logs/%x_%j.out\n#SBATCH -e logs/%x_%j.err\n\nset -euo pipefail\n\nmkdir -p logs resultados\n\necho \"Inicio: $(date)\"\necho \"Host: $(hostname)\"\n\napptainer exec \\\n  --bind $PWD:/work \\\n  --pwd /work \\\n  programa.sif \\\n  programa input.fasta output.txt\n\necho \"Fin: $(date)\"",
     "crumbs": [
-      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
     ]
   },
   {
@@ -746,7 +646,7 @@
     "section": "Ejemplo para usar la partición con GPU V100",
     "text": "Ejemplo para usar la partición con GPU V100\nPara trabajos que requieren GPU, se debe usar la partición:\ngpu_V100\nUn script básico puede verse así:\n#!/bin/bash\n#SBATCH -J gpu_test\n#SBATCH -p gpu_V100\n#SBATCH -N 1\n#SBATCH -n 1\n#SBATCH -c 4\n#SBATCH --mem=16G\n#SBATCH --gres=gpu:1\n#SBATCH --time=01:00:00\n#SBATCH -o logs/%x_%j.out\n#SBATCH -e logs/%x_%j.err\n\nset -euo pipefail\n\nmkdir -p logs resultados\n\necho \"====================================\"\necho \"Trabajo: $SLURM_JOB_NAME\"\necho \"Job ID: $SLURM_JOB_ID\"\necho \"Usuario: $USER\"\necho \"Host: $(hostname)\"\necho \"Inicio: $(date)\"\necho \"CPUs asignadas: $SLURM_CPUS_PER_TASK\"\necho \"Nodo asignado: $SLURM_JOB_NODELIST\"\necho \"====================================\"\n\nnvidia-smi\n\necho \"Fin: $(date)\"\nEnviar:\nsbatch gpu_test.sh\nSi el trabajo se ejecuta correctamente, el archivo de salida debe mostrar información de la GPU NVIDIA V100 disponible en el nodo asignado.",
     "crumbs": [
-      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
     ]
   },
   {
@@ -756,7 +656,7 @@
     "section": "Ejemplo con Apptainer y GPU",
     "text": "Ejemplo con Apptainer y GPU\nPara usar GPU dentro de un contenedor de Apptainer, normalmente se usa la opción:\n--nv\nEjemplo:\n#!/bin/bash\n#SBATCH -J apptainer_gpu\n#SBATCH -p gpu_V100\n#SBATCH -N 1\n#SBATCH -n 1\n#SBATCH -c 8\n#SBATCH --mem=32G\n#SBATCH --gres=gpu:1\n#SBATCH --time=04:00:00\n#SBATCH -o logs/%x_%j.out\n#SBATCH -e logs/%x_%j.err\n\nset -euo pipefail\n\nmkdir -p logs resultados\n\necho \"====================================\"\necho \"Trabajo: $SLURM_JOB_NAME\"\necho \"Job ID: $SLURM_JOB_ID\"\necho \"Usuario: $USER\"\necho \"Host: $(hostname)\"\necho \"Inicio: $(date)\"\necho \"CPUs asignadas: $SLURM_CPUS_PER_TASK\"\necho \"Nodo asignado: $SLURM_JOB_NODELIST\"\necho \"====================================\"\n\nnvidia-smi\n\napptainer exec \\\n  --nv \\\n  --bind $PWD:/work \\\n  --pwd /work \\\n  programa_gpu.sif \\\n  programa_gpu --help\n\necho \"====================================\"\necho \"Fin: $(date)\"\necho \"====================================\"",
     "crumbs": [
-      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
     ]
   },
   {
@@ -766,7 +666,7 @@
     "section": "Variables útiles de Slurm",
     "text": "Variables útiles de Slurm\nDentro de un script, Slurm crea variables automáticamente.\n\n\n\nVariable\nSignificado\n\n\n\n\n$SLURM_JOB_ID\nID del trabajo\n\n\n$SLURM_JOB_NAME\nNombre del trabajo\n\n\n$SLURM_CPUS_PER_TASK\nCPUs asignadas\n\n\n$SLURM_SUBMIT_DIR\nCarpeta desde donde se envió el trabajo\n\n\n$SLURM_JOB_NODELIST\nNodo asignado\n\n\n$SLURM_GPUS\nGPUs asignadas, si aplica\n\n\n\nEjemplo:\necho \"Job ID: $SLURM_JOB_ID\"\necho \"Nombre: $SLURM_JOB_NAME\"\necho \"CPUs: $SLURM_CPUS_PER_TASK\"\necho \"Directorio de envío: $SLURM_SUBMIT_DIR\"\necho \"Nodo asignado: $SLURM_JOB_NODELIST\"",
     "crumbs": [
-      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
     ]
   },
   {
@@ -776,7 +676,7 @@
     "section": "Buenas prácticas",
     "text": "Buenas prácticas\n\n1. No correr análisis pesados directamente en la terminal\nEvita ejecutar programas pesados directamente en el nodo de acceso:\niqtree2 -s archivo.phy -T 32\nEn su lugar, crea un script y envíalo con:\nsbatch script.sh\n\n\n2. No pedir más CPUs de las necesarias\nSi un programa solo usa 4 hilos, no pidas 32 CPUs.\nMal:\n#SBATCH -c 32\nBien:\n#SBATCH -c 4\n\n\n3. Usar la partición correcta\nPara trabajos generales con CPU:\n#SBATCH -p ib\nPara trabajos con GPU V100:\n#SBATCH -p gpu_V100\n#SBATCH --gres=gpu:1\n\n\n4. Siempre usar carpetas organizadas\nEjemplo:\nproyecto/\n├── datos/\n├── scripts/\n├── resultados/\n└── logs/\n\n\n5. Guardar salidas y errores\nUsa:\n#SBATCH -o logs/%x_%j.out\n#SBATCH -e logs/%x_%j.err\n\n\n6. Probar primero con datos pequeños\nAntes de enviar un análisis grande, prueba con un subconjunto de datos para asegurarte de que el comando funciona correctamente.\n\n\n7. Revisar los logs\nSi un trabajo falla, revisa primero:\ncat logs/nombre_JOBID.err\ncat logs/nombre_JOBID.out\nTambién puedes revisar los archivos con:\nless logs/nombre_JOBID.err\nless logs/nombre_JOBID.out",
     "crumbs": [
-      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
     ]
   },
   {
@@ -786,7 +686,7 @@
     "section": "Plantilla recomendada para usar CPU y RAM en ib o gpu_V100",
     "text": "Plantilla recomendada para usar CPU y RAM en ib o gpu_V100\nEsta plantilla sirve para trabajos que usan principalmente CPUs y memoria RAM. Puede utilizarse en la partición ib para análisis generales, o en la partición gpu_V100 cuando se requiere más capacidad de CPU y memoria RAM.\nPara trabajos normales con CPU se recomienda usar:\n#SBATCH -p ib\nPara trabajos muy grandes que necesitan más CPUs o mucha memoria RAM, pero no necesariamente GPU, puede usarse:\n#SBATCH -p gpu_V100\nPlantilla:\n#!/bin/bash\n#SBATCH -J nombre_del_analisis\n#SBATCH -p ib\n#SBATCH -N 1\n#SBATCH -n 1\n#SBATCH -c 8\n#SBATCH --mem=32G\n#SBATCH --time=04:00:00\n#SBATCH -o logs/%x_%j.out\n#SBATCH -e logs/%x_%j.err\n\nset -euo pipefail\n\nmkdir -p logs resultados\n\necho \"====================================\"\necho \"Trabajo: $SLURM_JOB_NAME\"\necho \"Job ID: $SLURM_JOB_ID\"\necho \"Usuario: $USER\"\necho \"Host: $(hostname)\"\necho \"Inicio: $(date)\"\necho \"CPUs asignadas: $SLURM_CPUS_PER_TASK\"\necho \"Directorio de envío: $SLURM_SUBMIT_DIR\"\necho \"Nodo asignado: $SLURM_JOB_NODELIST\"\necho \"====================================\"\n\n# Aquí va el comando principal del análisis\n# Ejemplos:\n# mafft --thread $SLURM_CPUS_PER_TASK datos/secuencias.fasta &gt; resultados/secuencias_alineadas.fasta\n# iqtree2 -s datos/alineamiento.phy -T $SLURM_CPUS_PER_TASK\n# Rscript scripts/analisis.R\n\necho \"Aquí va el análisis\"\n\necho \"====================================\"\necho \"Fin: $(date)\"\necho \"====================================\"\nPara usar esta misma plantilla en el nodo beagle-gpu-01 solo con CPU y RAM, cambia la partición:\n#SBATCH -p gpu_V100\nPor ejemplo:\n#SBATCH -p gpu_V100\n#SBATCH -c 32\n#SBATCH --mem=200G",
     "crumbs": [
-      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
     ]
   },
   {
@@ -796,7 +696,7 @@
     "section": "Plantilla recomendada para usar GPUs en gpu_V100",
     "text": "Plantilla recomendada para usar GPUs en gpu_V100\nEsta plantilla debe usarse cuando el análisis requiere GPUs NVIDIA V100. En este caso se debe usar la partición gpu_V100 y solicitar explícitamente el número de GPUs necesarias.\nPara solicitar una GPU:\n#SBATCH --gres=gpu:1\nPlantilla:\n#!/bin/bash\n#SBATCH -J nombre_gpu\n#SBATCH -p gpu_V100\n#SBATCH -N 1\n#SBATCH -n 1\n#SBATCH -c 8\n#SBATCH --mem=32G\n#SBATCH --gres=gpu:1\n#SBATCH --time=04:00:00\n#SBATCH -o logs/%x_%j.out\n#SBATCH -e logs/%x_%j.err\n\nset -euo pipefail\n\nmkdir -p logs resultados\n\necho \"====================================\"\necho \"Trabajo: $SLURM_JOB_NAME\"\necho \"Job ID: $SLURM_JOB_ID\"\necho \"Usuario: $USER\"\necho \"Host: $(hostname)\"\necho \"Inicio: $(date)\"\necho \"CPUs asignadas: $SLURM_CPUS_PER_TASK\"\necho \"Nodo asignado: $SLURM_JOB_NODELIST\"\necho \"GPUs asignadas: ${SLURM_GPUS:-No disponible}\"\necho \"====================================\"\n\necho \"Revisando GPU disponible:\"\nnvidia-smi\n\n# Aquí va el comando principal del análisis con GPU\n# Ejemplo general:\n# programa_gpu --threads $SLURM_CPUS_PER_TASK\n\necho \"Aquí va el análisis con GPU\"\n\necho \"====================================\"\necho \"Fin: $(date)\"\necho \"====================================\"\nSi el análisis usa un contenedor de Apptainer con GPU, se debe agregar la opción --nv:\napptainer exec \\\n  --nv \\\n  --bind $PWD:/work \\\n  --pwd /work \\\n  programa_gpu.sif \\\n  programa_gpu input.fasta output.txt\nLa opción --nv permite que el contenedor detecte las GPUs NVIDIA disponibles en el nodo.",
     "crumbs": [
-      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
     ]
   },
   {
@@ -806,7 +706,7 @@
     "section": "Resumen de comandos esenciales",
     "text": "Resumen de comandos esenciales\n\n\n\n\n\n\n\nAcción\nComando\n\n\n\n\nVer estado del clúster\nsinfo\n\n\nVer particiones del IB-UNAM\nsinfo -p ib,gpu_V100\n\n\nVer recursos por nodo\nsinfo -N -p ib,gpu_V100 -o \"%N %c CPUs %m MB %G %T\"\n\n\nVer cola\nsqueue\n\n\nVer tus trabajos\nsqueue -u $USER\n\n\nEnviar trabajo\nsbatch script.sh\n\n\nCancelar trabajo\nscancel JOBID\n\n\nCancelar todos tus trabajos\nscancel -u $USER\n\n\nEjecutar comando simple en CPU\nsrun -p ib -N1 -n1 hostname\n\n\nEjecutar comando simple en GPU\nsrun -p gpu_V100 --gres=gpu:1 -N1 -n1 nvidia-smi",
     "crumbs": [
-      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
     ]
   },
   {
@@ -816,7 +716,7 @@
     "section": "¿Qué pasa si solicito menos o más recursos de los necesarios?",
     "text": "¿Qué pasa si solicito menos o más recursos de los necesarios?\nCuando se envía un trabajo a Slurm, los recursos solicitados deben ser lo más cercanos posible a lo que realmente necesita el análisis. Pedir menos recursos puede hacer que el trabajo falle o tarde demasiado. Pedir recursos de más puede hacer que el trabajo espere más tiempo en la cola y que otros usuarios no puedan usar esos recursos.",
     "crumbs": [
-      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
     ]
   },
   {
@@ -826,7 +726,7 @@
     "section": "Si solicitas menos recursos de los necesarios",
     "text": "Si solicitas menos recursos de los necesarios\n\nMenos CPUs de las necesarias\nSi pides pocas CPUs, el análisis puede correr más lento.\nPor ejemplo:\n#SBATCH -c 2\npero el programa podría funcionar mejor con 8 CPUs:\nmafft --thread 8 entrada.fasta &gt; salida.fasta\nEn este caso hay un problema: el script pidió 2 CPUs, pero el programa intenta usar 8. Esto puede saturar el nodo o hacer que Slurm limite el trabajo, dependiendo de la configuración del sistema.\nLo correcto es que el número de CPUs solicitado coincida con el número de hilos usados por el programa:\n#SBATCH -c 8\ny dentro del comando:\nmafft --thread $SLURM_CPUS_PER_TASK entrada.fasta &gt; salida.fasta\n\n\nMenos memoria de la necesaria\nSi pides menos memoria RAM de la que necesita el análisis, el trabajo puede fallar.\nPor ejemplo:\n#SBATCH --mem=4G\npero el análisis necesita 20 GB de RAM.\nEn ese caso, Slurm o el sistema pueden terminar el trabajo automáticamente. El error puede aparecer en los archivos .err o .out con mensajes como:\nOut Of Memory\noom-kill\nKilled\no el trabajo puede aparecer como fallido en Slurm.\n\n\nMenos tiempo del necesario\nSi pides menos tiempo del que necesita el análisis:\n#SBATCH --time=00:30:00\npero el programa necesita 2 horas, Slurm cancelará el trabajo cuando se cumpla el tiempo máximo.\nEl trabajo puede aparecer con estado:\nTIMEOUT\no como cancelado por límite de tiempo.",
     "crumbs": [
-      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
     ]
   },
   {
@@ -836,7 +736,7 @@
     "section": "Si solicitas más recursos de los necesarios",
     "text": "Si solicitas más recursos de los necesarios\nPedir más recursos de los que realmente usa el análisis no hace que el programa corra más rápido automáticamente.\nPor ejemplo, si pides:\n#SBATCH -c 32\n#SBATCH --mem=200G\npero tu programa solo usa 4 CPUs y 10 GB de RAM, los recursos restantes quedan reservados para tu trabajo aunque no se estén usando.\nEsto puede provocar que:\n\ntu trabajo tarde más en iniciar porque Slurm necesita encontrar un nodo con muchos recursos libres;\notros usuarios no puedan usar esas CPUs o memoria mientras tu trabajo está corriendo;\nse desperdicie capacidad del clúster;\nse reduzca la eficiencia general del sistema.\n\nEn algunos sistemas, además, el uso de recursos puede afectar métricas de prioridad o reportes de consumo, aunque el programa no haya usado todo lo solicitado.",
     "crumbs": [
-      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
     ]
   },
   {
@@ -846,7 +746,7 @@
     "section": "Ejemplo de mala práctica",
     "text": "Ejemplo de mala práctica\n#SBATCH -p ib\n#SBATCH -c 32\n#SBATCH --mem=100G\npero el comando ejecutado es:\niqtree2 -s alineamiento.phy -T 4\nAquí se reservaron 32 CPUs, pero IQ-TREE solo usará 4. Las otras 28 CPUs quedan apartadas sin utilizarse.",
     "crumbs": [
-      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
     ]
   },
   {
@@ -856,7 +756,7 @@
     "section": "Ejemplo correcto",
     "text": "Ejemplo correcto\n#SBATCH -p ib\n#SBATCH -c 4\n#SBATCH --mem=16G\ny el comando:\niqtree2 -s alineamiento.phy -T $SLURM_CPUS_PER_TASK\nEn este caso, Slurm asigna 4 CPUs y el programa usa esas mismas 4 CPUs.",
     "crumbs": [
-      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
     ]
   },
   {
@@ -866,7 +766,7 @@
     "section": "Recomendación práctica",
     "text": "Recomendación práctica\nSi no sabes cuántos recursos necesita tu análisis, empieza con una prueba pequeña.\nPor ejemplo:\n#SBATCH -c 4\n#SBATCH --mem=16G\n#SBATCH --time=01:00:00\nDespués revisa si el trabajo terminó correctamente. Si falló por memoria, aumenta la memoria. Si tardó demasiado pero no falló, puedes aumentar el tiempo. Si el programa permite usar más hilos, puedes aumentar CPUs de forma razonable.",
     "crumbs": [
-      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
     ]
   },
   {
@@ -876,7 +776,7 @@
     "section": "Regla general",
     "text": "Regla general\n\n\n\n\n\n\n\nSituación\nConsecuencia\n\n\n\n\nPedir menos CPUs\nEl análisis puede tardar más\n\n\nPedir menos memoria\nEl trabajo puede fallar por falta de RAM\n\n\nPedir menos tiempo\nSlurm puede cancelar el trabajo por límite de tiempo\n\n\nPedir más CPUs de las usadas\nSe desperdician CPUs reservadas\n\n\nPedir más memoria de la usada\nSe bloquea memoria que otros usuarios podrían usar\n\n\nPedir GPU sin usarla\nSe reserva una GPU innecesariamente\n\n\nUsar más hilos de los solicitados\nPuede saturar el nodo o violar las buenas prácticas de uso",
     "crumbs": [
-      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
     ]
   },
   {
@@ -886,7 +786,7 @@
     "section": "",
     "text": "Mensajes a Telegram:\n✅ Ese token es tu “contraseña” del bot, No lo compartas!!!",
     "crumbs": [
-      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Notificaciones automáticas</span>"
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Notificaciones automáticas</span>"
     ]
   },
   {
@@ -896,7 +796,7 @@
     "section": "",
     "text": "Busca @BotFather y ABRIR\n\n\n\n\n\n\n\nCrear un nuevo Bot\n\n\n\n\n\n\n\nPonle un nombre al Bot y elige un nombre de usuario que termine en bot, el usarname tiene que estar disponible\n\n\n\n\n\n\n\nBotFather te dará un TOKEN\n\n\n\n\n\n\n\n\nAbre el chat con tu bot (búscalo por username).\n\n\n\n\n\n\n\nPresiona Iniciar",
     "crumbs": [
-      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Notificaciones automáticas</span>"
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Notificaciones automáticas</span>"
     ]
   },
   {
@@ -906,7 +806,7 @@
     "section": "Conseguir tu chat_id (para mandarte mensajes)",
     "text": "Conseguir tu chat_id (para mandarte mensajes)\nTOKEN=\"TU_TOKEN_AQUI\"\ncurl -s \"https://api.telegram.org/bot${TOKEN}/getUpdates\" \nBusca en la salida algo así:\n\"chat\":{\"id\":123456789,\"first_name\":\"Pedro\", ...}\n📌 “id”:123456789 ese número es tu CHAT_ID.\n\nEnviar un mensaje con curl (lo esencial)\nTOKEN=\"TU_TOKEN_AQUI\"\nCHAT_ID=\"TU_CHAT_ID_AQUI\"\n\ncurl -s -X POST \"https://api.telegram.org/bot${TOKEN}/sendMessage\" \\\n  -d \"chat_id=${CHAT_ID}\" \\\n  -d \"text=Hola 👋 Mensaje enviado desde Bash\"",
     "crumbs": [
-      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Notificaciones automáticas</span>"
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Notificaciones automáticas</span>"
     ]
   },
   {
@@ -916,7 +816,7 @@
     "section": "Buenas prácticas: NO hardcodear el token (y no subirlo a git)",
     "text": "Buenas prácticas: NO hardcodear el token (y no subirlo a git)\n\nArchivo .env (recomendado)\nCrea un archivo .env fuera de tu repo o ignóralo con .gitignore:\nnano .env\nPegar la info en el archivo .env\nTOKEN=\"TU_TOKEN_AQUI\"\nCHAT_ID=\"TU_CHAT_ID_AQUI\"\nEn tu script agrega estas lineas\nsource .env\nSI esta en tu proyecto git agrega el archivo a tu .gitignore:\nnano .gitignore\nY agrega el archivo\n.env\nAdemás agregar seguridad al archivo\nchmod 600 .env",
     "crumbs": [
-      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Notificaciones automáticas</span>"
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Notificaciones automáticas</span>"
     ]
   },
   {
@@ -926,7 +826,7 @@
     "section": "Función reusable tg_send (para cualquier script)",
     "text": "Función reusable tg_send (para cualquier script)\ntg_send () {\n  local msg=\"$1\"\n  curl -s -X POST \"https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage\" \\\n    -d \"chat_id=${TELEGRAM_CHAT_ID}\" \\\n    -d \"text=${msg}\" \\\n    -d \"disable_web_page_preview=true\" &gt; /dev/null\n}\nUso:\ntg_send \"✅ Pipeline terminó correctamente.\"",
     "crumbs": [
-      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Notificaciones automáticas</span>"
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Notificaciones automáticas</span>"
     ]
   },
   {
@@ -936,7 +836,7 @@
     "section": "Usar Telegram en un script de Slurm",
     "text": "Usar Telegram en un script de Slurm\nUna forma útil de usar Telegram es enviar una notificación cuando un trabajo inicia y otra cuando termina. Esto permite saber si el análisis ya comenzó, si finalizó correctamente o si terminó con error.\nEjemplo básico de script de Slurm:\n#!/bin/bash\n#SBATCH --job-name=prueba_telegram\n#SBATCH --partition=ib\n#SBATCH --cpus-per-task=4\n#SBATCH --mem=8G\n#SBATCH --time=01:00:00\n#SBATCH --output=logs/%x_%j.out\n#SBATCH --error=logs/%x_%j.err\n\n# Cargar variables de Telegram\nsource /ruta/a/tu/.env\n\n# Función para enviar mensajes a Telegram\ntg_send () {\n  local msg=\"$1\"\n  curl -s -X POST \"https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage\" \\\n    -d \"chat_id=${TELEGRAM_CHAT_ID}\" \\\n    -d \"text=${msg}\" \\\n    -d \"disable_web_page_preview=true\" &gt; /dev/null\n}\n\n# Mensaje al iniciar\ntg_send \"🚀 Inició el trabajo ${SLURM_JOB_NAME} con ID ${SLURM_JOB_ID} en el nodo ${SLURMD_NODENAME}\"\n\n# Aquí va tu análisis\necho \"Corriendo análisis...\"\nsleep 30\n\n# Guardar el estado del último comando\nstatus=$?\n\n# Mensaje al terminar\nif [ $status -eq 0 ]; then\n  tg_send \"✅ Terminó correctamente el trabajo ${SLURM_JOB_NAME} con ID ${SLURM_JOB_ID}\"\nelse\n  tg_send \"❌ El trabajo ${SLURM_JOB_NAME} con ID ${SLURM_JOB_ID} terminó con error\"\nfi\nPara enviar el trabajo a Slurm:\nsbatch script_telegram.slurm\nEn este ejemplo, Telegram enviará un mensaje cuando el trabajo comience y otro cuando termine.",
     "crumbs": [
-      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Notificaciones automáticas</span>"
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Notificaciones automáticas</span>"
     ]
   },
   {
@@ -946,7 +846,7 @@
     "section": "Archivo .env para Slurm",
     "text": "Archivo .env para Slurm\nPara que el script anterior funcione, el archivo .env debe tener los mismos nombres de variables que usa la función tg_send:\nTELEGRAM_BOT_TOKEN=\"TU_TOKEN_AQUI\"\nTELEGRAM_CHAT_ID=\"TU_CHAT_ID_AQUI\"\nSe recomienda guardar este archivo fuera del repositorio del proyecto y darle permisos restringidos:\nchmod 600 /ruta/a/tu/.env\nSi el archivo .env está dentro del proyecto, debe agregarse al .gitignore:\n.env",
     "crumbs": [
-      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Notificaciones automáticas</span>"
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Notificaciones automáticas</span>"
     ]
   },
   {
@@ -956,7 +856,7 @@
     "section": "Mensajes a Discord",
     "text": "Mensajes a Discord\nDiscord puede utilizarse para recibir notificaciones automáticas desde scripts de Bash o trabajos enviados con Slurm. Para este tipo de uso no es necesario crear un bot completo: lo más práctico es usar webhooks.\nUn webhook es una URL especial asociada a un canal de Discord. Cuando un script envía un mensaje a esa URL, el mensaje aparece automáticamente en ese canal.\n\n\n\n\n\n\nTipRecomendación para BEAGLE\n\n\n\nUsa un webhook por canal.\nPor ejemplo:\n\n\n\n\n\n\n\nCanal de Discord\nUso sugerido\n\n\n\n\n#pruebas\nProbar mensajes antes de usarlos en análisis reales\n\n\n#beast\nNotificaciones de análisis de BEAST/BEAST2\n\n\n#slurm-cpu\nTrabajos generales enviados a Slurm\n\n\n#slurm-gpu\nTrabajos enviados a nodos con GPU\n\n\n#errores\nMensajes cuando un trabajo falla\n\n\n\n\n\nEn Discord, crea un servidor nuevo para organizar los canales de notificación.\n\nSelecciona Crear mi propio modelo.\n\n\n\n\n\n\n\nDiscord puede preguntar si el servidor será para una comunidad o para amigos. Para un grupo de trabajo, curso o laboratorio, puedes elegir Para un club o una comunidad. También puedes omitir esta pregunta.\n\n\n\n\n\n\n\nAsigna un nombre al servidor. En este ejemplo se usa UniSSE.\n\n\n\n\n\n\n\nDiscord puede mostrar una pantalla para invitar personas. Puedes copiar el enlace, compartirlo o cerrar esta pantalla y continuar configurando el servidor.\n\n\n\n\n\n\n\nUna vez creado el servidor, verás los canales disponibles. En este ejemplo se crearon canales como #pruebas y #beast.",
     "crumbs": [
-      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Notificaciones automáticas</span>"
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Notificaciones automáticas</span>"
     ]
   },
   {
@@ -966,7 +866,7 @@
     "section": "Crear canales",
     "text": "Crear canales\nPara crear canales desde la aplicación móvil:\n\nAbre el menú del servidor.\nSelecciona Más opciones.\n\n\n\n\n\n\n\nSelecciona Crear un canal.\n\n\n\n\n\n\nPuedes crear canales separados para diferentes tipos de análisis:\n#pruebas\n#beast\n#slurm-cpu\n#slurm-gpu\n#errores\n\n\n\n\n\n\nNote¿Por qué varios canales?\n\n\n\nSeparar los mensajes ayuda a evitar ruido. Por ejemplo, los trabajos de prueba pueden llegar a #pruebas, los análisis con GPU a #slurm-gpu y los errores a #errores.",
     "crumbs": [
-      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Notificaciones automáticas</span>"
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Notificaciones automáticas</span>"
     ]
   },
   {
@@ -976,7 +876,7 @@
     "section": "Crear un webhook para un canal",
     "text": "Crear un webhook para un canal\nPara que Slurm pueda escribir en Discord, se debe crear un webhook en el canal donde quieres recibir los mensajes.\n\n\n\n\n\n\nWarningLos webhooks no se crean desde la app móvil\n\n\n\nEn la app móvil de Discord puede aparecer el apartado de Webhooks, pero Discord indica que, por ahora, los webhooks solo se pueden crear desde la aplicación de escritorio o desde Discord en la web.\nPor eso, para crear y copiar la URL del webhook, usa una computadora o entra a Discord desde el navegador.\n\n\n\n\n\n\n\n\nDesde Discord de escritorio o navegador\n\nEntra al servidor y selecciona el canal donde quieres recibir mensajes, por ejemplo #pruebas.\nColoca el cursor sobre el canal y selecciona el ícono de engrane para abrir la configuración del canal.\n\n\n\n\n\n\n\nEn la configuración del canal, entra a Integraciones.\n\n\n\n\n\n\n\nEn Integraciones, selecciona Crear Webhook.\n\n\n\n\n\n\n\nDiscord creará un webhook. Puedes cambiarle el nombre, seleccionar el canal y copiar la URL.\n\n\n\n\n\n\n\nPuedes crear más webhooks. En este ejemplo se creó un webhook llamado beagle.\n\n\n\n\n\n\n\n\n\n\n\n\nImportantNo compartas la URL del webhook\n\n\n\nLa URL del webhook funciona como una contraseña. Cualquier persona con esa URL puede enviar mensajes al canal.\nNo la compartas, no la pegues en documentos públicos y no la subas a GitHub.",
     "crumbs": [
-      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Notificaciones automáticas</span>"
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Notificaciones automáticas</span>"
     ]
   },
   {
@@ -986,7 +886,7 @@
     "section": "Guardar los webhooks en un archivo .env",
     "text": "Guardar los webhooks en un archivo .env\nCrea un archivo .env para guardar las URLs de los webhooks.\nnano .env\nEjemplo:\nDISCORD_WEBHOOK_PRUEBAS=\"https://discord.com/api/webhooks/XXXX/YYYY\"\nDISCORD_WEBHOOK_BEAST=\"https://discord.com/api/webhooks/XXXX/YYYY\"\nDISCORD_WEBHOOK_SLURM_CPU=\"https://discord.com/api/webhooks/XXXX/YYYY\"\nDISCORD_WEBHOOK_SLURM_GPU=\"https://discord.com/api/webhooks/XXXX/YYYY\"\nDISCORD_WEBHOOK_ERRORES=\"https://discord.com/api/webhooks/XXXX/YYYY\"\nDale permisos restringidos al archivo:\nchmod 600 .env\nSi el archivo .env está dentro de un proyecto con Git, agrégalo al archivo .gitignore:\nnano .gitignore\nY agrega:\n.env",
     "crumbs": [
-      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Notificaciones automáticas</span>"
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Notificaciones automáticas</span>"
     ]
   },
   {
@@ -996,7 +896,7 @@
     "section": "Probar un webhook con curl",
     "text": "Probar un webhook con curl\nPrimero carga las variables del archivo .env:\nsource .env\nDespués envía un mensaje de prueba:\ncurl -s -H \"Content-Type: application/json\" \\\n  -X POST \\\n  -d '{\"content\":\"Hola 👋 mensaje enviado desde Bash\"}' \\\n  \"$DISCORD_WEBHOOK_PRUEBAS\"\nSi todo está bien configurado, el mensaje aparecerá en el canal de Discord asociado a ese webhook.",
     "crumbs": [
-      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Notificaciones automáticas</span>"
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Notificaciones automáticas</span>"
     ]
   },
   {
@@ -1006,7 +906,7 @@
     "section": "Función reusable discord_send",
     "text": "Función reusable discord_send\nPara reutilizar el envío de mensajes en varios scripts, puedes definir una función de Bash:\ndiscord_send () {\n  local webhook=\"$1\"\n  local msg=\"$2\"\n\n  payload=$(python3 -c 'import json,sys; print(json.dumps({\"content\": sys.argv[1]}, ensure_ascii=False))' \"$msg\")\n\n  curl -s -H \"Content-Type: application/json\" \\\n    -X POST \\\n    -d \"$payload\" \\\n    \"$webhook\" &gt; /dev/null\n}\nUso:\nsource .env\n\ndiscord_send \"$DISCORD_WEBHOOK_PRUEBAS\" \"✅ Mensaje enviado desde Bash\"",
     "crumbs": [
-      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Notificaciones automáticas</span>"
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Notificaciones automáticas</span>"
     ]
   },
   {
@@ -1016,7 +916,7 @@
     "section": "Usar Discord en un script de Slurm",
     "text": "Usar Discord en un script de Slurm\nEl siguiente ejemplo envía un mensaje cuando el trabajo inicia y otro cuando termina. Si el trabajo falla, manda el aviso al canal de errores.\n#!/bin/bash\n#SBATCH --job-name=prueba_discord\n#SBATCH --partition=ib\n#SBATCH --cpus-per-task=4\n#SBATCH --mem=8G\n#SBATCH --time=01:00:00\n#SBATCH --output=logs/%x_%j.out\n#SBATCH --error=logs/%x_%j.err\n\nmkdir -p logs\n\n# Cargar variables con las URLs de los webhooks\nsource /ruta/a/tu/.env\n\n# Función para enviar mensajes a Discord\ndiscord_send () {\n  local webhook=\"$1\"\n  local msg=\"$2\"\n\n  payload=$(python3 -c 'import json,sys; print(json.dumps({\"content\": sys.argv[1]}, ensure_ascii=False))' \"$msg\")\n\n  curl -s -H \"Content-Type: application/json\" \\\n    -X POST \\\n    -d \"$payload\" \\\n    \"$webhook\" &gt; /dev/null\n}\n\n# Aviso automático al terminar el script\non_exit () {\n  status=$?\n\n  if [ \"$status\" -eq 0 ]; then\n    discord_send \"$DISCORD_WEBHOOK_PRUEBAS\" \"✅ Terminó correctamente el trabajo ${SLURM_JOB_NAME} con ID ${SLURM_JOB_ID}\"\n  else\n    discord_send \"${DISCORD_WEBHOOK_ERRORES:-$DISCORD_WEBHOOK_PRUEBAS}\" \"❌ El trabajo ${SLURM_JOB_NAME} con ID ${SLURM_JOB_ID} terminó con error. Revisa logs/${SLURM_JOB_NAME}_${SLURM_JOB_ID}.err\"\n  fi\n}\n\ntrap on_exit EXIT\n\n# Aviso al iniciar\ndiscord_send \"$DISCORD_WEBHOOK_PRUEBAS\" \"🚀 Inició el trabajo ${SLURM_JOB_NAME} con ID ${SLURM_JOB_ID} en ${SLURMD_NODENAME:-nodo-desconocido}\"\n\n# A partir de aquí, si algo falla, Slurm terminará el script\nset -euo pipefail\n\necho \"Corriendo análisis...\"\nsleep 30\n\necho \"Análisis terminado.\"\nEnvía el trabajo con:\nsbatch script_discord.slurm",
     "crumbs": [
-      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Notificaciones automáticas</span>"
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Notificaciones automáticas</span>"
     ]
   },
   {
@@ -1026,7 +926,7 @@
     "section": "Ejemplo para un trabajo de BEAST",
     "text": "Ejemplo para un trabajo de BEAST\nSi tienes un canal específico para BEAST, puedes enviar los mensajes a ese canal:\ndiscord_send \"$DISCORD_WEBHOOK_BEAST\" \"🧬 Inició análisis de BEAST: ${SLURM_JOB_NAME} ID ${SLURM_JOB_ID}\"\nY en caso de error, usar el canal de errores:\ndiscord_send \"$DISCORD_WEBHOOK_ERRORES\" \"⚠️ Falló el análisis de BEAST: ${SLURM_JOB_NAME} ID ${SLURM_JOB_ID}\"",
     "crumbs": [
-      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Notificaciones automáticas</span>"
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Notificaciones automáticas</span>"
     ]
   },
   {
@@ -1036,7 +936,7 @@
     "section": "Ejemplo para trabajos con GPU",
     "text": "Ejemplo para trabajos con GPU\nPara trabajos que usen GPU, puedes usar un webhook específico:\ndiscord_send \"$DISCORD_WEBHOOK_SLURM_GPU\" \"🚀 Inició trabajo GPU ${SLURM_JOB_NAME} con ID ${SLURM_JOB_ID}\"\nAl finalizar:\ndiscord_send \"$DISCORD_WEBHOOK_SLURM_GPU\" \"✅ Terminó trabajo GPU ${SLURM_JOB_NAME} con ID ${SLURM_JOB_ID}\"",
     "crumbs": [
-      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Notificaciones automáticas</span>"
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Notificaciones automáticas</span>"
     ]
   },
   {
@@ -1046,7 +946,7 @@
     "section": "¿Qué hacer si se filtró una URL de webhook?",
     "text": "¿Qué hacer si se filtró una URL de webhook?\nSi accidentalmente compartiste una URL de webhook o la subiste a GitHub:\n\nEntra a Discord.\nAbre la configuración del canal.\nVe a Integraciones.\nEntra a Webhooks.\nElimina el webhook comprometido.\nCrea un webhook nuevo.\nActualiza tu archivo .env.\n\n\n\n\n\n\n\nWarningImportante\n\n\n\nNo basta con borrar la URL del repositorio si ya fue publicada. Lo más seguro es eliminar ese webhook y crear uno nuevo.",
     "crumbs": [
-      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Notificaciones automáticas</span>"
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Notificaciones automáticas</span>"
     ]
   },
   {
@@ -1056,7 +956,7 @@
     "section": "",
     "text": "Para consultas generales, dudas sobre el uso del clúster de cómputo BEAGLE, comentarios sobre este manual o solicitudes de orientación, puedes contactar a:\nDr. Cristian Cervantes\nTécnico Académico\nUnidad de Síntesis en Sistemática y Evolución (UniSSE)\nInstituto de Biología, UNAM\n📧 cristian.cervantes@ib.unam.mx\n\nAntes de solicitar ayuda\nPara poder atender mejor tu duda, incluye la siguiente información en tu mensaje:\n\nNombre completo.\nAdscripción, laboratorio o grupo de trabajo.\nNombre de usuario en BEAGLE, si ya cuentas con uno.\nDescripción breve del problema.\nComando que ejecutaste.\nMensaje de error completo, si aplica.\n\n\n\nReportar errores o sugerencias del manual\nSi encontraste un error en este manual, una instrucción incompleta, un enlace que no funciona o tienes una sugerencia para mejorarlo, puedes reportarlo mediante la sección de Issues del repositorio en GitHub.\nTambién puedes enviar tus comentarios directamente por correo electrónico, especialmente si se trata de una duda particular o de una solicitud que requiera seguimiento personalizado.\n📧 cristian.cervantes@ib.unam.mx",
     "crumbs": [
-      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Contacto y soporte</span>"
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Contacto y soporte</span>"
     ]
   }
 ]

@@ -1,0 +1,86 @@
+## Software en BEAGLE
+
+BEAGLE es un **clúster de cómputo compartido** utilizado por varias personas para ejecutar análisis bioinformáticos, filogenómicos y otros cálculos científicos que requieren recursos computacionales especializados. Al ser una infraestructura compartida, es importante mantener un entorno estable, seguro y ordenado para todos los usuarios.
+
+Para evitar conflictos entre programas, reducir riesgos de seguridad, prevenir cambios que puedan afectar a otros usuarios y facilitar la mantenibilidad del clúster, en BEAGLE **no se permite instalar software directamente en el sistema operativo** ni modificar las instalaciones globales del sistema.
+
+En su lugar, en BEAGLE se priorizan dos estrategias principales para manejar software de forma segura y reproducible:
+
+-   **Ambientes de Micromamba**
+
+-   **Contenedores con Apptainer**
+
+Ambas estrategias permiten ejecutar programas sin alterar el sistema principal del clúster y, en general, **no requieren permisos de administrador (`sudo`) por parte de los usuarios**. Esto permite instalar o ejecutar software dentro de espacios controlados, manteniendo separado el entorno de trabajo del usuario de las configuraciones globales del clúster.
+
+La elección entre una u otra dependerá del tipo de software, del nivel de reproducibilidad requerido y de la experiencia del usuario.
+
+### ¿Qué es un ambiente de Micromamba?
+
+Un ambiente de **Micromamba** es un espacio aislado donde se pueden instalar programas, librerías y dependencias específicas para un análisis o proyecto, sin modificar el sistema operativo ni requerir permisos de administrador.
+
+Por ejemplo, un usuario puede tener un ambiente para `FastQC`, otro para `IQ-TREE` y otro para `BUSCO`, cada uno con sus propias versiones de programas y dependencias.
+
+El uso de ambientes de Micromamba permite:
+
+-   usar software sin modificar el sistema principal;
+
+-   instalar programas sin utilizar `sudo`;
+
+-   evitar conflictos entre versiones de programas;
+
+-   organizar herramientas por proyecto o análisis;
+
+-   instalar programas disponibles en canales como `conda-forge` o `bioconda`;
+
+-   comenzar a trabajar con una curva de aprendizaje relativamente baja.
+
+En general, **Micromamba suele ser la opción más sencilla para los usuarios**, especialmente cuando el programa que se necesita está disponible en `bioconda` o `conda-forge`. Por esta razón, puede ser una buena alternativa para herramientas comunes, análisis exploratorios o flujos de trabajo que no requieren un control estricto del entorno completo.
+
+Sin embargo, aunque los ambientes de Micromamba ayudan a organizar el software, pueden ser menos reproducibles que un contenedor, ya que las versiones de paquetes y dependencias pueden cambiar con el tiempo si no se documentan o congelan adecuadamente.
+
+### ¿Qué es un contenedor?
+
+Un **contenedor** es un archivo que contiene un programa junto con sus librerías, dependencias y parte del entorno necesario para ejecutarse.
+
+En lugar de instalar un programa directamente en BEAGLE, se puede ejecutar dentro de un contenedor sin modificar el sistema principal del clúster ni requerir permisos de administrador. Esto permite que el software funcione de forma más controlada y reproducible, incluso si requiere versiones específicas de librerías, configuraciones complejas o dependencias difíciles de instalar en el sistema principal.
+
+En BEAGLE se utilizan contenedores mediante **Apptainer**, una herramienta diseñada para ambientes de cómputo científico y clústeres HPC.
+
+Los contenedores son especialmente útiles cuando:
+
+-   el software tiene muchas dependencias;
+
+-   se quiere usar una versión específica de un programa;
+
+-   el programa ya está disponible como imagen de contenedor;
+
+-   se busca mayor reproducibilidad;
+
+-   se requiere compartir un flujo de trabajo con otros usuarios;
+
+-   se ejecutarán análisis dentro de trabajos enviados con Slurm.
+
+A diferencia de un ambiente de Micromamba, un contenedor puede encapsular de forma más completa el entorno de ejecución. Esto hace que **Apptainer sea una estrategia más robusta para análisis reproducibles**, especialmente en proyectos que deben repetirse, publicarse, compartirse o ejecutarse en diferentes infraestructuras de cómputo.
+
+### ¿Cuándo usar Micromamba y cuándo usar Apptainer?
+
+En BEAGLE se pueden utilizar ambas estrategias. La decisión final depende del usuario, del programa que se desea ejecutar y del nivel de reproducibilidad que se necesita.
+
+En términos generales, se recomienda usar **Micromamba** cuando se busca una opción más sencilla, flexible y rápida de aprender, especialmente para programas disponibles en `bioconda` o `conda-forge`.
+
+Se recomienda usar **Apptainer** cuando se necesita mayor reproducibilidad, cuando el programa tiene dependencias complejas o cuando ya existe una imagen de contenedor lista para usarse.
+
+| Estrategia | Ventajas principales | Consideraciones |
+|----|----|----|
+| Micromamba | Más sencillo de aprender; permite instalar programas sin `sudo`; útil para software disponible en `bioconda` o `conda-forge`; permite crear ambientes por proyecto | Puede perder reproducibilidad si no se documentan bien las versiones de paquetes y dependencias |
+| Apptainer | Permite ejecutar contenedores sin `sudo`; ofrece mayor reproducibilidad; encapsula mejor el entorno; útil para software complejo y análisis en HPC | Puede tener una curva de aprendizaje mayor al inicio |
+
+## Importante
+
+En BEAGLE no se debe instalar software directamente en el sistema operativo ni modificar las instalaciones globales del clúster.
+
+El uso de **Micromamba** y **Apptainer** permite trabajar con software especializado sin requerir permisos de administrador (`sudo`) y sin alterar la configuración general del clúster.
+
+Si necesitas usar un programa nuevo, primero revisa si puede ejecutarse mediante **Micromamba** o **Apptainer**. Ambas opciones están permitidas en BEAGLE, pero se recomienda elegir la estrategia más adecuada según el tipo de análisis, la complejidad del programa y el nivel de reproducibilidad requerido.
+
+Si el programa requiere una instalación especial o no sabes cuál estrategia conviene usar, consulta con la administración de BEAGLE antes de modificar cualquier configuración del clúster.
