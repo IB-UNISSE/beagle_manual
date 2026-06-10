@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.32">
+<meta name="generator" content="quarto-1.8.26">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -70,14 +70,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="./images/logo_beagle_2.png" rel="icon" type="image/png">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-13f3b9144cfbd4bffe19d1212ca92176.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-ae5d55f8a41ff9e4654feece7b8084e3.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -142,7 +143,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
       <a href="./index.html" class="sidebar-logo-link">
-      <img src="./images/beagle_logo_blanco.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      <img src="./images/beagle_logo_blanco.png" alt="" class="sidebar-logo light-content py-0 d-lg-inline d-none">
+      <img src="./images/beagle_logo_blanco.png" alt="" class="sidebar-logo dark-content py-0 d-lg-inline d-none">
       </a>
     <div class="sidebar-title mb-0 py-0">
       <a href="./">BEAGLE</a> 
@@ -212,7 +214,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#bienvenida" id="toc-bienvenida" class="nav-link" data-scroll-target="#bienvenida">Bienvenida</a></li>
   <li><a href="#a-quién-está-dirigido" id="toc-a-quién-está-dirigido" class="nav-link" data-scroll-target="#a-quién-está-dirigido">¿A quién está dirigido?</a></li>
   <li><a href="#qué-aprenderás-en-este-manual" id="toc-qué-aprenderás-en-este-manual" class="nav-link" data-scroll-target="#qué-aprenderás-en-este-manual">¿Qué aprenderás en este manual?</a></li>
-  <li><a href="#ruta-recomendada-de-lectura" id="toc-ruta-recomendada-de-lectura" class="nav-link" data-scroll-target="#ruta-recomendada-de-lectura">Ruta recomendada de lectura</a></li>
   <li><a href="#reglas-generales-de-uso" id="toc-reglas-generales-de-uso" class="nav-link" data-scroll-target="#reglas-generales-de-uso">Reglas generales de uso</a></li>
   <li><a href="#organización-recomendada-de-proyectos" id="toc-organización-recomendada-de-proyectos" class="nav-link" data-scroll-target="#organización-recomendada-de-proyectos">Organización recomendada de proyectos</a></li>
   <li><a href="#cómo-pedir-ayuda" id="toc-cómo-pedir-ayuda" class="nav-link" data-scroll-target="#cómo-pedir-ayuda">Cómo pedir ayuda</a></li>
@@ -273,7 +274,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Alcance de este manual
+<span class="screen-reader-only">Note</span>Alcance de este manual
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -307,62 +308,11 @@ Alcance de este manual
 <li>subir y descargar archivos con <code>scp</code>, <code>sftp</code> o clientes gráficos;</li>
 <li>moverte dentro del sistema de archivos de Linux;</li>
 <li>revisar el uso de disco, CPU, RAM y procesos;</li>
-<li>distinguir cuándo usar <strong>Micromamba</strong> y cuándo usar <strong>Apptainer</strong>;</li>
-<li>ejecutar software bioinformático sin modificar el sistema principal;</li>
+<li>ejecutar software mediante <strong>Apptainer</strong>;</li>
 <li>enviar trabajos a Slurm con <code>sbatch</code>;</li>
 <li>monitorear, revisar y cancelar trabajos;</li>
 <li>recibir notificaciones básicas de tus análisis mediante Telegram.</li>
 </ul>
-</section>
-<section id="ruta-recomendada-de-lectura" class="level2">
-<h2 class="anchored" data-anchor-id="ruta-recomendada-de-lectura">Ruta recomendada de lectura</h2>
-<p>Si es tu primera vez usando BEAGLE, se recomienda leer las secciones en este orden:</p>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th style="text-align: right;">Orden</th>
-<th>Sección</th>
-<th>¿Para qué sirve?</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: right;">1</td>
-<td><a href="./chapters/acceso.html">Acceso al servidor</a></td>
-<td>Aprender a conectarte por SSH, cambiar contraseña y transferir archivos.</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">2</td>
-<td><a href="./chapters/terminal_linux.html">Comandos básicos de Linux</a></td>
-<td>Conocer los comandos mínimos para moverte, revisar archivos y trabajar en la terminal.</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">3</td>
-<td><a href="chapters/software.qmd">Software en BEAGLE</a></td>
-<td>Entender cómo se maneja el software en el clúster sin instalar programas directamente en el sistema.</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">4</td>
-<td><a href="chapters/micromamba.qmd">Micromamba</a></td>
-<td>Crear ambientes para instalar y usar programas disponibles en canales como <code>bioconda</code> o <code>conda-forge</code>.</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">5</td>
-<td><a href="./chapters/apptainer.html">Apptainer</a></td>
-<td>Ejecutar programas dentro de contenedores reproducibles.</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">6</td>
-<td><a href="./chapters/slurm.html">Uso básico de Slurm</a></td>
-<td>Enviar análisis al sistema de colas y solicitar CPU, RAM, tiempo o GPU.</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">7</td>
-<td><a href="./chapters/bots.html">Mensajes a Telegram</a></td>
-<td>Configurar notificaciones para saber cuándo inicia o termina un trabajo.</td>
-</tr>
-</tbody>
-</table>
 </section>
 <section id="reglas-generales-de-uso" class="level2">
 <h2 class="anchored" data-anchor-id="reglas-generales-de-uso">Reglas generales de uso</h2>
@@ -372,7 +322,7 @@ Alcance de este manual
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Las cuentas son personales e intransferibles
+<span class="screen-reader-only">Caution</span>Las cuentas son personales e intransferibles
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -385,7 +335,7 @@ Las cuentas son personales e intransferibles
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-BEAGLE es un recurso compartido
+<span class="screen-reader-only">Important</span>BEAGLE es un recurso compartido
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -398,7 +348,7 @@ BEAGLE es un recurso compartido
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-No instales software en el sistema principal
+<span class="screen-reader-only">Warning</span>No instales software en el sistema principal
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -411,7 +361,7 @@ No instales software en el sistema principal
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Solicita solo los recursos necesarios
+<span class="screen-reader-only">Note</span>Solicita solo los recursos necesarios
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -422,12 +372,12 @@ Solicita solo los recursos necesarios
 <section id="organización-recomendada-de-proyectos" class="level2">
 <h2 class="anchored" data-anchor-id="organización-recomendada-de-proyectos">Organización recomendada de proyectos</h2>
 <p>Una buena organización de carpetas evita confusiones y facilita encontrar errores. Para cada proyecto o análisis se recomienda usar una estructura similar a:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">mi_proyecto/</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">mi_proyecto/</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> datos/</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> scripts/</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> resultados/</span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> logs/</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="ex">└──</span> metadata/</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="ex">└──</span> metadata/</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Donde:</p>
 <ul>
 <li><code>datos/</code> contiene archivos de entrada, como FASTA, FASTQ, matrices, árboles o tablas;</li>
@@ -506,13 +456,14 @@ Solicita solo los recursos necesarios
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy

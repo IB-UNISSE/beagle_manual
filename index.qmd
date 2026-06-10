@@ -52,25 +52,10 @@ Al terminar las secciones principales, deberías poder:
 -   subir y descargar archivos con `scp`, `sftp` o clientes gráficos;
 -   moverte dentro del sistema de archivos de Linux;
 -   revisar el uso de disco, CPU, RAM y procesos;
--   distinguir cuándo usar **Micromamba** y cuándo usar **Apptainer**;
--   ejecutar software bioinformático sin modificar el sistema principal;
+-   ejecutar software mediante **Apptainer**;
 -   enviar trabajos a Slurm con `sbatch`;
 -   monitorear, revisar y cancelar trabajos;
 -   recibir notificaciones básicas de tus análisis mediante Telegram.
-
-## Ruta recomendada de lectura
-
-Si es tu primera vez usando BEAGLE, se recomienda leer las secciones en este orden:
-
-| Orden | Sección | ¿Para qué sirve? |
-|---:|---|---|
-| 1 | [Acceso al servidor](chapters/acceso.qmd) | Aprender a conectarte por SSH, cambiar contraseña y transferir archivos. |
-| 2 | [Comandos básicos de Linux](chapters/terminal_linux.qmd) | Conocer los comandos mínimos para moverte, revisar archivos y trabajar en la terminal. |
-| 3 | [Software en BEAGLE](chapters/software.qmd) | Entender cómo se maneja el software en el clúster sin instalar programas directamente en el sistema. |
-| 4 | [Micromamba](chapters/micromamba.qmd) | Crear ambientes para instalar y usar programas disponibles en canales como `bioconda` o `conda-forge`. |
-| 5 | [Apptainer](chapters/apptainer.qmd) | Ejecutar programas dentro de contenedores reproducibles. |
-| 6 | [Uso básico de Slurm](chapters/slurm.qmd) | Enviar análisis al sistema de colas y solicitar CPU, RAM, tiempo o GPU. |
-| 7 | [Mensajes a Telegram](chapters/bots.qmd) | Configurar notificaciones para saber cuándo inicia o termina un trabajo. |
 
 ## Reglas generales de uso
 
