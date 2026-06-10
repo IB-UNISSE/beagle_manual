@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.9.38">
+<meta name="generator" content="quarto-1.8.26">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -11,9 +11,6 @@
 
 <title>Manual de usuario BEAGLE</title>
 <style>
-/* Default styles provided by pandoc.
-** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
-*/
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
 div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -73,14 +70,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="./images/logo_beagle_2.png" rel="icon" type="image/png">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-800c05bdab33725db911233aec3012ab.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-ae5d55f8a41ff9e4654feece7b8084e3.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -179,6 +177,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./chapters/bots.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Notificaciones automáticas</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./chapters/apptainer.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Apptainer</span></a>
   </div>
 </li>
@@ -189,7 +192,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./chapters/bots.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Notificaciones automáticas</span></a>
+  <a href="./chapters/ejercicios.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Ejemplos</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -265,7 +268,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="bienvenida" class="level2">
 <h2 class="anchored" data-anchor-id="bienvenida">Bienvenida</h2>
 <p>BEAGLE es una infraestructura de cómputo compartida para apoyar análisis bioinformáticos, filogenómicos y otros procesos computacionales utilizados por la comunidad académica del Instituto de Biología, UNAM.</p>
-<p>Este manual está diseñado como una guía de uso práctico. Su objetivo es que las personas usuarias puedan comenzar a trabajar en el servidor de forma ordenada, segura y reproducible, desde el acceso inicial por <strong>SSH</strong> hasta el envío de trabajos mediante <strong>Slurm</strong>.</p>
+<p>Este manual está diseñado como una <strong>guía rápida de uso práctico de BEAGLE</strong>. Su objetivo es que las personas usuarias puedan comenzar a trabajar en el servidor de forma ordenada, segura y reproducible, desde el acceso inicial por <strong>SSH</strong> hasta el envío de trabajos mediante <strong>Slurm</strong>.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Alcance de este manual
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Este manual no pretende ser un curso completo de programación, Linux o Bash. Su propósito es servir como una guía práctica para el uso cotidiano de BEAGLE.</p>
+<p>Si te interesa una formación más completa, puedes consultar el curso de posgrado en Ciencias Biológicas <strong>Introducción a la programación para bioinformática con Bash</strong>, impartido por el <strong>Dr.&nbsp;Cristian Cervantes</strong> y el <strong>M. en I. Mauricio Morgado</strong>.</p>
+<p>Sitio del curso: <a href="https://ib-unisse.github.io/intro_bash_bioinfo/" class="uri">https://ib-unisse.github.io/intro_bash_bioinfo/</a></p>
+</div>
+</div>
 <p>No es necesario leer todo el manual de una sola vez. Puedes avanzar por secciones según lo que necesites hacer: conectarte al servidor, transferir archivos, usar la terminal, cargar software, trabajar con contenedores o enviar análisis a la cola de cómputo.</p>
 </section>
 <section id="a-quién-está-dirigido" class="level2">
@@ -276,7 +294,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>ingresan por primera vez al servidor;</li>
 <li>necesitan transferir archivos desde su computadora;</li>
 <li>quieren aprender comandos básicos de Linux;</li>
-<li>requieren instalar o usar software informático;</li>
+<li>requieren instalar o usar software bioinformático;</li>
 <li>desean ejecutar análisis mediante contenedores de Apptainer;</li>
 <li>necesitan enviar trabajos usando Slurm;</li>
 <li>buscan organizar mejor sus proyectos y resultados.</li>
@@ -304,44 +322,44 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <table class="caption-top table">
 <thead>
 <tr class="header">
-<th>Orden</th>
+<th style="text-align: right;">Orden</th>
 <th>Sección</th>
 <th>¿Para qué sirve?</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>1</td>
+<td style="text-align: right;">1</td>
 <td><a href="./chapters/acceso.html">Acceso al servidor</a></td>
 <td>Aprender a conectarte por SSH, cambiar contraseña y transferir archivos.</td>
 </tr>
 <tr class="even">
-<td>2</td>
+<td style="text-align: right;">2</td>
 <td><a href="./chapters/terminal_linux.html">Comandos básicos de Linux</a></td>
 <td>Conocer los comandos mínimos para moverte, revisar archivos y trabajar en la terminal.</td>
 </tr>
 <tr class="odd">
-<td>3</td>
+<td style="text-align: right;">3</td>
 <td><a href="chapters/software.qmd">Software en BEAGLE</a></td>
 <td>Entender cómo se maneja el software en el clúster sin instalar programas directamente en el sistema.</td>
 </tr>
 <tr class="even">
-<td>4</td>
+<td style="text-align: right;">4</td>
 <td><a href="chapters/micromamba.qmd">Micromamba</a></td>
 <td>Crear ambientes para instalar y usar programas disponibles en canales como <code>bioconda</code> o <code>conda-forge</code>.</td>
 </tr>
 <tr class="odd">
-<td>5</td>
+<td style="text-align: right;">5</td>
 <td><a href="./chapters/apptainer.html">Apptainer</a></td>
 <td>Ejecutar programas dentro de contenedores reproducibles.</td>
 </tr>
 <tr class="even">
-<td>6</td>
+<td style="text-align: right;">6</td>
 <td><a href="./chapters/slurm.html">Uso básico de Slurm</a></td>
 <td>Enviar análisis al sistema de colas y solicitar CPU, RAM, tiempo o GPU.</td>
 </tr>
 <tr class="odd">
-<td>7</td>
+<td style="text-align: right;">7</td>
 <td><a href="./chapters/bots.html">Mensajes a Telegram</a></td>
 <td>Configurar notificaciones para saber cuándo inicia o termina un trabajo.</td>
 </tr>
