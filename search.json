@@ -34,17 +34,7 @@
     "href": "index.html#qué-aprenderás-en-este-manual",
     "title": "Manual de usuario BEAGLE",
     "section": "¿Qué aprenderás en este manual?",
-    "text": "¿Qué aprenderás en este manual?\nAl terminar las secciones principales, deberías poder:\n\nconectarte al servidor usando ssh;\ncambiar tu contraseña inicial y crear una llave SSH;\nsubir y descargar archivos con scp, sftp o clientes gráficos;\nmoverte dentro del sistema de archivos de Linux;\nrevisar el uso de disco, CPU, RAM y procesos;\ndistinguir cuándo usar Micromamba y cuándo usar Apptainer;\nejecutar software bioinformático sin modificar el sistema principal;\nenviar trabajos a Slurm con sbatch;\nmonitorear, revisar y cancelar trabajos;\nrecibir notificaciones básicas de tus análisis mediante Telegram.",
-    "crumbs": [
-      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Manual de usuario BEAGLE</span>"
-    ]
-  },
-  {
-    "objectID": "index.html#ruta-recomendada-de-lectura",
-    "href": "index.html#ruta-recomendada-de-lectura",
-    "title": "Manual de usuario BEAGLE",
-    "section": "Ruta recomendada de lectura",
-    "text": "Ruta recomendada de lectura\nSi es tu primera vez usando BEAGLE, se recomienda leer las secciones en este orden:\n\n\n\nOrden\nSección\n¿Para qué sirve?\n\n\n\n\n1\nAcceso al servidor\nAprender a conectarte por SSH, cambiar contraseña y transferir archivos.\n\n\n2\nComandos básicos de Linux\nConocer los comandos mínimos para moverte, revisar archivos y trabajar en la terminal.\n\n\n3\nSoftware en BEAGLE\nEntender cómo se maneja el software en el clúster sin instalar programas directamente en el sistema.\n\n\n4\nMicromamba\nCrear ambientes para instalar y usar programas disponibles en canales como bioconda o conda-forge.\n\n\n5\nApptainer\nEjecutar programas dentro de contenedores reproducibles.\n\n\n6\nUso básico de Slurm\nEnviar análisis al sistema de colas y solicitar CPU, RAM, tiempo o GPU.\n\n\n7\nMensajes a Telegram\nConfigurar notificaciones para saber cuándo inicia o termina un trabajo.",
+    "text": "¿Qué aprenderás en este manual?\nAl terminar las secciones principales, deberías poder:\n\nconectarte al servidor usando ssh;\ncambiar tu contraseña inicial y crear una llave SSH;\nsubir y descargar archivos con scp, sftp o clientes gráficos;\nmoverte dentro del sistema de archivos de Linux;\nrevisar el uso de disco, CPU, RAM y procesos;\nejecutar software mediante Apptainer;\nenviar trabajos a Slurm con sbatch;\nmonitorear, revisar y cancelar trabajos;\nrecibir notificaciones básicas de tus análisis mediante Telegram.",
     "crumbs": [
       "<span class='chapter-number'>1</span>  <span class='chapter-title'>Manual de usuario BEAGLE</span>"
     ]
