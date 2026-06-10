@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.9.38">
+<meta name="generator" content="quarto-1.7.32">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -11,9 +11,6 @@
 
 <title>Manual de usuario BEAGLE</title>
 <style>
-/* Default styles provided by pandoc.
-** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
-*/
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
 div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -77,10 +74,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-800c05bdab33725db911233aec3012ab.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-13f3b9144cfbd4bffe19d1212ca92176.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -145,8 +142,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
       <a href="./index.html" class="sidebar-logo-link">
-      <img src="./images/beagle_logo_blanco.png" alt="" class="sidebar-logo light-content py-0 d-lg-inline d-none">
-      <img src="./images/beagle_logo_blanco.png" alt="" class="sidebar-logo dark-content py-0 d-lg-inline d-none">
+      <img src="./images/beagle_logo_blanco.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
       </a>
     <div class="sidebar-title mb-0 py-0">
       <a href="./">BEAGLE</a> 
@@ -179,12 +175,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./chapters/software.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Software en BEAGLE</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./chapters/micromamba.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Micromamba</span></a>
+  <a href="./chapters/bots.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Notificaciones automáticas</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -199,7 +190,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./chapters/bots.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Notificaciones automáticas</span></a>
+  <a href="./chapters/ejercicios.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Ejemplos</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -275,7 +266,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="bienvenida" class="level2">
 <h2 class="anchored" data-anchor-id="bienvenida">Bienvenida</h2>
 <p>BEAGLE es una infraestructura de cómputo compartida para apoyar análisis bioinformáticos, filogenómicos y otros procesos computacionales utilizados por la comunidad académica del Instituto de Biología, UNAM.</p>
-<p>Este manual está diseñado como una guía de uso práctico. Su objetivo es que las personas usuarias puedan comenzar a trabajar en el servidor de forma ordenada, segura y reproducible, desde el acceso inicial por <strong>SSH</strong> hasta el envío de trabajos mediante <strong>Slurm</strong>.</p>
+<p>Este manual está diseñado como una <strong>guía rápida de uso práctico de BEAGLE</strong>. Su objetivo es que las personas usuarias puedan comenzar a trabajar en el servidor de forma ordenada, segura y reproducible, desde el acceso inicial por <strong>SSH</strong> hasta el envío de trabajos mediante <strong>Slurm</strong>.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Alcance de este manual
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Este manual no pretende ser un curso completo de programación, Linux o Bash. Su propósito es servir como una guía práctica para el uso cotidiano de BEAGLE.</p>
+<p>Si te interesa una formación más completa, puedes consultar el curso de posgrado en Ciencias Biológicas <strong>Introducción a la programación para bioinformática con Bash</strong>, impartido por el <strong>Dr.&nbsp;Cristian Cervantes</strong> y el <strong>M. en I. Mauricio Morgado</strong>.</p>
+<p>Sitio del curso: <a href="https://ib-unisse.github.io/intro_bash_bioinfo/" class="uri">https://ib-unisse.github.io/intro_bash_bioinfo/</a></p>
+</div>
+</div>
 <p>No es necesario leer todo el manual de una sola vez. Puedes avanzar por secciones según lo que necesites hacer: conectarte al servidor, transferir archivos, usar la terminal, cargar software, trabajar con contenedores o enviar análisis a la cola de cómputo.</p>
 </section>
 <section id="a-quién-está-dirigido" class="level2">
@@ -286,7 +292,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>ingresan por primera vez al servidor;</li>
 <li>necesitan transferir archivos desde su computadora;</li>
 <li>quieren aprender comandos básicos de Linux;</li>
-<li>requieren instalar o usar software informático;</li>
+<li>requieren instalar o usar software bioinformático;</li>
 <li>desean ejecutar análisis mediante contenedores de Apptainer;</li>
 <li>necesitan enviar trabajos usando Slurm;</li>
 <li>buscan organizar mejor sus proyectos y resultados.</li>
@@ -314,44 +320,44 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <table class="caption-top table">
 <thead>
 <tr class="header">
-<th>Orden</th>
+<th style="text-align: right;">Orden</th>
 <th>Sección</th>
 <th>¿Para qué sirve?</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>1</td>
+<td style="text-align: right;">1</td>
 <td><a href="./chapters/acceso.html">Acceso al servidor</a></td>
 <td>Aprender a conectarte por SSH, cambiar contraseña y transferir archivos.</td>
 </tr>
 <tr class="even">
-<td>2</td>
+<td style="text-align: right;">2</td>
 <td><a href="./chapters/terminal_linux.html">Comandos básicos de Linux</a></td>
 <td>Conocer los comandos mínimos para moverte, revisar archivos y trabajar en la terminal.</td>
 </tr>
 <tr class="odd">
-<td>3</td>
-<td><a href="./chapters/software.html">Software en BEAGLE</a></td>
+<td style="text-align: right;">3</td>
+<td><a href="chapters/software.qmd">Software en BEAGLE</a></td>
 <td>Entender cómo se maneja el software en el clúster sin instalar programas directamente en el sistema.</td>
 </tr>
 <tr class="even">
-<td>4</td>
-<td><a href="./chapters/micromamba.html">Micromamba</a></td>
+<td style="text-align: right;">4</td>
+<td><a href="chapters/micromamba.qmd">Micromamba</a></td>
 <td>Crear ambientes para instalar y usar programas disponibles en canales como <code>bioconda</code> o <code>conda-forge</code>.</td>
 </tr>
 <tr class="odd">
-<td>5</td>
+<td style="text-align: right;">5</td>
 <td><a href="./chapters/apptainer.html">Apptainer</a></td>
 <td>Ejecutar programas dentro de contenedores reproducibles.</td>
 </tr>
 <tr class="even">
-<td>6</td>
+<td style="text-align: right;">6</td>
 <td><a href="./chapters/slurm.html">Uso básico de Slurm</a></td>
 <td>Enviar análisis al sistema de colas y solicitar CPU, RAM, tiempo o GPU.</td>
 </tr>
 <tr class="odd">
-<td>7</td>
+<td style="text-align: right;">7</td>
 <td><a href="./chapters/bots.html">Mensajes a Telegram</a></td>
 <td>Configurar notificaciones para saber cuándo inicia o termina un trabajo.</td>
 </tr>
@@ -366,7 +372,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Caution</span>Las cuentas son personales e intransferibles
+Las cuentas son personales e intransferibles
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -379,7 +385,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Important</span>BEAGLE es un recurso compartido
+BEAGLE es un recurso compartido
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -392,7 +398,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Warning</span>No instales software en el sistema principal
+No instales software en el sistema principal
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -405,7 +411,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Solicita solo los recursos necesarios
+Solicita solo los recursos necesarios
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -416,12 +422,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="organización-recomendada-de-proyectos" class="level2">
 <h2 class="anchored" data-anchor-id="organización-recomendada-de-proyectos">Organización recomendada de proyectos</h2>
 <p>Una buena organización de carpetas evita confusiones y facilita encontrar errores. Para cada proyecto o análisis se recomienda usar una estructura similar a:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">mi_proyecto/</span></span>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">mi_proyecto/</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> datos/</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> scripts/</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> resultados/</span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> logs/</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="ex">└──</span> metadata/</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="ex">└──</span> metadata/</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Donde:</p>
 <ul>
 <li><code>datos/</code> contiene archivos de entrada, como FASTA, FASTQ, matrices, árboles o tablas;</li>
@@ -500,14 +506,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-      const outerScaffold = trigger.parentElement.cloneNode(true);
-      const codeEl = outerScaffold.querySelector('code');
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
         }
-      }
-      return codeEl.innerText;
+        return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy

@@ -2,16 +2,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.9.38">
+<meta name="generator" content="quarto-1.7.32">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
 <title>Uso básico de Slurm – Manual de usuario BEAGLE</title>
 <style>
-/* Default styles provided by pandoc.
-** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
-*/
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
 div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -23,41 +20,6 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 </style>
 
 
@@ -67,7 +29,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../chapters/bots.html" rel="next">
+<link href="../contacto.html" rel="next">
 <link href="../chapters/apptainer.html" rel="prev">
 <link href="../images/logo_beagle_2.png" rel="icon" type="image/png">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
@@ -76,10 +38,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-800c05bdab33725db911233aec3012ab.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-13f3b9144cfbd4bffe19d1212ca92176.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -144,8 +106,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
       <a href="../index.html" class="sidebar-logo-link">
-      <img src="../images/beagle_logo_blanco.png" alt="" class="sidebar-logo light-content py-0 d-lg-inline d-none">
-      <img src="../images/beagle_logo_blanco.png" alt="" class="sidebar-logo dark-content py-0 d-lg-inline d-none">
+      <img src="../images/beagle_logo_blanco.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
       </a>
     <div class="sidebar-title mb-0 py-0">
       <a href="../">BEAGLE</a> 
@@ -178,12 +139,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/software.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Software en BEAGLE</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/micromamba.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Micromamba</span></a>
+  <a href="../chapters/bots.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Notificaciones automáticas</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -194,11 +150,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/slurm.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Uso básico de Slurm</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/bots.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Notificaciones automáticas</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -222,65 +173,37 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul class="collapse">
   <li><a href="#job" id="toc-job" class="nav-link" data-scroll-target="#job">Job</a></li>
   <li><a href="#cola" id="toc-cola" class="nav-link" data-scroll-target="#cola">Cola</a></li>
+  <li><a href="#nodo" id="toc-nodo" class="nav-link" data-scroll-target="#nodo">Nodo</a></li>
   <li><a href="#partición" id="toc-partición" class="nav-link" data-scroll-target="#partición">Partición</a></li>
-  <li><a href="#recursos" id="toc-recursos" class="nav-link" data-scroll-target="#recursos">Recursos</a></li>
+  <li><a href="#recurso" id="toc-recurso" class="nav-link" data-scroll-target="#recurso">Recurso</a></li>
   </ul></li>
-  <li><a href="#comandos-básicos" id="toc-comandos-básicos" class="nav-link" data-scroll-target="#comandos-básicos">Comandos básicos</a>
+  <li><a href="#flujo-general-de-trabajo" id="toc-flujo-general-de-trabajo" class="nav-link" data-scroll-target="#flujo-general-de-trabajo">Flujo general de trabajo</a></li>
+  <li><a href="#comandos-básicos" id="toc-comandos-básicos" class="nav-link" data-scroll-target="#comandos-básicos">Comandos básicos</a></li>
+  <li><a href="#cómo-leer-sinfo" id="toc-cómo-leer-sinfo" class="nav-link" data-scroll-target="#cómo-leer-sinfo">Cómo leer <code>sinfo</code></a></li>
+  <li><a href="#cómo-leer-squeue" id="toc-cómo-leer-squeue" class="nav-link" data-scroll-target="#cómo-leer-squeue">Cómo leer <code>squeue</code></a></li>
+  <li><a href="#estructura-de-un-script-de-slurm" id="toc-estructura-de-un-script-de-slurm" class="nav-link" data-scroll-target="#estructura-de-un-script-de-slurm">Estructura de un script de Slurm</a>
   <ul class="collapse">
-  <li><a href="#ver-el-estado-del-clúster" id="toc-ver-el-estado-del-clúster" class="nav-link" data-scroll-target="#ver-el-estado-del-clúster">Ver el estado del clúster</a></li>
-  <li><a href="#ver-solo-las-particiones-del-ib-unam" id="toc-ver-solo-las-particiones-del-ib-unam" class="nav-link" data-scroll-target="#ver-solo-las-particiones-del-ib-unam">Ver solo las particiones del IB-UNAM</a></li>
-  <li><a href="#estados-comunes-de-los-nodos" id="toc-estados-comunes-de-los-nodos" class="nav-link" data-scroll-target="#estados-comunes-de-los-nodos">Estados comunes de los nodos</a></li>
+  <li><a href="#línea-de-intérprete" id="toc-línea-de-intérprete" class="nav-link" data-scroll-target="#línea-de-intérprete">Línea de intérprete</a></li>
+  <li><a href="#directivas-sbatch" id="toc-directivas-sbatch" class="nav-link" data-scroll-target="#directivas-sbatch">Directivas <code>#SBATCH</code></a></li>
   </ul></li>
-  <li><a href="#ver-trabajos-en-cola" id="toc-ver-trabajos-en-cola" class="nav-link" data-scroll-target="#ver-trabajos-en-cola">Ver trabajos en cola</a>
-  <ul class="collapse">
-  <li><a href="#estados-comunes-de-los-trabajos" id="toc-estados-comunes-de-los-trabajos" class="nav-link" data-scroll-target="#estados-comunes-de-los-trabajos">Estados comunes de los trabajos</a></li>
-  </ul></li>
-  <li><a href="#ver-solo-tus-trabajos" id="toc-ver-solo-tus-trabajos" class="nav-link" data-scroll-target="#ver-solo-tus-trabajos">Ver solo tus trabajos</a></li>
-  <li><a href="#cancelar-un-trabajo" id="toc-cancelar-un-trabajo" class="nav-link" data-scroll-target="#cancelar-un-trabajo">Cancelar un trabajo</a></li>
-  <li><a href="#cancelar-todos-tus-trabajos" id="toc-cancelar-todos-tus-trabajos" class="nav-link" data-scroll-target="#cancelar-todos-tus-trabajos">Cancelar todos tus trabajos</a></li>
-  <li><a href="#primer-ejemplo-ejecutar-un-comando-simple" id="toc-primer-ejemplo-ejecutar-un-comando-simple" class="nav-link" data-scroll-target="#primer-ejemplo-ejecutar-un-comando-simple">Primer ejemplo: ejecutar un comando simple</a></li>
-  <li><a href="#enviar-trabajos-con-sbatch" id="toc-enviar-trabajos-con-sbatch" class="nav-link" data-scroll-target="#enviar-trabajos-con-sbatch">Enviar trabajos con <code>sbatch</code></a></li>
-  <li><a href="#script-mínimo-de-ejemplo-para-cpu" id="toc-script-mínimo-de-ejemplo-para-cpu" class="nav-link" data-scroll-target="#script-mínimo-de-ejemplo-para-cpu">Script mínimo de ejemplo para CPU</a></li>
-  <li><a href="#revisar-la-salida-del-trabajo" id="toc-revisar-la-salida-del-trabajo" class="nav-link" data-scroll-target="#revisar-la-salida-del-trabajo">Revisar la salida del trabajo</a></li>
-  <li><a href="#personalizar-el-nombre-de-salida" id="toc-personalizar-el-nombre-de-salida" class="nav-link" data-scroll-target="#personalizar-el-nombre-de-salida">Personalizar el nombre de salida</a></li>
-  <li><a href="#parámetros-principales-de-slurm" id="toc-parámetros-principales-de-slurm" class="nav-link" data-scroll-target="#parámetros-principales-de-slurm">Parámetros principales de Slurm</a></li>
-  <li><a href="#cuántas-cpus-pedir" id="toc-cuántas-cpus-pedir" class="nav-link" data-scroll-target="#cuántas-cpus-pedir">¿Cuántas CPUs pedir?</a>
-  <ul class="collapse">
-  <li><a href="#programa-de-un-solo-hilo" id="toc-programa-de-un-solo-hilo" class="nav-link" data-scroll-target="#programa-de-un-solo-hilo">Programa de un solo hilo</a></li>
-  <li><a href="#programa-con-4-hilos" id="toc-programa-con-4-hilos" class="nav-link" data-scroll-target="#programa-con-4-hilos">Programa con 4 hilos</a></li>
-  <li><a href="#programa-con-16-hilos" id="toc-programa-con-16-hilos" class="nav-link" data-scroll-target="#programa-con-16-hilos">Programa con 16 hilos</a></li>
-  </ul></li>
-  <li><a href="#ejemplo-para-un-programa-bioinformático-en-cpu" id="toc-ejemplo-para-un-programa-bioinformático-en-cpu" class="nav-link" data-scroll-target="#ejemplo-para-un-programa-bioinformático-en-cpu">Ejemplo para un programa bioinformático en CPU</a></li>
-  <li><a href="#ejemplo-con-apptainer-en-cpu" id="toc-ejemplo-con-apptainer-en-cpu" class="nav-link" data-scroll-target="#ejemplo-con-apptainer-en-cpu">Ejemplo con Apptainer en CPU</a></li>
-  <li><a href="#ejemplo-con-carpetas-enlazadas-en-apptainer" id="toc-ejemplo-con-carpetas-enlazadas-en-apptainer" class="nav-link" data-scroll-target="#ejemplo-con-carpetas-enlazadas-en-apptainer">Ejemplo con carpetas enlazadas en Apptainer</a></li>
-  <li><a href="#ejemplo-para-usar-la-partición-con-gpu-v100" id="toc-ejemplo-para-usar-la-partición-con-gpu-v100" class="nav-link" data-scroll-target="#ejemplo-para-usar-la-partición-con-gpu-v100">Ejemplo para usar la partición con GPU V100</a></li>
-  <li><a href="#ejemplo-con-apptainer-y-gpu" id="toc-ejemplo-con-apptainer-y-gpu" class="nav-link" data-scroll-target="#ejemplo-con-apptainer-y-gpu">Ejemplo con Apptainer y GPU</a></li>
+  <li><a href="#cpus-tareas-y-nodos" id="toc-cpus-tareas-y-nodos" class="nav-link" data-scroll-target="#cpus-tareas-y-nodos">CPUs, tareas y nodos</a></li>
+  <li><a href="#memoria-ram" id="toc-memoria-ram" class="nav-link" data-scroll-target="#memoria-ram">Memoria RAM</a></li>
+  <li><a href="#tiempo-máximo" id="toc-tiempo-máximo" class="nav-link" data-scroll-target="#tiempo-máximo">Tiempo máximo</a></li>
+  <li><a href="#gpus" id="toc-gpus" class="nav-link" data-scroll-target="#gpus">GPUs</a></li>
+  <li><a href="#archivos-de-salida-y-error" id="toc-archivos-de-salida-y-error" class="nav-link" data-scroll-target="#archivos-de-salida-y-error">Archivos de salida y error</a></li>
   <li><a href="#variables-útiles-de-slurm" id="toc-variables-útiles-de-slurm" class="nav-link" data-scroll-target="#variables-útiles-de-slurm">Variables útiles de Slurm</a></li>
+  <li><a href="#solicitar-menos-recursos-de-los-necesarios" id="toc-solicitar-menos-recursos-de-los-necesarios" class="nav-link" data-scroll-target="#solicitar-menos-recursos-de-los-necesarios">Solicitar menos recursos de los necesarios</a></li>
+  <li><a href="#solicitar-más-recursos-de-los-necesarios" id="toc-solicitar-más-recursos-de-los-necesarios" class="nav-link" data-scroll-target="#solicitar-más-recursos-de-los-necesarios">Solicitar más recursos de los necesarios</a></li>
   <li><a href="#buenas-prácticas" id="toc-buenas-prácticas" class="nav-link" data-scroll-target="#buenas-prácticas">Buenas prácticas</a>
   <ul class="collapse">
-  <li><a href="#no-correr-análisis-pesados-directamente-en-la-terminal" id="toc-no-correr-análisis-pesados-directamente-en-la-terminal" class="nav-link" data-scroll-target="#no-correr-análisis-pesados-directamente-en-la-terminal">1. No correr análisis pesados directamente en la terminal</a></li>
-  <li><a href="#no-pedir-más-cpus-de-las-necesarias" id="toc-no-pedir-más-cpus-de-las-necesarias" class="nav-link" data-scroll-target="#no-pedir-más-cpus-de-las-necesarias">2. No pedir más CPUs de las necesarias</a></li>
-  <li><a href="#usar-la-partición-correcta" id="toc-usar-la-partición-correcta" class="nav-link" data-scroll-target="#usar-la-partición-correcta">3. Usar la partición correcta</a></li>
-  <li><a href="#siempre-usar-carpetas-organizadas" id="toc-siempre-usar-carpetas-organizadas" class="nav-link" data-scroll-target="#siempre-usar-carpetas-organizadas">4. Siempre usar carpetas organizadas</a></li>
-  <li><a href="#guardar-salidas-y-errores" id="toc-guardar-salidas-y-errores" class="nav-link" data-scroll-target="#guardar-salidas-y-errores">5. Guardar salidas y errores</a></li>
-  <li><a href="#probar-primero-con-datos-pequeños" id="toc-probar-primero-con-datos-pequeños" class="nav-link" data-scroll-target="#probar-primero-con-datos-pequeños">6. Probar primero con datos pequeños</a></li>
-  <li><a href="#revisar-los-logs" id="toc-revisar-los-logs" class="nav-link" data-scroll-target="#revisar-los-logs">7. Revisar los logs</a></li>
+  <li><a href="#no-correr-análisis-pesados-en-la-terminal-de-acceso" id="toc-no-correr-análisis-pesados-en-la-terminal-de-acceso" class="nav-link" data-scroll-target="#no-correr-análisis-pesados-en-la-terminal-de-acceso">No correr análisis pesados en la terminal de acceso</a></li>
+  <li><a href="#solicitar-recursos-razonables" id="toc-solicitar-recursos-razonables" class="nav-link" data-scroll-target="#solicitar-recursos-razonables">Solicitar recursos razonables</a></li>
+  <li><a href="#usar-la-partición-correcta" id="toc-usar-la-partición-correcta" class="nav-link" data-scroll-target="#usar-la-partición-correcta">Usar la partición correcta</a></li>
+  <li><a href="#hacer-coincidir-cpus-e-hilos" id="toc-hacer-coincidir-cpus-e-hilos" class="nav-link" data-scroll-target="#hacer-coincidir-cpus-e-hilos">Hacer coincidir CPUs e hilos</a></li>
+  <li><a href="#guardar-salidas-y-errores" id="toc-guardar-salidas-y-errores" class="nav-link" data-scroll-target="#guardar-salidas-y-errores">Guardar salidas y errores</a></li>
+  <li><a href="#no-solicitar-gpu-sin-necesidad" id="toc-no-solicitar-gpu-sin-necesidad" class="nav-link" data-scroll-target="#no-solicitar-gpu-sin-necesidad">No solicitar GPU sin necesidad</a></li>
+  <li><a href="#revisar-el-historial-de-trabajos" id="toc-revisar-el-historial-de-trabajos" class="nav-link" data-scroll-target="#revisar-el-historial-de-trabajos">Revisar el historial de trabajos</a></li>
   </ul></li>
-  <li><a href="#plantilla-recomendada-para-usar-cpu-y-ram-en-ib-o-gpu_v100" id="toc-plantilla-recomendada-para-usar-cpu-y-ram-en-ib-o-gpu_v100" class="nav-link" data-scroll-target="#plantilla-recomendada-para-usar-cpu-y-ram-en-ib-o-gpu_v100">Plantilla recomendada para usar CPU y RAM en <code>ib</code> o <code>gpu_V100</code></a></li>
-  <li><a href="#plantilla-recomendada-para-usar-gpus-en-gpu_v100" id="toc-plantilla-recomendada-para-usar-gpus-en-gpu_v100" class="nav-link" data-scroll-target="#plantilla-recomendada-para-usar-gpus-en-gpu_v100">Plantilla recomendada para usar GPUs en <code>gpu_V100</code></a></li>
-  <li><a href="#resumen-de-comandos-esenciales" id="toc-resumen-de-comandos-esenciales" class="nav-link" data-scroll-target="#resumen-de-comandos-esenciales">Resumen de comandos esenciales</a></li>
-  <li><a href="#qué-pasa-si-solicito-menos-o-más-recursos-de-los-necesarios" id="toc-qué-pasa-si-solicito-menos-o-más-recursos-de-los-necesarios" class="nav-link" data-scroll-target="#qué-pasa-si-solicito-menos-o-más-recursos-de-los-necesarios">¿Qué pasa si solicito menos o más recursos de los necesarios?</a></li>
-  <li><a href="#si-solicitas-menos-recursos-de-los-necesarios" id="toc-si-solicitas-menos-recursos-de-los-necesarios" class="nav-link" data-scroll-target="#si-solicitas-menos-recursos-de-los-necesarios">Si solicitas menos recursos de los necesarios</a>
-  <ul class="collapse">
-  <li><a href="#menos-cpus-de-las-necesarias" id="toc-menos-cpus-de-las-necesarias" class="nav-link" data-scroll-target="#menos-cpus-de-las-necesarias">Menos CPUs de las necesarias</a></li>
-  <li><a href="#menos-memoria-de-la-necesaria" id="toc-menos-memoria-de-la-necesaria" class="nav-link" data-scroll-target="#menos-memoria-de-la-necesaria">Menos memoria de la necesaria</a></li>
-  <li><a href="#menos-tiempo-del-necesario" id="toc-menos-tiempo-del-necesario" class="nav-link" data-scroll-target="#menos-tiempo-del-necesario">Menos tiempo del necesario</a></li>
-  </ul></li>
-  <li><a href="#si-solicitas-más-recursos-de-los-necesarios" id="toc-si-solicitas-más-recursos-de-los-necesarios" class="nav-link" data-scroll-target="#si-solicitas-más-recursos-de-los-necesarios">Si solicitas más recursos de los necesarios</a></li>
-  <li><a href="#ejemplo-de-mala-práctica" id="toc-ejemplo-de-mala-práctica" class="nav-link" data-scroll-target="#ejemplo-de-mala-práctica">Ejemplo de mala práctica</a></li>
-  <li><a href="#ejemplo-correcto" id="toc-ejemplo-correcto" class="nav-link" data-scroll-target="#ejemplo-correcto">Ejemplo correcto</a></li>
-  <li><a href="#recomendación-práctica" id="toc-recomendación-práctica" class="nav-link" data-scroll-target="#recomendación-práctica">Recomendación práctica</a></li>
-  <li><a href="#regla-general" id="toc-regla-general" class="nav-link" data-scroll-target="#regla-general">Regla general</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/IB-UNISSE/beagle_manual/edit/main/chapters/slurm.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/IB-UNISSE/beagle_manual/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
@@ -308,20 +231,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <section id="qué-es-slurm" class="level2">
 <h2 class="anchored" data-anchor-id="qué-es-slurm">¿Qué es Slurm?</h2>
-<p>Slurm es un sistema de administración de trabajos para servidores y clústeres de cómputo. Su función es organizar el uso de los recursos disponibles, como CPUs, memoria RAM, tarjetas GPU y tiempo de ejecución.</p>
-<p>En lugar de ejecutar análisis pesados directamente en la terminal, los usuarios envían sus trabajos a una cola mediante Slurm. El sistema decide cuándo y dónde correrlos, de acuerdo con los recursos solicitados y la disponibilidad de los nodos.</p>
-<p>Esto ayuda a:</p>
+<p>Slurm es un sistema de administración de trabajos para servidores y clústeres de cómputo. Su función es organizar el uso de recursos compartidos como CPUs, memoria RAM, GPUs, nodos y tiempo de ejecución.</p>
+<p>En un clúster, los análisis pesados no deben ejecutarse directamente en la terminal de acceso. En su lugar, se envían a una cola mediante Slurm. El sistema decide cuándo y en qué nodo se ejecutan, de acuerdo con los recursos solicitados y la disponibilidad del clúster.</p>
+<p>Slurm ayuda a:</p>
 <ul>
-<li><p>evitar que una sola persona sature el servidor;</p></li>
-<li><p>organizar los análisis de varios usuarios;</p></li>
-<li><p>asignar CPUs, memoria y GPUs de manera controlada;</p></li>
-<li><p>dejar registro de los trabajos ejecutados;</p></li>
-<li><p>mejorar la reproducibilidad de los análisis.</p></li>
+<li>evitar que una sola persona sature el servidor;</li>
+<li>organizar los análisis de varias personas usuarias;</li>
+<li>asignar CPUs, memoria y GPUs de manera controlada;</li>
+<li>registrar los trabajos ejecutados;</li>
+<li>mejorar la reproducibilidad de los análisis.</li>
 </ul>
 </section>
 <section id="particiones-disponibles-para-usuarios-del-ib-unam" class="level2">
 <h2 class="anchored" data-anchor-id="particiones-disponibles-para-usuarios-del-ib-unam">Particiones disponibles para usuarios del IB-UNAM</h2>
-<p>En Atocatl existen varias particiones de Slurm. Sin embargo, para los usuarios del Instituto de Biología, UNAM, las particiones principales de interés son:</p>
+<p>En BEAGLE, las particiones principales para usuarios del Instituto de Biología, UNAM, son:</p>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 25%">
@@ -347,86 +270,196 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="even">
 <td><code>gpu_V100</code></td>
 <td><code>beagle-gpu-01</code></td>
-<td>80 CPUs, ~754 GB RAM y 3 GPUs NVIDIA V100</td>
+<td>CPUs, memoria RAM y GPUs NVIDIA V100</td>
 <td>Trabajos que requieren GPU o análisis grandes que necesitan muchos CPUs y memoria</td>
 </tr>
 </tbody>
 </table>
-<p>Puedes revisar el estado de estas particiones con:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">sinfo</span> <span class="at">-p</span> ib,gpu_V100</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Una salida esperada puede verse así:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">PARTITION</span> AVAIL  TIMELIMIT  NODES  STATE NODELIST</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">ib</span>           up 5-00:00:00      2   idle beagle-<span class="pp">[</span><span class="ss">01</span><span class="pp">-</span><span class="ss">02</span><span class="pp">]</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="ex">gpu_V100</span>     up   infinite      1   idle beagle-gpu-01</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Para ver los recursos disponibles por nodo:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">sinfo</span> <span class="at">-N</span> <span class="at">-p</span> ib,gpu_V100 <span class="at">-o</span> <span class="st">"%N %c CPUs %m MB %G %T"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Ejemplo de salida:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">NODELIST</span>       CPUS  MEMORY MB  GRES   STATE</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="ex">beagle-01</span>      32    96064      <span class="er">(</span><span class="ex">null</span><span class="kw">)</span> <span class="ex">idle</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="ex">beagle-02</span>      20    192616     <span class="er">(</span><span class="ex">null</span><span class="kw">)</span> <span class="ex">idle</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="ex">beagle-gpu-01</span>  80    772109     gpu:3  idle</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Esto indica que:</p>
-<ul>
-<li><p><code>beagle-01</code> tiene 32 CPUs y aproximadamente 94 GB de RAM.</p></li>
-<li><p><code>beagle-02</code> tiene 20 CPUs y aproximadamente 188 GB de RAM.</p></li>
-<li><p><code>beagle-gpu-01</code> tiene 80 CPUs, aproximadamente 754 GB de RAM y 3 GPUs NVIDIA V100.</p></li>
-</ul>
-<p>Por esta razón, la partición <code>gpu_V100</code> puede ser útil para trabajos que requieren GPU, pero también representa el nodo con mayor capacidad de CPU y memoria dentro de BEAGLE.</p>
+<p>Recursos disponibles por nodo:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 23%">
+<col style="width: 8%">
+<col style="width: 27%">
+<col style="width: 23%">
+<col style="width: 16%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Nodo</th>
+<th style="text-align: right;">CPUs</th>
+<th style="text-align: right;">Memoria aproximada</th>
+<th>GPU</th>
+<th>Partición</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>beagle-01</code></td>
+<td style="text-align: right;">32</td>
+<td style="text-align: right;">94 GB</td>
+<td>No</td>
+<td><code>ib</code></td>
+</tr>
+<tr class="even">
+<td><code>beagle-02</code></td>
+<td style="text-align: right;">20</td>
+<td style="text-align: right;">188 GB</td>
+<td>No</td>
+<td><code>ib</code></td>
+</tr>
+<tr class="odd">
+<td><code>beagle-gpu-01</code></td>
+<td style="text-align: right;">80</td>
+<td style="text-align: right;">754 GB</td>
+<td>3 × NVIDIA V100</td>
+<td><code>gpu_V100</code></td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Uso de la partición <code>gpu_V100</code>
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>La partición <code>gpu_V100</code> contiene el nodo con mayor capacidad de CPU y memoria dentro de BEAGLE, pero también contiene las GPUs. No se debe solicitar GPU si el programa no la usa.</p>
+</div>
+</div>
 </section>
 <section id="conceptos-básicos" class="level2">
 <h2 class="anchored" data-anchor-id="conceptos-básicos">Conceptos básicos</h2>
 <section id="job" class="level3">
 <h3 class="anchored" data-anchor-id="job">Job</h3>
-<p>Un <em>job</em> es un trabajo enviado a Slurm. Puede ser un script de Bash que ejecuta un análisis bioinformático, un programa de R, Python, Apptainer, BLAST, IQ-TREE, MAFFT, BEAST, RevBayes, entre otros.</p>
+<p>Un <em>job</em> es un trabajo enviado a Slurm. Puede ejecutar un programa, un script de Bash, un análisis en R o Python, un contenedor de Apptainer, o una herramienta bioinformática.</p>
 </section>
 <section id="cola" class="level3">
 <h3 class="anchored" data-anchor-id="cola">Cola</h3>
-<p>La cola es la lista de trabajos que están esperando, corriendo o terminando dentro del sistema Slurm.</p>
+<p>La cola es la lista de trabajos que están esperando, corriendo, terminando o detenidos dentro del sistema.</p>
+</section>
+<section id="nodo" class="level3">
+<h3 class="anchored" data-anchor-id="nodo">Nodo</h3>
+<p>Un nodo es una computadora del clúster. Cada nodo tiene una cantidad específica de CPUs, memoria RAM y, en algunos casos, GPUs.</p>
 </section>
 <section id="partición" class="level3">
 <h3 class="anchored" data-anchor-id="partición">Partición</h3>
-<p>Una partición es una sección lógica del clúster. En este caso, las particiones principales para usuarios del IB-UNAM son:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">ib</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="ex">gpu_V100</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Usar una partición significa indicar en qué grupo de nodos quieres ejecutar tu trabajo.</p>
-<p>Por ejemplo:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH -p ib</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>significa:</p>
-<blockquote class="blockquote">
-<p>enviar mi trabajo a la partición <code>ib</code>.</p>
-</blockquote>
-<p>Mientras que:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH -p gpu_V100</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>significa:</p>
-<blockquote class="blockquote">
-<p>enviar mi trabajo a la partición con GPU V100.</p>
-</blockquote>
+<p>Una partición es un grupo lógico de nodos. Al enviar un trabajo se indica la partición donde debe ejecutarse.</p>
 </section>
-<section id="recursos" class="level3">
-<h3 class="anchored" data-anchor-id="recursos">Recursos</h3>
-<p>Cuando envías un trabajo, debes indicar los recursos que necesitas. Por ejemplo:</p>
-<ul>
-<li><p>número de CPUs;</p></li>
-<li><p>memoria RAM;</p></li>
-<li><p>tiempo máximo de ejecución;</p></li>
-<li><p>nombre del trabajo;</p></li>
-<li><p>partición donde se ejecutará;</p></li>
-<li><p>número de GPUs, si aplica.</p></li>
-</ul>
+<section id="recurso" class="level3">
+<h3 class="anchored" data-anchor-id="recurso">Recurso</h3>
+<p>Un recurso es una parte del clúster que Slurm puede asignar a un trabajo. Los recursos más comunes son CPUs, memoria RAM, tiempo de ejecución, nodos y GPUs.</p>
 </section>
+</section>
+<section id="flujo-general-de-trabajo" class="level2">
+<h2 class="anchored" data-anchor-id="flujo-general-de-trabajo">Flujo general de trabajo</h2>
+<ol type="1">
+<li>Preparar un script de Bash con directivas de Slurm.</li>
+<li>Enviar el script a la cola con <code>sbatch</code>.</li>
+<li>Revisar el estado del trabajo con <code>squeue</code>.</li>
+<li>Consultar los archivos de salida y error.</li>
+</ol>
 </section>
 <section id="comandos-básicos" class="level2">
 <h2 class="anchored" data-anchor-id="comandos-básicos">Comandos básicos</h2>
-<section id="ver-el-estado-del-clúster" class="level3">
-<h3 class="anchored" data-anchor-id="ver-el-estado-del-clúster">Ver el estado del clúster</h3>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">sinfo</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Acción</th>
+<th>Comando</th>
+<th>Para qué sirve</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Ver estado del clúster</td>
+<td><code>sinfo</code></td>
+<td>Muestra particiones, nodos y estados generales</td>
+</tr>
+<tr class="even">
+<td>Ver particiones del IB-UNAM</td>
+<td><code>sinfo -p ib,gpu_V100</code></td>
+<td>Filtra la información a las particiones principales de BEAGLE</td>
+</tr>
+<tr class="odd">
+<td>Ver recursos por nodo</td>
+<td><code>sinfo -N -p ib,gpu_V100 -o "%N %c CPUs %m MB %G %T"</code></td>
+<td>Muestra CPUs, memoria, GPUs y estado de cada nodo</td>
+</tr>
+<tr class="even">
+<td>Ver la cola</td>
+<td><code>squeue</code></td>
+<td>Lista los trabajos activos o pendientes</td>
+</tr>
+<tr class="odd">
+<td>Ver solo tus trabajos</td>
+<td><code>squeue -u $USER</code></td>
+<td>Filtra la cola por tu usuario</td>
+</tr>
+<tr class="even">
+<td>Enviar un trabajo</td>
+<td><code>sbatch &lt;script.sh&gt;</code></td>
+<td>Envía un script a Slurm</td>
+</tr>
+<tr class="odd">
+<td>Cancelar un trabajo</td>
+<td><code>scancel &lt;JOBID&gt;</code></td>
+<td>Cancela un trabajo específico</td>
+</tr>
+<tr class="even">
+<td>Cancelar tus trabajos</td>
+<td><code>scancel -u $USER</code></td>
+<td>Cancela todos los trabajos de tu usuario</td>
+</tr>
+</tbody>
+</table>
 </section>
-<section id="ver-solo-las-particiones-del-ib-unam" class="level3">
-<h3 class="anchored" data-anchor-id="ver-solo-las-particiones-del-ib-unam">Ver solo las particiones del IB-UNAM</h3>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">sinfo</span> <span class="at">-p</span> ib,gpu_V100</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="estados-comunes-de-los-nodos" class="level3">
-<h3 class="anchored" data-anchor-id="estados-comunes-de-los-nodos">Estados comunes de los nodos</h3>
+<section id="cómo-leer-sinfo" class="level2">
+<h2 class="anchored" data-anchor-id="cómo-leer-sinfo">Cómo leer <code>sinfo</code></h2>
+<p>Columnas frecuentes:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Columna</th>
+<th>Significado</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>PARTITION</code></td>
+<td>Nombre de la partición</td>
+</tr>
+<tr class="even">
+<td><code>AVAIL</code></td>
+<td>Indica si la partición está disponible</td>
+</tr>
+<tr class="odd">
+<td><code>TIMELIMIT</code></td>
+<td>Tiempo máximo permitido para trabajos en esa partición</td>
+</tr>
+<tr class="even">
+<td><code>NODES</code></td>
+<td>Número de nodos incluidos</td>
+</tr>
+<tr class="odd">
+<td><code>STATE</code></td>
+<td>Estado de los nodos</td>
+</tr>
+<tr class="even">
+<td><code>NODELIST</code></td>
+<td>Nombre de los nodos</td>
+</tr>
+</tbody>
+</table>
+<p>Estados comunes de nodos:</p>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -458,15 +491,56 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tbody>
 </table>
 </section>
-</section>
-<section id="ver-trabajos-en-cola" class="level2">
-<h2 class="anchored" data-anchor-id="ver-trabajos-en-cola">Ver trabajos en cola</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">squeue</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Ejemplo:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ex">JOBID</span> PARTITION     NAME     USER ST       TIME  NODES NODELIST<span class="er">(</span><span class="ex">REASON</span><span class="kw">)</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="ex">1234</span>        ib  analisis cristian  R       1:23      1 beagle-01</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<section id="estados-comunes-de-los-trabajos" class="level3">
-<h3 class="anchored" data-anchor-id="estados-comunes-de-los-trabajos">Estados comunes de los trabajos</h3>
+<section id="cómo-leer-squeue" class="level2">
+<h2 class="anchored" data-anchor-id="cómo-leer-squeue">Cómo leer <code>squeue</code></h2>
+<p>Columnas frecuentes:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 28%">
+<col style="width: 71%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Columna</th>
+<th>Significado</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>JOBID</code></td>
+<td>Identificador único del trabajo</td>
+</tr>
+<tr class="even">
+<td><code>PARTITION</code></td>
+<td>Partición donde está programado el trabajo</td>
+</tr>
+<tr class="odd">
+<td><code>NAME</code></td>
+<td>Nombre del trabajo</td>
+</tr>
+<tr class="even">
+<td><code>USER</code></td>
+<td>Usuario que envió el trabajo</td>
+</tr>
+<tr class="odd">
+<td><code>ST</code></td>
+<td>Estado del trabajo</td>
+</tr>
+<tr class="even">
+<td><code>TIME</code></td>
+<td>Tiempo que lleva corriendo</td>
+</tr>
+<tr class="odd">
+<td><code>NODES</code></td>
+<td>Número de nodos asignados</td>
+</tr>
+<tr class="even">
+<td><code>NODELIST(REASON)</code></td>
+<td>Nodo asignado o razón por la que sigue pendiente</td>
+</tr>
+</tbody>
+</table>
+<p>Estados comunes de trabajos:</p>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -477,122 +551,304 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tbody>
 <tr class="odd">
 <td><code>R</code></td>
-<td>Running, el trabajo está corriendo</td>
+<td>Running: el trabajo está corriendo</td>
 </tr>
 <tr class="even">
 <td><code>PD</code></td>
-<td>Pending, el trabajo está esperando</td>
+<td>Pending: el trabajo está esperando</td>
 </tr>
 <tr class="odd">
 <td><code>CG</code></td>
-<td>Completing, el trabajo está terminando</td>
+<td>Completing: el trabajo está terminando</td>
 </tr>
 <tr class="even">
 <td><code>CD</code></td>
-<td>Completed, el trabajo terminó correctamente</td>
+<td>Completed: el trabajo terminó correctamente</td>
 </tr>
 <tr class="odd">
 <td><code>F</code></td>
-<td>Failed, el trabajo falló</td>
+<td>Failed: el trabajo falló</td>
 </tr>
 <tr class="even">
 <td><code>CA</code></td>
-<td>Cancelled, el trabajo fue cancelado</td>
+<td>Cancelled: el trabajo fue cancelado</td>
+</tr>
+<tr class="odd">
+<td><code>TO</code></td>
+<td>Timeout: el trabajo terminó por límite de tiempo</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="estructura-de-un-script-de-slurm" class="level2">
+<h2 class="anchored" data-anchor-id="estructura-de-un-script-de-slurm">Estructura de un script de Slurm</h2>
+<p>Un script de Slurm es un archivo de Bash con instrucciones especiales para solicitar recursos. Tiene tres partes principales:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Parte</th>
+<th>Qué significa</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Línea de intérprete</td>
+<td>Define qué programa interpretará el script, normalmente Bash</td>
+</tr>
+<tr class="even">
+<td>Directivas <code>#SBATCH</code></td>
+<td>Indican a Slurm qué recursos se solicitan</td>
+</tr>
+<tr class="odd">
+<td>Cuerpo del script</td>
+<td>Contiene los comandos que se ejecutarán dentro del trabajo</td>
+</tr>
+</tbody>
+</table>
+<section id="línea-de-intérprete" class="level3">
+<h3 class="anchored" data-anchor-id="línea-de-intérprete">Línea de intérprete</h3>
+<p>La línea de intérprete indica que el archivo debe ejecutarse con Bash.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Línea</th>
+<th>Significado</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>#!/bin/bash</code></td>
+<td>Usa Bash como intérprete del script</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="directivas-sbatch" class="level3">
+<h3 class="anchored" data-anchor-id="directivas-sbatch">Directivas <code>#SBATCH</code></h3>
+<p>Las líneas que empiezan con <code>#SBATCH</code> son leídas por Slurm antes de ejecutar el cuerpo del script. Aunque parecen comentarios para Bash, Slurm las interpreta como instrucciones de planificación.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Directiva</th>
+<th>Significado</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>#SBATCH -J &lt;nombre&gt;</code></td>
+<td>Nombre del trabajo</td>
+</tr>
+<tr class="even">
+<td><code>#SBATCH --job-name=&lt;nombre&gt;</code></td>
+<td>Nombre del trabajo usando la forma larga</td>
+</tr>
+<tr class="odd">
+<td><code>#SBATCH -p &lt;partición&gt;</code></td>
+<td>Partición donde se ejecutará</td>
+</tr>
+<tr class="even">
+<td><code>#SBATCH --partition=&lt;partición&gt;</code></td>
+<td>Partición usando la forma larga</td>
+</tr>
+<tr class="odd">
+<td><code>#SBATCH -N &lt;nodos&gt;</code></td>
+<td>Número de nodos solicitados</td>
+</tr>
+<tr class="even">
+<td><code>#SBATCH -n &lt;tareas&gt;</code></td>
+<td>Número total de tareas</td>
+</tr>
+<tr class="odd">
+<td><code>#SBATCH -c &lt;cpus&gt;</code></td>
+<td>CPUs por tarea</td>
+</tr>
+<tr class="even">
+<td><code>#SBATCH --cpus-per-task=&lt;cpus&gt;</code></td>
+<td>CPUs por tarea usando la forma larga</td>
+</tr>
+<tr class="odd">
+<td><code>#SBATCH --mem=&lt;memoria&gt;</code></td>
+<td>Memoria RAM solicitada</td>
+</tr>
+<tr class="even">
+<td><code>#SBATCH --time=&lt;tiempo&gt;</code></td>
+<td>Tiempo máximo de ejecución</td>
+</tr>
+<tr class="odd">
+<td><code>#SBATCH -o &lt;archivo&gt;</code></td>
+<td>Archivo de salida estándar</td>
+</tr>
+<tr class="even">
+<td><code>#SBATCH -e &lt;archivo&gt;</code></td>
+<td>Archivo de error estándar</td>
+</tr>
+<tr class="odd">
+<td><code>#SBATCH --gres=gpu:&lt;n&gt;</code></td>
+<td>Número de GPUs solicitadas</td>
 </tr>
 </tbody>
 </table>
 </section>
 </section>
-<section id="ver-solo-tus-trabajos" class="level2">
-<h2 class="anchored" data-anchor-id="ver-solo-tus-trabajos">Ver solo tus trabajos</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="ex">squeue</span> <span class="at">-u</span> <span class="va">$USER</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="cpus-tareas-y-nodos" class="level2">
+<h2 class="anchored" data-anchor-id="cpus-tareas-y-nodos">CPUs, tareas y nodos</h2>
+<p>En Slurm, <code>-N</code>, <code>-n</code> y <code>-c</code> no significan lo mismo.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Opción</th>
+<th>Significado</th>
+<th>Uso típico</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>-N</code></td>
+<td>Número de nodos</td>
+<td>Trabajos que necesitan uno o varios nodos</td>
+</tr>
+<tr class="even">
+<td><code>-n</code></td>
+<td>Número de tareas</td>
+<td>Programas paralelos por procesos, como MPI</td>
+</tr>
+<tr class="odd">
+<td><code>-c</code></td>
+<td>CPUs por tarea</td>
+<td>Programas multihilo, como muchas herramientas bioinformáticas</td>
+</tr>
+</tbody>
+</table>
+<p>Para la mayoría de análisis bioinformáticos comunes en BEAGLE, suele usarse un nodo, una tarea y varias CPUs por tarea. El número de CPUs solicitado debe coincidir con el número de hilos que usará el programa.</p>
 </section>
-<section id="cancelar-un-trabajo" class="level2">
-<h2 class="anchored" data-anchor-id="cancelar-un-trabajo">Cancelar un trabajo</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="ex">scancel</span> JOBID</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Ejemplo:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="ex">scancel</span> 1234</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="memoria-ram" class="level2">
+<h2 class="anchored" data-anchor-id="memoria-ram">Memoria RAM</h2>
+<p>La memoria se solicita con <code>--mem</code>. Slurm reserva esa cantidad de RAM para el trabajo. Si el análisis usa más memoria de la solicitada, puede fallar por falta de memoria.</p>
+<p>Formatos comunes:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Formato</th>
+<th>Significado</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>--mem=4G</code></td>
+<td>Solicita 4 GB de RAM</td>
+</tr>
+<tr class="even">
+<td><code>--mem=16000M</code></td>
+<td>Solicita 16000 MB de RAM</td>
+</tr>
+<tr class="odd">
+<td><code>--mem=0</code></td>
+<td>Solicita toda la memoria disponible del nodo, si la configuración lo permite</td>
+</tr>
+</tbody>
+</table>
 </section>
-<section id="cancelar-todos-tus-trabajos" class="level2">
-<h2 class="anchored" data-anchor-id="cancelar-todos-tus-trabajos">Cancelar todos tus trabajos</h2>
-<p>Usar con cuidado:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="ex">scancel</span> <span class="at">-u</span> <span class="va">$USER</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="tiempo-máximo" class="level2">
+<h2 class="anchored" data-anchor-id="tiempo-máximo">Tiempo máximo</h2>
+<p>El tiempo se solicita con <code>--time</code>. Cuando el trabajo supera ese límite, Slurm puede cancelarlo automáticamente.</p>
+<p>Formatos comunes:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Formato</th>
+<th>Significado</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>--time=30:00</code></td>
+<td>30 minutos</td>
+</tr>
+<tr class="even">
+<td><code>--time=02:00:00</code></td>
+<td>2 horas</td>
+</tr>
+<tr class="odd">
+<td><code>--time=1-00:00:00</code></td>
+<td>1 día</td>
+</tr>
+<tr class="even">
+<td><code>--time=5-00:00:00</code></td>
+<td>5 días</td>
+</tr>
+</tbody>
+</table>
 </section>
-<section id="primer-ejemplo-ejecutar-un-comando-simple" class="level2">
-<h2 class="anchored" data-anchor-id="primer-ejemplo-ejecutar-un-comando-simple">Primer ejemplo: ejecutar un comando simple</h2>
-<p>Puedes probar Slurm ejecutando el comando <code>hostname</code> en la partición <code>ib</code>:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="ex">srun</span> <span class="at">-p</span> ib <span class="at">-N1</span> <span class="at">-n1</span> hostname</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>La salida esperada será el nombre de alguno de los nodos asignados, por ejemplo:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="ex">beagle-01.lamod.unam.mx</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>o:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="ex">beagle-02.lamod.unam.mx</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Esto significa que Slurm ejecutó el comando en uno de los nodos de la partición <code>ib</code>.</p>
+<section id="gpus" class="level2">
+<h2 class="anchored" data-anchor-id="gpus">GPUs</h2>
+<p>Las GPUs se solicitan con <code>--gres=gpu:&lt;n&gt;</code>. Esta directiva solo debe usarse cuando el programa realmente puede usar GPU.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 34%">
+<col style="width: 65%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Directiva</th>
+<th>Significado</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>#SBATCH -p gpu_V100</code></td>
+<td>Envía el trabajo a la partición con nodo GPU</td>
+</tr>
+<tr class="even">
+<td><code>#SBATCH --gres=gpu:1</code></td>
+<td>Solicita una GPU</td>
+</tr>
+<tr class="odd">
+<td><code>#SBATCH --gres=gpu:2</code></td>
+<td>Solicita dos GPUs</td>
+</tr>
+</tbody>
+</table>
+<p>Cuando se usan contenedores de Apptainer con GPU NVIDIA, normalmente se agrega la opción <code>--nv</code> al comando <code>apptainer exec</code>. La explicación detallada de Apptainer está en la sección correspondiente.</p>
 </section>
-<section id="enviar-trabajos-con-sbatch" class="level2">
-<h2 class="anchored" data-anchor-id="enviar-trabajos-con-sbatch">Enviar trabajos con <code>sbatch</code></h2>
-<p>La forma recomendada de usar Slurm es crear un script y enviarlo con:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="ex">sbatch</span> script.sh</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Un script de Slurm es un archivo de Bash con instrucciones especiales que empiezan con:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Estas líneas le dicen a Slurm qué recursos necesitas.</p>
-</section>
-<section id="script-mínimo-de-ejemplo-para-cpu" class="level2">
-<h2 class="anchored" data-anchor-id="script-mínimo-de-ejemplo-para-cpu">Script mínimo de ejemplo para CPU</h2>
-<p>Crea un archivo llamado <code>prueba_slurm.sh</code>:</p>
-<pre><code>nano prueba_slurm.sh</code></pre>
-<p>Contenido:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH -J prueba</span></span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH -p ib</span></span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH -N 1</span></span>
-<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH -n 1</span></span>
-<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH -c 2</span></span>
-<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --mem=4G</span></span>
-<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --time=00:05:00</span></span>
-<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"Inicio: </span><span class="va">$(</span><span class="fu">date</span><span class="va">)</span><span class="st">"</span></span>
-<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"Host: </span><span class="va">$(</span><span class="fu">hostname</span><span class="va">)</span><span class="st">"</span></span>
-<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"Job ID: </span><span class="va">$SLURM_JOB_ID</span><span class="st">"</span></span>
-<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"Nombre del trabajo: </span><span class="va">$SLURM_JOB_NAME</span><span class="st">"</span></span>
-<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"CPUs asignadas: </span><span class="va">$SLURM_CPUS_PER_TASK</span><span class="st">"</span></span>
-<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a><span class="fu">sleep</span> 10</span>
-<span id="cb22-17"><a href="#cb22-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-18"><a href="#cb22-18" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"Fin: </span><span class="va">$(</span><span class="fu">date</span><span class="va">)</span><span class="st">"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Enviar el trabajo:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb23"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="ex">sbatch</span> prueba_slurm.sh</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Slurm responderá algo como:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb24"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="ex">Submitted</span> batch job 1234</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="revisar-la-salida-del-trabajo" class="level2">
-<h2 class="anchored" data-anchor-id="revisar-la-salida-del-trabajo">Revisar la salida del trabajo</h2>
-<p>Por defecto, Slurm crea un archivo llamado:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb25"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="ex">slurm-JOBID.out</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Por ejemplo:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb26"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> slurm-1234.out</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="personalizar-el-nombre-de-salida" class="level2">
-<h2 class="anchored" data-anchor-id="personalizar-el-nombre-de-salida">Personalizar el nombre de salida</h2>
-<p>Es recomendable guardar las salidas y errores en una carpeta llamada <code>logs</code>.</p>
-<p>Crear la carpeta:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb27"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> logs</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Ejemplo de script:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb28"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH -J prueba</span></span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH -p ib</span></span>
-<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH -N 1</span></span>
-<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH -n 1</span></span>
-<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH -c 2</span></span>
-<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --mem=4G</span></span>
-<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --time=00:05:00</span></span>
-<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH -o logs/%x_%j.out</span></span>
-<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH -e logs/%x_%j.err</span></span>
-<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"Inicio: </span><span class="va">$(</span><span class="fu">date</span><span class="va">)</span><span class="st">"</span></span>
-<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"Host: </span><span class="va">$(</span><span class="fu">hostname</span><span class="va">)</span><span class="st">"</span></span>
-<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"Job ID: </span><span class="va">$SLURM_JOB_ID</span><span class="st">"</span></span>
-<span id="cb28-15"><a href="#cb28-15" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"Fin: </span><span class="va">$(</span><span class="fu">date</span><span class="va">)</span><span class="st">"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Donde:</p>
+<section id="archivos-de-salida-y-error" class="level2">
+<h2 class="anchored" data-anchor-id="archivos-de-salida-y-error">Archivos de salida y error</h2>
+<p>Slurm puede separar la salida normal y los mensajes de error en archivos diferentes.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Directiva</th>
+<th>Significado</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>#SBATCH -o logs/%x_%j.out</code></td>
+<td>Guarda la salida estándar en <code>logs/</code></td>
+</tr>
+<tr class="even">
+<td><code>#SBATCH -e logs/%x_%j.err</code></td>
+<td>Guarda los errores en <code>logs/</code></td>
+</tr>
+</tbody>
+</table>
+<p>Códigos útiles en nombres de archivo:</p>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -609,276 +865,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td><code>%j</code></td>
 <td>ID del trabajo</td>
 </tr>
-</tbody>
-</table>
-<p>Así se generan archivos como:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb29"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="ex">logs/prueba_1234.out</span></span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="ex">logs/prueba_1234.err</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="parámetros-principales-de-slurm" class="level2">
-<h2 class="anchored" data-anchor-id="parámetros-principales-de-slurm">Parámetros principales de Slurm</h2>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th>Opción</th>
-<th>Significado</th>
-</tr>
-</thead>
-<tbody>
 <tr class="odd">
-<td><code>#SBATCH -J nombre</code></td>
-<td>Nombre del trabajo</td>
+<td><code>%u</code></td>
+<td>Nombre del usuario</td>
 </tr>
 <tr class="even">
-<td><code>#SBATCH -p ib</code></td>
-<td>Partición donde se ejecuta</td>
-</tr>
-<tr class="odd">
-<td><code>#SBATCH -N 1</code></td>
-<td>Número de nodos</td>
-</tr>
-<tr class="even">
-<td><code>#SBATCH -n 1</code></td>
-<td>Número de tareas</td>
-</tr>
-<tr class="odd">
-<td><code>#SBATCH -c 4</code></td>
-<td>CPUs por tarea</td>
-</tr>
-<tr class="even">
-<td><code>#SBATCH --mem=16G</code></td>
-<td>Memoria solicitada</td>
-</tr>
-<tr class="odd">
-<td><code>#SBATCH --time=01:00:00</code></td>
-<td>Tiempo máximo</td>
-</tr>
-<tr class="even">
-<td><code>#SBATCH -o archivo.out</code></td>
-<td>Archivo de salida estándar</td>
-</tr>
-<tr class="odd">
-<td><code>#SBATCH -e archivo.err</code></td>
-<td>Archivo de error</td>
-</tr>
-<tr class="even">
-<td><code>#SBATCH --gres=gpu:1</code></td>
-<td>Solicitar una GPU, cuando aplique</td>
+<td><code>%N</code></td>
+<td>Nombre del nodo</td>
 </tr>
 </tbody>
 </table>
-</section>
-<section id="cuántas-cpus-pedir" class="level2">
-<h2 class="anchored" data-anchor-id="cuántas-cpus-pedir">¿Cuántas CPUs pedir?</h2>
-<p>No siempre conviene pedir muchas CPUs. Solo deben solicitarse más CPUs si el programa realmente puede usarlas.</p>
-<p>Ejemplos:</p>
-<section id="programa-de-un-solo-hilo" class="level3">
-<h3 class="anchored" data-anchor-id="programa-de-un-solo-hilo">Programa de un solo hilo</h3>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb30"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH -c 1</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="programa-con-4-hilos" class="level3">
-<h3 class="anchored" data-anchor-id="programa-con-4-hilos">Programa con 4 hilos</h3>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb31"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH -c 4</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="programa-con-16-hilos" class="level3">
-<h3 class="anchored" data-anchor-id="programa-con-16-hilos">Programa con 16 hilos</h3>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb32"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH -c 16</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Además, dentro del comando del programa hay que indicar el mismo número de hilos usando la variable:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb33"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="va">$SLURM_CPUS_PER_TASK</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Ejemplo con <code>fastp</code>:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb34"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="ex">fastp</span> <span class="dt">\</span></span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">-i</span> muestra_R1.fastq.gz <span class="dt">\</span></span>
-<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">-I</span> muestra_R2.fastq.gz <span class="dt">\</span></span>
-<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">-o</span> limpia_R1.fastq.gz <span class="dt">\</span></span>
-<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">-O</span> limpia_R2.fastq.gz <span class="dt">\</span></span>
-<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">-w</span> <span class="va">$SLURM_CPUS_PER_TASK</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Ejemplo con <code>iqtree2</code>:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb35"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="ex">iqtree2</span> <span class="at">-s</span> alineamiento.phy <span class="at">-T</span> <span class="va">$SLURM_CPUS_PER_TASK</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Ejemplo con <code>mafft</code>:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb36"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="ex">mafft</span> <span class="at">--thread</span> <span class="va">$SLURM_CPUS_PER_TASK</span> entrada.fasta <span class="op">&gt;</span> alineado.fasta</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-</section>
-<section id="ejemplo-para-un-programa-bioinformático-en-cpu" class="level2">
-<h2 class="anchored" data-anchor-id="ejemplo-para-un-programa-bioinformático-en-cpu">Ejemplo para un programa bioinformático en CPU</h2>
-<p>Archivo sugerido:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb37"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="ex">mafft_test.sh</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Contenido:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb38"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
-<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH -J mafft_test</span></span>
-<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH -p ib</span></span>
-<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH -N 1</span></span>
-<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH -n 1</span></span>
-<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH -c 8</span></span>
-<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --mem=16G</span></span>
-<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --time=02:00:00</span></span>
-<span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH -o logs/%x_%j.out</span></span>
-<span id="cb38-10"><a href="#cb38-10" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH -e logs/%x_%j.err</span></span>
-<span id="cb38-11"><a href="#cb38-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-12"><a href="#cb38-12" aria-hidden="true" tabindex="-1"></a><span class="bu">set</span> <span class="at">-euo</span> pipefail</span>
-<span id="cb38-13"><a href="#cb38-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-14"><a href="#cb38-14" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> logs resultados</span>
-<span id="cb38-15"><a href="#cb38-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-16"><a href="#cb38-16" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"===================================="</span></span>
-<span id="cb38-17"><a href="#cb38-17" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"Trabajo: </span><span class="va">$SLURM_JOB_NAME</span><span class="st">"</span></span>
-<span id="cb38-18"><a href="#cb38-18" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"Job ID: </span><span class="va">$SLURM_JOB_ID</span><span class="st">"</span></span>
-<span id="cb38-19"><a href="#cb38-19" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"Usuario: </span><span class="va">$USER</span><span class="st">"</span></span>
-<span id="cb38-20"><a href="#cb38-20" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"Host: </span><span class="va">$(</span><span class="fu">hostname</span><span class="va">)</span><span class="st">"</span></span>
-<span id="cb38-21"><a href="#cb38-21" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"Inicio: </span><span class="va">$(</span><span class="fu">date</span><span class="va">)</span><span class="st">"</span></span>
-<span id="cb38-22"><a href="#cb38-22" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"CPUs asignadas: </span><span class="va">$SLURM_CPUS_PER_TASK</span><span class="st">"</span></span>
-<span id="cb38-23"><a href="#cb38-23" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"Directorio de envío: </span><span class="va">$SLURM_SUBMIT_DIR</span><span class="st">"</span></span>
-<span id="cb38-24"><a href="#cb38-24" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"===================================="</span></span>
-<span id="cb38-25"><a href="#cb38-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-26"><a href="#cb38-26" aria-hidden="true" tabindex="-1"></a><span class="ex">mafft</span> <span class="at">--thread</span> <span class="va">$SLURM_CPUS_PER_TASK</span> <span class="dt">\</span></span>
-<span id="cb38-27"><a href="#cb38-27" aria-hidden="true" tabindex="-1"></a>  datos/secuencias.fasta <span class="dt">\</span></span>
-<span id="cb38-28"><a href="#cb38-28" aria-hidden="true" tabindex="-1"></a>  <span class="op">&gt;</span> resultados/secuencias_alineadas.fasta</span>
-<span id="cb38-29"><a href="#cb38-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-30"><a href="#cb38-30" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"===================================="</span></span>
-<span id="cb38-31"><a href="#cb38-31" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"Fin: </span><span class="va">$(</span><span class="fu">date</span><span class="va">)</span><span class="st">"</span></span>
-<span id="cb38-32"><a href="#cb38-32" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"===================================="</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Enviar:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb39"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="ex">sbatch</span> mafft_test.sh</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="ejemplo-con-apptainer-en-cpu" class="level2">
-<h2 class="anchored" data-anchor-id="ejemplo-con-apptainer-en-cpu">Ejemplo con Apptainer en CPU</h2>
-<p>Si el análisis usa un contenedor de Apptainer, puedes usar la partición <code>ib</code>.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb40"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
-<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH -J apptainer_cpu</span></span>
-<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH -p ib</span></span>
-<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH -N 1</span></span>
-<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH -n 1</span></span>
-<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH -c 4</span></span>
-<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --mem=8G</span></span>
-<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --time=01:00:00</span></span>
-<span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH -o logs/%x_%j.out</span></span>
-<span id="cb40-10"><a href="#cb40-10" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH -e logs/%x_%j.err</span></span>
-<span id="cb40-11"><a href="#cb40-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-12"><a href="#cb40-12" aria-hidden="true" tabindex="-1"></a><span class="bu">set</span> <span class="at">-euo</span> pipefail</span>
-<span id="cb40-13"><a href="#cb40-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-14"><a href="#cb40-14" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> logs resultados</span>
-<span id="cb40-15"><a href="#cb40-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-16"><a href="#cb40-16" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"Inicio: </span><span class="va">$(</span><span class="fu">date</span><span class="va">)</span><span class="st">"</span></span>
-<span id="cb40-17"><a href="#cb40-17" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"Host: </span><span class="va">$(</span><span class="fu">hostname</span><span class="va">)</span><span class="st">"</span></span>
-<span id="cb40-18"><a href="#cb40-18" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"Job ID: </span><span class="va">$SLURM_JOB_ID</span><span class="st">"</span></span>
-<span id="cb40-19"><a href="#cb40-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-20"><a href="#cb40-20" aria-hidden="true" tabindex="-1"></a><span class="ex">apptainer</span> exec programa.sif programa <span class="at">--help</span></span>
-<span id="cb40-21"><a href="#cb40-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-22"><a href="#cb40-22" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"Fin: </span><span class="va">$(</span><span class="fu">date</span><span class="va">)</span><span class="st">"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="ejemplo-con-carpetas-enlazadas-en-apptainer" class="level2">
-<h2 class="anchored" data-anchor-id="ejemplo-con-carpetas-enlazadas-en-apptainer">Ejemplo con carpetas enlazadas en Apptainer</h2>
-<p>Cuando se trabaja con contenedores, es útil enlazar la carpeta actual como <code>/work</code> dentro del contenedor.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb41"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
-<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH -J apptainer_cpu</span></span>
-<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH -p ib</span></span>
-<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH -N 1</span></span>
-<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH -n 1</span></span>
-<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH -c 4</span></span>
-<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --mem=8G</span></span>
-<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --time=01:00:00</span></span>
-<span id="cb41-9"><a href="#cb41-9" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH -o logs/%x_%j.out</span></span>
-<span id="cb41-10"><a href="#cb41-10" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH -e logs/%x_%j.err</span></span>
-<span id="cb41-11"><a href="#cb41-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-12"><a href="#cb41-12" aria-hidden="true" tabindex="-1"></a><span class="bu">set</span> <span class="at">-euo</span> pipefail</span>
-<span id="cb41-13"><a href="#cb41-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-14"><a href="#cb41-14" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> logs resultados</span>
-<span id="cb41-15"><a href="#cb41-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-16"><a href="#cb41-16" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"Inicio: </span><span class="va">$(</span><span class="fu">date</span><span class="va">)</span><span class="st">"</span></span>
-<span id="cb41-17"><a href="#cb41-17" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"Host: </span><span class="va">$(</span><span class="fu">hostname</span><span class="va">)</span><span class="st">"</span></span>
-<span id="cb41-18"><a href="#cb41-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-19"><a href="#cb41-19" aria-hidden="true" tabindex="-1"></a><span class="ex">apptainer</span> exec <span class="dt">\</span></span>
-<span id="cb41-20"><a href="#cb41-20" aria-hidden="true" tabindex="-1"></a>  <span class="at">--bind</span> <span class="va">$PWD</span>:/work <span class="dt">\</span></span>
-<span id="cb41-21"><a href="#cb41-21" aria-hidden="true" tabindex="-1"></a>  <span class="at">--pwd</span> /work <span class="dt">\</span></span>
-<span id="cb41-22"><a href="#cb41-22" aria-hidden="true" tabindex="-1"></a>  programa.sif <span class="dt">\</span></span>
-<span id="cb41-23"><a href="#cb41-23" aria-hidden="true" tabindex="-1"></a>  programa input.fasta output.txt</span>
-<span id="cb41-24"><a href="#cb41-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-25"><a href="#cb41-25" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"Fin: </span><span class="va">$(</span><span class="fu">date</span><span class="va">)</span><span class="st">"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="ejemplo-para-usar-la-partición-con-gpu-v100" class="level2">
-<h2 class="anchored" data-anchor-id="ejemplo-para-usar-la-partición-con-gpu-v100">Ejemplo para usar la partición con GPU V100</h2>
-<p>Para trabajos que requieren GPU, se debe usar la partición:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb42"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="ex">gpu_V100</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Un script básico puede verse así:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb43"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
-<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH -J gpu_test</span></span>
-<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH -p gpu_V100</span></span>
-<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH -N 1</span></span>
-<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH -n 1</span></span>
-<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH -c 4</span></span>
-<span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --mem=16G</span></span>
-<span id="cb43-8"><a href="#cb43-8" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --gres=gpu:1</span></span>
-<span id="cb43-9"><a href="#cb43-9" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --time=01:00:00</span></span>
-<span id="cb43-10"><a href="#cb43-10" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH -o logs/%x_%j.out</span></span>
-<span id="cb43-11"><a href="#cb43-11" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH -e logs/%x_%j.err</span></span>
-<span id="cb43-12"><a href="#cb43-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb43-13"><a href="#cb43-13" aria-hidden="true" tabindex="-1"></a><span class="bu">set</span> <span class="at">-euo</span> pipefail</span>
-<span id="cb43-14"><a href="#cb43-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb43-15"><a href="#cb43-15" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> logs resultados</span>
-<span id="cb43-16"><a href="#cb43-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb43-17"><a href="#cb43-17" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"===================================="</span></span>
-<span id="cb43-18"><a href="#cb43-18" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"Trabajo: </span><span class="va">$SLURM_JOB_NAME</span><span class="st">"</span></span>
-<span id="cb43-19"><a href="#cb43-19" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"Job ID: </span><span class="va">$SLURM_JOB_ID</span><span class="st">"</span></span>
-<span id="cb43-20"><a href="#cb43-20" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"Usuario: </span><span class="va">$USER</span><span class="st">"</span></span>
-<span id="cb43-21"><a href="#cb43-21" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"Host: </span><span class="va">$(</span><span class="fu">hostname</span><span class="va">)</span><span class="st">"</span></span>
-<span id="cb43-22"><a href="#cb43-22" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"Inicio: </span><span class="va">$(</span><span class="fu">date</span><span class="va">)</span><span class="st">"</span></span>
-<span id="cb43-23"><a href="#cb43-23" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"CPUs asignadas: </span><span class="va">$SLURM_CPUS_PER_TASK</span><span class="st">"</span></span>
-<span id="cb43-24"><a href="#cb43-24" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"Nodo asignado: </span><span class="va">$SLURM_JOB_NODELIST</span><span class="st">"</span></span>
-<span id="cb43-25"><a href="#cb43-25" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"===================================="</span></span>
-<span id="cb43-26"><a href="#cb43-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb43-27"><a href="#cb43-27" aria-hidden="true" tabindex="-1"></a><span class="ex">nvidia-smi</span></span>
-<span id="cb43-28"><a href="#cb43-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb43-29"><a href="#cb43-29" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"Fin: </span><span class="va">$(</span><span class="fu">date</span><span class="va">)</span><span class="st">"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Enviar:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb44"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="ex">sbatch</span> gpu_test.sh</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Si el trabajo se ejecuta correctamente, el archivo de salida debe mostrar información de la GPU NVIDIA V100 disponible en el nodo asignado.</p>
-</section>
-<section id="ejemplo-con-apptainer-y-gpu" class="level2">
-<h2 class="anchored" data-anchor-id="ejemplo-con-apptainer-y-gpu">Ejemplo con Apptainer y GPU</h2>
-<p>Para usar GPU dentro de un contenedor de Apptainer, normalmente se usa la opción:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb45"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="ex">--nv</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Ejemplo:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb46"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
-<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH -J apptainer_gpu</span></span>
-<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH -p gpu_V100</span></span>
-<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH -N 1</span></span>
-<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH -n 1</span></span>
-<span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH -c 8</span></span>
-<span id="cb46-7"><a href="#cb46-7" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --mem=32G</span></span>
-<span id="cb46-8"><a href="#cb46-8" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --gres=gpu:1</span></span>
-<span id="cb46-9"><a href="#cb46-9" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --time=04:00:00</span></span>
-<span id="cb46-10"><a href="#cb46-10" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH -o logs/%x_%j.out</span></span>
-<span id="cb46-11"><a href="#cb46-11" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH -e logs/%x_%j.err</span></span>
-<span id="cb46-12"><a href="#cb46-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb46-13"><a href="#cb46-13" aria-hidden="true" tabindex="-1"></a><span class="bu">set</span> <span class="at">-euo</span> pipefail</span>
-<span id="cb46-14"><a href="#cb46-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb46-15"><a href="#cb46-15" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> logs resultados</span>
-<span id="cb46-16"><a href="#cb46-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb46-17"><a href="#cb46-17" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"===================================="</span></span>
-<span id="cb46-18"><a href="#cb46-18" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"Trabajo: </span><span class="va">$SLURM_JOB_NAME</span><span class="st">"</span></span>
-<span id="cb46-19"><a href="#cb46-19" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"Job ID: </span><span class="va">$SLURM_JOB_ID</span><span class="st">"</span></span>
-<span id="cb46-20"><a href="#cb46-20" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"Usuario: </span><span class="va">$USER</span><span class="st">"</span></span>
-<span id="cb46-21"><a href="#cb46-21" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"Host: </span><span class="va">$(</span><span class="fu">hostname</span><span class="va">)</span><span class="st">"</span></span>
-<span id="cb46-22"><a href="#cb46-22" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"Inicio: </span><span class="va">$(</span><span class="fu">date</span><span class="va">)</span><span class="st">"</span></span>
-<span id="cb46-23"><a href="#cb46-23" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"CPUs asignadas: </span><span class="va">$SLURM_CPUS_PER_TASK</span><span class="st">"</span></span>
-<span id="cb46-24"><a href="#cb46-24" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"Nodo asignado: </span><span class="va">$SLURM_JOB_NODELIST</span><span class="st">"</span></span>
-<span id="cb46-25"><a href="#cb46-25" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"===================================="</span></span>
-<span id="cb46-26"><a href="#cb46-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb46-27"><a href="#cb46-27" aria-hidden="true" tabindex="-1"></a><span class="ex">nvidia-smi</span></span>
-<span id="cb46-28"><a href="#cb46-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb46-29"><a href="#cb46-29" aria-hidden="true" tabindex="-1"></a><span class="ex">apptainer</span> exec <span class="dt">\</span></span>
-<span id="cb46-30"><a href="#cb46-30" aria-hidden="true" tabindex="-1"></a>  <span class="at">--nv</span> <span class="dt">\</span></span>
-<span id="cb46-31"><a href="#cb46-31" aria-hidden="true" tabindex="-1"></a>  <span class="at">--bind</span> <span class="va">$PWD</span>:/work <span class="dt">\</span></span>
-<span id="cb46-32"><a href="#cb46-32" aria-hidden="true" tabindex="-1"></a>  <span class="at">--pwd</span> /work <span class="dt">\</span></span>
-<span id="cb46-33"><a href="#cb46-33" aria-hidden="true" tabindex="-1"></a>  programa_gpu.sif <span class="dt">\</span></span>
-<span id="cb46-34"><a href="#cb46-34" aria-hidden="true" tabindex="-1"></a>  programa_gpu <span class="at">--help</span></span>
-<span id="cb46-35"><a href="#cb46-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb46-36"><a href="#cb46-36" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"===================================="</span></span>
-<span id="cb46-37"><a href="#cb46-37" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"Fin: </span><span class="va">$(</span><span class="fu">date</span><span class="va">)</span><span class="st">"</span></span>
-<span id="cb46-38"><a href="#cb46-38" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"===================================="</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="variables-útiles-de-slurm" class="level2">
 <h2 class="anchored" data-anchor-id="variables-útiles-de-slurm">Variables útiles de Slurm</h2>
-<p>Dentro de un script, Slurm crea variables automáticamente.</p>
+<p>Slurm crea variables automáticamente dentro de cada trabajo.</p>
 <table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 66%">
+</colgroup>
 <thead>
 <tr class="header">
 <th>Variable</th>
@@ -896,7 +901,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 <tr class="odd">
 <td><code>$SLURM_CPUS_PER_TASK</code></td>
-<td>CPUs asignadas</td>
+<td>CPUs asignadas por tarea</td>
 </tr>
 <tr class="even">
 <td><code>$SLURM_SUBMIT_DIR</code></td>
@@ -904,183 +909,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 <tr class="odd">
 <td><code>$SLURM_JOB_NODELIST</code></td>
-<td>Nodo asignado</td>
+<td>Nodo o nodos asignados</td>
 </tr>
 <tr class="even">
 <td><code>$SLURM_GPUS</code></td>
 <td>GPUs asignadas, si aplica</td>
 </tr>
+<tr class="odd">
+<td><code>$SLURM_MEM_PER_NODE</code></td>
+<td>Memoria asignada por nodo, si está disponible</td>
+</tr>
+<tr class="even">
+<td><code>$SLURM_NTASKS</code></td>
+<td>Número de tareas asignadas</td>
+</tr>
 </tbody>
 </table>
-<p>Ejemplo:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb47"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"Job ID: </span><span class="va">$SLURM_JOB_ID</span><span class="st">"</span></span>
-<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"Nombre: </span><span class="va">$SLURM_JOB_NAME</span><span class="st">"</span></span>
-<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"CPUs: </span><span class="va">$SLURM_CPUS_PER_TASK</span><span class="st">"</span></span>
-<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"Directorio de envío: </span><span class="va">$SLURM_SUBMIT_DIR</span><span class="st">"</span></span>
-<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"Nodo asignado: </span><span class="va">$SLURM_JOB_NODELIST</span><span class="st">"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="buenas-prácticas" class="level2">
-<h2 class="anchored" data-anchor-id="buenas-prácticas">Buenas prácticas</h2>
-<section id="no-correr-análisis-pesados-directamente-en-la-terminal" class="level3">
-<h3 class="anchored" data-anchor-id="no-correr-análisis-pesados-directamente-en-la-terminal">1. No correr análisis pesados directamente en la terminal</h3>
-<p>Evita ejecutar programas pesados directamente en el nodo de acceso:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb48"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="ex">iqtree2</span> <span class="at">-s</span> archivo.phy <span class="at">-T</span> 32</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>En su lugar, crea un script y envíalo con:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb49"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="ex">sbatch</span> script.sh</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="no-pedir-más-cpus-de-las-necesarias" class="level3">
-<h3 class="anchored" data-anchor-id="no-pedir-más-cpus-de-las-necesarias">2. No pedir más CPUs de las necesarias</h3>
-<p>Si un programa solo usa 4 hilos, no pidas 32 CPUs.</p>
-<p>Mal:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb50"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH -c 32</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Bien:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb51"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH -c 4</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="usar-la-partición-correcta" class="level3">
-<h3 class="anchored" data-anchor-id="usar-la-partición-correcta">3. Usar la partición correcta</h3>
-<p>Para trabajos generales con CPU:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb52"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH -p ib</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Para trabajos con GPU V100:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb53"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH -p gpu_V100</span></span>
-<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --gres=gpu:1</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="siempre-usar-carpetas-organizadas" class="level3">
-<h3 class="anchored" data-anchor-id="siempre-usar-carpetas-organizadas">4. Siempre usar carpetas organizadas</h3>
-<p>Ejemplo:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb54"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="ex">proyecto/</span></span>
-<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> datos/</span>
-<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> scripts/</span>
-<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> resultados/</span>
-<span id="cb54-5"><a href="#cb54-5" aria-hidden="true" tabindex="-1"></a><span class="ex">└──</span> logs/</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="guardar-salidas-y-errores" class="level3">
-<h3 class="anchored" data-anchor-id="guardar-salidas-y-errores">5. Guardar salidas y errores</h3>
-<p>Usa:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb55"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH -o logs/%x_%j.out</span></span>
-<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH -e logs/%x_%j.err</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="probar-primero-con-datos-pequeños" class="level3">
-<h3 class="anchored" data-anchor-id="probar-primero-con-datos-pequeños">6. Probar primero con datos pequeños</h3>
-<p>Antes de enviar un análisis grande, prueba con un subconjunto de datos para asegurarte de que el comando funciona correctamente.</p>
-</section>
-<section id="revisar-los-logs" class="level3">
-<h3 class="anchored" data-anchor-id="revisar-los-logs">7. Revisar los logs</h3>
-<p>Si un trabajo falla, revisa primero:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb56"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> logs/nombre_JOBID.err</span>
-<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> logs/nombre_JOBID.out</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>También puedes revisar los archivos con:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb57"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="fu">less</span> logs/nombre_JOBID.err</span>
-<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a><span class="fu">less</span> logs/nombre_JOBID.out</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-</section>
-<section id="plantilla-recomendada-para-usar-cpu-y-ram-en-ib-o-gpu_v100" class="level2">
-<h2 class="anchored" data-anchor-id="plantilla-recomendada-para-usar-cpu-y-ram-en-ib-o-gpu_v100">Plantilla recomendada para usar CPU y RAM en <code>ib</code> o <code>gpu_V100</code></h2>
-<p>Esta plantilla sirve para trabajos que usan principalmente CPUs y memoria RAM. Puede utilizarse en la partición <code>ib</code> para análisis generales, o en la partición <code>gpu_V100</code> cuando se requiere más capacidad de CPU y memoria RAM.</p>
-<p>Para trabajos normales con CPU se recomienda usar:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb58"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH -p ib</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Para trabajos muy grandes que necesitan más CPUs o mucha memoria RAM, pero no necesariamente GPU, puede usarse:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb59"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH -p gpu_V100</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Plantilla:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb60"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
-<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH -J nombre_del_analisis</span></span>
-<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH -p ib</span></span>
-<span id="cb60-4"><a href="#cb60-4" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH -N 1</span></span>
-<span id="cb60-5"><a href="#cb60-5" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH -n 1</span></span>
-<span id="cb60-6"><a href="#cb60-6" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH -c 8</span></span>
-<span id="cb60-7"><a href="#cb60-7" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --mem=32G</span></span>
-<span id="cb60-8"><a href="#cb60-8" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --time=04:00:00</span></span>
-<span id="cb60-9"><a href="#cb60-9" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH -o logs/%x_%j.out</span></span>
-<span id="cb60-10"><a href="#cb60-10" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH -e logs/%x_%j.err</span></span>
-<span id="cb60-11"><a href="#cb60-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-12"><a href="#cb60-12" aria-hidden="true" tabindex="-1"></a><span class="bu">set</span> <span class="at">-euo</span> pipefail</span>
-<span id="cb60-13"><a href="#cb60-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-14"><a href="#cb60-14" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> logs resultados</span>
-<span id="cb60-15"><a href="#cb60-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-16"><a href="#cb60-16" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"===================================="</span></span>
-<span id="cb60-17"><a href="#cb60-17" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"Trabajo: </span><span class="va">$SLURM_JOB_NAME</span><span class="st">"</span></span>
-<span id="cb60-18"><a href="#cb60-18" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"Job ID: </span><span class="va">$SLURM_JOB_ID</span><span class="st">"</span></span>
-<span id="cb60-19"><a href="#cb60-19" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"Usuario: </span><span class="va">$USER</span><span class="st">"</span></span>
-<span id="cb60-20"><a href="#cb60-20" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"Host: </span><span class="va">$(</span><span class="fu">hostname</span><span class="va">)</span><span class="st">"</span></span>
-<span id="cb60-21"><a href="#cb60-21" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"Inicio: </span><span class="va">$(</span><span class="fu">date</span><span class="va">)</span><span class="st">"</span></span>
-<span id="cb60-22"><a href="#cb60-22" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"CPUs asignadas: </span><span class="va">$SLURM_CPUS_PER_TASK</span><span class="st">"</span></span>
-<span id="cb60-23"><a href="#cb60-23" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"Directorio de envío: </span><span class="va">$SLURM_SUBMIT_DIR</span><span class="st">"</span></span>
-<span id="cb60-24"><a href="#cb60-24" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"Nodo asignado: </span><span class="va">$SLURM_JOB_NODELIST</span><span class="st">"</span></span>
-<span id="cb60-25"><a href="#cb60-25" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"===================================="</span></span>
-<span id="cb60-26"><a href="#cb60-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-27"><a href="#cb60-27" aria-hidden="true" tabindex="-1"></a><span class="co"># Aquí va el comando principal del análisis</span></span>
-<span id="cb60-28"><a href="#cb60-28" aria-hidden="true" tabindex="-1"></a><span class="co"># Ejemplos:</span></span>
-<span id="cb60-29"><a href="#cb60-29" aria-hidden="true" tabindex="-1"></a><span class="co"># mafft --thread $SLURM_CPUS_PER_TASK datos/secuencias.fasta &gt; resultados/secuencias_alineadas.fasta</span></span>
-<span id="cb60-30"><a href="#cb60-30" aria-hidden="true" tabindex="-1"></a><span class="co"># iqtree2 -s datos/alineamiento.phy -T $SLURM_CPUS_PER_TASK</span></span>
-<span id="cb60-31"><a href="#cb60-31" aria-hidden="true" tabindex="-1"></a><span class="co"># Rscript scripts/analisis.R</span></span>
-<span id="cb60-32"><a href="#cb60-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-33"><a href="#cb60-33" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"Aquí va el análisis"</span></span>
-<span id="cb60-34"><a href="#cb60-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-35"><a href="#cb60-35" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"===================================="</span></span>
-<span id="cb60-36"><a href="#cb60-36" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"Fin: </span><span class="va">$(</span><span class="fu">date</span><span class="va">)</span><span class="st">"</span></span>
-<span id="cb60-37"><a href="#cb60-37" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"===================================="</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Para usar esta misma plantilla en el nodo <code>beagle-gpu-01</code> solo con CPU y RAM, cambia la partición:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb61"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH -p gpu_V100</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Por ejemplo:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb62"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH -p gpu_V100</span></span>
-<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH -c 32</span></span>
-<span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --mem=200G</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="plantilla-recomendada-para-usar-gpus-en-gpu_v100" class="level2">
-<h2 class="anchored" data-anchor-id="plantilla-recomendada-para-usar-gpus-en-gpu_v100">Plantilla recomendada para usar GPUs en <code>gpu_V100</code></h2>
-<p>Esta plantilla debe usarse cuando el análisis requiere GPUs NVIDIA V100. En este caso se debe usar la partición <code>gpu_V100</code> y solicitar explícitamente el número de GPUs necesarias.</p>
-<p>Para solicitar una GPU:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb63"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --gres=gpu:1</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Plantilla:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb64"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
-<span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH -J nombre_gpu</span></span>
-<span id="cb64-3"><a href="#cb64-3" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH -p gpu_V100</span></span>
-<span id="cb64-4"><a href="#cb64-4" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH -N 1</span></span>
-<span id="cb64-5"><a href="#cb64-5" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH -n 1</span></span>
-<span id="cb64-6"><a href="#cb64-6" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH -c 8</span></span>
-<span id="cb64-7"><a href="#cb64-7" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --mem=32G</span></span>
-<span id="cb64-8"><a href="#cb64-8" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --gres=gpu:1</span></span>
-<span id="cb64-9"><a href="#cb64-9" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --time=04:00:00</span></span>
-<span id="cb64-10"><a href="#cb64-10" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH -o logs/%x_%j.out</span></span>
-<span id="cb64-11"><a href="#cb64-11" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH -e logs/%x_%j.err</span></span>
-<span id="cb64-12"><a href="#cb64-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb64-13"><a href="#cb64-13" aria-hidden="true" tabindex="-1"></a><span class="bu">set</span> <span class="at">-euo</span> pipefail</span>
-<span id="cb64-14"><a href="#cb64-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb64-15"><a href="#cb64-15" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> logs resultados</span>
-<span id="cb64-16"><a href="#cb64-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb64-17"><a href="#cb64-17" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"===================================="</span></span>
-<span id="cb64-18"><a href="#cb64-18" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"Trabajo: </span><span class="va">$SLURM_JOB_NAME</span><span class="st">"</span></span>
-<span id="cb64-19"><a href="#cb64-19" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"Job ID: </span><span class="va">$SLURM_JOB_ID</span><span class="st">"</span></span>
-<span id="cb64-20"><a href="#cb64-20" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"Usuario: </span><span class="va">$USER</span><span class="st">"</span></span>
-<span id="cb64-21"><a href="#cb64-21" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"Host: </span><span class="va">$(</span><span class="fu">hostname</span><span class="va">)</span><span class="st">"</span></span>
-<span id="cb64-22"><a href="#cb64-22" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"Inicio: </span><span class="va">$(</span><span class="fu">date</span><span class="va">)</span><span class="st">"</span></span>
-<span id="cb64-23"><a href="#cb64-23" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"CPUs asignadas: </span><span class="va">$SLURM_CPUS_PER_TASK</span><span class="st">"</span></span>
-<span id="cb64-24"><a href="#cb64-24" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"Nodo asignado: </span><span class="va">$SLURM_JOB_NODELIST</span><span class="st">"</span></span>
-<span id="cb64-25"><a href="#cb64-25" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"GPUs asignadas: </span><span class="va">${SLURM_GPUS</span><span class="op">:-</span>No disponible<span class="va">}</span><span class="st">"</span></span>
-<span id="cb64-26"><a href="#cb64-26" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"===================================="</span></span>
-<span id="cb64-27"><a href="#cb64-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb64-28"><a href="#cb64-28" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"Revisando GPU disponible:"</span></span>
-<span id="cb64-29"><a href="#cb64-29" aria-hidden="true" tabindex="-1"></a><span class="ex">nvidia-smi</span></span>
-<span id="cb64-30"><a href="#cb64-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb64-31"><a href="#cb64-31" aria-hidden="true" tabindex="-1"></a><span class="co"># Aquí va el comando principal del análisis con GPU</span></span>
-<span id="cb64-32"><a href="#cb64-32" aria-hidden="true" tabindex="-1"></a><span class="co"># Ejemplo general:</span></span>
-<span id="cb64-33"><a href="#cb64-33" aria-hidden="true" tabindex="-1"></a><span class="co"># programa_gpu --threads $SLURM_CPUS_PER_TASK</span></span>
-<span id="cb64-34"><a href="#cb64-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb64-35"><a href="#cb64-35" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"Aquí va el análisis con GPU"</span></span>
-<span id="cb64-36"><a href="#cb64-36" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb64-37"><a href="#cb64-37" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"===================================="</span></span>
-<span id="cb64-38"><a href="#cb64-38" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"Fin: </span><span class="va">$(</span><span class="fu">date</span><span class="va">)</span><span class="st">"</span></span>
-<span id="cb64-39"><a href="#cb64-39" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"===================================="</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Si el análisis usa un contenedor de Apptainer con GPU, se debe agregar la opción <code>--nv</code>:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb65"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="ex">apptainer</span> exec <span class="dt">\</span></span>
-<span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">--nv</span> <span class="dt">\</span></span>
-<span id="cb65-3"><a href="#cb65-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">--bind</span> <span class="va">$PWD</span>:/work <span class="dt">\</span></span>
-<span id="cb65-4"><a href="#cb65-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">--pwd</span> /work <span class="dt">\</span></span>
-<span id="cb65-5"><a href="#cb65-5" aria-hidden="true" tabindex="-1"></a>  programa_gpu.sif <span class="dt">\</span></span>
-<span id="cb65-6"><a href="#cb65-6" aria-hidden="true" tabindex="-1"></a>  programa_gpu input.fasta output.txt</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>La opción <code>--nv</code> permite que el contenedor detecte las GPUs NVIDIA disponibles en el nodo.</p>
-</section>
-<section id="resumen-de-comandos-esenciales" class="level2">
-<h2 class="anchored" data-anchor-id="resumen-de-comandos-esenciales">Resumen de comandos esenciales</h2>
+<section id="solicitar-menos-recursos-de-los-necesarios" class="level2">
+<h2 class="anchored" data-anchor-id="solicitar-menos-recursos-de-los-necesarios">Solicitar menos recursos de los necesarios</h2>
+<p>Solicitar menos recursos puede provocar fallas o ejecuciones muy lentas.</p>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 50%">
@@ -1088,184 +936,73 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </colgroup>
 <thead>
 <tr class="header">
-<th>Acción</th>
-<th>Comando</th>
+<th>Recurso insuficiente</th>
+<th>Consecuencia posible</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>Ver estado del clúster</td>
-<td><code>sinfo</code></td>
+<td>Pocas CPUs</td>
+<td>El análisis tarda más o el programa intenta usar más hilos de los asignados</td>
 </tr>
 <tr class="even">
-<td>Ver particiones del IB-UNAM</td>
-<td><code>sinfo -p ib,gpu_V100</code></td>
+<td>Poca memoria</td>
+<td>El trabajo puede terminar con error de memoria</td>
 </tr>
 <tr class="odd">
-<td>Ver recursos por nodo</td>
-<td><code>sinfo -N -p ib,gpu_V100 -o "%N %c CPUs %m MB %G %T"</code></td>
-</tr>
-<tr class="even">
-<td>Ver cola</td>
-<td><code>squeue</code></td>
-</tr>
-<tr class="odd">
-<td>Ver tus trabajos</td>
-<td><code>squeue -u $USER</code></td>
-</tr>
-<tr class="even">
-<td>Enviar trabajo</td>
-<td><code>sbatch script.sh</code></td>
-</tr>
-<tr class="odd">
-<td>Cancelar trabajo</td>
-<td><code>scancel JOBID</code></td>
-</tr>
-<tr class="even">
-<td>Cancelar todos tus trabajos</td>
-<td><code>scancel -u $USER</code></td>
-</tr>
-<tr class="odd">
-<td>Ejecutar comando simple en CPU</td>
-<td><code>srun -p ib -N1 -n1 hostname</code></td>
-</tr>
-<tr class="even">
-<td>Ejecutar comando simple en GPU</td>
-<td><code>srun -p gpu_V100 --gres=gpu:1 -N1 -n1 nvidia-smi</code></td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="qué-pasa-si-solicito-menos-o-más-recursos-de-los-necesarios" class="level2">
-<h2 class="anchored" data-anchor-id="qué-pasa-si-solicito-menos-o-más-recursos-de-los-necesarios">¿Qué pasa si solicito menos o más recursos de los necesarios?</h2>
-<p>Cuando se envía un trabajo a Slurm, los recursos solicitados deben ser lo más cercanos posible a lo que realmente necesita el análisis. Pedir menos recursos puede hacer que el trabajo falle o tarde demasiado. Pedir recursos de más puede hacer que el trabajo espere más tiempo en la cola y que otros usuarios no puedan usar esos recursos.</p>
-</section>
-<section id="si-solicitas-menos-recursos-de-los-necesarios" class="level2">
-<h2 class="anchored" data-anchor-id="si-solicitas-menos-recursos-de-los-necesarios">Si solicitas menos recursos de los necesarios</h2>
-<section id="menos-cpus-de-las-necesarias" class="level3">
-<h3 class="anchored" data-anchor-id="menos-cpus-de-las-necesarias">Menos CPUs de las necesarias</h3>
-<p>Si pides pocas CPUs, el análisis puede correr más lento.</p>
-<p>Por ejemplo:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb66"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH -c 2</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>pero el programa podría funcionar mejor con 8 CPUs:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb67"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="ex">mafft</span> <span class="at">--thread</span> 8 entrada.fasta <span class="op">&gt;</span> salida.fasta</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>En este caso hay un problema: el script pidió 2 CPUs, pero el programa intenta usar 8. Esto puede saturar el nodo o hacer que Slurm limite el trabajo, dependiendo de la configuración del sistema.</p>
-<p>Lo correcto es que el número de CPUs solicitado coincida con el número de hilos usados por el programa:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb68"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH -c 8</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>y dentro del comando:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb69"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="ex">mafft</span> <span class="at">--thread</span> <span class="va">$SLURM_CPUS_PER_TASK</span> entrada.fasta <span class="op">&gt;</span> salida.fasta</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="menos-memoria-de-la-necesaria" class="level3">
-<h3 class="anchored" data-anchor-id="menos-memoria-de-la-necesaria">Menos memoria de la necesaria</h3>
-<p>Si pides menos memoria RAM de la que necesita el análisis, el trabajo puede fallar.</p>
-<p>Por ejemplo:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb70"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --mem=4G</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>pero el análisis necesita 20 GB de RAM.</p>
-<p>En ese caso, Slurm o el sistema pueden terminar el trabajo automáticamente. El error puede aparecer en los archivos <code>.err</code> o <code>.out</code> con mensajes como:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb71"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="ex">Out</span> Of Memory</span>
-<span id="cb71-2"><a href="#cb71-2" aria-hidden="true" tabindex="-1"></a><span class="ex">oom-kill</span></span>
-<span id="cb71-3"><a href="#cb71-3" aria-hidden="true" tabindex="-1"></a><span class="ex">Killed</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>o el trabajo puede aparecer como fallido en Slurm.</p>
-</section>
-<section id="menos-tiempo-del-necesario" class="level3">
-<h3 class="anchored" data-anchor-id="menos-tiempo-del-necesario">Menos tiempo del necesario</h3>
-<p>Si pides menos tiempo del que necesita el análisis:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb72"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --time=00:30:00</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>pero el programa necesita 2 horas, Slurm cancelará el trabajo cuando se cumpla el tiempo máximo.</p>
-<p>El trabajo puede aparecer con estado:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb73"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="ex">TIMEOUT</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>o como cancelado por límite de tiempo.</p>
-</section>
-</section>
-<section id="si-solicitas-más-recursos-de-los-necesarios" class="level2">
-<h2 class="anchored" data-anchor-id="si-solicitas-más-recursos-de-los-necesarios">Si solicitas más recursos de los necesarios</h2>
-<p>Pedir más recursos de los que realmente usa el análisis no hace que el programa corra más rápido automáticamente.</p>
-<p>Por ejemplo, si pides:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb74"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH -c 32</span></span>
-<span id="cb74-2"><a href="#cb74-2" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --mem=200G</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>pero tu programa solo usa 4 CPUs y 10 GB de RAM, los recursos restantes quedan reservados para tu trabajo aunque no se estén usando.</p>
-<p>Esto puede provocar que:</p>
-<ul>
-<li><p>tu trabajo tarde más en iniciar porque Slurm necesita encontrar un nodo con muchos recursos libres;</p></li>
-<li><p>otros usuarios no puedan usar esas CPUs o memoria mientras tu trabajo está corriendo;</p></li>
-<li><p>se desperdicie capacidad del clúster;</p></li>
-<li><p>se reduzca la eficiencia general del sistema.</p></li>
-</ul>
-<p>En algunos sistemas, además, el uso de recursos puede afectar métricas de prioridad o reportes de consumo, aunque el programa no haya usado todo lo solicitado.</p>
-</section>
-<section id="ejemplo-de-mala-práctica" class="level2">
-<h2 class="anchored" data-anchor-id="ejemplo-de-mala-práctica">Ejemplo de mala práctica</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb75"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH -p ib</span></span>
-<span id="cb75-2"><a href="#cb75-2" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH -c 32</span></span>
-<span id="cb75-3"><a href="#cb75-3" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --mem=100G</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>pero el comando ejecutado es:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb76"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a><span class="ex">iqtree2</span> <span class="at">-s</span> alineamiento.phy <span class="at">-T</span> 4</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Aquí se reservaron 32 CPUs, pero IQ-TREE solo usará 4. Las otras 28 CPUs quedan apartadas sin utilizarse.</p>
-</section>
-<section id="ejemplo-correcto" class="level2">
-<h2 class="anchored" data-anchor-id="ejemplo-correcto">Ejemplo correcto</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb77"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH -p ib</span></span>
-<span id="cb77-2"><a href="#cb77-2" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH -c 4</span></span>
-<span id="cb77-3"><a href="#cb77-3" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --mem=16G</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>y el comando:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb78"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true" tabindex="-1"></a><span class="ex">iqtree2</span> <span class="at">-s</span> alineamiento.phy <span class="at">-T</span> <span class="va">$SLURM_CPUS_PER_TASK</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>En este caso, Slurm asigna 4 CPUs y el programa usa esas mismas 4 CPUs.</p>
-</section>
-<section id="recomendación-práctica" class="level2">
-<h2 class="anchored" data-anchor-id="recomendación-práctica">Recomendación práctica</h2>
-<p>Si no sabes cuántos recursos necesita tu análisis, empieza con una prueba pequeña.</p>
-<p>Por ejemplo:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb79"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH -c 4</span></span>
-<span id="cb79-2"><a href="#cb79-2" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --mem=16G</span></span>
-<span id="cb79-3"><a href="#cb79-3" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --time=01:00:00</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Después revisa si el trabajo terminó correctamente. Si falló por memoria, aumenta la memoria. Si tardó demasiado pero no falló, puedes aumentar el tiempo. Si el programa permite usar más hilos, puedes aumentar CPUs de forma razonable.</p>
-</section>
-<section id="regla-general" class="level2">
-<h2 class="anchored" data-anchor-id="regla-general">Regla general</h2>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 50%">
-<col style="width: 50%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Situación</th>
-<th>Consecuencia</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Pedir menos CPUs</td>
-<td>El análisis puede tardar más</td>
-</tr>
-<tr class="even">
-<td>Pedir menos memoria</td>
-<td>El trabajo puede fallar por falta de RAM</td>
-</tr>
-<tr class="odd">
-<td>Pedir menos tiempo</td>
+<td>Poco tiempo</td>
 <td>Slurm puede cancelar el trabajo por límite de tiempo</td>
 </tr>
 <tr class="even">
-<td>Pedir más CPUs de las usadas</td>
-<td>Se desperdician CPUs reservadas</td>
-</tr>
-<tr class="odd">
-<td>Pedir más memoria de la usada</td>
-<td>Se bloquea memoria que otros usuarios podrían usar</td>
-</tr>
-<tr class="even">
-<td>Pedir GPU sin usarla</td>
-<td>Se reserva una GPU innecesariamente</td>
-</tr>
-<tr class="odd">
-<td>Usar más hilos de los solicitados</td>
-<td>Puede saturar el nodo o violar las buenas prácticas de uso</td>
+<td>No solicitar GPU</td>
+<td>Un programa que requiere GPU puede no detectar aceleración</td>
 </tr>
 </tbody>
 </table>
+</section>
+<section id="solicitar-más-recursos-de-los-necesarios" class="level2">
+<h2 class="anchored" data-anchor-id="solicitar-más-recursos-de-los-necesarios">Solicitar más recursos de los necesarios</h2>
+<p>Pedir recursos de más no hace que el programa corra más rápido automáticamente. Si un programa solo usa pocas CPUs, las CPUs extra quedan reservadas pero sin uso.</p>
+<p>Consecuencias frecuentes:</p>
+<ul>
+<li>el trabajo puede tardar más en iniciar;</li>
+<li>otros usuarios no pueden usar los recursos reservados;</li>
+<li>se desperdicia capacidad del clúster;</li>
+<li>baja la eficiencia general del sistema.</li>
+</ul>
+</section>
+<section id="buenas-prácticas" class="level2">
+<h2 class="anchored" data-anchor-id="buenas-prácticas">Buenas prácticas</h2>
+<section id="no-correr-análisis-pesados-en-la-terminal-de-acceso" class="level3">
+<h3 class="anchored" data-anchor-id="no-correr-análisis-pesados-en-la-terminal-de-acceso">No correr análisis pesados en la terminal de acceso</h3>
+<p>La terminal de acceso debe usarse para preparar archivos, revisar resultados, editar scripts y enviar trabajos. Los análisis pesados deben enviarse a Slurm.</p>
+</section>
+<section id="solicitar-recursos-razonables" class="level3">
+<h3 class="anchored" data-anchor-id="solicitar-recursos-razonables">Solicitar recursos razonables</h3>
+<p>Pide CPUs, memoria y tiempo de acuerdo con el programa y el tamaño de tus datos. Si no conoces el consumo, empieza con una prueba pequeña y revisa los resultados.</p>
+</section>
+<section id="usar-la-partición-correcta" class="level3">
+<h3 class="anchored" data-anchor-id="usar-la-partición-correcta">Usar la partición correcta</h3>
+<p>Usa <code>ib</code> para trabajos generales con CPU. Usa <code>gpu_V100</code> cuando necesites GPU o cuando el análisis requiera más CPU y memoria de la que ofrecen los nodos de <code>ib</code>.</p>
+</section>
+<section id="hacer-coincidir-cpus-e-hilos" class="level3">
+<h3 class="anchored" data-anchor-id="hacer-coincidir-cpus-e-hilos">Hacer coincidir CPUs e hilos</h3>
+<p>El número de CPUs solicitado debe coincidir con los hilos configurados dentro del programa. Para scripts, es recomendable usar <code>$SLURM_CPUS_PER_TASK</code> cuando el programa permita definir hilos.</p>
+</section>
+<section id="guardar-salidas-y-errores" class="level3">
+<h3 class="anchored" data-anchor-id="guardar-salidas-y-errores">Guardar salidas y errores</h3>
+<p>Usa una carpeta <code>logs/</code> para archivos <code>.out</code> y <code>.err</code>. Esto facilita revisar si el trabajo terminó correctamente o si falló.</p>
+</section>
+<section id="no-solicitar-gpu-sin-necesidad" class="level3">
+<h3 class="anchored" data-anchor-id="no-solicitar-gpu-sin-necesidad">No solicitar GPU sin necesidad</h3>
+<p>Una GPU reservada queda bloqueada para otros usuarios. Solo solicita GPU cuando el programa esté preparado para usarla.</p>
+</section>
+<section id="revisar-el-historial-de-trabajos" class="level3">
+<h3 class="anchored" data-anchor-id="revisar-el-historial-de-trabajos">Revisar el historial de trabajos</h3>
+<p>Después de terminar un análisis, consulta el estado final, el tiempo usado y posibles errores. Esto ayuda a ajustar recursos para futuros trabajos.</p>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
@@ -1320,14 +1057,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-      const outerScaffold = trigger.parentElement.cloneNode(true);
-      const codeEl = outerScaffold.querySelector('code');
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
         }
-      }
-      return codeEl.innerText;
+        return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy
@@ -1681,8 +1417,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../chapters/bots.html" class="pagination-link" aria-label="Notificaciones automáticas">
-        <span class="nav-page-text"><span class="chapter-title">Notificaciones automáticas</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../contacto.html" class="pagination-link" aria-label="Contacto y soporte">
+        <span class="nav-page-text"><span class="chapter-title">Contacto y soporte</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

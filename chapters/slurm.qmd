@@ -2,142 +2,97 @@
 
 ## ¿Qué es Slurm?
 
-Slurm es un sistema de administración de trabajos para servidores y clústeres de cómputo. Su función es organizar el uso de los recursos disponibles, como CPUs, memoria RAM, tarjetas GPU y tiempo de ejecución.
+Slurm es un sistema de administración de trabajos para servidores y clústeres de cómputo. Su función es organizar el uso de recursos compartidos como CPUs, memoria RAM, GPUs, nodos y tiempo de ejecución.
 
-En lugar de ejecutar análisis pesados directamente en la terminal, los usuarios envían sus trabajos a una cola mediante Slurm. El sistema decide cuándo y dónde correrlos, de acuerdo con los recursos solicitados y la disponibilidad de los nodos.
+En un clúster, los análisis pesados no deben ejecutarse directamente en la terminal de acceso. En su lugar, se envían a una cola mediante Slurm. El sistema decide cuándo y en qué nodo se ejecutan, de acuerdo con los recursos solicitados y la disponibilidad del clúster.
 
-Esto ayuda a:
+Slurm ayuda a:
 
-- evitar que una sola persona sature el servidor;
-
-- organizar los análisis de varios usuarios;
-
-- asignar CPUs, memoria y GPUs de manera controlada;
-
-- dejar registro de los trabajos ejecutados;
-
-- mejorar la reproducibilidad de los análisis.
+-   evitar que una sola persona sature el servidor;
+-   organizar los análisis de varias personas usuarias;
+-   asignar CPUs, memoria y GPUs de manera controlada;
+-   registrar los trabajos ejecutados;
+-   mejorar la reproducibilidad de los análisis.
 
 ## Particiones disponibles para usuarios del IB-UNAM
 
-En Atocatl existen varias particiones de Slurm. Sin embargo, para los usuarios del Instituto de Biología, UNAM, las particiones principales de interés son:
+En BEAGLE, las particiones principales para usuarios del Instituto de Biología, UNAM, son:
 
 | Partición | Nodo(s) | Recursos principales | Uso recomendado |
-|----|----|----|----|
+|------------------|------------------|------------------|------------------|
 | `ib` | `beagle-01`, `beagle-02` | CPUs y memoria RAM | Trabajos generales de bioinformática con CPU |
-| `gpu_V100` | `beagle-gpu-01` | 80 CPUs, \~754 GB RAM y 3 GPUs NVIDIA V100 | Trabajos que requieren GPU o análisis grandes que necesitan muchos CPUs y memoria |
+| `gpu_V100` | `beagle-gpu-01` | CPUs, memoria RAM y GPUs NVIDIA V100 | Trabajos que requieren GPU o análisis grandes que necesitan muchos CPUs y memoria |
 
-Puedes revisar el estado de estas particiones con:
+Recursos disponibles por nodo:
 
-``` bash
-sinfo -p ib,gpu_V100
-```
+| Nodo            | CPUs | Memoria aproximada | GPU             | Partición  |
+|-----------------|-----:|-------------------:|-----------------|------------|
+| `beagle-01`     |   32 |              94 GB | No              | `ib`       |
+| `beagle-02`     |   20 |             188 GB | No              | `ib`       |
+| `beagle-gpu-01` |   80 |             754 GB | 3 × NVIDIA V100 | `gpu_V100` |
 
-Una salida esperada puede verse así:
+::: callout-note
+## Uso de la partición `gpu_V100`
 
-``` bash
-PARTITION AVAIL  TIMELIMIT  NODES  STATE NODELIST
-ib           up 5-00:00:00      2   idle beagle-[01-02]
-gpu_V100     up   infinite      1   idle beagle-gpu-01
-```
-
-Para ver los recursos disponibles por nodo:
-
-``` bash
-sinfo -N -p ib,gpu_V100 -o "%N %c CPUs %m MB %G %T"
-```
-
-Ejemplo de salida:
-
-``` bash
-NODELIST       CPUS  MEMORY MB  GRES   STATE
-beagle-01      32    96064      (null) idle
-beagle-02      20    192616     (null) idle
-beagle-gpu-01  80    772109     gpu:3  idle
-```
-
-Esto indica que:
-
-- `beagle-01` tiene 32 CPUs y aproximadamente 94 GB de RAM.
-
-- `beagle-02` tiene 20 CPUs y aproximadamente 188 GB de RAM.
-
-- `beagle-gpu-01` tiene 80 CPUs, aproximadamente 754 GB de RAM y 3 GPUs NVIDIA V100.
-
-Por esta razón, la partición `gpu_V100` puede ser útil para trabajos que requieren GPU, pero también representa el nodo con mayor capacidad de CPU y memoria dentro de BEAGLE.
+La partición `gpu_V100` contiene el nodo con mayor capacidad de CPU y memoria dentro de BEAGLE, pero también contiene las GPUs. No se debe solicitar GPU si el programa no la usa.
+:::
 
 ## Conceptos básicos
 
 ### Job
 
-Un *job* es un trabajo enviado a Slurm. Puede ser un script de Bash que ejecuta un análisis bioinformático, un programa de R, Python, Apptainer, BLAST, IQ-TREE, MAFFT, BEAST, RevBayes, entre otros.
+Un *job* es un trabajo enviado a Slurm. Puede ejecutar un programa, un script de Bash, un análisis en R o Python, un contenedor de Apptainer, o una herramienta bioinformática.
 
 ### Cola
 
-La cola es la lista de trabajos que están esperando, corriendo o terminando dentro del sistema Slurm.
+La cola es la lista de trabajos que están esperando, corriendo, terminando o detenidos dentro del sistema.
+
+### Nodo
+
+Un nodo es una computadora del clúster. Cada nodo tiene una cantidad específica de CPUs, memoria RAM y, en algunos casos, GPUs.
 
 ### Partición
 
-Una partición es una sección lógica del clúster. En este caso, las particiones principales para usuarios del IB-UNAM son:
+Una partición es un grupo lógico de nodos. Al enviar un trabajo se indica la partición donde debe ejecutarse.
 
-``` bash
-ib
-gpu_V100
-```
+### Recurso
 
-Usar una partición significa indicar en qué grupo de nodos quieres ejecutar tu trabajo.
+Un recurso es una parte del clúster que Slurm puede asignar a un trabajo. Los recursos más comunes son CPUs, memoria RAM, tiempo de ejecución, nodos y GPUs.
 
-Por ejemplo:
+## Flujo general de trabajo
 
-``` bash
-#SBATCH -p ib
-```
-
-significa:
-
-> enviar mi trabajo a la partición `ib`.
-
-Mientras que:
-
-``` bash
-#SBATCH -p gpu_V100
-```
-
-significa:
-
-> enviar mi trabajo a la partición con GPU V100.
-
-### Recursos
-
-Cuando envías un trabajo, debes indicar los recursos que necesitas. Por ejemplo:
-
-- número de CPUs;
-
-- memoria RAM;
-
-- tiempo máximo de ejecución;
-
-- nombre del trabajo;
-
-- partición donde se ejecutará;
-
-- número de GPUs, si aplica.
+1.  Preparar un script de Bash con directivas de Slurm.
+2.  Enviar el script a la cola con `sbatch`.
+3.  Revisar el estado del trabajo con `squeue`.
+4.  Consultar los archivos de salida y error.
 
 ## Comandos básicos
 
-### Ver el estado del clúster
+| Acción | Comando | Para qué sirve |
+|------------------------|------------------------|------------------------|
+| Ver estado del clúster | `sinfo` | Muestra particiones, nodos y estados generales |
+| Ver particiones del IB-UNAM | `sinfo -p ib,gpu_V100` | Filtra la información a las particiones principales de BEAGLE |
+| Ver recursos por nodo | `sinfo -N -p ib,gpu_V100 -o "%N %c CPUs %m MB %G %T"` | Muestra CPUs, memoria, GPUs y estado de cada nodo |
+| Ver la cola | `squeue` | Lista los trabajos activos o pendientes |
+| Ver solo tus trabajos | `squeue -u $USER` | Filtra la cola por tu usuario |
+| Enviar un trabajo | `sbatch <script.sh>` | Envía un script a Slurm |
+| Cancelar un trabajo | `scancel <JOBID>` | Cancela un trabajo específico |
+| Cancelar tus trabajos | `scancel -u $USER` | Cancela todos los trabajos de tu usuario |
 
-``` bash
-sinfo
-```
+## Cómo leer `sinfo`
 
-### Ver solo las particiones del IB-UNAM
+Columnas frecuentes:
 
-``` bash
-sinfo -p ib,gpu_V100
-```
+| Columna     | Significado                                            |
+|-------------|--------------------------------------------------------|
+| `PARTITION` | Nombre de la partición                                 |
+| `AVAIL`     | Indica si la partición está disponible                 |
+| `TIMELIMIT` | Tiempo máximo permitido para trabajos en esa partición |
+| `NODES`     | Número de nodos incluidos                              |
+| `STATE`     | Estado de los nodos                                    |
+| `NODELIST`  | Nombre de los nodos                                    |
 
-### Estados comunes de los nodos
+Estados comunes de nodos:
 
 | Estado  | Significado                                            |
 |---------|--------------------------------------------------------|
@@ -147,896 +102,204 @@ sinfo -p ib,gpu_V100
 | `down`  | El nodo no está disponible                             |
 | `drain` | El nodo no acepta nuevos trabajos                      |
 
-## Ver trabajos en cola
+## Cómo leer `squeue`
 
-``` bash
-squeue
-```
+Columnas frecuentes:
 
-Ejemplo:
+| Columna            | Significado                                      |
+|--------------------|--------------------------------------------------|
+| `JOBID`            | Identificador único del trabajo                  |
+| `PARTITION`        | Partición donde está programado el trabajo       |
+| `NAME`             | Nombre del trabajo                               |
+| `USER`             | Usuario que envió el trabajo                     |
+| `ST`               | Estado del trabajo                               |
+| `TIME`             | Tiempo que lleva corriendo                       |
+| `NODES`            | Número de nodos asignados                        |
+| `NODELIST(REASON)` | Nodo asignado o razón por la que sigue pendiente |
 
-``` bash
-JOBID PARTITION     NAME     USER ST       TIME  NODES NODELIST(REASON)
-1234        ib  analisis cristian  R       1:23      1 beagle-01
-```
+Estados comunes de trabajos:
 
-### Estados comunes de los trabajos
+| Estado | Significado                                      |
+|--------|--------------------------------------------------|
+| `R`    | Running: el trabajo está corriendo               |
+| `PD`   | Pending: el trabajo está esperando               |
+| `CG`   | Completing: el trabajo está terminando           |
+| `CD`   | Completed: el trabajo terminó correctamente      |
+| `F`    | Failed: el trabajo falló                         |
+| `CA`   | Cancelled: el trabajo fue cancelado              |
+| `TO`   | Timeout: el trabajo terminó por límite de tiempo |
 
-| Estado | Significado                                 |
-|--------|---------------------------------------------|
-| `R`    | Running, el trabajo está corriendo          |
-| `PD`   | Pending, el trabajo está esperando          |
-| `CG`   | Completing, el trabajo está terminando      |
-| `CD`   | Completed, el trabajo terminó correctamente |
-| `F`    | Failed, el trabajo falló                    |
-| `CA`   | Cancelled, el trabajo fue cancelado         |
+## Estructura de un script de Slurm
 
-## Ver solo tus trabajos
+Un script de Slurm es un archivo de Bash con instrucciones especiales para solicitar recursos. Tiene tres partes principales:
 
-``` bash
-squeue -u $USER
-```
+| Parte | Qué significa |
+|------------------------------------|------------------------------------|
+| Línea de intérprete | Define qué programa interpretará el script, normalmente Bash |
+| Directivas `#SBATCH` | Indican a Slurm qué recursos se solicitan |
+| Cuerpo del script | Contiene los comandos que se ejecutarán dentro del trabajo |
 
-## Cancelar un trabajo
+### Línea de intérprete
 
-``` bash
-scancel JOBID
-```
+La línea de intérprete indica que el archivo debe ejecutarse con Bash.
 
-Ejemplo:
+| Línea                 | Significado                          |
+|-----------------------|--------------------------------------|
+| `#!/bin/bash`         | Usa Bash como intérprete del script  |
 
-``` bash
-scancel 1234
-```
+### Directivas `#SBATCH`
 
-## Cancelar todos tus trabajos
+Las líneas que empiezan con `#SBATCH` son leídas por Slurm antes de ejecutar el cuerpo del script. Aunque parecen comentarios para Bash, Slurm las interpreta como instrucciones de planificación.
 
-Usar con cuidado:
+| Directiva | Significado |
+|------------------------------------|------------------------------------|
+| `#SBATCH -J <nombre>` | Nombre del trabajo |
+| `#SBATCH --job-name=<nombre>` | Nombre del trabajo usando la forma larga |
+| `#SBATCH -p <partición>` | Partición donde se ejecutará |
+| `#SBATCH --partition=<partición>` | Partición usando la forma larga |
+| `#SBATCH -N <nodos>` | Número de nodos solicitados |
+| `#SBATCH -n <tareas>` | Número total de tareas |
+| `#SBATCH -c <cpus>` | CPUs por tarea |
+| `#SBATCH --cpus-per-task=<cpus>` | CPUs por tarea usando la forma larga |
+| `#SBATCH --mem=<memoria>` | Memoria RAM solicitada |
+| `#SBATCH --time=<tiempo>` | Tiempo máximo de ejecución |
+| `#SBATCH -o <archivo>` | Archivo de salida estándar |
+| `#SBATCH -e <archivo>` | Archivo de error estándar |
+| `#SBATCH --gres=gpu:<n>` | Número de GPUs solicitadas |
 
-``` bash
-scancel -u $USER
-```
 
-## Primer ejemplo: ejecutar un comando simple
+## CPUs, tareas y nodos
 
-Puedes probar Slurm ejecutando el comando `hostname` en la partición `ib`:
+En Slurm, `-N`, `-n` y `-c` no significan lo mismo.
 
-``` bash
-srun -p ib -N1 -n1 hostname
-```
+| Opción | Significado | Uso típico |
+|------------------------|------------------------|------------------------|
+| `-N` | Número de nodos | Trabajos que necesitan uno o varios nodos |
+| `-n` | Número de tareas | Programas paralelos por procesos, como MPI |
+| `-c` | CPUs por tarea | Programas multihilo, como muchas herramientas bioinformáticas |
 
-La salida esperada será el nombre de alguno de los nodos asignados, por ejemplo:
+Para la mayoría de análisis bioinformáticos comunes en BEAGLE, suele usarse un nodo, una tarea y varias CPUs por tarea. El número de CPUs solicitado debe coincidir con el número de hilos que usará el programa.
 
-``` bash
-beagle-01.lamod.unam.mx
-```
+## Memoria RAM
 
-o:
+La memoria se solicita con `--mem`. Slurm reserva esa cantidad de RAM para el trabajo. Si el análisis usa más memoria de la solicitada, puede fallar por falta de memoria.
 
-``` bash
-beagle-02.lamod.unam.mx
-```
+Formatos comunes:
 
-Esto significa que Slurm ejecutó el comando en uno de los nodos de la partición `ib`.
+| Formato | Significado |
+|------------------------------------|------------------------------------|
+| `--mem=4G` | Solicita 4 GB de RAM |
+| `--mem=16000M` | Solicita 16000 MB de RAM |
+| `--mem=0` | Solicita toda la memoria disponible del nodo, si la configuración lo permite |
 
-## Enviar trabajos con `sbatch`
+## Tiempo máximo
 
-La forma recomendada de usar Slurm es crear un script y enviarlo con:
+El tiempo se solicita con `--time`. Cuando el trabajo supera ese límite, Slurm puede cancelarlo automáticamente.
 
-``` bash
-sbatch script.sh
-```
+Formatos comunes:
 
-Un script de Slurm es un archivo de Bash con instrucciones especiales que empiezan con:
+| Formato             | Significado |
+|---------------------|-------------|
+| `--time=30:00`      | 30 minutos  |
+| `--time=02:00:00`   | 2 horas     |
+| `--time=1-00:00:00` | 1 día       |
+| `--time=5-00:00:00` | 5 días      |
 
-``` bash
-#SBATCH
-```
+## GPUs
 
-Estas líneas le dicen a Slurm qué recursos necesitas.
+Las GPUs se solicitan con `--gres=gpu:<n>`. Esta directiva solo debe usarse cuando el programa realmente puede usar GPU.
 
-## Script mínimo de ejemplo para CPU
+| Directiva              | Significado                                  |
+|------------------------|----------------------------------------------|
+| `#SBATCH -p gpu_V100`  | Envía el trabajo a la partición con nodo GPU |
+| `#SBATCH --gres=gpu:1` | Solicita una GPU                             |
+| `#SBATCH --gres=gpu:2` | Solicita dos GPUs                            |
 
-Crea un archivo llamado `prueba_slurm.sh`:
+Cuando se usan contenedores de Apptainer con GPU NVIDIA, normalmente se agrega la opción `--nv` al comando `apptainer exec`. La explicación detallada de Apptainer está en la sección correspondiente.
 
-```         
-nano prueba_slurm.sh
-```
+## Archivos de salida y error
 
-Contenido:
+Slurm puede separar la salida normal y los mensajes de error en archivos diferentes.
 
-``` bash
-#!/bin/bash
-#SBATCH -J prueba
-#SBATCH -p ib
-#SBATCH -N 1
-#SBATCH -n 1
-#SBATCH -c 2
-#SBATCH --mem=4G
-#SBATCH --time=00:05:00
+| Directiva                   | Significado                          |
+|-----------------------------|--------------------------------------|
+| `#SBATCH -o logs/%x_%j.out` | Guarda la salida estándar en `logs/` |
+| `#SBATCH -e logs/%x_%j.err` | Guarda los errores en `logs/`        |
 
-echo "Inicio: $(date)"
-echo "Host: $(hostname)"
-echo "Job ID: $SLURM_JOB_ID"
-echo "Nombre del trabajo: $SLURM_JOB_NAME"
-echo "CPUs asignadas: $SLURM_CPUS_PER_TASK"
-
-sleep 10
-
-echo "Fin: $(date)"
-```
-
-Enviar el trabajo:
-
-``` bash
-sbatch prueba_slurm.sh
-```
-
-Slurm responderá algo como:
-
-``` bash
-Submitted batch job 1234
-```
-
-## Revisar la salida del trabajo
-
-Por defecto, Slurm crea un archivo llamado:
-
-``` bash
-slurm-JOBID.out
-```
-
-Por ejemplo:
-
-``` bash
-cat slurm-1234.out
-```
-
-## Personalizar el nombre de salida
-
-Es recomendable guardar las salidas y errores en una carpeta llamada `logs`.
-
-Crear la carpeta:
-
-``` bash
-mkdir -p logs
-```
-
-Ejemplo de script:
-
-``` bash
-#!/bin/bash
-#SBATCH -J prueba
-#SBATCH -p ib
-#SBATCH -N 1
-#SBATCH -n 1
-#SBATCH -c 2
-#SBATCH --mem=4G
-#SBATCH --time=00:05:00
-#SBATCH -o logs/%x_%j.out
-#SBATCH -e logs/%x_%j.err
-
-echo "Inicio: $(date)"
-echo "Host: $(hostname)"
-echo "Job ID: $SLURM_JOB_ID"
-echo "Fin: $(date)"
-```
-
-Donde:
+Códigos útiles en nombres de archivo:
 
 | Código | Significado        |
 |--------|--------------------|
 | `%x`   | Nombre del trabajo |
 | `%j`   | ID del trabajo     |
-
-Así se generan archivos como:
-
-``` bash
-logs/prueba_1234.out
-logs/prueba_1234.err
-```
-
-## Parámetros principales de Slurm
-
-| Opción                    | Significado                       |
-|---------------------------|-----------------------------------|
-| `#SBATCH -J nombre`       | Nombre del trabajo                |
-| `#SBATCH -p ib`           | Partición donde se ejecuta        |
-| `#SBATCH -N 1`            | Número de nodos                   |
-| `#SBATCH -n 1`            | Número de tareas                  |
-| `#SBATCH -c 4`            | CPUs por tarea                    |
-| `#SBATCH --mem=16G`       | Memoria solicitada                |
-| `#SBATCH --time=01:00:00` | Tiempo máximo                     |
-| `#SBATCH -o archivo.out`  | Archivo de salida estándar        |
-| `#SBATCH -e archivo.err`  | Archivo de error                  |
-| `#SBATCH --gres=gpu:1`    | Solicitar una GPU, cuando aplique |
-
-## ¿Cuántas CPUs pedir?
-
-No siempre conviene pedir muchas CPUs. Solo deben solicitarse más CPUs si el programa realmente puede usarlas.
-
-Ejemplos:
-
-### Programa de un solo hilo
-
-``` bash
-#SBATCH -c 1
-```
-
-### Programa con 4 hilos
-
-``` bash
-#SBATCH -c 4
-```
-
-### Programa con 16 hilos
-
-``` bash
-#SBATCH -c 16
-```
-
-Además, dentro del comando del programa hay que indicar el mismo número de hilos usando la variable:
-
-``` bash
-$SLURM_CPUS_PER_TASK
-```
-
-Ejemplo con `fastp`:
-
-``` bash
-fastp \
-  -i muestra_R1.fastq.gz \
-  -I muestra_R2.fastq.gz \
-  -o limpia_R1.fastq.gz \
-  -O limpia_R2.fastq.gz \
-  -w $SLURM_CPUS_PER_TASK
-```
-
-Ejemplo con `iqtree2`:
-
-``` bash
-iqtree2 -s alineamiento.phy -T $SLURM_CPUS_PER_TASK
-```
-
-Ejemplo con `mafft`:
-
-``` bash
-mafft --thread $SLURM_CPUS_PER_TASK entrada.fasta > alineado.fasta
-```
-
-## Ejemplo para un programa bioinformático en CPU
-
-Archivo sugerido:
-
-``` bash
-mafft_test.sh
-```
-
-Contenido:
-
-``` bash
-#!/bin/bash
-#SBATCH -J mafft_test
-#SBATCH -p ib
-#SBATCH -N 1
-#SBATCH -n 1
-#SBATCH -c 8
-#SBATCH --mem=16G
-#SBATCH --time=02:00:00
-#SBATCH -o logs/%x_%j.out
-#SBATCH -e logs/%x_%j.err
-
-set -euo pipefail
-
-mkdir -p logs resultados
-
-echo "===================================="
-echo "Trabajo: $SLURM_JOB_NAME"
-echo "Job ID: $SLURM_JOB_ID"
-echo "Usuario: $USER"
-echo "Host: $(hostname)"
-echo "Inicio: $(date)"
-echo "CPUs asignadas: $SLURM_CPUS_PER_TASK"
-echo "Directorio de envío: $SLURM_SUBMIT_DIR"
-echo "===================================="
-
-mafft --thread $SLURM_CPUS_PER_TASK \
-  datos/secuencias.fasta \
-  > resultados/secuencias_alineadas.fasta
-
-echo "===================================="
-echo "Fin: $(date)"
-echo "===================================="
-```
-
-Enviar:
-
-``` bash
-sbatch mafft_test.sh
-```
-
-## Ejemplo con Apptainer en CPU
-
-Si el análisis usa un contenedor de Apptainer, puedes usar la partición `ib`.
-
-``` bash
-#!/bin/bash
-#SBATCH -J apptainer_cpu
-#SBATCH -p ib
-#SBATCH -N 1
-#SBATCH -n 1
-#SBATCH -c 4
-#SBATCH --mem=8G
-#SBATCH --time=01:00:00
-#SBATCH -o logs/%x_%j.out
-#SBATCH -e logs/%x_%j.err
-
-set -euo pipefail
-
-mkdir -p logs resultados
-
-echo "Inicio: $(date)"
-echo "Host: $(hostname)"
-echo "Job ID: $SLURM_JOB_ID"
-
-apptainer exec programa.sif programa --help
-
-echo "Fin: $(date)"
-```
-
-## Ejemplo con carpetas enlazadas en Apptainer
-
-Cuando se trabaja con contenedores, es útil enlazar la carpeta actual como `/work` dentro del contenedor.
-
-``` bash
-#!/bin/bash
-#SBATCH -J apptainer_cpu
-#SBATCH -p ib
-#SBATCH -N 1
-#SBATCH -n 1
-#SBATCH -c 4
-#SBATCH --mem=8G
-#SBATCH --time=01:00:00
-#SBATCH -o logs/%x_%j.out
-#SBATCH -e logs/%x_%j.err
-
-set -euo pipefail
-
-mkdir -p logs resultados
-
-echo "Inicio: $(date)"
-echo "Host: $(hostname)"
-
-apptainer exec \
-  --bind $PWD:/work \
-  --pwd /work \
-  programa.sif \
-  programa input.fasta output.txt
-
-echo "Fin: $(date)"
-```
-
-## Ejemplo para usar la partición con GPU V100
-
-Para trabajos que requieren GPU, se debe usar la partición:
-
-``` bash
-gpu_V100
-```
-
-Un script básico puede verse así:
-
-``` bash
-#!/bin/bash
-#SBATCH -J gpu_test
-#SBATCH -p gpu_V100
-#SBATCH -N 1
-#SBATCH -n 1
-#SBATCH -c 4
-#SBATCH --mem=16G
-#SBATCH --gres=gpu:1
-#SBATCH --time=01:00:00
-#SBATCH -o logs/%x_%j.out
-#SBATCH -e logs/%x_%j.err
-
-set -euo pipefail
-
-mkdir -p logs resultados
-
-echo "===================================="
-echo "Trabajo: $SLURM_JOB_NAME"
-echo "Job ID: $SLURM_JOB_ID"
-echo "Usuario: $USER"
-echo "Host: $(hostname)"
-echo "Inicio: $(date)"
-echo "CPUs asignadas: $SLURM_CPUS_PER_TASK"
-echo "Nodo asignado: $SLURM_JOB_NODELIST"
-echo "===================================="
-
-nvidia-smi
-
-echo "Fin: $(date)"
-```
-
-Enviar:
-
-``` bash
-sbatch gpu_test.sh
-```
-
-Si el trabajo se ejecuta correctamente, el archivo de salida debe mostrar información de la GPU NVIDIA V100 disponible en el nodo asignado.
-
-## Ejemplo con Apptainer y GPU
-
-Para usar GPU dentro de un contenedor de Apptainer, normalmente se usa la opción:
-
-``` bash
---nv
-```
-
-Ejemplo:
-
-``` bash
-#!/bin/bash
-#SBATCH -J apptainer_gpu
-#SBATCH -p gpu_V100
-#SBATCH -N 1
-#SBATCH -n 1
-#SBATCH -c 8
-#SBATCH --mem=32G
-#SBATCH --gres=gpu:1
-#SBATCH --time=04:00:00
-#SBATCH -o logs/%x_%j.out
-#SBATCH -e logs/%x_%j.err
-
-set -euo pipefail
-
-mkdir -p logs resultados
-
-echo "===================================="
-echo "Trabajo: $SLURM_JOB_NAME"
-echo "Job ID: $SLURM_JOB_ID"
-echo "Usuario: $USER"
-echo "Host: $(hostname)"
-echo "Inicio: $(date)"
-echo "CPUs asignadas: $SLURM_CPUS_PER_TASK"
-echo "Nodo asignado: $SLURM_JOB_NODELIST"
-echo "===================================="
-
-nvidia-smi
-
-apptainer exec \
-  --nv \
-  --bind $PWD:/work \
-  --pwd /work \
-  programa_gpu.sif \
-  programa_gpu --help
-
-echo "===================================="
-echo "Fin: $(date)"
-echo "===================================="
-```
+| `%u`   | Nombre del usuario |
+| `%N`   | Nombre del nodo    |
 
 ## Variables útiles de Slurm
 
-Dentro de un script, Slurm crea variables automáticamente.
+Slurm crea variables automáticamente dentro de cada trabajo.
 
-| Variable               | Significado                             |
-|------------------------|-----------------------------------------|
-| `$SLURM_JOB_ID`        | ID del trabajo                          |
-| `$SLURM_JOB_NAME`      | Nombre del trabajo                      |
-| `$SLURM_CPUS_PER_TASK` | CPUs asignadas                          |
-| `$SLURM_SUBMIT_DIR`    | Carpeta desde donde se envió el trabajo |
-| `$SLURM_JOB_NODELIST`  | Nodo asignado                           |
-| `$SLURM_GPUS`          | GPUs asignadas, si aplica               |
+| Variable               | Significado                                   |
+|------------------------|-----------------------------------------------|
+| `$SLURM_JOB_ID`        | ID del trabajo                                |
+| `$SLURM_JOB_NAME`      | Nombre del trabajo                            |
+| `$SLURM_CPUS_PER_TASK` | CPUs asignadas por tarea                      |
+| `$SLURM_SUBMIT_DIR`    | Carpeta desde donde se envió el trabajo       |
+| `$SLURM_JOB_NODELIST`  | Nodo o nodos asignados                        |
+| `$SLURM_GPUS`          | GPUs asignadas, si aplica                     |
+| `$SLURM_MEM_PER_NODE`  | Memoria asignada por nodo, si está disponible |
+| `$SLURM_NTASKS`        | Número de tareas asignadas                    |
 
-Ejemplo:
+## Solicitar menos recursos de los necesarios
 
-``` bash
-echo "Job ID: $SLURM_JOB_ID"
-echo "Nombre: $SLURM_JOB_NAME"
-echo "CPUs: $SLURM_CPUS_PER_TASK"
-echo "Directorio de envío: $SLURM_SUBMIT_DIR"
-echo "Nodo asignado: $SLURM_JOB_NODELIST"
-```
+Solicitar menos recursos puede provocar fallas o ejecuciones muy lentas.
+
+| Recurso insuficiente | Consecuencia posible |
+|------------------------------------|------------------------------------|
+| Pocas CPUs | El análisis tarda más o el programa intenta usar más hilos de los asignados |
+| Poca memoria | El trabajo puede terminar con error de memoria |
+| Poco tiempo | Slurm puede cancelar el trabajo por límite de tiempo |
+| No solicitar GPU | Un programa que requiere GPU puede no detectar aceleración |
+
+## Solicitar más recursos de los necesarios
+
+Pedir recursos de más no hace que el programa corra más rápido automáticamente. Si un programa solo usa pocas CPUs, las CPUs extra quedan reservadas pero sin uso.
+
+Consecuencias frecuentes:
+
+-   el trabajo puede tardar más en iniciar;
+-   otros usuarios no pueden usar los recursos reservados;
+-   se desperdicia capacidad del clúster;
+-   baja la eficiencia general del sistema.
 
 ## Buenas prácticas
 
-### 1. No correr análisis pesados directamente en la terminal
+### No correr análisis pesados en la terminal de acceso
 
-Evita ejecutar programas pesados directamente en el nodo de acceso:
+La terminal de acceso debe usarse para preparar archivos, revisar resultados, editar scripts y enviar trabajos. Los análisis pesados deben enviarse a Slurm.
 
-``` bash
-iqtree2 -s archivo.phy -T 32
-```
+### Solicitar recursos razonables
 
-En su lugar, crea un script y envíalo con:
+Pide CPUs, memoria y tiempo de acuerdo con el programa y el tamaño de tus datos. Si no conoces el consumo, empieza con una prueba pequeña y revisa los resultados.
 
-``` bash
-sbatch script.sh
-```
+### Usar la partición correcta
 
-### 2. No pedir más CPUs de las necesarias
+Usa `ib` para trabajos generales con CPU. Usa `gpu_V100` cuando necesites GPU o cuando el análisis requiera más CPU y memoria de la que ofrecen los nodos de `ib`.
 
-Si un programa solo usa 4 hilos, no pidas 32 CPUs.
+### Hacer coincidir CPUs e hilos
 
-Mal:
+El número de CPUs solicitado debe coincidir con los hilos configurados dentro del programa. Para scripts, es recomendable usar `$SLURM_CPUS_PER_TASK` cuando el programa permita definir hilos.
 
-``` bash
-#SBATCH -c 32
-```
+### Guardar salidas y errores
 
-Bien:
+Usa una carpeta `logs/` para archivos `.out` y `.err`. Esto facilita revisar si el trabajo terminó correctamente o si falló.
 
-``` bash
-#SBATCH -c 4
-```
+### No solicitar GPU sin necesidad
 
-### 3. Usar la partición correcta
+Una GPU reservada queda bloqueada para otros usuarios. Solo solicita GPU cuando el programa esté preparado para usarla.
 
-Para trabajos generales con CPU:
+### Revisar el historial de trabajos
 
-``` bash
-#SBATCH -p ib
-```
+Después de terminar un análisis, consulta el estado final, el tiempo usado y posibles errores. Esto ayuda a ajustar recursos para futuros trabajos.
 
-Para trabajos con GPU V100:
 
-``` bash
-#SBATCH -p gpu_V100
-#SBATCH --gres=gpu:1
-```
-
-### 4. Siempre usar carpetas organizadas
-
-Ejemplo:
-
-``` bash
-proyecto/
-├── datos/
-├── scripts/
-├── resultados/
-└── logs/
-```
-
-### 5. Guardar salidas y errores
-
-Usa:
-
-``` bash
-#SBATCH -o logs/%x_%j.out
-#SBATCH -e logs/%x_%j.err
-```
-
-### 6. Probar primero con datos pequeños
-
-Antes de enviar un análisis grande, prueba con un subconjunto de datos para asegurarte de que el comando funciona correctamente.
-
-### 7. Revisar los logs
-
-Si un trabajo falla, revisa primero:
-
-``` bash
-cat logs/nombre_JOBID.err
-cat logs/nombre_JOBID.out
-```
-
-También puedes revisar los archivos con:
-
-``` bash
-less logs/nombre_JOBID.err
-less logs/nombre_JOBID.out
-```
-
-## Plantilla recomendada para usar CPU y RAM en `ib` o `gpu_V100`
-
-Esta plantilla sirve para trabajos que usan principalmente CPUs y memoria RAM. Puede utilizarse en la partición `ib` para análisis generales, o en la partición `gpu_V100` cuando se requiere más capacidad de CPU y memoria RAM.
-
-Para trabajos normales con CPU se recomienda usar:
-
-``` bash
-#SBATCH -p ib
-```
-
-Para trabajos muy grandes que necesitan más CPUs o mucha memoria RAM, pero no necesariamente GPU, puede usarse:
-
-``` bash
-#SBATCH -p gpu_V100
-```
-
-Plantilla:
-
-``` bash
-#!/bin/bash
-#SBATCH -J nombre_del_analisis
-#SBATCH -p ib
-#SBATCH -N 1
-#SBATCH -n 1
-#SBATCH -c 8
-#SBATCH --mem=32G
-#SBATCH --time=04:00:00
-#SBATCH -o logs/%x_%j.out
-#SBATCH -e logs/%x_%j.err
-
-set -euo pipefail
-
-mkdir -p logs resultados
-
-echo "===================================="
-echo "Trabajo: $SLURM_JOB_NAME"
-echo "Job ID: $SLURM_JOB_ID"
-echo "Usuario: $USER"
-echo "Host: $(hostname)"
-echo "Inicio: $(date)"
-echo "CPUs asignadas: $SLURM_CPUS_PER_TASK"
-echo "Directorio de envío: $SLURM_SUBMIT_DIR"
-echo "Nodo asignado: $SLURM_JOB_NODELIST"
-echo "===================================="
-
-# Aquí va el comando principal del análisis
-# Ejemplos:
-# mafft --thread $SLURM_CPUS_PER_TASK datos/secuencias.fasta > resultados/secuencias_alineadas.fasta
-# iqtree2 -s datos/alineamiento.phy -T $SLURM_CPUS_PER_TASK
-# Rscript scripts/analisis.R
-
-echo "Aquí va el análisis"
-
-echo "===================================="
-echo "Fin: $(date)"
-echo "===================================="
-```
-
-Para usar esta misma plantilla en el nodo `beagle-gpu-01` solo con CPU y RAM, cambia la partición:
-
-``` bash
-#SBATCH -p gpu_V100
-```
-
-Por ejemplo:
-
-``` bash
-#SBATCH -p gpu_V100
-#SBATCH -c 32
-#SBATCH --mem=200G
-```
-
-## Plantilla recomendada para usar GPUs en `gpu_V100`
-
-Esta plantilla debe usarse cuando el análisis requiere GPUs NVIDIA V100. En este caso se debe usar la partición `gpu_V100` y solicitar explícitamente el número de GPUs necesarias.
-
-Para solicitar una GPU:
-
-``` bash
-#SBATCH --gres=gpu:1
-```
-
-Plantilla:
-
-``` bash
-#!/bin/bash
-#SBATCH -J nombre_gpu
-#SBATCH -p gpu_V100
-#SBATCH -N 1
-#SBATCH -n 1
-#SBATCH -c 8
-#SBATCH --mem=32G
-#SBATCH --gres=gpu:1
-#SBATCH --time=04:00:00
-#SBATCH -o logs/%x_%j.out
-#SBATCH -e logs/%x_%j.err
-
-set -euo pipefail
-
-mkdir -p logs resultados
-
-echo "===================================="
-echo "Trabajo: $SLURM_JOB_NAME"
-echo "Job ID: $SLURM_JOB_ID"
-echo "Usuario: $USER"
-echo "Host: $(hostname)"
-echo "Inicio: $(date)"
-echo "CPUs asignadas: $SLURM_CPUS_PER_TASK"
-echo "Nodo asignado: $SLURM_JOB_NODELIST"
-echo "GPUs asignadas: ${SLURM_GPUS:-No disponible}"
-echo "===================================="
-
-echo "Revisando GPU disponible:"
-nvidia-smi
-
-# Aquí va el comando principal del análisis con GPU
-# Ejemplo general:
-# programa_gpu --threads $SLURM_CPUS_PER_TASK
-
-echo "Aquí va el análisis con GPU"
-
-echo "===================================="
-echo "Fin: $(date)"
-echo "===================================="
-```
-
-Si el análisis usa un contenedor de Apptainer con GPU, se debe agregar la opción `--nv`:
-
-``` bash
-apptainer exec \
-  --nv \
-  --bind $PWD:/work \
-  --pwd /work \
-  programa_gpu.sif \
-  programa_gpu input.fasta output.txt
-```
-
-La opción `--nv` permite que el contenedor detecte las GPUs NVIDIA disponibles en el nodo.
-
-## Resumen de comandos esenciales
-
-| Acción | Comando |
-|----|----|
-| Ver estado del clúster | `sinfo` |
-| Ver particiones del IB-UNAM | `sinfo -p ib,gpu_V100` |
-| Ver recursos por nodo | `sinfo -N -p ib,gpu_V100 -o "%N %c CPUs %m MB %G %T"` |
-| Ver cola | `squeue` |
-| Ver tus trabajos | `squeue -u $USER` |
-| Enviar trabajo | `sbatch script.sh` |
-| Cancelar trabajo | `scancel JOBID` |
-| Cancelar todos tus trabajos | `scancel -u $USER` |
-| Ejecutar comando simple en CPU | `srun -p ib -N1 -n1 hostname` |
-| Ejecutar comando simple en GPU | `srun -p gpu_V100 --gres=gpu:1 -N1 -n1 nvidia-smi` |
-
-## ¿Qué pasa si solicito menos o más recursos de los necesarios?
-
-Cuando se envía un trabajo a Slurm, los recursos solicitados deben ser lo más cercanos posible a lo que realmente necesita el análisis. Pedir menos recursos puede hacer que el trabajo falle o tarde demasiado. Pedir recursos de más puede hacer que el trabajo espere más tiempo en la cola y que otros usuarios no puedan usar esos recursos.
-
-## Si solicitas menos recursos de los necesarios
-
-### Menos CPUs de las necesarias
-
-Si pides pocas CPUs, el análisis puede correr más lento.
-
-Por ejemplo:
-
-``` bash
-#SBATCH -c 2
-```
-
-pero el programa podría funcionar mejor con 8 CPUs:
-
-``` bash
-mafft --thread 8 entrada.fasta > salida.fasta
-```
-
-En este caso hay un problema: el script pidió 2 CPUs, pero el programa intenta usar 8. Esto puede saturar el nodo o hacer que Slurm limite el trabajo, dependiendo de la configuración del sistema.
-
-Lo correcto es que el número de CPUs solicitado coincida con el número de hilos usados por el programa:
-
-``` bash
-#SBATCH -c 8
-```
-
-y dentro del comando:
-
-``` bash
-mafft --thread $SLURM_CPUS_PER_TASK entrada.fasta > salida.fasta
-```
-
-### Menos memoria de la necesaria
-
-Si pides menos memoria RAM de la que necesita el análisis, el trabajo puede fallar.
-
-Por ejemplo:
-
-``` bash
-#SBATCH --mem=4G
-```
-
-pero el análisis necesita 20 GB de RAM.
-
-En ese caso, Slurm o el sistema pueden terminar el trabajo automáticamente. El error puede aparecer en los archivos `.err` o `.out` con mensajes como:
-
-``` bash
-Out Of Memory
-oom-kill
-Killed
-```
-
-o el trabajo puede aparecer como fallido en Slurm.
-
-### Menos tiempo del necesario
-
-Si pides menos tiempo del que necesita el análisis:
-
-``` bash
-#SBATCH --time=00:30:00
-```
-
-pero el programa necesita 2 horas, Slurm cancelará el trabajo cuando se cumpla el tiempo máximo.
-
-El trabajo puede aparecer con estado:
-
-``` bash
-TIMEOUT
-```
-
-o como cancelado por límite de tiempo.
-
-## Si solicitas más recursos de los necesarios
-
-Pedir más recursos de los que realmente usa el análisis no hace que el programa corra más rápido automáticamente.
-
-Por ejemplo, si pides:
-
-``` bash
-#SBATCH -c 32
-#SBATCH --mem=200G
-```
-
-pero tu programa solo usa 4 CPUs y 10 GB de RAM, los recursos restantes quedan reservados para tu trabajo aunque no se estén usando.
-
-Esto puede provocar que:
-
-- tu trabajo tarde más en iniciar porque Slurm necesita encontrar un nodo con muchos recursos libres;
-
-- otros usuarios no puedan usar esas CPUs o memoria mientras tu trabajo está corriendo;
-
-- se desperdicie capacidad del clúster;
-
-- se reduzca la eficiencia general del sistema.
-
-En algunos sistemas, además, el uso de recursos puede afectar métricas de prioridad o reportes de consumo, aunque el programa no haya usado todo lo solicitado.
-
-## Ejemplo de mala práctica
-
-``` bash
-#SBATCH -p ib
-#SBATCH -c 32
-#SBATCH --mem=100G
-```
-
-pero el comando ejecutado es:
-
-``` bash
-iqtree2 -s alineamiento.phy -T 4
-```
-
-Aquí se reservaron 32 CPUs, pero IQ-TREE solo usará 4. Las otras 28 CPUs quedan apartadas sin utilizarse.
-
-## Ejemplo correcto
-
-``` bash
-#SBATCH -p ib
-#SBATCH -c 4
-#SBATCH --mem=16G
-```
-
-y el comando:
-
-``` bash
-iqtree2 -s alineamiento.phy -T $SLURM_CPUS_PER_TASK
-```
-
-En este caso, Slurm asigna 4 CPUs y el programa usa esas mismas 4 CPUs.
-
-## Recomendación práctica
-
-Si no sabes cuántos recursos necesita tu análisis, empieza con una prueba pequeña.
-
-Por ejemplo:
-
-``` bash
-#SBATCH -c 4
-#SBATCH --mem=16G
-#SBATCH --time=01:00:00
-```
-
-Después revisa si el trabajo terminó correctamente. Si falló por memoria, aumenta la memoria. Si tardó demasiado pero no falló, puedes aumentar el tiempo. Si el programa permite usar más hilos, puedes aumentar CPUs de forma razonable.
-
-## Regla general
-
-| Situación | Consecuencia |
-|----|----|
-| Pedir menos CPUs | El análisis puede tardar más |
-| Pedir menos memoria | El trabajo puede fallar por falta de RAM |
-| Pedir menos tiempo | Slurm puede cancelar el trabajo por límite de tiempo |
-| Pedir más CPUs de las usadas | Se desperdician CPUs reservadas |
-| Pedir más memoria de la usada | Se bloquea memoria que otros usuarios podrían usar |
-| Pedir GPU sin usarla | Se reserva una GPU innecesariamente |
-| Usar más hilos de los solicitados | Puede saturar el nodo o violar las buenas prácticas de uso |

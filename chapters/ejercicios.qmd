@@ -1,0 +1,502 @@
+# Ejemplos
+
+Esta sección utiliza imágenes públicas del repositorio de Docker Hub:
+
+<https://hub.docker.com/repositories/ccervantess>
+
+Estas imágenes fueron preparadas y probadas para BEAGLE, con el objetivo de facilitar el uso de software bioinformático sin compilar programas ni modificar el sistema principal del clúster.
+
+Para esta práctica se usará únicamente el archivo `testGTR.xml`, una prueba pequeña de BEAST2 que permite verificar que Apptainer, Slurm y el contenedor funcionan correctamente en BEAGLE.
+
+El objetivo no es hacer un análisis biológico final ni comparar formalmente CPU contra GPU. Debido a que `testGTR.xml` es pequeño, la GPU puede no ser más rápida.
+
+Se recomienda descargar imágenes solo de repositorios confiables, como **Docker Hub** o **Quay.io**, usando etiquetas de versión específicas en lugar de `latest`.
+
+## Archivo de prueba
+
+El archivo `testGTR.xml` está disponible en el repositorio oficial de BEAST2, dentro de la carpeta `examples`: <https://github.com/CompEvol/beast2/blob/master/examples/testGTR.xml>.
+
+En esta práctica, el archivo se descargará dentro de la carpeta de trabajo `beast2_testGTR/data/`, para mantener juntos los datos, scripts, contenedores, logs y resultados del ejercicio.
+
+## Imágenes usadas en esta práctica
+
+Las imágenes se descargan desde Docker Hub usando Apptainer. Para reproducibilidad, se recomienda usar etiquetas específicas y evitar `latest`.
+
+| Uso | Imagen de Docker Hub | Etiqueta | Archivo `.sif` sugerido |
+|------------------|------------------|------------------|------------------|
+| BEAST2 en CPU | `ccervantess/beast2` | `2.7.8` | `beast2_2.7.8.sif` |
+| BEAST2 + BEAGLE + CUDA para V100 | `ccervantess/beast2-beagle-cuda` | `2.7.8-gpu-v100` | `beast2-beagle-cuda_2.7.8-gpu-v100.sif` |
+
+## Preparar la carpeta de trabajo
+
+Desde la raíz del repositorio del manual, crea la carpeta de la práctica:
+
+``` bash
+mkdir -p beast2_testGTR/{data,sif,scripts,logs,runs/cpu,runs/gpu}
+```
+
+Después entra a la carpeta de la práctica:
+
+``` bash
+cd beast2_testGTR
+```
+
+Descarga el archivo `testGTR.xml` dentro de la carpeta `data/` de la práctica:
+
+``` bash
+wget -O data/testGTR.xml \
+  https://raw.githubusercontent.com/CompEvol/beast2/master/examples/testGTR.xml
+```
+
+Verifica que el archivo se descargó correctamente:
+
+``` bash
+ls -lh data/testGTR.xml
+```
+
+Copia el archivo `testGTR.xml` a las carpetas de corrida:
+
+``` bash
+cp data/testGTR.xml runs/cpu/
+cp data/testGTR.xml runs/gpu/
+```
+
+La estructura esperada será:
+
+``` text
+beast2_testGTR/
+├── data/
+│   └── testGTR.xml
+├── logs/
+├── runs/
+│   ├── cpu/
+│   │   └── testGTR.xml
+│   └── gpu/
+│       └── testGTR.xml
+├── scripts/
+└── sif/
+```
+
+::: callout-note
+## ¿Por qué separar CPU y GPU?
+
+BEAST2 escribirá archivos como `primate-mtDNA.log`, `primate.trees` y `testGTR.xml.state`. Si se ejecutan las pruebas CPU y GPU en la misma carpeta, una corrida puede sobrescribir los resultados de la otra.
+:::
+
+## Descargar la imagen de BEAST2 para CPU
+
+Descarga la imagen de BEAST2 desde Docker Hub y conviértela a formato `.sif`:
+
+``` bash
+apptainer pull \
+  sif/beast2_2.7.8.sif \
+  docker://ccervantess/beast2:2.7.8
+```
+
+Revisa que el archivo se haya creado:
+
+``` bash
+ls -lh sif/
+```
+
+Prueba que el ejecutable `beast` está disponible dentro del contenedor:
+
+``` bash
+apptainer exec sif/beast2_2.7.8.sif beast -help
+```
+
+## Ejecutar `testGTR.xml` en CPU con Slurm
+
+Crea el script:
+
+``` bash
+nano scripts/beast2_gtr_cpu.sbatch
+```
+
+Contenido:
+
+``` bash
+#!/bin/bash
+#SBATCH --job-name=beast2_gtr_cpu
+#SBATCH --partition=ib
+#SBATCH --nodes=1
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=1
+#SBATCH --mem=4G
+#SBATCH --time=01:00:00
+#SBATCH --output=logs/%x-%j.out
+#SBATCH --error=logs/%x-%j.err
+
+set -euo pipefail
+
+cd "$SLURM_SUBMIT_DIR"
+
+# Cargar token y chat_id de Telegram 
+if [[ -f "$HOME/.telegram" ]]; then
+  source "$HOME/.telegram"
+fi
+
+mkdir -p logs
+
+send_telegram() {
+  local MESSAGE="$1"
+
+  if [[ -n "${TELEGRAM_BOT_TOKEN:-}" && -n "${TELEGRAM_CHAT_ID:-}" ]]; then
+    curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
+      -d chat_id="${TELEGRAM_CHAT_ID}" \
+      -d text="${MESSAGE}" > /dev/null || true
+  fi
+}
+
+send_telegram "BEAST2 CPU inició. Job: ${SLURM_JOB_NAME} (${SLURM_JOB_ID}) en $(hostname)."
+
+START_TIME=$(date +%s)
+
+finish() {
+  EXIT_CODE=$?
+  END_TIME=$(date +%s)
+  ELAPSED=$((END_TIME - START_TIME))
+
+  if [[ "$EXIT_CODE" -eq 0 ]]; then
+    send_telegram "BEAST2 CPU terminó correctamente. Job: ${SLURM_JOB_NAME} (${SLURM_JOB_ID}). Tiempo: ${ELAPSED} s."
+  else
+    send_telegram "BEAST2 CPU terminó con error. Job: ${SLURM_JOB_NAME} (${SLURM_JOB_ID}). Código: ${EXIT_CODE}. Revisa logs/."
+  fi
+
+  exit "$EXIT_CODE"
+}
+
+trap finish EXIT
+
+echo "===================================="
+echo "Trabajo: $SLURM_JOB_NAME"
+echo "Job ID: $SLURM_JOB_ID"
+echo "Nodo: $(hostname)"
+echo "Inicio: $(date)"
+echo "Directorio: $SLURM_SUBMIT_DIR"
+echo "===================================="
+
+cd runs/cpu
+
+/usr/bin/time -v apptainer exec \
+  ../../sif/beast2_2.7.8.sif \
+  beast \
+  -overwrite \
+  testGTR.xml
+
+echo "===================================="
+echo "Fin: $(date)"
+echo "===================================="
+```
+
+Envía el trabajo:
+
+``` bash
+sbatch scripts/beast2_gtr_cpu.sbatch
+```
+
+Revisa si sigue en cola:
+
+``` bash
+squeue -u $USER
+```
+
+Cuando termine, revisa los archivos de salida:
+
+``` bash
+ls -lh logs/
+ls -lh runs/cpu/
+```
+
+Revisa el final del archivo `.out`:
+
+``` bash
+tail -n 40 logs/beast2_gtr_cpu-*.out
+```
+
+Revisa si hubo errores:
+
+``` bash
+tail -n 40 logs/beast2_gtr_cpu-*.err
+```
+
+También puedes revisar el log principal de BEAST2:
+
+``` bash
+tail -n 20 runs/cpu/primate-mtDNA.log
+```
+
+## Descargar la imagen de BEAST2 con BEAGLE CUDA para GPU
+
+Descarga la imagen preparada para usar BEAST2 con BEAGLE y CUDA en el nodo con GPU V100:
+
+``` bash
+apptainer pull \
+  sif/beast2-beagle-cuda_2.7.8-gpu-v100.sif \
+  docker://ccervantess/beast2-beagle-cuda:2.7.8-gpu-v100
+```
+
+Revisa que el archivo se haya creado:
+
+``` bash
+ls -lh sif/
+```
+
+Prueba que el contenedor abre correctamente:
+
+``` bash
+apptainer exec sif/beast2-beagle-cuda_2.7.8-gpu-v100.sif beast -help
+```
+
+## Ejecutar `testGTR.xml` con GPU
+
+::: callout-warning
+## Solicita GPU solo cuando la vas a usar
+
+Este ejercicio solicita una GPU con `#SBATCH --gres=gpu:1` y usa `apptainer exec --nv` para que el contenedor tenga acceso a las bibliotecas NVIDIA del nodo.
+:::
+
+Crea el script:
+
+``` bash
+nano scripts/beast2_gtr_gpu.sbatch
+```
+
+Contenido:
+
+``` bash
+#!/bin/bash
+#SBATCH --job-name=beast2_gtr_gpu
+#SBATCH --partition=gpu_V100
+#SBATCH --nodes=1
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=4
+#SBATCH --mem=16G
+#SBATCH --gres=gpu:1
+#SBATCH --time=01:00:00
+#SBATCH --output=logs/%x-%j.out
+#SBATCH --error=logs/%x-%j.err
+
+set -euo pipefail
+
+cd "$SLURM_SUBMIT_DIR"
+
+# Cargar token y chat_id de Telegram 
+if [[ -f "$HOME/.telegram" ]]; then
+  source "$HOME/.telegram"
+fi
+
+mkdir -p logs
+
+send_telegram() {
+  local MESSAGE="$1"
+
+  if [[ -n "${TELEGRAM_BOT_TOKEN:-}" && -n "${TELEGRAM_CHAT_ID:-}" ]]; then
+    curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
+      -d chat_id="${TELEGRAM_CHAT_ID}" \
+      -d text="${MESSAGE}" > /dev/null || true
+  fi
+}
+
+send_telegram "BEAST2 GPU inició. Job: ${SLURM_JOB_NAME} (${SLURM_JOB_ID}) en $(hostname)."
+
+START_TIME=$(date +%s)
+
+finish() {
+  EXIT_CODE=$?
+  END_TIME=$(date +%s)
+  ELAPSED=$((END_TIME - START_TIME))
+
+  if [[ "$EXIT_CODE" -eq 0 ]]; then
+    send_telegram "BEAST2 GPU terminó correctamente. Job: ${SLURM_JOB_NAME} (${SLURM_JOB_ID}). Tiempo: ${ELAPSED} s."
+  else
+    send_telegram "BEAST2 GPU terminó con error. Job: ${SLURM_JOB_NAME} (${SLURM_JOB_ID}). Código: ${EXIT_CODE}. Revisa logs/."
+  fi
+
+  exit "$EXIT_CODE"
+}
+
+trap finish EXIT
+
+echo "===================================="
+echo "Trabajo: $SLURM_JOB_NAME"
+echo "Job ID: $SLURM_JOB_ID"
+echo "Nodo: $(hostname)"
+echo "Inicio: $(date)"
+echo "Directorio: $SLURM_SUBMIT_DIR"
+echo "CPUs asignadas: ${SLURM_CPUS_PER_TASK}"
+echo "GPUs asignadas: ${SLURM_GPUS:-No disponible}"
+echo "===================================="
+
+echo "Revisando GPU asignada:"
+nvidia-smi
+
+cd runs/gpu
+
+/usr/bin/time -v apptainer exec \
+  --nv \
+  ../../sif/beast2-beagle-cuda_2.7.8-gpu-v100.sif \
+  beast \
+  -beagle \
+  -beagle_GPU \
+  -beagle_order 1 \
+  -overwrite \
+  testGTR.xml
+
+echo "===================================="
+echo "Fin: $(date)"
+echo "===================================="
+```
+
+Envía el trabajo:
+
+``` bash
+sbatch scripts/beast2_gtr_gpu.sbatch
+```
+
+Revisa si sigue en cola:
+
+``` bash
+squeue -u $USER
+```
+
+Cuando termine, revisa los archivos generados:
+
+``` bash
+ls -lh logs/
+ls -lh runs/gpu/
+```
+
+Revisa el archivo de salida:
+
+``` bash
+tail -n 60 logs/beast2_gtr_gpu-*.out
+```
+
+Revisa si hubo errores:
+
+``` bash
+tail -n 60 logs/beast2_gtr_gpu-*.err
+```
+
+Revisa el log principal de BEAST2:
+
+``` bash
+tail -n 20 runs/gpu/primate-mtDNA.log
+```
+
+## Usar notificaciones por Telegram
+
+Los scripts de esta práctica pueden enviar un mensaje por Telegram al iniciar y otro al terminar el trabajo.
+
+Para no escribir el token directamente dentro del script `.sbatch`, se recomienda guardar las credenciales en un archivo oculto dentro del directorio personal del usuario.
+
+Crea el archivo `~/.telegram`:
+
+```bash
+nano ~/.telegram
+```
+
+Agrega tus credenciales:
+
+```bash
+export TELEGRAM_BOT_TOKEN="TU_TOKEN_DEL_BOT"
+export TELEGRAM_CHAT_ID="TU_CHAT_ID"
+```
+
+Guarda el archivo y cambia sus permisos:
+
+```bash
+chmod 600 ~/.telegram
+```
+
+Dentro del script `.sbatch`, las credenciales se cargan con:
+
+```bash
+# Cargar credenciales de Telegram si existen
+if [[ -f "$HOME/.telegram" ]]; then
+  source "$HOME/.telegram"
+fi
+```
+
+De esta forma, el script puede usar las variables `TELEGRAM_BOT_TOKEN` y `TELEGRAM_CHAT_ID` sin que el token quede escrito dentro del archivo `.sbatch`.
+
+La función para enviar mensajes puede definirse así:
+
+```bash
+send_telegram() {
+  local MESSAGE="$1"
+
+  if [[ -n "${TELEGRAM_BOT_TOKEN:-}" && -n "${TELEGRAM_CHAT_ID:-}" ]]; then
+    curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
+      -d chat_id="${TELEGRAM_CHAT_ID}" \
+      -d text="${MESSAGE}" > /dev/null || true
+  fi
+}
+```
+
+Después se puede enviar un mensaje al iniciar el trabajo:
+
+```bash
+send_telegram "Inicia BEAST2 CPU | Job ${SLURM_JOB_ID} | Nodo $(hostname)"
+```
+
+y otro al terminar:
+
+```bash
+send_telegram "Terminó BEAST2 CPU | Job ${SLURM_JOB_ID}"
+```
+
+Si el archivo `~/.telegram` no existe, el trabajo se ejecutará normalmente, pero no enviará notificaciones.
+
+
+## Revisar resultados
+
+Revisa directamente los archivos `.out`, `.err` y los archivos generados por el programa.
+
+Para esta práctica, los archivos importantes son:
+
+``` text
+logs/beast2_gtr_cpu-JOBID.out
+logs/beast2_gtr_cpu-JOBID.err
+logs/beast2_gtr_gpu-JOBID.out
+logs/beast2_gtr_gpu-JOBID.err
+runs/cpu/primate-mtDNA.log
+runs/cpu/primate.trees
+runs/gpu/primate-mtDNA.log
+runs/gpu/primate.trees
+```
+
+Puedes buscar mensajes de error con:
+
+``` bash
+grep -i "error\|exception\|failed" logs/*.out logs/*.err
+```
+
+Si no aparece nada, revisa el final de los archivos `.out`:
+
+``` bash
+tail -n 40 logs/*.out
+```
+
+## Limpiar resultados para repetir la prueba
+
+Si quieres repetir la prueba desde cero, elimina solo los resultados generados dentro de las carpetas de corrida:
+
+``` bash
+rm -f runs/cpu/primate-mtDNA.log runs/cpu/primate.trees runs/cpu/testGTR.xml.state
+rm -f runs/gpu/primate-mtDNA.log runs/gpu/primate.trees runs/gpu/testGTR.xml.state
+```
+
+No borres las imágenes `.sif` a menos que quieras descargarlas de nuevo.
+
+::: callout-warning
+## Cuidado con `rm`
+
+`rm` borra archivos de forma permanente. Antes de borrar, confirma tu ubicación con:
+
+``` bash
+pwd
+ls -lh
+```
+:::

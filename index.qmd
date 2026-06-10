@@ -15,7 +15,17 @@ Guía práctica para ingresar al servidor, organizar archivos, usar software bio
 
 BEAGLE es una infraestructura de cómputo compartida para apoyar análisis bioinformáticos, filogenómicos y otros procesos computacionales utilizados por la comunidad académica del Instituto de Biología, UNAM.
 
-Este manual está diseñado como una guía de uso práctico. Su objetivo es que las personas usuarias puedan comenzar a trabajar en el servidor de forma ordenada, segura y reproducible, desde el acceso inicial por **SSH** hasta el envío de trabajos mediante **Slurm**.
+Este manual está diseñado como una **guía rápida de uso práctico de BEAGLE**. Su objetivo es que las personas usuarias puedan comenzar a trabajar en el servidor de forma ordenada, segura y reproducible, desde el acceso inicial por **SSH** hasta el envío de trabajos mediante **Slurm**.
+
+::: callout-note
+## Alcance de este manual
+
+Este manual no pretende ser un curso completo de programación, Linux o Bash. Su propósito es servir como una guía práctica para el uso cotidiano de BEAGLE.
+
+Si te interesa una formación más completa, puedes consultar el curso de posgrado en Ciencias Biológicas **Introducción a la programación para bioinformática con Bash**, impartido por el **Dr. Cristian Cervantes** y el **M. en I. Mauricio Morgado**.
+
+Sitio del curso: <https://ib-unisse.github.io/intro_bash_bioinfo/>
+:::
 
 No es necesario leer todo el manual de una sola vez. Puedes avanzar por secciones según lo que necesites hacer: conectarte al servidor, transferir archivos, usar la terminal, cargar software, trabajar con contenedores o enviar análisis a la cola de cómputo.
 
@@ -25,35 +35,35 @@ Este manual está dirigido principalmente a estudiantes, personal académico, t�
 
 Puede ser útil para quienes:
 
-- ingresan por primera vez al servidor;
-- necesitan transferir archivos desde su computadora;
-- quieren aprender comandos básicos de Linux;
-- requieren instalar o usar software informático;
-- desean ejecutar análisis mediante contenedores de Apptainer;
-- necesitan enviar trabajos usando Slurm;
-- buscan organizar mejor sus proyectos y resultados.
+-   ingresan por primera vez al servidor;
+-   necesitan transferir archivos desde su computadora;
+-   quieren aprender comandos básicos de Linux;
+-   requieren instalar o usar software bioinformático;
+-   desean ejecutar análisis mediante contenedores de Apptainer;
+-   necesitan enviar trabajos usando Slurm;
+-   buscan organizar mejor sus proyectos y resultados.
 
 ## ¿Qué aprenderás en este manual?
 
 Al terminar las secciones principales, deberías poder:
 
-- conectarte al servidor usando `ssh`;
-- cambiar tu contraseña inicial y crear una llave SSH;
-- subir y descargar archivos con `scp`, `sftp` o clientes gráficos;
-- moverte dentro del sistema de archivos de Linux;
-- revisar el uso de disco, CPU, RAM y procesos;
-- distinguir cuándo usar **Micromamba** y cuándo usar **Apptainer**;
-- ejecutar software bioinformático sin modificar el sistema principal;
-- enviar trabajos a Slurm con `sbatch`;
-- monitorear, revisar y cancelar trabajos;
-- recibir notificaciones básicas de tus análisis mediante Telegram.
+-   conectarte al servidor usando `ssh`;
+-   cambiar tu contraseña inicial y crear una llave SSH;
+-   subir y descargar archivos con `scp`, `sftp` o clientes gráficos;
+-   moverte dentro del sistema de archivos de Linux;
+-   revisar el uso de disco, CPU, RAM y procesos;
+-   distinguir cuándo usar **Micromamba** y cuándo usar **Apptainer**;
+-   ejecutar software bioinformático sin modificar el sistema principal;
+-   enviar trabajos a Slurm con `sbatch`;
+-   monitorear, revisar y cancelar trabajos;
+-   recibir notificaciones básicas de tus análisis mediante Telegram.
 
 ## Ruta recomendada de lectura
 
 Si es tu primera vez usando BEAGLE, se recomienda leer las secciones en este orden:
 
 | Orden | Sección | ¿Para qué sirve? |
-|------------------------|------------------------|------------------------|
+|---:|---|---|
 | 1 | [Acceso al servidor](chapters/acceso.qmd) | Aprender a conectarte por SSH, cambiar contraseña y transferir archivos. |
 | 2 | [Comandos básicos de Linux](chapters/terminal_linux.qmd) | Conocer los comandos mínimos para moverte, revisar archivos y trabajar en la terminal. |
 | 3 | [Software en BEAGLE](chapters/software.qmd) | Entender cómo se maneja el software en el clúster sin instalar programas directamente en el sistema. |
@@ -92,7 +102,7 @@ Al enviar trabajos con Slurm, pide una cantidad razonable de CPUs, memoria RAM y
 
 Una buena organización de carpetas evita confusiones y facilita encontrar errores. Para cada proyecto o análisis se recomienda usar una estructura similar a:
 
-``` bash
+```bash
 mi_proyecto/
 ├── datos/
 ├── scripts/
@@ -103,23 +113,23 @@ mi_proyecto/
 
 Donde:
 
-- `datos/` contiene archivos de entrada, como FASTA, FASTQ, matrices, árboles o tablas;
-- `scripts/` contiene scripts de Bash, R, Python o Slurm;
-- `resultados/` contiene los archivos generados por los análisis;
-- `logs/` contiene las salidas estándar y errores de los trabajos;
-- `metadata/` contiene tablas de muestras, accesiones, parámetros o documentación adicional.
+-   `datos/` contiene archivos de entrada, como FASTA, FASTQ, matrices, árboles o tablas;
+-   `scripts/` contiene scripts de Bash, R, Python o Slurm;
+-   `resultados/` contiene los archivos generados por los análisis;
+-   `logs/` contiene las salidas estándar y errores de los trabajos;
+-   `metadata/` contiene tablas de muestras, accesiones, parámetros o documentación adicional.
 
 ## Cómo pedir ayuda
 
 Cuando reportes un problema, incluye la mayor cantidad posible de información para facilitar el diagnóstico:
 
-- nombre de usuario en BEAGLE;
-- carpeta donde ocurrió el problema;
-- comando o script que ejecutaste;
-- mensaje de error completo;
-- ID del trabajo de Slurm, si aplica;
-- archivo `.out` y `.err`, si existen;
-- programa, ambiente o contenedor utilizado.
+-   nombre de usuario en BEAGLE;
+-   carpeta donde ocurrió el problema;
+-   comando o script que ejecutaste;
+-   mensaje de error completo;
+-   ID del trabajo de Slurm, si aplica;
+-   archivo `.out` y `.err`, si existen;
+-   programa, ambiente o contenedor utilizado.
 
 Para dudas generales, consulta la sección de [contacto y soporte](contacto.qmd).
 

@@ -1,105 +1,129 @@
 # Notificaciones automáticas
 
-## Mensajes a Telegram:
+Esta sección explica cómo preparar notificaciones automáticas desde scripts de Bash, pipelines o análisis largos. La idea es recibir avisos cuando un proceso inicia, termina correctamente o falla.
 
-1.  Busca **\@BotFather y ABRIR**
+::: callout-important
+## Tokens y webhooks son secretos
+
+Un token de Telegram o una URL de webhook de Discord funcionan como una contraseña. No los compartas, no los pegues en documentos públicos y no los subas a GitHub.
+:::
+
+## Mensajes a Telegram
+
+### Crear un bot en Telegram
+
+1.  Busca @BotFather y abre el chat.
 
 ![](../images/notas_bot/pic1.JPG){fig-align="center" width="350"}
 
-2.  Crear un nuevo Bot
+2.  Crea un nuevo bot.
 
 ![](../images/notas_bot/pic2.JPG){fig-align="center" width="350"}
 
-3.  Ponle un **nombre al Bot** y elige un **nombre de usuario** que termine en `bot`, el `usarname` tiene que estar disponible
+3.  Ponle un **nombre al bot** y elige un **nombre de usuario** que termine en `bot`. El `username` debe estar disponible.
 
 ![](../images/notas_bot/pic3.JPG){fig-align="center" width="350"}
 
-4.  BotFather te dará un **TOKEN**
+4.  BotFather te dará un **token**.
 
 ![](../images/notas_bot/pic4.JPG){fig-align="center" width="350"}
 
-✅ Ese token es tu “contraseña” del bot, **No lo compartas**!!!
+✅ Ese token es tu contraseña del bot. **No lo compartas.**
 
-5.  Abre el chat con tu bot (búscalo por `username`).
+5.  Abre el chat con tu bot, buscándolo por su `username`.
 
 ![](../images/notas_bot/pic5.jpg){fig-align="center" width="350"}
 
-6.  Presiona **Iniciar**
+6.  Presiona **Iniciar**.
 
 ![](../images/notas_bot/pic6.jpg){fig-align="center" width="350"}
 
-## Conseguir tu `chat_id` (para mandarte mensajes)
+## Conseguir tu `chat_id`
+
+Define temporalmente el token de tu bot:
 
 ``` bash
-TOKEN="TU_TOKEN_AQUI"
-curl -s "https://api.telegram.org/bot${TOKEN}/getUpdates" 
+TELEGRAM_BOT_TOKEN="TU_TOKEN_AQUI"
 ```
 
-Busca en la salida algo así:
+Después consulta las actualizaciones del bot:
 
 ``` bash
-"chat":{"id":123456789,"first_name":"Pedro", ...}
+curl -s "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/getUpdates"
 ```
 
-📌 **"id":123456789** ese número es tu `CHAT_ID`.
+Busca en la salida una sección parecida a esta:
 
-### Enviar un mensaje con `curl` (lo esencial)
+``` json
+"chat":{"id":123456789,"first_name":"Pedro"}
+```
+
+El número que aparece en `id` es tu `TELEGRAM_CHAT_ID`.
+
+::: callout-note
+## Si no aparece tu `chat_id`
+
+Primero escribe cualquier mensaje en el chat de tu bot y vuelve a ejecutar el comando `getUpdates`.
+:::
+
+## Enviar un mensaje con `curl`
 
 ``` bash
-TOKEN="TU_TOKEN_AQUI"
-CHAT_ID="TU_CHAT_ID_AQUI"
+TELEGRAM_BOT_TOKEN="TU_TOKEN_AQUI"
+TELEGRAM_CHAT_ID="TU_CHAT_ID_AQUI"
 
-curl -s -X POST "https://api.telegram.org/bot${TOKEN}/sendMessage" \
-  -d "chat_id=${CHAT_ID}" \
+curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
+  -d "chat_id=${TELEGRAM_CHAT_ID}" \
   -d "text=Hola 👋 Mensaje enviado desde Bash"
 ```
 
-## Buenas prácticas: NO hardcodear el token (y no subirlo a git)
+## Guardar credenciales en un archivo `.env`
 
-### Archivo `.env` (recomendado)
-
-Crea un archivo `.env` **fuera de tu repo** o ignóralo con `.gitignore`:
+Crea un archivo `.env` fuera del repositorio del proyecto, o agrégalo al archivo `.gitignore`.
 
 ``` bash
 nano .env
 ```
 
-Pegar la info en el archivo `.env`
+Contenido recomendado:
 
 ``` bash
-TOKEN="TU_TOKEN_AQUI"
-CHAT_ID="TU_CHAT_ID_AQUI"
+TELEGRAM_BOT_TOKEN="TU_TOKEN_AQUI"
+TELEGRAM_CHAT_ID="TU_CHAT_ID_AQUI"
 ```
 
-En tu script agrega estas lineas
-
-``` bash
-source .env
-```
-
-SI esta en tu proyecto `git` agrega el archivo a tu `.gitignore`:
-
-``` bash
-nano .gitignore
-```
-
-Y agrega el archivo
-
-``` bash
-.env
-```
-
-Además agregar seguridad al archivo
+Protege el archivo para que solo tu usuario pueda leerlo:
 
 ``` bash
 chmod 600 .env
 ```
 
-## Función reusable `tg_send` (para cualquier script)
+Si el archivo `.env` está dentro de un proyecto con Git, agrégalo a `.gitignore`:
+
+``` bash
+nano .gitignore
+```
+
+Agrega esta línea:
+
+``` text
+.env
+```
+
+## Función reusable `tg_send`
+
+Carga primero las variables del archivo `.env`:
+
+``` bash
+source .env
+```
+
+Después define la función:
 
 ``` bash
 tg_send () {
   local msg="$1"
+
   curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
     -d "chat_id=${TELEGRAM_CHAT_ID}" \
     -d "text=${msg}" \
@@ -110,104 +134,56 @@ tg_send () {
 Uso:
 
 ``` bash
-tg_send "✅ Pipeline terminó correctamente."
+tg_send "✅ Pipeline terminado correctamente."
 ```
 
-## Usar Telegram en un script de Slurm
+## Usar Telegram en un script de Bash
 
-Una forma útil de usar Telegram es enviar una notificación cuando un trabajo inicia y otra cuando termina. Esto permite saber si el análisis ya comenzó, si finalizó correctamente o si terminó con error.
-
-Ejemplo básico de script de Slurm:
+El siguiente patrón permite enviar una notificación al iniciar y otra al terminar un proceso.
 
 ``` bash
-#!/bin/bash
-#SBATCH --job-name=prueba_telegram
-#SBATCH --partition=ib
-#SBATCH --cpus-per-task=4
-#SBATCH --mem=8G
-#SBATCH --time=01:00:00
-#SBATCH --output=logs/%x_%j.out
-#SBATCH --error=logs/%x_%j.err
+#!/usr/bin/env bash
+set -euo pipefail
 
-# Cargar variables de Telegram
 source /ruta/a/tu/.env
 
-# Función para enviar mensajes a Telegram
 tg_send () {
   local msg="$1"
+
   curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
     -d "chat_id=${TELEGRAM_CHAT_ID}" \
     -d "text=${msg}" \
     -d "disable_web_page_preview=true" > /dev/null
 }
 
-# Mensaje al iniciar
-tg_send "🚀 Inició el trabajo ${SLURM_JOB_NAME} con ID ${SLURM_JOB_ID} en el nodo ${SLURMD_NODENAME}"
+tg_send "🚀 Inició el análisis"
 
-# Aquí va tu análisis
-echo "Corriendo análisis..."
-sleep 30
-
-# Guardar el estado del último comando
-status=$?
-
-# Mensaje al terminar
-if [ $status -eq 0 ]; then
-  tg_send "✅ Terminó correctamente el trabajo ${SLURM_JOB_NAME} con ID ${SLURM_JOB_ID}"
+if comando_largo; then
+  tg_send "✅ El análisis terminó correctamente"
 else
-  tg_send "❌ El trabajo ${SLURM_JOB_NAME} con ID ${SLURM_JOB_ID} terminó con error"
+  tg_send "❌ El análisis terminó con error"
+  exit 1
 fi
-```
-
-Para enviar el trabajo a Slurm:
-
-``` bash
-sbatch script_telegram.slurm
-```
-
-En este ejemplo, Telegram enviará un mensaje cuando el trabajo comience y otro cuando termine.
-
-## Archivo `.env` para Slurm
-
-Para que el script anterior funcione, el archivo `.env` debe tener los mismos nombres de variables que usa la función `tg_send`:
-
-``` bash
-TELEGRAM_BOT_TOKEN="TU_TOKEN_AQUI"
-TELEGRAM_CHAT_ID="TU_CHAT_ID_AQUI"
-```
-
-Se recomienda guardar este archivo fuera del repositorio del proyecto y darle permisos restringidos:
-
-```         
-chmod 600 /ruta/a/tu/.env
-```
-
-Si el archivo `.env` está dentro del proyecto, debe agregarse al `.gitignore`:
-
-``` bash
-.env
 ```
 
 ## Mensajes a Discord
 
-Discord puede utilizarse para recibir notificaciones automáticas desde scripts de Bash o trabajos enviados con Slurm. Para este tipo de uso no es necesario crear un bot completo: lo más práctico es usar **webhooks**.
+Discord puede utilizarse para recibir notificaciones automáticas desde scripts de Bash. Para este uso no es necesario crear un bot completo: lo más práctico es usar **webhooks**.
 
 Un **webhook** es una URL especial asociada a un canal de Discord. Cuando un script envía un mensaje a esa URL, el mensaje aparece automáticamente en ese canal.
 
 ::: callout-tip
 ## Recomendación para BEAGLE
 
-Usa **un webhook por canal**.
-
-Por ejemplo:
+Usa **un webhook por canal** para mantener las notificaciones ordenadas.
 
 | Canal de Discord | Uso sugerido                                        |
 |------------------|-----------------------------------------------------|
 | `#pruebas`       | Probar mensajes antes de usarlos en análisis reales |
 | `#beast`         | Notificaciones de análisis de BEAST/BEAST2          |
-| `#slurm-cpu`     | Trabajos generales enviados a Slurm                 |
-| `#slurm-gpu`     | Trabajos enviados a nodos con GPU                   |
-| `#errores`       | Mensajes cuando un trabajo falla                    |
+| `#cpu`           | Análisis generales con CPU                          |
+| `#gpu`           | Análisis que usan GPU                               |
+| `#errores`       | Mensajes cuando un proceso falla                    |
 :::
 
 En Discord, crea un servidor nuevo para organizar los canales de notificación.
@@ -250,27 +226,25 @@ Puedes crear canales separados para diferentes tipos de análisis:
 ``` text
 #pruebas
 #beast
-#slurm-cpu
-#slurm-gpu
+#cpu
+#gpu
 #errores
 ```
 
 ::: callout-note
 ## ¿Por qué varios canales?
 
-Separar los mensajes ayuda a evitar ruido. Por ejemplo, los trabajos de prueba pueden llegar a `#pruebas`, los análisis con GPU a `#slurm-gpu` y los errores a `#errores`.
+Separar los mensajes ayuda a evitar ruido. Los análisis de prueba pueden llegar a `#pruebas`, los análisis con GPU a `#gpu` y los errores a `#errores`.
 :::
 
 ## Crear un webhook para un canal
-
-Para que Slurm pueda escribir en Discord, se debe crear un webhook en el canal donde quieres recibir los mensajes.
 
 ::: callout-warning
 ## Los webhooks no se crean desde la app móvil
 
 En la app móvil de Discord puede aparecer el apartado de **Webhooks**, pero Discord indica que, por ahora, los webhooks solo se pueden crear desde la **aplicación de escritorio** o desde Discord en la **web**.
 
-Por eso, para crear y copiar la URL del webhook, usa una computadora o entra a Discord desde el navegador.
+Para crear y copiar la URL del webhook, usa una computadora o entra a Discord desde el navegador.
 :::
 
 ![](../images/notas_bot/13_discord.jpeg){fig-align="center" width="350"}
@@ -315,13 +289,13 @@ Crea un archivo `.env` para guardar las URLs de los webhooks.
 nano .env
 ```
 
-Ejemplo:
+Contenido recomendado:
 
 ``` bash
 DISCORD_WEBHOOK_PRUEBAS="https://discord.com/api/webhooks/XXXX/YYYY"
 DISCORD_WEBHOOK_BEAST="https://discord.com/api/webhooks/XXXX/YYYY"
-DISCORD_WEBHOOK_SLURM_CPU="https://discord.com/api/webhooks/XXXX/YYYY"
-DISCORD_WEBHOOK_SLURM_GPU="https://discord.com/api/webhooks/XXXX/YYYY"
+DISCORD_WEBHOOK_CPU="https://discord.com/api/webhooks/XXXX/YYYY"
+DISCORD_WEBHOOK_GPU="https://discord.com/api/webhooks/XXXX/YYYY"
 DISCORD_WEBHOOK_ERRORES="https://discord.com/api/webhooks/XXXX/YYYY"
 ```
 
@@ -337,7 +311,7 @@ Si el archivo `.env` está dentro de un proyecto con Git, agrégalo al archivo `
 nano .gitignore
 ```
 
-Y agrega:
+Agrega:
 
 ``` text
 .env
@@ -388,26 +362,16 @@ source .env
 discord_send "$DISCORD_WEBHOOK_PRUEBAS" "✅ Mensaje enviado desde Bash"
 ```
 
-## Usar Discord en un script de Slurm
+## Usar Discord en un script de Bash
 
-El siguiente ejemplo envía un mensaje cuando el trabajo inicia y otro cuando termina. Si el trabajo falla, manda el aviso al canal de errores.
+El siguiente patrón envía un mensaje cuando inicia un proceso y otro cuando termina. Si el proceso falla, manda el aviso al canal de errores.
 
 ``` bash
-#!/bin/bash
-#SBATCH --job-name=prueba_discord
-#SBATCH --partition=ib
-#SBATCH --cpus-per-task=4
-#SBATCH --mem=8G
-#SBATCH --time=01:00:00
-#SBATCH --output=logs/%x_%j.out
-#SBATCH --error=logs/%x_%j.err
+#!/usr/bin/env bash
+set -euo pipefail
 
-mkdir -p logs
-
-# Cargar variables con las URLs de los webhooks
 source /ruta/a/tu/.env
 
-# Función para enviar mensajes a Discord
 discord_send () {
   local webhook="$1"
   local msg="$2"
@@ -420,63 +384,47 @@ discord_send () {
     "$webhook" > /dev/null
 }
 
-# Aviso automático al terminar el script
 on_exit () {
   status=$?
 
   if [ "$status" -eq 0 ]; then
-    discord_send "$DISCORD_WEBHOOK_PRUEBAS" "✅ Terminó correctamente el trabajo ${SLURM_JOB_NAME} con ID ${SLURM_JOB_ID}"
+    discord_send "$DISCORD_WEBHOOK_PRUEBAS" "✅ El análisis terminó correctamente"
   else
-    discord_send "${DISCORD_WEBHOOK_ERRORES:-$DISCORD_WEBHOOK_PRUEBAS}" "❌ El trabajo ${SLURM_JOB_NAME} con ID ${SLURM_JOB_ID} terminó con error. Revisa logs/${SLURM_JOB_NAME}_${SLURM_JOB_ID}.err"
+    discord_send "${DISCORD_WEBHOOK_ERRORES:-$DISCORD_WEBHOOK_PRUEBAS}" "❌ El análisis terminó con error"
   fi
 }
 
 trap on_exit EXIT
 
-# Aviso al iniciar
-discord_send "$DISCORD_WEBHOOK_PRUEBAS" "🚀 Inició el trabajo ${SLURM_JOB_NAME} con ID ${SLURM_JOB_ID} en ${SLURMD_NODENAME:-nodo-desconocido}"
+discord_send "$DISCORD_WEBHOOK_PRUEBAS" "🚀 Inició el análisis"
 
-# A partir de aquí, si algo falla, Slurm terminará el script
-set -euo pipefail
-
-echo "Corriendo análisis..."
-sleep 30
-
-echo "Análisis terminado."
+comando_largo
 ```
 
-Envía el trabajo con:
-
-``` bash
-sbatch script_discord.slurm
-```
-
-## Ejemplo para un trabajo de BEAST
+## Mensajes para análisis específicos
 
 Si tienes un canal específico para BEAST, puedes enviar los mensajes a ese canal:
 
 ``` bash
-discord_send "$DISCORD_WEBHOOK_BEAST" "🧬 Inició análisis de BEAST: ${SLURM_JOB_NAME} ID ${SLURM_JOB_ID}"
+discord_send "$DISCORD_WEBHOOK_BEAST" "🧬 Inició análisis de BEAST"
 ```
 
 Y en caso de error, usar el canal de errores:
 
 ``` bash
-discord_send "$DISCORD_WEBHOOK_ERRORES" "⚠️ Falló el análisis de BEAST: ${SLURM_JOB_NAME} ID ${SLURM_JOB_ID}"
+discord_send "$DISCORD_WEBHOOK_ERRORES" "⚠️ Falló el análisis de BEAST"
 ```
 
-## Ejemplo para trabajos con GPU
-
-Para trabajos que usen GPU, puedes usar un webhook específico:
+Para análisis que usan GPU, puedes usar un webhook específico:
 
 ``` bash
-discord_send "$DISCORD_WEBHOOK_SLURM_GPU" "🚀 Inició trabajo GPU ${SLURM_JOB_NAME} con ID ${SLURM_JOB_ID}"
+discord_send "$DISCORD_WEBHOOK_GPU" "🚀 Inició análisis con GPU"
 ```
 
 Al finalizar:
 
 ``` bash
-discord_send "$DISCORD_WEBHOOK_SLURM_GPU" "✅ Terminó trabajo GPU ${SLURM_JOB_NAME} con ID ${SLURM_JOB_ID}"
+discord_send "$DISCORD_WEBHOOK_GPU" "✅ Terminó análisis con GPU"
 ```
 
 ## ¿Qué hacer si se filtró una URL de webhook?

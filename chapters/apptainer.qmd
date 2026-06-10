@@ -8,13 +8,13 @@ El software especializado en BEAGLE debe ejecutarse mediante **contenedores con 
 
 Un contenedor es un entorno aislado que incluye:
 
-- Sistema operativo base
+-   Sistema operativo base
 
-- Librerías
+-   Librerías
 
-- Dependencias
+-   Dependencias
 
-- Software específico
+-   Software específico
 
 #### Docker vs Podman vs Apptainer
 
@@ -38,11 +38,11 @@ Actualmente hay decenas de proyectos involucrados en el desarrollo, adopción y 
 
 Esto se debe a que utiliza características propias del kernel de Linux, como:
 
-- namespaces (aislamiento de procesos)
+-   namespaces (aislamiento de procesos)
 
-- cgroups (control de recursos)
+-   cgroups (control de recursos)
 
-- sistema de archivos tipo overlay
+-   sistema de archivos tipo overlay
 
 👉 Estas tecnologías permiten crear contenedores de forma eficiente y segura.
 
@@ -57,19 +57,19 @@ Las imágenes de contenedores provienen generalmente de repositorios en línea c
 
 Docker Hub es una plataforma donde se almacenan miles de imágenes listas para usar:
 
-- sistemas operativos
+-   sistemas operativos
 
-- lenguajes de programación
+-   lenguajes de programación
 
-- herramientas científicas
+-   herramientas científicas
 
 Cada imagen tiene versiones llamadas **tags**, por ejemplo:
 
-- `ubuntu:22.04`
+-   `ubuntu:22.04`
 
-- `ubuntu:20.04`
+-   `ubuntu:20.04`
 
-- `ubuntu:latest`
+-   `ubuntu:latest`
 
 💡 Esto permite elegir exactamente qué entorno queremos usar.
 
@@ -79,19 +79,19 @@ Existen repositorios especializados llamados **BioContainers**, que contienen im
 
 👉 Son contenedores que ya incluyen software científico instalado, como:
 
-- MrBayes
+-   MrBayes
 
-- BLAST
+-   BLAST
 
-- FastQC
+-   FastQC
 
-- Bowtie2
+-   Bowtie2
 
 👉 Muchos de estos contenedores están disponibles en:
 
-- Docker Hub
+-   Docker Hub
 
-- Quay.io (más actualizado en muchos casos)
+-   Quay.io (más actualizado en muchos casos)
 
 ## 📥 Descargar imágenes
 
@@ -133,11 +133,11 @@ Cuando usamos Apptainer, no estamos ejecutando “un programa”, sino un **sist
 
 💡 Sin embargo, estas imágenes suelen ser:
 
-- muy ligeras
+-   muy ligeras
 
-- sin programas adicionales
+-   sin programas adicionales
 
-- con solo lo esencial para funcionar
+-   con solo lo esencial para funcionar
 
 ### Entrar a un contenedor (modo interactivo)
 
@@ -149,13 +149,13 @@ apptainer shell ubuntu_latest.sif
 
 Dentro de esta terminal puedes:
 
-- navegar (`ls`, `cd`)
+-   navegar (`ls`, `cd`)
 
-- crear archivos
+-   crear archivos
 
-- ejecutar comandos
+-   ejecutar comandos
 
-- instalar software (si es writable)
+-   instalar software (si es writable)
 
 💡 Es como si estuvieras usando otra computadora con Linux.
 
@@ -163,15 +163,15 @@ Dentro de esta terminal puedes:
 
 Por defecto:
 
-- ❌ **NO puedes modificar la imagen `.sif`**
+-   ❌ **NO puedes modificar la imagen `.sif`**
 
-- ✅ solo puedes explorarla
+-   ✅ solo puedes explorarla
 
 👉 Si quieres modificarla, necesitas usar:
 
-- un **sandbox**
+-   un **sandbox**
 
-- o entrar con `--writable`
+-   o entrar con `--writable`
 
 ### Ejecutar comandos sin entrar
 
@@ -194,11 +194,11 @@ cat /etc/os-release
 
 👉 Esto demuestra que:
 
-- estás dentro de un sistema Linux independiente
+-   estás dentro de un sistema Linux independiente
 
-- con su propia estructura de archivos
+-   con su propia estructura de archivos
 
-- su propio entorno
+-   su propio entorno
 
 ### Modificar un contenedor temporalmente (`--writable`)
 
@@ -208,9 +208,9 @@ Aunque las imágenes `.sif` no son modificables por defecto, Apptainer permite h
 apptainer shell --writable --fakeroot ubuntu_latest.sif
 ```
 
-- `--writable` → permite modificar el sistema dentro del contenedor
+-   `--writable` → permite modificar el sistema dentro del contenedor
 
-- `--fakeroot` → simula permisos de administrador (root)
+-   `--fakeroot` → simula permisos de administrador (root)
 
 👉 Esto permite instalar software dentro del contenedor.
 
@@ -227,11 +227,11 @@ Un sandbox es un contenedor en formato de directorio editable.
 
 A diferencia de `.sif`, permite:
 
-- instalar programas
+-   instalar programas
 
-- modificar configuraciones
+-   modificar configuraciones
 
-- compilar software
+-   compilar software
 
 ### Crear un sandbox
 
@@ -264,13 +264,13 @@ mrbayes/
 
 Y dentro:
 
-- `/bin`
+-   `/bin`
 
-- `/etc`
+-   `/etc`
 
-- `/usr`
+-   `/usr`
 
-- `/lib`
+-   `/lib`
 
 👉 Es decir:
 
@@ -320,11 +320,11 @@ Las imágenes base descargadas desde Docker Hub suelen ser **versiones mínimas 
 
 👉 Esto significa que:
 
-- No tienen configuraciones completas
+-   No tienen configuraciones completas
 
-- No incluyen muchos programas
+-   No incluyen muchos programas
 
-- Solo contienen lo esencial para funcionar
+-   Solo contienen lo esencial para funcionar
 
 💡 Por esta razón, antes de trabajar con software, es necesario **configurar el sistema operativo dentro del contenedor**.
 
@@ -335,9 +335,9 @@ apt update
 apt upgrade -y
 ```
 
-- `apt update` → actualiza la lista de paquetes disponibles
+-   `apt update` → actualiza la lista de paquetes disponibles
 
-- `apt upgrade` → actualiza los programas instalados
+-   `apt upgrade` → actualiza los programas instalados
 
 > Linux usa repositorios en línea para instalar software\
 > y estos comandos sincronizan el sistema con esos repositorios
@@ -356,11 +356,11 @@ export LC_ALL=en_US.UTF-8
 
 **¿Por qué es importante?**
 
-- Evita errores con caracteres especiales
+-   Evita errores con caracteres especiales
 
-- Asegura compatibilidad con muchos programas
+-   Asegura compatibilidad con muchos programas
 
-- Mejora la reproducibilidad
+-   Mejora la reproducibilidad
 
 ### 🕒 Configurar zona horaria
 
@@ -373,11 +373,11 @@ ln -sf /usr/share/zoneinfo/Etc/UTC /etc/localtime
 
 **¿Por qué importa?**
 
-- Logs correctos
+-   Logs correctos
 
-- Fechas reproducibles
+-   Fechas reproducibles
 
-- Consistencia en análisis
+-   Consistencia en análisis
 
 ### 📦 Instalación de programas y dependencias
 
@@ -394,11 +394,11 @@ openmpi-bin openmpi-common openmpi-doc libopenmpi-dev
 
 👉 Permite:
 
-- instalar programas
+-   instalar programas
 
-- eliminar programas
+-   eliminar programas
 
-- actualizar software
+-   actualizar software
 
 ------------------------------------------------------------------------
 
@@ -419,11 +419,11 @@ Muchos programas necesitan otras librerías para funcionar.
 
 Ejemplo:
 
-- `build-essential` → compiladores (gcc, g++)
+-   `build-essential` → compiladores (gcc, g++)
 
-- `libopenmpi-dev` → paralelización
+-   `libopenmpi-dev` → paralelización
 
-- `pkg-config` → encuentra librerías al compilar
+-   `pkg-config` → encuentra librerías al compilar
 
 > Un programa no funciona solo, depende de otros componentes
 
@@ -543,25 +543,25 @@ apptainer exec --bind $(pwd):/data revbayes_mpi.sif rb-mpi /data/analysis.Rev
 
 👉 Aquí:
 
-- `$(pwd)` → ruta actual en tu sistema
+-   `$(pwd)` → ruta actual en tu sistema
 
-- `/data` → ruta dentro del contenedor
+-   `/data` → ruta dentro del contenedor
 
 ### Ventaja de usar `pwd`
 
-- evita errores de ruta
+-   evita errores de ruta
 
-- hace scripts más portables
+-   hace scripts más portables
 
-- facilita reproducibilidad
+-   facilita reproducibilidad
 
 ### ⚠️ Nota importante
 
 Apptainer ya monta automáticamente algunas rutas como:
 
-- `$HOME`
+-   `$HOME`
 
-- el directorio actual (en muchos casos)
+-   el directorio actual (en muchos casos)
 
 👉 Pero usar `--bind` explícito es más claro y reproducible.
 
@@ -587,17 +587,17 @@ Un archivo `.def` en Apptainer es un **archivo de definición** que contiene tod
 
 👉 En lugar de instalar programas manualmente dentro de un sandbox, aquí escribimos una receta que describe:
 
-- qué sistema operativo usar
+-   qué sistema operativo usar
 
-- qué paquetes instalar
+-   qué paquetes instalar
 
-- qué software descargar
+-   qué software descargar
 
-- cómo compilarlo
+-   cómo compilarlo
 
-- qué variables de entorno definir
+-   qué variables de entorno definir
 
-- qué debe hacer el contenedor al ejecutarse
+-   qué debe hacer el contenedor al ejecutarse
 
 > Un archivo `.def` permite reconstruir el mismo contenedor cuantas veces sea necesario.
 
@@ -623,11 +623,11 @@ Define **variables de entorno** que estarán disponibles cada vez que el contene
 
 👉 Se aplican cuando usas:
 
-- `apptainer shell`
+-   `apptainer shell`
 
-- `apptainer exec`
+-   `apptainer exec`
 
-- `apptainer run`
+-   `apptainer run`
 
 💡 Sirve para configurar el entorno automáticamente (idioma, rutas de librerías, etc.).
 
@@ -637,11 +637,11 @@ Contiene los comandos que se ejecutan **durante la construcción del contenedor*
 
 👉 Aquí es donde se:
 
-- instalan paquetes (`apt install`)
+-   instalan paquetes (`apt install`)
 
-- descargan programas (`git clone`)
+-   descargan programas (`git clone`)
 
-- compilan software (`make`)
+-   compilan software (`make`)
 
 💡 Es la sección donde realmente “se arma” el contenedor.
 
@@ -657,9 +657,9 @@ apptainer run archivo.sif
 
 💡 Por ejemplo:
 
-- mostrar un mensaje
+-   mostrar un mensaje
 
-- ejecutar automáticamente un programa
+-   ejecutar automáticamente un programa
 
 Archivo ejemplo **`revbayes_mpi.def`**
 
@@ -785,13 +785,13 @@ revbayes_mpi.sif
 
 Ese archivo ya contiene:
 
-- Ubuntu 22.04
+-   Ubuntu 22.04
 
-- dependencias instaladas
+-   dependencias instaladas
 
-- RevBayes compilado con MPI
+-   RevBayes compilado con MPI
 
-- variables de entorno configuradas
+-   variables de entorno configuradas
 
 ### Probar el contenedor
 
@@ -815,13 +815,13 @@ Antes de crear un contenedor desde cero, es recomendable revisar si ya existe un
 
 En este repositorio hay miles de imágenes creadas por la comunidad, incluyendo:
 
-- sistemas operativos
+-   sistemas operativos
 
-- lenguajes de programación
+-   lenguajes de programación
 
-- herramientas bioinformáticas
+-   herramientas bioinformáticas
 
-- pipelines completos
+-   pipelines completos
 
 👉 Es muy probable que el software que necesitas ya esté disponible en forma de contenedor.
 
@@ -837,30 +837,30 @@ apptainer pull quay.io/biocontainers/mrbayes
 
 ### ⚖️ Ventajas de usar imágenes existentes
 
-- ✔ Ahorra tiempo
+-   ✔ Ahorra tiempo
 
-- ✔ No necesitas instalar dependencias
+-   ✔ No necesitas instalar dependencias
 
-- ✔ Listas para ejecutar
+-   ✔ Listas para ejecutar
 
-- ✔ Útiles para pruebas rápidas
+-   ✔ Útiles para pruebas rápidas
 
 ### ⚠️ Desventajas
 
-- ❌ No siempre sabes cómo fue construida la imagen
+-   ❌ No siempre sabes cómo fue construida la imagen
 
-- ❌ Puede no estar actualizada
+-   ❌ Puede no estar actualizada
 
-- ❌ Puede incluir software innecesario
+-   ❌ Puede incluir software innecesario
 
-- ❌ Menor control sobre dependencias y versiones
+-   ❌ Menor control sobre dependencias y versiones
 
 ### 🔧 Ventajas de construir tu propio contenedor
 
-- ✔ Control total del entorno
+-   ✔ Control total del entorno
 
-- ✔ Puedes documentar cada paso (`.def`)
+-   ✔ Puedes documentar cada paso (`.def`)
 
-- ✔ Reproducibilidad garantizada
+-   ✔ Reproducibilidad garantizada
 
-- ✔ Ajuste específico a tu análisis
+-   ✔ Ajuste específico a tu análisis

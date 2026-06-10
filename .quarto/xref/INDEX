@@ -64,5 +64,8 @@
   },
   "micromamba.qmd": {
     "micromamba.html": "2743f0d9"
+  },
+  "chapters/ejercicios.qmd": {
+    "ejercicios.html": "2788cc93"
   }
 }

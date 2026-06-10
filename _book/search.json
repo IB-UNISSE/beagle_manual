@@ -14,7 +14,7 @@
     "href": "index.html#bienvenida",
     "title": "Manual de usuario BEAGLE",
     "section": "Bienvenida",
-    "text": "Bienvenida\nBEAGLE es una infraestructura de cómputo compartida para apoyar análisis bioinformáticos, filogenómicos y otros procesos computacionales utilizados por la comunidad académica del Instituto de Biología, UNAM.\nEste manual está diseñado como una guía de uso práctico. Su objetivo es que las personas usuarias puedan comenzar a trabajar en el servidor de forma ordenada, segura y reproducible, desde el acceso inicial por SSH hasta el envío de trabajos mediante Slurm.\nNo es necesario leer todo el manual de una sola vez. Puedes avanzar por secciones según lo que necesites hacer: conectarte al servidor, transferir archivos, usar la terminal, cargar software, trabajar con contenedores o enviar análisis a la cola de cómputo.",
+    "text": "Bienvenida\nBEAGLE es una infraestructura de cómputo compartida para apoyar análisis bioinformáticos, filogenómicos y otros procesos computacionales utilizados por la comunidad académica del Instituto de Biología, UNAM.\nEste manual está diseñado como una guía rápida de uso práctico de BEAGLE. Su objetivo es que las personas usuarias puedan comenzar a trabajar en el servidor de forma ordenada, segura y reproducible, desde el acceso inicial por SSH hasta el envío de trabajos mediante Slurm.\n\n\n\n\n\n\nAlcance de este manual\n\n\n\nEste manual no pretende ser un curso completo de programación, Linux o Bash. Su propósito es servir como una guía práctica para el uso cotidiano de BEAGLE.\nSi te interesa una formación más completa, puedes consultar el curso de posgrado en Ciencias Biológicas Introducción a la programación para bioinformática con Bash, impartido por el Dr. Cristian Cervantes y el M. en I. Mauricio Morgado.\nSitio del curso: https://ib-unisse.github.io/intro_bash_bioinfo/\n\n\nNo es necesario leer todo el manual de una sola vez. Puedes avanzar por secciones según lo que necesites hacer: conectarte al servidor, transferir archivos, usar la terminal, cargar software, trabajar con contenedores o enviar análisis a la cola de cómputo.",
     "crumbs": [
       "<span class='chapter-number'>1</span>  <span class='chapter-title'>Manual de usuario BEAGLE</span>"
     ]
@@ -24,7 +24,7 @@
     "href": "index.html#a-quién-está-dirigido",
     "title": "Manual de usuario BEAGLE",
     "section": "¿A quién está dirigido?",
-    "text": "¿A quién está dirigido?\nEste manual está dirigido principalmente a estudiantes, personal académico, técnico y personas usuarias que realizan análisis en BEAGLE.\nPuede ser útil para quienes:\n\ningresan por primera vez al servidor;\nnecesitan transferir archivos desde su computadora;\nquieren aprender comandos básicos de Linux;\nrequieren instalar o usar software informático;\ndesean ejecutar análisis mediante contenedores de Apptainer;\nnecesitan enviar trabajos usando Slurm;\nbuscan organizar mejor sus proyectos y resultados.",
+    "text": "¿A quién está dirigido?\nEste manual está dirigido principalmente a estudiantes, personal académico, técnico y personas usuarias que realizan análisis en BEAGLE.\nPuede ser útil para quienes:\n\ningresan por primera vez al servidor;\nnecesitan transferir archivos desde su computadora;\nquieren aprender comandos básicos de Linux;\nrequieren instalar o usar software bioinformático;\ndesean ejecutar análisis mediante contenedores de Apptainer;\nnecesitan enviar trabajos usando Slurm;\nbuscan organizar mejor sus proyectos y resultados.",
     "crumbs": [
       "<span class='chapter-number'>1</span>  <span class='chapter-title'>Manual de usuario BEAGLE</span>"
     ]
@@ -54,7 +54,7 @@
     "href": "index.html#reglas-generales-de-uso",
     "title": "Manual de usuario BEAGLE",
     "section": "Reglas generales de uso",
-    "text": "Reglas generales de uso\n\n\n\n\n\n\nCautionLas cuentas son personales e intransferibles\n\n\n\nLas cuentas de usuario en BEAGLE son personales e intransferibles. No compartas tu contraseña, llaves SSH ni accesos con otras personas, incluso si pertenecen al mismo laboratorio o grupo de trabajo. Cada persona debe ingresar con su propia cuenta, ya que el uso del servidor queda asociado al usuario registrado.\n\n\n\n\n\n\n\n\nImportantBEAGLE es un recurso compartido\n\n\n\nEvita ejecutar análisis pesados directamente en la terminal de acceso. Los análisis que consumen muchos recursos deben enviarse mediante Slurm usando sbatch.\n\n\n\n\n\n\n\n\nWarningNo instales software en el sistema principal\n\n\n\nEn BEAGLE no se debe modificar el sistema operativo ni instalar programas globalmente con sudo. Para usar software especializado, utiliza Micromamba o Apptainer.\n\n\n\n\n\n\n\n\nNoteSolicita solo los recursos necesarios\n\n\n\nAl enviar trabajos con Slurm, pide una cantidad razonable de CPUs, memoria RAM y tiempo. Solicitar muchos recursos sin necesitarlos puede retrasar tus trabajos y afectar a otras personas usuarias.",
+    "text": "Reglas generales de uso\n\n\n\n\n\n\nLas cuentas son personales e intransferibles\n\n\n\nLas cuentas de usuario en BEAGLE son personales e intransferibles. No compartas tu contraseña, llaves SSH ni accesos con otras personas, incluso si pertenecen al mismo laboratorio o grupo de trabajo. Cada persona debe ingresar con su propia cuenta, ya que el uso del servidor queda asociado al usuario registrado.\n\n\n\n\n\n\n\n\nBEAGLE es un recurso compartido\n\n\n\nEvita ejecutar análisis pesados directamente en la terminal de acceso. Los análisis que consumen muchos recursos deben enviarse mediante Slurm usando sbatch.\n\n\n\n\n\n\n\n\nNo instales software en el sistema principal\n\n\n\nEn BEAGLE no se debe modificar el sistema operativo ni instalar programas globalmente con sudo. Para usar software especializado, utiliza Micromamba o Apptainer.\n\n\n\n\n\n\n\n\nSolicita solo los recursos necesarios\n\n\n\nAl enviar trabajos con Slurm, pide una cantidad razonable de CPUs, memoria RAM y tiempo. Solicitar muchos recursos sin necesitarlos puede retrasar tus trabajos y afectar a otras personas usuarias.",
     "crumbs": [
       "<span class='chapter-number'>1</span>  <span class='chapter-title'>Manual de usuario BEAGLE</span>"
     ]
@@ -184,7 +184,7 @@
     "href": "chapters/terminal_linux.html#comandos-esenciales-para-moverte",
     "title": "Comandos básicos de Linux",
     "section": "",
-    "text": "¿Dónde estoy?\nPara saber en qué carpeta te encuentras actualmente, usa:\npwd\nEl comando pwd significa print working directory y muestra la ruta completa de tu ubicación actual.\n\n\nListar archivos y carpetas\nPara listar el contenido de la carpeta actual:\nls\nPara ver más detalles, como permisos, tamaño y fecha de modificación:\nls -lh\nPara mostrar también archivos ocultos:\nls -lah\n\n\n\n\n\n\nTipArchivos ocultos\n\n\n\nEn Linux, los archivos o carpetas que comienzan con punto (.) son ocultos. Por ejemplo: .bashrc, .ssh/ o .config/.\n\n\n\n\nCambiar de carpeta\nPara entrar a una carpeta específica:\ncd /ruta/a/la/carpeta\nPara ir a tu carpeta personal:\ncd ~\nPara subir un nivel en la estructura de carpetas:\ncd ..\nPara regresar a la carpeta anterior:\ncd -\n\n\n\n\n\n\nTipAutocompletado\n\n\n\nPuedes usar la tecla Tab para autocompletar nombres de archivos y carpetas. Esto reduce errores al escribir rutas largas.",
+    "text": "¿Dónde estoy?\nPara saber en qué carpeta te encuentras actualmente, usa:\npwd\nEl comando pwd significa print working directory y muestra la ruta completa de tu ubicación actual.\n\n\nListar archivos y carpetas\nPara listar el contenido de la carpeta actual:\nls\nPara ver más detalles, como permisos, tamaño y fecha de modificación:\nls -lh\nPara mostrar también archivos ocultos:\nls -lah\n\n\n\n\n\n\nArchivos ocultos\n\n\n\nEn Linux, los archivos o carpetas que comienzan con punto (.) son ocultos. Por ejemplo: .bashrc, .ssh/ o .config/.\n\n\n\n\nCambiar de carpeta\nPara entrar a una carpeta específica:\ncd /ruta/a/la/carpeta\nPara ir a tu carpeta personal:\ncd ~\nPara subir un nivel en la estructura de carpetas:\ncd ..\nPara regresar a la carpeta anterior:\ncd -\n\n\n\n\n\n\nAutocompletado\n\n\n\nPuedes usar la tecla Tab para autocompletar nombres de archivos y carpetas. Esto reduce errores al escribir rutas largas.",
     "crumbs": [
       "<span class='chapter-number'>3</span>  <span class='chapter-title'>Comandos básicos de Linux</span>"
     ]
@@ -224,7 +224,7 @@
     "href": "chapters/terminal_linux.html#revisar-almacenamiento-y-tamaño-de-datos",
     "title": "Comandos básicos de Linux",
     "section": "Revisar almacenamiento y tamaño de datos",
-    "text": "Revisar almacenamiento y tamaño de datos\n\nEspacio libre por partición\nPara revisar el espacio disponible en los discos o particiones montadas:\ndf -h\nLa opción -h muestra los tamaños en formato legible, por ejemplo en G o T.\n\n\nTamaño de una carpeta\nPara revisar el tamaño total de una carpeta:\ndu -sh carpeta/\nPara revisar el tamaño de todo lo que hay en la carpeta actual:\ndu -sh *\n\n\nEncontrar lo que más pesa\ndu -sh * | sort -h\nEste comando calcula el tamaño de los archivos y carpetas, y luego los ordena por tamaño.\n\n\n\n\n\n\nTipBuen hábito\n\n\n\nRevisa tu uso de disco antes de lanzar análisis grandes, especialmente si trabajarás con archivos FASTQ, BAM, VCF, ensamblajes o resultados intermedios grandes.",
+    "text": "Revisar almacenamiento y tamaño de datos\n\nEspacio libre por partición\nPara revisar el espacio disponible en los discos o particiones montadas:\ndf -h\nLa opción -h muestra los tamaños en formato legible, por ejemplo en G o T.\n\n\nTamaño de una carpeta\nPara revisar el tamaño total de una carpeta:\ndu -sh carpeta/\nPara revisar el tamaño de todo lo que hay en la carpeta actual:\ndu -sh *\n\n\nEncontrar lo que más pesa\ndu -sh * | sort -h\nEste comando calcula el tamaño de los archivos y carpetas, y luego los ordena por tamaño.\n\n\n\n\n\n\nBuen hábito\n\n\n\nRevisa tu uso de disco antes de lanzar análisis grandes, especialmente si trabajarás con archivos FASTQ, BAM, VCF, ensamblajes o resultados intermedios grandes.",
     "crumbs": [
       "<span class='chapter-number'>3</span>  <span class='chapter-title'>Comandos básicos de Linux</span>"
     ]
@@ -234,7 +234,7 @@
     "href": "chapters/terminal_linux.html#revisar-recursos-disponibles-cpu-y-ram",
     "title": "Comandos básicos de Linux",
     "section": "Revisar recursos disponibles: CPU y RAM",
-    "text": "Revisar recursos disponibles: CPU y RAM\n\nRevisar CPU\nPara ver información del procesador, número de núcleos e hilos disponibles:\nlscpu\n\n\nRevisar memoria RAM\nPara revisar la memoria disponible:\nfree -h\n\n\nVer procesos en tiempo real\ntop\nPara salir de top, presiona:\nq\nSi está instalado, htop suele ser más cómodo:\nhtop\n\n\n\n\n\n\nNoteNota\n\n\n\nEn servidores administrados con Slurm, la disponibilidad real de CPU y memoria para tus análisis depende de los recursos solicitados en el script de trabajo, no solo de lo que aparece con lscpu o free -h.",
+    "text": "Revisar recursos disponibles: CPU y RAM\n\nRevisar CPU\nPara ver información del procesador, número de núcleos e hilos disponibles:\nlscpu\n\n\nRevisar memoria RAM\nPara revisar la memoria disponible:\nfree -h\n\n\nVer procesos en tiempo real\ntop\nPara salir de top, presiona:\nq\nSi está instalado, htop suele ser más cómodo:\nhtop\n\n\n\n\n\n\nNota\n\n\n\nEn servidores administrados con Slurm, la disponibilidad real de CPU y memoria para tus análisis depende de los recursos solicitados en el script de trabajo, no solo de lo que aparece con lscpu o free -h.",
     "crumbs": [
       "<span class='chapter-number'>3</span>  <span class='chapter-title'>Comandos básicos de Linux</span>"
     ]
@@ -254,7 +254,7 @@
     "href": "chapters/terminal_linux.html#detener-procesos",
     "title": "Comandos básicos de Linux",
     "section": "Detener procesos",
-    "text": "Detener procesos\n\n\n\n\n\n\nWarningAntes de detener un proceso\n\n\n\nAsegúrate de que el proceso sea tuyo y de que realmente quieras detenerlo. No intentes detener procesos de otros usuarios o procesos del sistema.\n\n\n\nDetener un proceso por PID\nPrimero intenta un apagado limpio:\nkill PID\nPor ejemplo:\nkill 12345\nSi el proceso no se detiene, puedes forzarlo:\nkill -9 PID\n\n\n\n\n\n\nWarningkill -9 como último recurso\n\n\n\nUsa kill normal primero. El comando kill -9 fuerza el cierre inmediato del proceso y puede dejar archivos incompletos o resultados corruptos.\n\n\n\n\nDetener varios procesos por nombre\nPrimero verifica qué procesos coinciden con el nombre:\npgrep -a nombre_programa\nDespués puedes detenerlos con:\npkill nombre_programa\nPor ejemplo:\npgrep -a mafft\npkill mafft",
+    "text": "Detener procesos\n\n\n\n\n\n\nAntes de detener un proceso\n\n\n\nAsegúrate de que el proceso sea tuyo y de que realmente quieras detenerlo. No intentes detener procesos de otros usuarios o procesos del sistema.\n\n\n\nDetener un proceso por PID\nPrimero intenta un apagado limpio:\nkill PID\nPor ejemplo:\nkill 12345\nSi el proceso no se detiene, puedes forzarlo:\nkill -9 PID\n\n\n\n\n\n\nkill -9 como último recurso\n\n\n\nUsa kill normal primero. El comando kill -9 fuerza el cierre inmediato del proceso y puede dejar archivos incompletos o resultados corruptos.\n\n\n\n\nDetener varios procesos por nombre\nPrimero verifica qué procesos coinciden con el nombre:\npgrep -a nombre_programa\nDespués puedes detenerlos con:\npkill nombre_programa\nPor ejemplo:\npgrep -a mafft\npkill mafft",
     "crumbs": [
       "<span class='chapter-number'>3</span>  <span class='chapter-title'>Comandos básicos de Linux</span>"
     ]
@@ -264,7 +264,7 @@
     "href": "chapters/terminal_linux.html#sesiones-persistentes-con-tmux",
     "title": "Comandos básicos de Linux",
     "section": "Sesiones persistentes con tmux",
-    "text": "Sesiones persistentes con tmux\nCuando trabajas por SSH, la conexión puede cortarse por fallas de red, suspensión de la computadora o cierre accidental de la terminal. Para evitar perder tu trabajo, es recomendable usar sesiones persistentes con tmux.\n\nCrear una sesión\ntmux new -s mi_sesion\n\n\nSalir de la sesión sin cerrarla\nPresiona:\nCtrl + b\nLuego suelta las teclas y presiona:\nd\nEsto te desconecta de la sesión, pero la sesión sigue activa en el servidor.\n\n\nVolver a entrar a una sesión\ntmux attach -t mi_sesion\n\n\nListar sesiones activas\ntmux ls\n\n\n\n\n\n\nTipRecomendación\n\n\n\nUsa tmux cuando estés revisando archivos, preparando datos o ejecutando tareas cortas. Para análisis largos o pesados, usa Slurm.",
+    "text": "Sesiones persistentes con tmux\nCuando trabajas por SSH, la conexión puede cortarse por fallas de red, suspensión de la computadora o cierre accidental de la terminal. Para evitar perder tu trabajo, es recomendable usar sesiones persistentes con tmux.\n\nCrear una sesión\ntmux new -s mi_sesion\n\n\nSalir de la sesión sin cerrarla\nPresiona:\nCtrl + b\nLuego suelta las teclas y presiona:\nd\nEsto te desconecta de la sesión, pero la sesión sigue activa en el servidor.\n\n\nVolver a entrar a una sesión\ntmux attach -t mi_sesion\n\n\nListar sesiones activas\ntmux ls\n\n\n\n\n\n\nRecomendación\n\n\n\nUsa tmux cuando estés revisando archivos, preparando datos o ejecutando tareas cortas. Para análisis largos o pesados, usa Slurm.",
     "crumbs": [
       "<span class='chapter-number'>3</span>  <span class='chapter-title'>Comandos básicos de Linux</span>"
     ]
@@ -284,7 +284,7 @@
     "href": "chapters/terminal_linux.html#edición-rápida-de-archivos-con-nano",
     "title": "Comandos básicos de Linux",
     "section": "Edición rápida de archivos con nano",
-    "text": "Edición rápida de archivos con nano\nnano es un editor de texto sencillo que funciona dentro de la terminal.\nPara abrir o crear un archivo:\nnano archivo.txt\nAtajos útiles:\n\n\n\nAcción\nAtajo\n\n\n\n\nGuardar\nCtrl + O, luego Enter\n\n\nSalir\nCtrl + X\n\n\nBuscar texto\nCtrl + W\n\n\nCortar línea\nCtrl + K\n\n\nPegar línea\nCtrl + U\n\n\n\n\n\n\n\n\n\nNoteNota\n\n\n\nTambién existen otros editores como vim o emacs, pero nano suele ser más sencillo para comenzar.",
+    "text": "Edición rápida de archivos con nano\nnano es un editor de texto sencillo que funciona dentro de la terminal.\nPara abrir o crear un archivo:\nnano archivo.txt\nAtajos útiles:\n\n\n\nAcción\nAtajo\n\n\n\n\nGuardar\nCtrl + O, luego Enter\n\n\nSalir\nCtrl + X\n\n\nBuscar texto\nCtrl + W\n\n\nCortar línea\nCtrl + K\n\n\nPegar línea\nCtrl + U\n\n\n\n\n\n\n\n\n\nNota\n\n\n\nTambién existen otros editores como vim o emacs, pero nano suele ser más sencillo para comenzar.",
     "crumbs": [
       "<span class='chapter-number'>3</span>  <span class='chapter-title'>Comandos básicos de Linux</span>"
     ]
@@ -304,7 +304,7 @@
     "href": "chapters/terminal_linux.html#compresión-paralela-con-pigz",
     "title": "Comandos básicos de Linux",
     "section": "Compresión paralela con pigz",
-    "text": "Compresión paralela con pigz\npigz funciona de forma similar a gzip, pero puede usar varios núcleos para comprimir más rápido.\n\nComprimir con pigz\npigz archivo_grande.fastq\nEsto genera:\narchivo_grande.fastq.gz\n\n\nDescomprimir con unpigz\nunpigz archivo_grande.fastq.gz\n\n\n\n\n\n\nTipArchivos FASTQ\n\n\n\nEn bioinformática es común trabajar con archivos .fastq.gz o .fq.gz. Generalmente no es necesario descomprimirlos para todos los programas, ya que muchas herramientas pueden leerlos comprimidos.",
+    "text": "Compresión paralela con pigz\npigz funciona de forma similar a gzip, pero puede usar varios núcleos para comprimir más rápido.\n\nComprimir con pigz\npigz archivo_grande.fastq\nEsto genera:\narchivo_grande.fastq.gz\n\n\nDescomprimir con unpigz\nunpigz archivo_grande.fastq.gz\n\n\n\n\n\n\nArchivos FASTQ\n\n\n\nEn bioinformática es común trabajar con archivos .fastq.gz o .fq.gz. Generalmente no es necesario descomprimirlos para todos los programas, ya que muchas herramientas pueden leerlos comprimidos.",
     "crumbs": [
       "<span class='chapter-number'>3</span>  <span class='chapter-title'>Comandos básicos de Linux</span>"
     ]
@@ -554,9 +554,9 @@
     "href": "chapters/slurm.html",
     "title": "Uso básico de Slurm",
     "section": "",
-    "text": "¿Qué es Slurm?\nSlurm es un sistema de administración de trabajos para servidores y clústeres de cómputo. Su función es organizar el uso de los recursos disponibles, como CPUs, memoria RAM, tarjetas GPU y tiempo de ejecución.\nEn lugar de ejecutar análisis pesados directamente en la terminal, los usuarios envían sus trabajos a una cola mediante Slurm. El sistema decide cuándo y dónde correrlos, de acuerdo con los recursos solicitados y la disponibilidad de los nodos.\nEsto ayuda a:",
+    "text": "¿Qué es Slurm?\nSlurm es un sistema de administración de trabajos para servidores y clústeres de cómputo. Su función es organizar el uso de recursos compartidos como CPUs, memoria RAM, GPUs, nodos y tiempo de ejecución.\nEn un clúster, los análisis pesados no deben ejecutarse directamente en la terminal de acceso. En su lugar, se envían a una cola mediante Slurm. El sistema decide cuándo y en qué nodo se ejecutan, de acuerdo con los recursos solicitados y la disponibilidad del clúster.\nSlurm ayuda a:",
     "crumbs": [
-      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
     ]
   },
   {
@@ -564,9 +564,9 @@
     "href": "chapters/slurm.html#qué-es-slurm",
     "title": "Uso básico de Slurm",
     "section": "",
-    "text": "evitar que una sola persona sature el servidor;\norganizar los análisis de varios usuarios;\nasignar CPUs, memoria y GPUs de manera controlada;\ndejar registro de los trabajos ejecutados;\nmejorar la reproducibilidad de los análisis.",
+    "text": "evitar que una sola persona sature el servidor;\norganizar los análisis de varias personas usuarias;\nasignar CPUs, memoria y GPUs de manera controlada;\nregistrar los trabajos ejecutados;\nmejorar la reproducibilidad de los análisis.",
     "crumbs": [
-      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
     ]
   },
   {
@@ -574,9 +574,9 @@
     "href": "chapters/slurm.html#particiones-disponibles-para-usuarios-del-ib-unam",
     "title": "Uso básico de Slurm",
     "section": "Particiones disponibles para usuarios del IB-UNAM",
-    "text": "Particiones disponibles para usuarios del IB-UNAM\nEn Atocatl existen varias particiones de Slurm. Sin embargo, para los usuarios del Instituto de Biología, UNAM, las particiones principales de interés son:\n\n\n\n\n\n\n\n\n\nPartición\nNodo(s)\nRecursos principales\nUso recomendado\n\n\n\n\nib\nbeagle-01, beagle-02\nCPUs y memoria RAM\nTrabajos generales de bioinformática con CPU\n\n\ngpu_V100\nbeagle-gpu-01\n80 CPUs, ~754 GB RAM y 3 GPUs NVIDIA V100\nTrabajos que requieren GPU o análisis grandes que necesitan muchos CPUs y memoria\n\n\n\nPuedes revisar el estado de estas particiones con:\nsinfo -p ib,gpu_V100\nUna salida esperada puede verse así:\nPARTITION AVAIL  TIMELIMIT  NODES  STATE NODELIST\nib           up 5-00:00:00      2   idle beagle-[01-02]\ngpu_V100     up   infinite      1   idle beagle-gpu-01\nPara ver los recursos disponibles por nodo:\nsinfo -N -p ib,gpu_V100 -o \"%N %c CPUs %m MB %G %T\"\nEjemplo de salida:\nNODELIST       CPUS  MEMORY MB  GRES   STATE\nbeagle-01      32    96064      (null) idle\nbeagle-02      20    192616     (null) idle\nbeagle-gpu-01  80    772109     gpu:3  idle\nEsto indica que:\n\nbeagle-01 tiene 32 CPUs y aproximadamente 94 GB de RAM.\nbeagle-02 tiene 20 CPUs y aproximadamente 188 GB de RAM.\nbeagle-gpu-01 tiene 80 CPUs, aproximadamente 754 GB de RAM y 3 GPUs NVIDIA V100.\n\nPor esta razón, la partición gpu_V100 puede ser útil para trabajos que requieren GPU, pero también representa el nodo con mayor capacidad de CPU y memoria dentro de BEAGLE.",
+    "text": "Particiones disponibles para usuarios del IB-UNAM\nEn BEAGLE, las particiones principales para usuarios del Instituto de Biología, UNAM, son:\n\n\n\n\n\n\n\n\n\nPartición\nNodo(s)\nRecursos principales\nUso recomendado\n\n\n\n\nib\nbeagle-01, beagle-02\nCPUs y memoria RAM\nTrabajos generales de bioinformática con CPU\n\n\ngpu_V100\nbeagle-gpu-01\nCPUs, memoria RAM y GPUs NVIDIA V100\nTrabajos que requieren GPU o análisis grandes que necesitan muchos CPUs y memoria\n\n\n\nRecursos disponibles por nodo:\n\n\n\n\n\n\n\n\n\n\nNodo\nCPUs\nMemoria aproximada\nGPU\nPartición\n\n\n\n\nbeagle-01\n32\n94 GB\nNo\nib\n\n\nbeagle-02\n20\n188 GB\nNo\nib\n\n\nbeagle-gpu-01\n80\n754 GB\n3 × NVIDIA V100\ngpu_V100\n\n\n\n\n\n\n\n\n\nUso de la partición gpu_V100\n\n\n\nLa partición gpu_V100 contiene el nodo con mayor capacidad de CPU y memoria dentro de BEAGLE, pero también contiene las GPUs. No se debe solicitar GPU si el programa no la usa.",
     "crumbs": [
-      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
     ]
   },
   {
@@ -584,9 +584,9 @@
     "href": "chapters/slurm.html#conceptos-básicos",
     "title": "Uso básico de Slurm",
     "section": "Conceptos básicos",
-    "text": "Conceptos básicos\n\nJob\nUn job es un trabajo enviado a Slurm. Puede ser un script de Bash que ejecuta un análisis bioinformático, un programa de R, Python, Apptainer, BLAST, IQ-TREE, MAFFT, BEAST, RevBayes, entre otros.\n\n\nCola\nLa cola es la lista de trabajos que están esperando, corriendo o terminando dentro del sistema Slurm.\n\n\nPartición\nUna partición es una sección lógica del clúster. En este caso, las particiones principales para usuarios del IB-UNAM son:\nib\ngpu_V100\nUsar una partición significa indicar en qué grupo de nodos quieres ejecutar tu trabajo.\nPor ejemplo:\n#SBATCH -p ib\nsignifica:\n\nenviar mi trabajo a la partición ib.\n\nMientras que:\n#SBATCH -p gpu_V100\nsignifica:\n\nenviar mi trabajo a la partición con GPU V100.\n\n\n\nRecursos\nCuando envías un trabajo, debes indicar los recursos que necesitas. Por ejemplo:\n\nnúmero de CPUs;\nmemoria RAM;\ntiempo máximo de ejecución;\nnombre del trabajo;\npartición donde se ejecutará;\nnúmero de GPUs, si aplica.",
+    "text": "Conceptos básicos\n\nJob\nUn job es un trabajo enviado a Slurm. Puede ejecutar un programa, un script de Bash, un análisis en R o Python, un contenedor de Apptainer, o una herramienta bioinformática.\n\n\nCola\nLa cola es la lista de trabajos que están esperando, corriendo, terminando o detenidos dentro del sistema.\n\n\nNodo\nUn nodo es una computadora del clúster. Cada nodo tiene una cantidad específica de CPUs, memoria RAM y, en algunos casos, GPUs.\n\n\nPartición\nUna partición es un grupo lógico de nodos. Al enviar un trabajo se indica la partición donde debe ejecutarse.\n\n\nRecurso\nUn recurso es una parte del clúster que Slurm puede asignar a un trabajo. Los recursos más comunes son CPUs, memoria RAM, tiempo de ejecución, nodos y GPUs.",
     "crumbs": [
-      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
     ]
   },
   {
@@ -594,9 +594,9 @@
     "href": "chapters/slurm.html#comandos-básicos",
     "title": "Uso básico de Slurm",
     "section": "Comandos básicos",
-    "text": "Comandos básicos\n\nVer el estado del clúster\nsinfo\n\n\nVer solo las particiones del IB-UNAM\nsinfo -p ib,gpu_V100\n\n\nEstados comunes de los nodos\n\n\n\nEstado\nSignificado\n\n\n\n\nidle\nEl nodo está libre\n\n\nalloc\nEl nodo está ocupado\n\n\nmix\nEl nodo tiene algunos recursos ocupados y otros libres\n\n\ndown\nEl nodo no está disponible\n\n\ndrain\nEl nodo no acepta nuevos trabajos",
+    "text": "Comandos básicos\n\n\n\n\n\n\n\n\nAcción\nComando\nPara qué sirve\n\n\n\n\nVer estado del clúster\nsinfo\nMuestra particiones, nodos y estados generales\n\n\nVer particiones del IB-UNAM\nsinfo -p ib,gpu_V100\nFiltra la información a las particiones principales de BEAGLE\n\n\nVer recursos por nodo\nsinfo -N -p ib,gpu_V100 -o \"%N %c CPUs %m MB %G %T\"\nMuestra CPUs, memoria, GPUs y estado de cada nodo\n\n\nVer la cola\nsqueue\nLista los trabajos activos o pendientes\n\n\nVer solo tus trabajos\nsqueue -u $USER\nFiltra la cola por tu usuario\n\n\nEnviar un trabajo\nsbatch &lt;script.sh&gt;\nEnvía un script a Slurm\n\n\nCancelar un trabajo\nscancel &lt;JOBID&gt;\nCancela un trabajo específico\n\n\nCancelar tus trabajos\nscancel -u $USER\nCancela todos los trabajos de tu usuario",
     "crumbs": [
-      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
     ]
   },
   {
@@ -606,7 +606,7 @@
     "section": "Ver trabajos en cola",
     "text": "Ver trabajos en cola\nsqueue\nEjemplo:\nJOBID PARTITION     NAME     USER ST       TIME  NODES NODELIST(REASON)\n1234        ib  analisis cristian  R       1:23      1 beagle-01\n\nEstados comunes de los trabajos\n\n\n\nEstado\nSignificado\n\n\n\n\nR\nRunning, el trabajo está corriendo\n\n\nPD\nPending, el trabajo está esperando\n\n\nCG\nCompleting, el trabajo está terminando\n\n\nCD\nCompleted, el trabajo terminó correctamente\n\n\nF\nFailed, el trabajo falló\n\n\nCA\nCancelled, el trabajo fue cancelado",
     "crumbs": [
-      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
     ]
   },
   {
@@ -616,7 +616,7 @@
     "section": "Ver solo tus trabajos",
     "text": "Ver solo tus trabajos\nsqueue -u $USER",
     "crumbs": [
-      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
     ]
   },
   {
@@ -626,7 +626,7 @@
     "section": "Cancelar un trabajo",
     "text": "Cancelar un trabajo\nscancel JOBID\nEjemplo:\nscancel 1234",
     "crumbs": [
-      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
     ]
   },
   {
@@ -636,7 +636,7 @@
     "section": "Cancelar todos tus trabajos",
     "text": "Cancelar todos tus trabajos\nUsar con cuidado:\nscancel -u $USER",
     "crumbs": [
-      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
     ]
   },
   {
@@ -646,7 +646,7 @@
     "section": "Primer ejemplo: ejecutar un comando simple",
     "text": "Primer ejemplo: ejecutar un comando simple\nPuedes probar Slurm ejecutando el comando hostname en la partición ib:\nsrun -p ib -N1 -n1 hostname\nLa salida esperada será el nombre de alguno de los nodos asignados, por ejemplo:\nbeagle-01.lamod.unam.mx\no:\nbeagle-02.lamod.unam.mx\nEsto significa que Slurm ejecutó el comando en uno de los nodos de la partición ib.",
     "crumbs": [
-      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
     ]
   },
   {
@@ -656,7 +656,7 @@
     "section": "Enviar trabajos con sbatch",
     "text": "Enviar trabajos con sbatch\nLa forma recomendada de usar Slurm es crear un script y enviarlo con:\nsbatch script.sh\nUn script de Slurm es un archivo de Bash con instrucciones especiales que empiezan con:\n#SBATCH\nEstas líneas le dicen a Slurm qué recursos necesitas.",
     "crumbs": [
-      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
     ]
   },
   {
@@ -666,7 +666,7 @@
     "section": "Script mínimo de ejemplo para CPU",
     "text": "Script mínimo de ejemplo para CPU\nCrea un archivo llamado prueba_slurm.sh:\nnano prueba_slurm.sh\nContenido:\n#!/bin/bash\n#SBATCH -J prueba\n#SBATCH -p ib\n#SBATCH -N 1\n#SBATCH -n 1\n#SBATCH -c 2\n#SBATCH --mem=4G\n#SBATCH --time=00:05:00\n\necho \"Inicio: $(date)\"\necho \"Host: $(hostname)\"\necho \"Job ID: $SLURM_JOB_ID\"\necho \"Nombre del trabajo: $SLURM_JOB_NAME\"\necho \"CPUs asignadas: $SLURM_CPUS_PER_TASK\"\n\nsleep 10\n\necho \"Fin: $(date)\"\nEnviar el trabajo:\nsbatch prueba_slurm.sh\nSlurm responderá algo como:\nSubmitted batch job 1234",
     "crumbs": [
-      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
     ]
   },
   {
@@ -676,7 +676,7 @@
     "section": "Revisar la salida del trabajo",
     "text": "Revisar la salida del trabajo\nPor defecto, Slurm crea un archivo llamado:\nslurm-JOBID.out\nPor ejemplo:\ncat slurm-1234.out",
     "crumbs": [
-      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
     ]
   },
   {
@@ -686,7 +686,7 @@
     "section": "Personalizar el nombre de salida",
     "text": "Personalizar el nombre de salida\nEs recomendable guardar las salidas y errores en una carpeta llamada logs.\nCrear la carpeta:\nmkdir -p logs\nEjemplo de script:\n#!/bin/bash\n#SBATCH -J prueba\n#SBATCH -p ib\n#SBATCH -N 1\n#SBATCH -n 1\n#SBATCH -c 2\n#SBATCH --mem=4G\n#SBATCH --time=00:05:00\n#SBATCH -o logs/%x_%j.out\n#SBATCH -e logs/%x_%j.err\n\necho \"Inicio: $(date)\"\necho \"Host: $(hostname)\"\necho \"Job ID: $SLURM_JOB_ID\"\necho \"Fin: $(date)\"\nDonde:\n\n\n\nCódigo\nSignificado\n\n\n\n\n%x\nNombre del trabajo\n\n\n%j\nID del trabajo\n\n\n\nAsí se generan archivos como:\nlogs/prueba_1234.out\nlogs/prueba_1234.err",
     "crumbs": [
-      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
     ]
   },
   {
@@ -696,7 +696,7 @@
     "section": "Parámetros principales de Slurm",
     "text": "Parámetros principales de Slurm\n\n\n\nOpción\nSignificado\n\n\n\n\n#SBATCH -J nombre\nNombre del trabajo\n\n\n#SBATCH -p ib\nPartición donde se ejecuta\n\n\n#SBATCH -N 1\nNúmero de nodos\n\n\n#SBATCH -n 1\nNúmero de tareas\n\n\n#SBATCH -c 4\nCPUs por tarea\n\n\n#SBATCH --mem=16G\nMemoria solicitada\n\n\n#SBATCH --time=01:00:00\nTiempo máximo\n\n\n#SBATCH -o archivo.out\nArchivo de salida estándar\n\n\n#SBATCH -e archivo.err\nArchivo de error\n\n\n#SBATCH --gres=gpu:1\nSolicitar una GPU, cuando aplique",
     "crumbs": [
-      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
     ]
   },
   {
@@ -706,7 +706,7 @@
     "section": "¿Cuántas CPUs pedir?",
     "text": "¿Cuántas CPUs pedir?\nNo siempre conviene pedir muchas CPUs. Solo deben solicitarse más CPUs si el programa realmente puede usarlas.\nEjemplos:\n\nPrograma de un solo hilo\n#SBATCH -c 1\n\n\nPrograma con 4 hilos\n#SBATCH -c 4\n\n\nPrograma con 16 hilos\n#SBATCH -c 16\nAdemás, dentro del comando del programa hay que indicar el mismo número de hilos usando la variable:\n$SLURM_CPUS_PER_TASK\nEjemplo con fastp:\nfastp \\\n  -i muestra_R1.fastq.gz \\\n  -I muestra_R2.fastq.gz \\\n  -o limpia_R1.fastq.gz \\\n  -O limpia_R2.fastq.gz \\\n  -w $SLURM_CPUS_PER_TASK\nEjemplo con iqtree2:\niqtree2 -s alineamiento.phy -T $SLURM_CPUS_PER_TASK\nEjemplo con mafft:\nmafft --thread $SLURM_CPUS_PER_TASK entrada.fasta &gt; alineado.fasta",
     "crumbs": [
-      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
     ]
   },
   {
@@ -716,7 +716,7 @@
     "section": "Ejemplo para un programa bioinformático en CPU",
     "text": "Ejemplo para un programa bioinformático en CPU\nArchivo sugerido:\nmafft_test.sh\nContenido:\n#!/bin/bash\n#SBATCH -J mafft_test\n#SBATCH -p ib\n#SBATCH -N 1\n#SBATCH -n 1\n#SBATCH -c 8\n#SBATCH --mem=16G\n#SBATCH --time=02:00:00\n#SBATCH -o logs/%x_%j.out\n#SBATCH -e logs/%x_%j.err\n\nset -euo pipefail\n\nmkdir -p logs resultados\n\necho \"====================================\"\necho \"Trabajo: $SLURM_JOB_NAME\"\necho \"Job ID: $SLURM_JOB_ID\"\necho \"Usuario: $USER\"\necho \"Host: $(hostname)\"\necho \"Inicio: $(date)\"\necho \"CPUs asignadas: $SLURM_CPUS_PER_TASK\"\necho \"Directorio de envío: $SLURM_SUBMIT_DIR\"\necho \"====================================\"\n\nmafft --thread $SLURM_CPUS_PER_TASK \\\n  datos/secuencias.fasta \\\n  &gt; resultados/secuencias_alineadas.fasta\n\necho \"====================================\"\necho \"Fin: $(date)\"\necho \"====================================\"\nEnviar:\nsbatch mafft_test.sh",
     "crumbs": [
-      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
     ]
   },
   {
@@ -726,7 +726,7 @@
     "section": "Ejemplo con Apptainer en CPU",
     "text": "Ejemplo con Apptainer en CPU\nSi el análisis usa un contenedor de Apptainer, puedes usar la partición ib.\n#!/bin/bash\n#SBATCH -J apptainer_cpu\n#SBATCH -p ib\n#SBATCH -N 1\n#SBATCH -n 1\n#SBATCH -c 4\n#SBATCH --mem=8G\n#SBATCH --time=01:00:00\n#SBATCH -o logs/%x_%j.out\n#SBATCH -e logs/%x_%j.err\n\nset -euo pipefail\n\nmkdir -p logs resultados\n\necho \"Inicio: $(date)\"\necho \"Host: $(hostname)\"\necho \"Job ID: $SLURM_JOB_ID\"\n\napptainer exec programa.sif programa --help\n\necho \"Fin: $(date)\"",
     "crumbs": [
-      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
     ]
   },
   {
@@ -736,7 +736,7 @@
     "section": "Ejemplo con carpetas enlazadas en Apptainer",
     "text": "Ejemplo con carpetas enlazadas en Apptainer\nCuando se trabaja con contenedores, es útil enlazar la carpeta actual como /work dentro del contenedor.\n#!/bin/bash\n#SBATCH -J apptainer_cpu\n#SBATCH -p ib\n#SBATCH -N 1\n#SBATCH -n 1\n#SBATCH -c 4\n#SBATCH --mem=8G\n#SBATCH --time=01:00:00\n#SBATCH -o logs/%x_%j.out\n#SBATCH -e logs/%x_%j.err\n\nset -euo pipefail\n\nmkdir -p logs resultados\n\necho \"Inicio: $(date)\"\necho \"Host: $(hostname)\"\n\napptainer exec \\\n  --bind $PWD:/work \\\n  --pwd /work \\\n  programa.sif \\\n  programa input.fasta output.txt\n\necho \"Fin: $(date)\"",
     "crumbs": [
-      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
     ]
   },
   {
@@ -746,7 +746,7 @@
     "section": "Ejemplo para usar la partición con GPU V100",
     "text": "Ejemplo para usar la partición con GPU V100\nPara trabajos que requieren GPU, se debe usar la partición:\ngpu_V100\nUn script básico puede verse así:\n#!/bin/bash\n#SBATCH -J gpu_test\n#SBATCH -p gpu_V100\n#SBATCH -N 1\n#SBATCH -n 1\n#SBATCH -c 4\n#SBATCH --mem=16G\n#SBATCH --gres=gpu:1\n#SBATCH --time=01:00:00\n#SBATCH -o logs/%x_%j.out\n#SBATCH -e logs/%x_%j.err\n\nset -euo pipefail\n\nmkdir -p logs resultados\n\necho \"====================================\"\necho \"Trabajo: $SLURM_JOB_NAME\"\necho \"Job ID: $SLURM_JOB_ID\"\necho \"Usuario: $USER\"\necho \"Host: $(hostname)\"\necho \"Inicio: $(date)\"\necho \"CPUs asignadas: $SLURM_CPUS_PER_TASK\"\necho \"Nodo asignado: $SLURM_JOB_NODELIST\"\necho \"====================================\"\n\nnvidia-smi\n\necho \"Fin: $(date)\"\nEnviar:\nsbatch gpu_test.sh\nSi el trabajo se ejecuta correctamente, el archivo de salida debe mostrar información de la GPU NVIDIA V100 disponible en el nodo asignado.",
     "crumbs": [
-      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
     ]
   },
   {
@@ -756,7 +756,7 @@
     "section": "Ejemplo con Apptainer y GPU",
     "text": "Ejemplo con Apptainer y GPU\nPara usar GPU dentro de un contenedor de Apptainer, normalmente se usa la opción:\n--nv\nEjemplo:\n#!/bin/bash\n#SBATCH -J apptainer_gpu\n#SBATCH -p gpu_V100\n#SBATCH -N 1\n#SBATCH -n 1\n#SBATCH -c 8\n#SBATCH --mem=32G\n#SBATCH --gres=gpu:1\n#SBATCH --time=04:00:00\n#SBATCH -o logs/%x_%j.out\n#SBATCH -e logs/%x_%j.err\n\nset -euo pipefail\n\nmkdir -p logs resultados\n\necho \"====================================\"\necho \"Trabajo: $SLURM_JOB_NAME\"\necho \"Job ID: $SLURM_JOB_ID\"\necho \"Usuario: $USER\"\necho \"Host: $(hostname)\"\necho \"Inicio: $(date)\"\necho \"CPUs asignadas: $SLURM_CPUS_PER_TASK\"\necho \"Nodo asignado: $SLURM_JOB_NODELIST\"\necho \"====================================\"\n\nnvidia-smi\n\napptainer exec \\\n  --nv \\\n  --bind $PWD:/work \\\n  --pwd /work \\\n  programa_gpu.sif \\\n  programa_gpu --help\n\necho \"====================================\"\necho \"Fin: $(date)\"\necho \"====================================\"",
     "crumbs": [
-      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
     ]
   },
   {
@@ -764,9 +764,9 @@
     "href": "chapters/slurm.html#variables-útiles-de-slurm",
     "title": "Uso básico de Slurm",
     "section": "Variables útiles de Slurm",
-    "text": "Variables útiles de Slurm\nDentro de un script, Slurm crea variables automáticamente.\n\n\n\nVariable\nSignificado\n\n\n\n\n$SLURM_JOB_ID\nID del trabajo\n\n\n$SLURM_JOB_NAME\nNombre del trabajo\n\n\n$SLURM_CPUS_PER_TASK\nCPUs asignadas\n\n\n$SLURM_SUBMIT_DIR\nCarpeta desde donde se envió el trabajo\n\n\n$SLURM_JOB_NODELIST\nNodo asignado\n\n\n$SLURM_GPUS\nGPUs asignadas, si aplica\n\n\n\nEjemplo:\necho \"Job ID: $SLURM_JOB_ID\"\necho \"Nombre: $SLURM_JOB_NAME\"\necho \"CPUs: $SLURM_CPUS_PER_TASK\"\necho \"Directorio de envío: $SLURM_SUBMIT_DIR\"\necho \"Nodo asignado: $SLURM_JOB_NODELIST\"",
+    "text": "Variables útiles de Slurm\nSlurm crea variables automáticamente dentro de cada trabajo.\n\n\n\n\n\n\n\nVariable\nSignificado\n\n\n\n\n$SLURM_JOB_ID\nID del trabajo\n\n\n$SLURM_JOB_NAME\nNombre del trabajo\n\n\n$SLURM_CPUS_PER_TASK\nCPUs asignadas por tarea\n\n\n$SLURM_SUBMIT_DIR\nCarpeta desde donde se envió el trabajo\n\n\n$SLURM_JOB_NODELIST\nNodo o nodos asignados\n\n\n$SLURM_GPUS\nGPUs asignadas, si aplica\n\n\n$SLURM_MEM_PER_NODE\nMemoria asignada por nodo, si está disponible\n\n\n$SLURM_NTASKS\nNúmero de tareas asignadas",
     "crumbs": [
-      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
     ]
   },
   {
@@ -774,9 +774,9 @@
     "href": "chapters/slurm.html#buenas-prácticas",
     "title": "Uso básico de Slurm",
     "section": "Buenas prácticas",
-    "text": "Buenas prácticas\n\n1. No correr análisis pesados directamente en la terminal\nEvita ejecutar programas pesados directamente en el nodo de acceso:\niqtree2 -s archivo.phy -T 32\nEn su lugar, crea un script y envíalo con:\nsbatch script.sh\n\n\n2. No pedir más CPUs de las necesarias\nSi un programa solo usa 4 hilos, no pidas 32 CPUs.\nMal:\n#SBATCH -c 32\nBien:\n#SBATCH -c 4\n\n\n3. Usar la partición correcta\nPara trabajos generales con CPU:\n#SBATCH -p ib\nPara trabajos con GPU V100:\n#SBATCH -p gpu_V100\n#SBATCH --gres=gpu:1\n\n\n4. Siempre usar carpetas organizadas\nEjemplo:\nproyecto/\n├── datos/\n├── scripts/\n├── resultados/\n└── logs/\n\n\n5. Guardar salidas y errores\nUsa:\n#SBATCH -o logs/%x_%j.out\n#SBATCH -e logs/%x_%j.err\n\n\n6. Probar primero con datos pequeños\nAntes de enviar un análisis grande, prueba con un subconjunto de datos para asegurarte de que el comando funciona correctamente.\n\n\n7. Revisar los logs\nSi un trabajo falla, revisa primero:\ncat logs/nombre_JOBID.err\ncat logs/nombre_JOBID.out\nTambién puedes revisar los archivos con:\nless logs/nombre_JOBID.err\nless logs/nombre_JOBID.out",
+    "text": "Buenas prácticas\n\nNo correr análisis pesados en la terminal de acceso\nLa terminal de acceso debe usarse para preparar archivos, revisar resultados, editar scripts y enviar trabajos. Los análisis pesados deben enviarse a Slurm.\n\n\nSolicitar recursos razonables\nPide CPUs, memoria y tiempo de acuerdo con el programa y el tamaño de tus datos. Si no conoces el consumo, empieza con una prueba pequeña y revisa los resultados.\n\n\nUsar la partición correcta\nUsa ib para trabajos generales con CPU. Usa gpu_V100 cuando necesites GPU o cuando el análisis requiera más CPU y memoria de la que ofrecen los nodos de ib.\n\n\nHacer coincidir CPUs e hilos\nEl número de CPUs solicitado debe coincidir con los hilos configurados dentro del programa. Para scripts, es recomendable usar $SLURM_CPUS_PER_TASK cuando el programa permita definir hilos.\n\n\nGuardar salidas y errores\nUsa una carpeta logs/ para archivos .out y .err. Esto facilita revisar si el trabajo terminó correctamente o si falló.\n\n\nNo solicitar GPU sin necesidad\nUna GPU reservada queda bloqueada para otros usuarios. Solo solicita GPU cuando el programa esté preparado para usarla.\n\n\nRevisar el historial de trabajos\nDespués de terminar un análisis, consulta el estado final, el tiempo usado y posibles errores. Esto ayuda a ajustar recursos para futuros trabajos.",
     "crumbs": [
-      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
     ]
   },
   {
@@ -786,7 +786,7 @@
     "section": "Plantilla recomendada para usar CPU y RAM en ib o gpu_V100",
     "text": "Plantilla recomendada para usar CPU y RAM en ib o gpu_V100\nEsta plantilla sirve para trabajos que usan principalmente CPUs y memoria RAM. Puede utilizarse en la partición ib para análisis generales, o en la partición gpu_V100 cuando se requiere más capacidad de CPU y memoria RAM.\nPara trabajos normales con CPU se recomienda usar:\n#SBATCH -p ib\nPara trabajos muy grandes que necesitan más CPUs o mucha memoria RAM, pero no necesariamente GPU, puede usarse:\n#SBATCH -p gpu_V100\nPlantilla:\n#!/bin/bash\n#SBATCH -J nombre_del_analisis\n#SBATCH -p ib\n#SBATCH -N 1\n#SBATCH -n 1\n#SBATCH -c 8\n#SBATCH --mem=32G\n#SBATCH --time=04:00:00\n#SBATCH -o logs/%x_%j.out\n#SBATCH -e logs/%x_%j.err\n\nset -euo pipefail\n\nmkdir -p logs resultados\n\necho \"====================================\"\necho \"Trabajo: $SLURM_JOB_NAME\"\necho \"Job ID: $SLURM_JOB_ID\"\necho \"Usuario: $USER\"\necho \"Host: $(hostname)\"\necho \"Inicio: $(date)\"\necho \"CPUs asignadas: $SLURM_CPUS_PER_TASK\"\necho \"Directorio de envío: $SLURM_SUBMIT_DIR\"\necho \"Nodo asignado: $SLURM_JOB_NODELIST\"\necho \"====================================\"\n\n# Aquí va el comando principal del análisis\n# Ejemplos:\n# mafft --thread $SLURM_CPUS_PER_TASK datos/secuencias.fasta &gt; resultados/secuencias_alineadas.fasta\n# iqtree2 -s datos/alineamiento.phy -T $SLURM_CPUS_PER_TASK\n# Rscript scripts/analisis.R\n\necho \"Aquí va el análisis\"\n\necho \"====================================\"\necho \"Fin: $(date)\"\necho \"====================================\"\nPara usar esta misma plantilla en el nodo beagle-gpu-01 solo con CPU y RAM, cambia la partición:\n#SBATCH -p gpu_V100\nPor ejemplo:\n#SBATCH -p gpu_V100\n#SBATCH -c 32\n#SBATCH --mem=200G",
     "crumbs": [
-      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
     ]
   },
   {
@@ -796,7 +796,7 @@
     "section": "Plantilla recomendada para usar GPUs en gpu_V100",
     "text": "Plantilla recomendada para usar GPUs en gpu_V100\nEsta plantilla debe usarse cuando el análisis requiere GPUs NVIDIA V100. En este caso se debe usar la partición gpu_V100 y solicitar explícitamente el número de GPUs necesarias.\nPara solicitar una GPU:\n#SBATCH --gres=gpu:1\nPlantilla:\n#!/bin/bash\n#SBATCH -J nombre_gpu\n#SBATCH -p gpu_V100\n#SBATCH -N 1\n#SBATCH -n 1\n#SBATCH -c 8\n#SBATCH --mem=32G\n#SBATCH --gres=gpu:1\n#SBATCH --time=04:00:00\n#SBATCH -o logs/%x_%j.out\n#SBATCH -e logs/%x_%j.err\n\nset -euo pipefail\n\nmkdir -p logs resultados\n\necho \"====================================\"\necho \"Trabajo: $SLURM_JOB_NAME\"\necho \"Job ID: $SLURM_JOB_ID\"\necho \"Usuario: $USER\"\necho \"Host: $(hostname)\"\necho \"Inicio: $(date)\"\necho \"CPUs asignadas: $SLURM_CPUS_PER_TASK\"\necho \"Nodo asignado: $SLURM_JOB_NODELIST\"\necho \"GPUs asignadas: ${SLURM_GPUS:-No disponible}\"\necho \"====================================\"\n\necho \"Revisando GPU disponible:\"\nnvidia-smi\n\n# Aquí va el comando principal del análisis con GPU\n# Ejemplo general:\n# programa_gpu --threads $SLURM_CPUS_PER_TASK\n\necho \"Aquí va el análisis con GPU\"\n\necho \"====================================\"\necho \"Fin: $(date)\"\necho \"====================================\"\nSi el análisis usa un contenedor de Apptainer con GPU, se debe agregar la opción --nv:\napptainer exec \\\n  --nv \\\n  --bind $PWD:/work \\\n  --pwd /work \\\n  programa_gpu.sif \\\n  programa_gpu input.fasta output.txt\nLa opción --nv permite que el contenedor detecte las GPUs NVIDIA disponibles en el nodo.",
     "crumbs": [
-      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
     ]
   },
   {
@@ -806,7 +806,7 @@
     "section": "Resumen de comandos esenciales",
     "text": "Resumen de comandos esenciales\n\n\n\n\n\n\n\nAcción\nComando\n\n\n\n\nVer estado del clúster\nsinfo\n\n\nVer particiones del IB-UNAM\nsinfo -p ib,gpu_V100\n\n\nVer recursos por nodo\nsinfo -N -p ib,gpu_V100 -o \"%N %c CPUs %m MB %G %T\"\n\n\nVer cola\nsqueue\n\n\nVer tus trabajos\nsqueue -u $USER\n\n\nEnviar trabajo\nsbatch script.sh\n\n\nCancelar trabajo\nscancel JOBID\n\n\nCancelar todos tus trabajos\nscancel -u $USER\n\n\nEjecutar comando simple en CPU\nsrun -p ib -N1 -n1 hostname\n\n\nEjecutar comando simple en GPU\nsrun -p gpu_V100 --gres=gpu:1 -N1 -n1 nvidia-smi",
     "crumbs": [
-      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
     ]
   },
   {
@@ -816,7 +816,7 @@
     "section": "¿Qué pasa si solicito menos o más recursos de los necesarios?",
     "text": "¿Qué pasa si solicito menos o más recursos de los necesarios?\nCuando se envía un trabajo a Slurm, los recursos solicitados deben ser lo más cercanos posible a lo que realmente necesita el análisis. Pedir menos recursos puede hacer que el trabajo falle o tarde demasiado. Pedir recursos de más puede hacer que el trabajo espere más tiempo en la cola y que otros usuarios no puedan usar esos recursos.",
     "crumbs": [
-      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
     ]
   },
   {
@@ -826,7 +826,7 @@
     "section": "Si solicitas menos recursos de los necesarios",
     "text": "Si solicitas menos recursos de los necesarios\n\nMenos CPUs de las necesarias\nSi pides pocas CPUs, el análisis puede correr más lento.\nPor ejemplo:\n#SBATCH -c 2\npero el programa podría funcionar mejor con 8 CPUs:\nmafft --thread 8 entrada.fasta &gt; salida.fasta\nEn este caso hay un problema: el script pidió 2 CPUs, pero el programa intenta usar 8. Esto puede saturar el nodo o hacer que Slurm limite el trabajo, dependiendo de la configuración del sistema.\nLo correcto es que el número de CPUs solicitado coincida con el número de hilos usados por el programa:\n#SBATCH -c 8\ny dentro del comando:\nmafft --thread $SLURM_CPUS_PER_TASK entrada.fasta &gt; salida.fasta\n\n\nMenos memoria de la necesaria\nSi pides menos memoria RAM de la que necesita el análisis, el trabajo puede fallar.\nPor ejemplo:\n#SBATCH --mem=4G\npero el análisis necesita 20 GB de RAM.\nEn ese caso, Slurm o el sistema pueden terminar el trabajo automáticamente. El error puede aparecer en los archivos .err o .out con mensajes como:\nOut Of Memory\noom-kill\nKilled\no el trabajo puede aparecer como fallido en Slurm.\n\n\nMenos tiempo del necesario\nSi pides menos tiempo del que necesita el análisis:\n#SBATCH --time=00:30:00\npero el programa necesita 2 horas, Slurm cancelará el trabajo cuando se cumpla el tiempo máximo.\nEl trabajo puede aparecer con estado:\nTIMEOUT\no como cancelado por límite de tiempo.",
     "crumbs": [
-      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
     ]
   },
   {
@@ -836,7 +836,7 @@
     "section": "Si solicitas más recursos de los necesarios",
     "text": "Si solicitas más recursos de los necesarios\nPedir más recursos de los que realmente usa el análisis no hace que el programa corra más rápido automáticamente.\nPor ejemplo, si pides:\n#SBATCH -c 32\n#SBATCH --mem=200G\npero tu programa solo usa 4 CPUs y 10 GB de RAM, los recursos restantes quedan reservados para tu trabajo aunque no se estén usando.\nEsto puede provocar que:\n\ntu trabajo tarde más en iniciar porque Slurm necesita encontrar un nodo con muchos recursos libres;\notros usuarios no puedan usar esas CPUs o memoria mientras tu trabajo está corriendo;\nse desperdicie capacidad del clúster;\nse reduzca la eficiencia general del sistema.\n\nEn algunos sistemas, además, el uso de recursos puede afectar métricas de prioridad o reportes de consumo, aunque el programa no haya usado todo lo solicitado.",
     "crumbs": [
-      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
     ]
   },
   {
@@ -846,7 +846,7 @@
     "section": "Ejemplo de mala práctica",
     "text": "Ejemplo de mala práctica\n#SBATCH -p ib\n#SBATCH -c 32\n#SBATCH --mem=100G\npero el comando ejecutado es:\niqtree2 -s alineamiento.phy -T 4\nAquí se reservaron 32 CPUs, pero IQ-TREE solo usará 4. Las otras 28 CPUs quedan apartadas sin utilizarse.",
     "crumbs": [
-      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
     ]
   },
   {
@@ -856,7 +856,7 @@
     "section": "Ejemplo correcto",
     "text": "Ejemplo correcto\n#SBATCH -p ib\n#SBATCH -c 4\n#SBATCH --mem=16G\ny el comando:\niqtree2 -s alineamiento.phy -T $SLURM_CPUS_PER_TASK\nEn este caso, Slurm asigna 4 CPUs y el programa usa esas mismas 4 CPUs.",
     "crumbs": [
-      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
     ]
   },
   {
@@ -866,7 +866,7 @@
     "section": "Recomendación práctica",
     "text": "Recomendación práctica\nSi no sabes cuántos recursos necesita tu análisis, empieza con una prueba pequeña.\nPor ejemplo:\n#SBATCH -c 4\n#SBATCH --mem=16G\n#SBATCH --time=01:00:00\nDespués revisa si el trabajo terminó correctamente. Si falló por memoria, aumenta la memoria. Si tardó demasiado pero no falló, puedes aumentar el tiempo. Si el programa permite usar más hilos, puedes aumentar CPUs de forma razonable.",
     "crumbs": [
-      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
     ]
   },
   {
@@ -876,7 +876,7 @@
     "section": "Regla general",
     "text": "Regla general\n\n\n\n\n\n\n\nSituación\nConsecuencia\n\n\n\n\nPedir menos CPUs\nEl análisis puede tardar más\n\n\nPedir menos memoria\nEl trabajo puede fallar por falta de RAM\n\n\nPedir menos tiempo\nSlurm puede cancelar el trabajo por límite de tiempo\n\n\nPedir más CPUs de las usadas\nSe desperdician CPUs reservadas\n\n\nPedir más memoria de la usada\nSe bloquea memoria que otros usuarios podrían usar\n\n\nPedir GPU sin usarla\nSe reserva una GPU innecesariamente\n\n\nUsar más hilos de los solicitados\nPuede saturar el nodo o violar las buenas prácticas de uso",
     "crumbs": [
-      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
     ]
   },
   {
@@ -884,9 +884,9 @@
     "href": "chapters/bots.html",
     "title": "Notificaciones automáticas",
     "section": "",
-    "text": "Mensajes a Telegram:\n✅ Ese token es tu “contraseña” del bot, No lo compartas!!!",
+    "text": "Mensajes a Telegram\nEsta sección explica cómo preparar notificaciones automáticas desde scripts de Bash, pipelines o análisis largos. La idea es recibir avisos cuando un proceso inicia, termina correctamente o falla.",
     "crumbs": [
-      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Notificaciones automáticas</span>"
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Notificaciones automáticas</span>"
     ]
   },
   {
@@ -894,9 +894,9 @@
     "href": "chapters/bots.html#mensajes-a-telegram",
     "title": "Notificaciones automáticas",
     "section": "",
-    "text": "Busca @BotFather y ABRIR\n\n\n\n\n\n\n\nCrear un nuevo Bot\n\n\n\n\n\n\n\nPonle un nombre al Bot y elige un nombre de usuario que termine en bot, el usarname tiene que estar disponible\n\n\n\n\n\n\n\nBotFather te dará un TOKEN\n\n\n\n\n\n\n\n\nAbre el chat con tu bot (búscalo por username).\n\n\n\n\n\n\n\nPresiona Iniciar",
+    "text": "Crear un bot en Telegram\n\nBusca @BotFather y abre el chat.\n\n\n\n\n\n\n\nCrea un nuevo bot.\n\n\n\n\n\n\n\nPonle un nombre al bot y elige un nombre de usuario que termine en bot. El username debe estar disponible.\n\n\n\n\n\n\n\nBotFather te dará un token.\n\n\n\n\n\n\n✅ Ese token es tu contraseña del bot. No lo compartas.\n\nAbre el chat con tu bot, buscándolo por su username.\n\n\n\n\n\n\n\nPresiona Iniciar.",
     "crumbs": [
-      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Notificaciones automáticas</span>"
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Notificaciones automáticas</span>"
     ]
   },
   {
@@ -906,7 +906,7 @@
     "section": "Conseguir tu chat_id (para mandarte mensajes)",
     "text": "Conseguir tu chat_id (para mandarte mensajes)\nTOKEN=\"TU_TOKEN_AQUI\"\ncurl -s \"https://api.telegram.org/bot${TOKEN}/getUpdates\" \nBusca en la salida algo así:\n\"chat\":{\"id\":123456789,\"first_name\":\"Pedro\", ...}\n📌 “id”:123456789 ese número es tu CHAT_ID.\n\nEnviar un mensaje con curl (lo esencial)\nTOKEN=\"TU_TOKEN_AQUI\"\nCHAT_ID=\"TU_CHAT_ID_AQUI\"\n\ncurl -s -X POST \"https://api.telegram.org/bot${TOKEN}/sendMessage\" \\\n  -d \"chat_id=${CHAT_ID}\" \\\n  -d \"text=Hola 👋 Mensaje enviado desde Bash\"",
     "crumbs": [
-      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Notificaciones automáticas</span>"
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Notificaciones automáticas</span>"
     ]
   },
   {
@@ -916,7 +916,7 @@
     "section": "Buenas prácticas: NO hardcodear el token (y no subirlo a git)",
     "text": "Buenas prácticas: NO hardcodear el token (y no subirlo a git)\n\nArchivo .env (recomendado)\nCrea un archivo .env fuera de tu repo o ignóralo con .gitignore:\nnano .env\nPegar la info en el archivo .env\nTOKEN=\"TU_TOKEN_AQUI\"\nCHAT_ID=\"TU_CHAT_ID_AQUI\"\nEn tu script agrega estas lineas\nsource .env\nSI esta en tu proyecto git agrega el archivo a tu .gitignore:\nnano .gitignore\nY agrega el archivo\n.env\nAdemás agregar seguridad al archivo\nchmod 600 .env",
     "crumbs": [
-      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Notificaciones automáticas</span>"
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Notificaciones automáticas</span>"
     ]
   },
   {
@@ -926,7 +926,7 @@
     "section": "Función reusable tg_send (para cualquier script)",
     "text": "Función reusable tg_send (para cualquier script)\ntg_send () {\n  local msg=\"$1\"\n  curl -s -X POST \"https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage\" \\\n    -d \"chat_id=${TELEGRAM_CHAT_ID}\" \\\n    -d \"text=${msg}\" \\\n    -d \"disable_web_page_preview=true\" &gt; /dev/null\n}\nUso:\ntg_send \"✅ Pipeline terminó correctamente.\"",
     "crumbs": [
-      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Notificaciones automáticas</span>"
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Notificaciones automáticas</span>"
     ]
   },
   {
@@ -936,7 +936,7 @@
     "section": "Usar Telegram en un script de Slurm",
     "text": "Usar Telegram en un script de Slurm\nUna forma útil de usar Telegram es enviar una notificación cuando un trabajo inicia y otra cuando termina. Esto permite saber si el análisis ya comenzó, si finalizó correctamente o si terminó con error.\nEjemplo básico de script de Slurm:\n#!/bin/bash\n#SBATCH --job-name=prueba_telegram\n#SBATCH --partition=ib\n#SBATCH --cpus-per-task=4\n#SBATCH --mem=8G\n#SBATCH --time=01:00:00\n#SBATCH --output=logs/%x_%j.out\n#SBATCH --error=logs/%x_%j.err\n\n# Cargar variables de Telegram\nsource /ruta/a/tu/.env\n\n# Función para enviar mensajes a Telegram\ntg_send () {\n  local msg=\"$1\"\n  curl -s -X POST \"https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage\" \\\n    -d \"chat_id=${TELEGRAM_CHAT_ID}\" \\\n    -d \"text=${msg}\" \\\n    -d \"disable_web_page_preview=true\" &gt; /dev/null\n}\n\n# Mensaje al iniciar\ntg_send \"🚀 Inició el trabajo ${SLURM_JOB_NAME} con ID ${SLURM_JOB_ID} en el nodo ${SLURMD_NODENAME}\"\n\n# Aquí va tu análisis\necho \"Corriendo análisis...\"\nsleep 30\n\n# Guardar el estado del último comando\nstatus=$?\n\n# Mensaje al terminar\nif [ $status -eq 0 ]; then\n  tg_send \"✅ Terminó correctamente el trabajo ${SLURM_JOB_NAME} con ID ${SLURM_JOB_ID}\"\nelse\n  tg_send \"❌ El trabajo ${SLURM_JOB_NAME} con ID ${SLURM_JOB_ID} terminó con error\"\nfi\nPara enviar el trabajo a Slurm:\nsbatch script_telegram.slurm\nEn este ejemplo, Telegram enviará un mensaje cuando el trabajo comience y otro cuando termine.",
     "crumbs": [
-      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Notificaciones automáticas</span>"
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Notificaciones automáticas</span>"
     ]
   },
   {
@@ -946,7 +946,7 @@
     "section": "Archivo .env para Slurm",
     "text": "Archivo .env para Slurm\nPara que el script anterior funcione, el archivo .env debe tener los mismos nombres de variables que usa la función tg_send:\nTELEGRAM_BOT_TOKEN=\"TU_TOKEN_AQUI\"\nTELEGRAM_CHAT_ID=\"TU_CHAT_ID_AQUI\"\nSe recomienda guardar este archivo fuera del repositorio del proyecto y darle permisos restringidos:\nchmod 600 /ruta/a/tu/.env\nSi el archivo .env está dentro del proyecto, debe agregarse al .gitignore:\n.env",
     "crumbs": [
-      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Notificaciones automáticas</span>"
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Notificaciones automáticas</span>"
     ]
   },
   {
@@ -954,9 +954,9 @@
     "href": "chapters/bots.html#mensajes-a-discord",
     "title": "Notificaciones automáticas",
     "section": "Mensajes a Discord",
-    "text": "Mensajes a Discord\nDiscord puede utilizarse para recibir notificaciones automáticas desde scripts de Bash o trabajos enviados con Slurm. Para este tipo de uso no es necesario crear un bot completo: lo más práctico es usar webhooks.\nUn webhook es una URL especial asociada a un canal de Discord. Cuando un script envía un mensaje a esa URL, el mensaje aparece automáticamente en ese canal.\n\n\n\n\n\n\nTipRecomendación para BEAGLE\n\n\n\nUsa un webhook por canal.\nPor ejemplo:\n\n\n\n\n\n\n\nCanal de Discord\nUso sugerido\n\n\n\n\n#pruebas\nProbar mensajes antes de usarlos en análisis reales\n\n\n#beast\nNotificaciones de análisis de BEAST/BEAST2\n\n\n#slurm-cpu\nTrabajos generales enviados a Slurm\n\n\n#slurm-gpu\nTrabajos enviados a nodos con GPU\n\n\n#errores\nMensajes cuando un trabajo falla\n\n\n\n\n\nEn Discord, crea un servidor nuevo para organizar los canales de notificación.\n\nSelecciona Crear mi propio modelo.\n\n\n\n\n\n\n\nDiscord puede preguntar si el servidor será para una comunidad o para amigos. Para un grupo de trabajo, curso o laboratorio, puedes elegir Para un club o una comunidad. También puedes omitir esta pregunta.\n\n\n\n\n\n\n\nAsigna un nombre al servidor. En este ejemplo se usa UniSSE.\n\n\n\n\n\n\n\nDiscord puede mostrar una pantalla para invitar personas. Puedes copiar el enlace, compartirlo o cerrar esta pantalla y continuar configurando el servidor.\n\n\n\n\n\n\n\nUna vez creado el servidor, verás los canales disponibles. En este ejemplo se crearon canales como #pruebas y #beast.",
+    "text": "Mensajes a Discord\nDiscord puede utilizarse para recibir notificaciones automáticas desde scripts de Bash. Para este uso no es necesario crear un bot completo: lo más práctico es usar webhooks.\nUn webhook es una URL especial asociada a un canal de Discord. Cuando un script envía un mensaje a esa URL, el mensaje aparece automáticamente en ese canal.\n\n\n\n\n\n\nRecomendación para BEAGLE\n\n\n\nUsa un webhook por canal para mantener las notificaciones ordenadas.\n\n\n\n\n\n\n\nCanal de Discord\nUso sugerido\n\n\n\n\n#pruebas\nProbar mensajes antes de usarlos en análisis reales\n\n\n#beast\nNotificaciones de análisis de BEAST/BEAST2\n\n\n#cpu\nAnálisis generales con CPU\n\n\n#gpu\nAnálisis que usan GPU\n\n\n#errores\nMensajes cuando un proceso falla\n\n\n\n\n\nEn Discord, crea un servidor nuevo para organizar los canales de notificación.\n\nSelecciona Crear mi propio modelo.\n\n\n\n\n\n\n\nDiscord puede preguntar si el servidor será para una comunidad o para amigos. Para un grupo de trabajo, curso o laboratorio, puedes elegir Para un club o una comunidad. También puedes omitir esta pregunta.\n\n\n\n\n\n\n\nAsigna un nombre al servidor. En este ejemplo se usa UniSSE.\n\n\n\n\n\n\n\nDiscord puede mostrar una pantalla para invitar personas. Puedes copiar el enlace, compartirlo o cerrar esta pantalla y continuar configurando el servidor.\n\n\n\n\n\n\n\nUna vez creado el servidor, verás los canales disponibles. En este ejemplo se crearon canales como #pruebas y #beast.",
     "crumbs": [
-      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Notificaciones automáticas</span>"
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Notificaciones automáticas</span>"
     ]
   },
   {
@@ -964,9 +964,9 @@
     "href": "chapters/bots.html#crear-canales",
     "title": "Notificaciones automáticas",
     "section": "Crear canales",
-    "text": "Crear canales\nPara crear canales desde la aplicación móvil:\n\nAbre el menú del servidor.\nSelecciona Más opciones.\n\n\n\n\n\n\n\nSelecciona Crear un canal.\n\n\n\n\n\n\nPuedes crear canales separados para diferentes tipos de análisis:\n#pruebas\n#beast\n#slurm-cpu\n#slurm-gpu\n#errores\n\n\n\n\n\n\nNote¿Por qué varios canales?\n\n\n\nSeparar los mensajes ayuda a evitar ruido. Por ejemplo, los trabajos de prueba pueden llegar a #pruebas, los análisis con GPU a #slurm-gpu y los errores a #errores.",
+    "text": "Crear canales\nPara crear canales desde la aplicación móvil:\n\nAbre el menú del servidor.\nSelecciona Más opciones.\n\n\n\n\n\n\n\nSelecciona Crear un canal.\n\n\n\n\n\n\nPuedes crear canales separados para diferentes tipos de análisis:\n#pruebas\n#beast\n#cpu\n#gpu\n#errores\n\n\n\n\n\n\n¿Por qué varios canales?\n\n\n\nSeparar los mensajes ayuda a evitar ruido. Los análisis de prueba pueden llegar a #pruebas, los análisis con GPU a #gpu y los errores a #errores.",
     "crumbs": [
-      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Notificaciones automáticas</span>"
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Notificaciones automáticas</span>"
     ]
   },
   {
@@ -974,9 +974,9 @@
     "href": "chapters/bots.html#crear-un-webhook-para-un-canal",
     "title": "Notificaciones automáticas",
     "section": "Crear un webhook para un canal",
-    "text": "Crear un webhook para un canal\nPara que Slurm pueda escribir en Discord, se debe crear un webhook en el canal donde quieres recibir los mensajes.\n\n\n\n\n\n\nWarningLos webhooks no se crean desde la app móvil\n\n\n\nEn la app móvil de Discord puede aparecer el apartado de Webhooks, pero Discord indica que, por ahora, los webhooks solo se pueden crear desde la aplicación de escritorio o desde Discord en la web.\nPor eso, para crear y copiar la URL del webhook, usa una computadora o entra a Discord desde el navegador.\n\n\n\n\n\n\n\n\nDesde Discord de escritorio o navegador\n\nEntra al servidor y selecciona el canal donde quieres recibir mensajes, por ejemplo #pruebas.\nColoca el cursor sobre el canal y selecciona el ícono de engrane para abrir la configuración del canal.\n\n\n\n\n\n\n\nEn la configuración del canal, entra a Integraciones.\n\n\n\n\n\n\n\nEn Integraciones, selecciona Crear Webhook.\n\n\n\n\n\n\n\nDiscord creará un webhook. Puedes cambiarle el nombre, seleccionar el canal y copiar la URL.\n\n\n\n\n\n\n\nPuedes crear más webhooks. En este ejemplo se creó un webhook llamado beagle.\n\n\n\n\n\n\n\n\n\n\n\n\nImportantNo compartas la URL del webhook\n\n\n\nLa URL del webhook funciona como una contraseña. Cualquier persona con esa URL puede enviar mensajes al canal.\nNo la compartas, no la pegues en documentos públicos y no la subas a GitHub.",
+    "text": "Crear un webhook para un canal\n\n\n\n\n\n\nLos webhooks no se crean desde la app móvil\n\n\n\nEn la app móvil de Discord puede aparecer el apartado de Webhooks, pero Discord indica que, por ahora, los webhooks solo se pueden crear desde la aplicación de escritorio o desde Discord en la web.\nPara crear y copiar la URL del webhook, usa una computadora o entra a Discord desde el navegador.\n\n\n\n\n\n\n\n\nDesde Discord de escritorio o navegador\n\nEntra al servidor y selecciona el canal donde quieres recibir mensajes, por ejemplo #pruebas.\nColoca el cursor sobre el canal y selecciona el ícono de engrane para abrir la configuración del canal.\n\n\n\n\n\n\n\nEn la configuración del canal, entra a Integraciones.\n\n\n\n\n\n\n\nEn Integraciones, selecciona Crear Webhook.\n\n\n\n\n\n\n\nDiscord creará un webhook. Puedes cambiarle el nombre, seleccionar el canal y copiar la URL.\n\n\n\n\n\n\n\nPuedes crear más webhooks. En este ejemplo se creó un webhook llamado beagle.\n\n\n\n\n\n\n\n\n\n\n\n\nNo compartas la URL del webhook\n\n\n\nLa URL del webhook funciona como una contraseña. Cualquier persona con esa URL puede enviar mensajes al canal.\nNo la compartas, no la pegues en documentos públicos y no la subas a GitHub.",
     "crumbs": [
-      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Notificaciones automáticas</span>"
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Notificaciones automáticas</span>"
     ]
   },
   {
@@ -984,9 +984,9 @@
     "href": "chapters/bots.html#guardar-los-webhooks-en-un-archivo-.env",
     "title": "Notificaciones automáticas",
     "section": "Guardar los webhooks en un archivo .env",
-    "text": "Guardar los webhooks en un archivo .env\nCrea un archivo .env para guardar las URLs de los webhooks.\nnano .env\nEjemplo:\nDISCORD_WEBHOOK_PRUEBAS=\"https://discord.com/api/webhooks/XXXX/YYYY\"\nDISCORD_WEBHOOK_BEAST=\"https://discord.com/api/webhooks/XXXX/YYYY\"\nDISCORD_WEBHOOK_SLURM_CPU=\"https://discord.com/api/webhooks/XXXX/YYYY\"\nDISCORD_WEBHOOK_SLURM_GPU=\"https://discord.com/api/webhooks/XXXX/YYYY\"\nDISCORD_WEBHOOK_ERRORES=\"https://discord.com/api/webhooks/XXXX/YYYY\"\nDale permisos restringidos al archivo:\nchmod 600 .env\nSi el archivo .env está dentro de un proyecto con Git, agrégalo al archivo .gitignore:\nnano .gitignore\nY agrega:\n.env",
+    "text": "Guardar los webhooks en un archivo .env\nCrea un archivo .env para guardar las URLs de los webhooks.\nnano .env\nContenido recomendado:\nDISCORD_WEBHOOK_PRUEBAS=\"https://discord.com/api/webhooks/XXXX/YYYY\"\nDISCORD_WEBHOOK_BEAST=\"https://discord.com/api/webhooks/XXXX/YYYY\"\nDISCORD_WEBHOOK_CPU=\"https://discord.com/api/webhooks/XXXX/YYYY\"\nDISCORD_WEBHOOK_GPU=\"https://discord.com/api/webhooks/XXXX/YYYY\"\nDISCORD_WEBHOOK_ERRORES=\"https://discord.com/api/webhooks/XXXX/YYYY\"\nDale permisos restringidos al archivo:\nchmod 600 .env\nSi el archivo .env está dentro de un proyecto con Git, agrégalo al archivo .gitignore:\nnano .gitignore\nAgrega:\n.env",
     "crumbs": [
-      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Notificaciones automáticas</span>"
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Notificaciones automáticas</span>"
     ]
   },
   {
@@ -996,7 +996,7 @@
     "section": "Probar un webhook con curl",
     "text": "Probar un webhook con curl\nPrimero carga las variables del archivo .env:\nsource .env\nDespués envía un mensaje de prueba:\ncurl -s -H \"Content-Type: application/json\" \\\n  -X POST \\\n  -d '{\"content\":\"Hola 👋 mensaje enviado desde Bash\"}' \\\n  \"$DISCORD_WEBHOOK_PRUEBAS\"\nSi todo está bien configurado, el mensaje aparecerá en el canal de Discord asociado a ese webhook.",
     "crumbs": [
-      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Notificaciones automáticas</span>"
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Notificaciones automáticas</span>"
     ]
   },
   {
@@ -1006,7 +1006,7 @@
     "section": "Función reusable discord_send",
     "text": "Función reusable discord_send\nPara reutilizar el envío de mensajes en varios scripts, puedes definir una función de Bash:\ndiscord_send () {\n  local webhook=\"$1\"\n  local msg=\"$2\"\n\n  payload=$(python3 -c 'import json,sys; print(json.dumps({\"content\": sys.argv[1]}, ensure_ascii=False))' \"$msg\")\n\n  curl -s -H \"Content-Type: application/json\" \\\n    -X POST \\\n    -d \"$payload\" \\\n    \"$webhook\" &gt; /dev/null\n}\nUso:\nsource .env\n\ndiscord_send \"$DISCORD_WEBHOOK_PRUEBAS\" \"✅ Mensaje enviado desde Bash\"",
     "crumbs": [
-      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Notificaciones automáticas</span>"
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Notificaciones automáticas</span>"
     ]
   },
   {
@@ -1016,7 +1016,7 @@
     "section": "Usar Discord en un script de Slurm",
     "text": "Usar Discord en un script de Slurm\nEl siguiente ejemplo envía un mensaje cuando el trabajo inicia y otro cuando termina. Si el trabajo falla, manda el aviso al canal de errores.\n#!/bin/bash\n#SBATCH --job-name=prueba_discord\n#SBATCH --partition=ib\n#SBATCH --cpus-per-task=4\n#SBATCH --mem=8G\n#SBATCH --time=01:00:00\n#SBATCH --output=logs/%x_%j.out\n#SBATCH --error=logs/%x_%j.err\n\nmkdir -p logs\n\n# Cargar variables con las URLs de los webhooks\nsource /ruta/a/tu/.env\n\n# Función para enviar mensajes a Discord\ndiscord_send () {\n  local webhook=\"$1\"\n  local msg=\"$2\"\n\n  payload=$(python3 -c 'import json,sys; print(json.dumps({\"content\": sys.argv[1]}, ensure_ascii=False))' \"$msg\")\n\n  curl -s -H \"Content-Type: application/json\" \\\n    -X POST \\\n    -d \"$payload\" \\\n    \"$webhook\" &gt; /dev/null\n}\n\n# Aviso automático al terminar el script\non_exit () {\n  status=$?\n\n  if [ \"$status\" -eq 0 ]; then\n    discord_send \"$DISCORD_WEBHOOK_PRUEBAS\" \"✅ Terminó correctamente el trabajo ${SLURM_JOB_NAME} con ID ${SLURM_JOB_ID}\"\n  else\n    discord_send \"${DISCORD_WEBHOOK_ERRORES:-$DISCORD_WEBHOOK_PRUEBAS}\" \"❌ El trabajo ${SLURM_JOB_NAME} con ID ${SLURM_JOB_ID} terminó con error. Revisa logs/${SLURM_JOB_NAME}_${SLURM_JOB_ID}.err\"\n  fi\n}\n\ntrap on_exit EXIT\n\n# Aviso al iniciar\ndiscord_send \"$DISCORD_WEBHOOK_PRUEBAS\" \"🚀 Inició el trabajo ${SLURM_JOB_NAME} con ID ${SLURM_JOB_ID} en ${SLURMD_NODENAME:-nodo-desconocido}\"\n\n# A partir de aquí, si algo falla, Slurm terminará el script\nset -euo pipefail\n\necho \"Corriendo análisis...\"\nsleep 30\n\necho \"Análisis terminado.\"\nEnvía el trabajo con:\nsbatch script_discord.slurm",
     "crumbs": [
-      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Notificaciones automáticas</span>"
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Notificaciones automáticas</span>"
     ]
   },
   {
@@ -1026,7 +1026,7 @@
     "section": "Ejemplo para un trabajo de BEAST",
     "text": "Ejemplo para un trabajo de BEAST\nSi tienes un canal específico para BEAST, puedes enviar los mensajes a ese canal:\ndiscord_send \"$DISCORD_WEBHOOK_BEAST\" \"🧬 Inició análisis de BEAST: ${SLURM_JOB_NAME} ID ${SLURM_JOB_ID}\"\nY en caso de error, usar el canal de errores:\ndiscord_send \"$DISCORD_WEBHOOK_ERRORES\" \"⚠️ Falló el análisis de BEAST: ${SLURM_JOB_NAME} ID ${SLURM_JOB_ID}\"",
     "crumbs": [
-      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Notificaciones automáticas</span>"
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Notificaciones automáticas</span>"
     ]
   },
   {
@@ -1036,7 +1036,7 @@
     "section": "Ejemplo para trabajos con GPU",
     "text": "Ejemplo para trabajos con GPU\nPara trabajos que usen GPU, puedes usar un webhook específico:\ndiscord_send \"$DISCORD_WEBHOOK_SLURM_GPU\" \"🚀 Inició trabajo GPU ${SLURM_JOB_NAME} con ID ${SLURM_JOB_ID}\"\nAl finalizar:\ndiscord_send \"$DISCORD_WEBHOOK_SLURM_GPU\" \"✅ Terminó trabajo GPU ${SLURM_JOB_NAME} con ID ${SLURM_JOB_ID}\"",
     "crumbs": [
-      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Notificaciones automáticas</span>"
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Notificaciones automáticas</span>"
     ]
   },
   {
@@ -1044,9 +1044,9 @@
     "href": "chapters/bots.html#qué-hacer-si-se-filtró-una-url-de-webhook",
     "title": "Notificaciones automáticas",
     "section": "¿Qué hacer si se filtró una URL de webhook?",
-    "text": "¿Qué hacer si se filtró una URL de webhook?\nSi accidentalmente compartiste una URL de webhook o la subiste a GitHub:\n\nEntra a Discord.\nAbre la configuración del canal.\nVe a Integraciones.\nEntra a Webhooks.\nElimina el webhook comprometido.\nCrea un webhook nuevo.\nActualiza tu archivo .env.\n\n\n\n\n\n\n\nWarningImportante\n\n\n\nNo basta con borrar la URL del repositorio si ya fue publicada. Lo más seguro es eliminar ese webhook y crear uno nuevo.",
+    "text": "¿Qué hacer si se filtró una URL de webhook?\nSi accidentalmente compartiste una URL de webhook o la subiste a GitHub:\n\nEntra a Discord.\nAbre la configuración del canal.\nVe a Integraciones.\nEntra a Webhooks.\nElimina el webhook comprometido.\nCrea un webhook nuevo.\nActualiza tu archivo .env.\n\n\n\n\n\n\n\nImportante\n\n\n\nNo basta con borrar la URL del repositorio si ya fue publicada. Lo más seguro es eliminar ese webhook y crear uno nuevo.",
     "crumbs": [
-      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Notificaciones automáticas</span>"
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Notificaciones automáticas</span>"
     ]
   },
   {
@@ -1056,7 +1056,7 @@
     "section": "",
     "text": "Para consultas generales, dudas sobre el uso del clúster de cómputo BEAGLE, comentarios sobre este manual o solicitudes de orientación, puedes contactar a:\nDr. Cristian Cervantes\nTécnico Académico\nUnidad de Síntesis en Sistemática y Evolución (UniSSE)\nInstituto de Biología, UNAM\n📧 cristian.cervantes@ib.unam.mx\n\nAntes de solicitar ayuda\nPara poder atender mejor tu duda, incluye la siguiente información en tu mensaje:\n\nNombre completo.\nAdscripción, laboratorio o grupo de trabajo.\nNombre de usuario en BEAGLE, si ya cuentas con uno.\nDescripción breve del problema.\nComando que ejecutaste.\nMensaje de error completo, si aplica.\n\n\n\nReportar errores o sugerencias del manual\nSi encontraste un error en este manual, una instrucción incompleta, un enlace que no funciona o tienes una sugerencia para mejorarlo, puedes reportarlo mediante la sección de Issues del repositorio en GitHub.\nTambién puedes enviar tus comentarios directamente por correo electrónico, especialmente si se trata de una duda particular o de una solicitud que requiera seguimiento personalizado.\n📧 cristian.cervantes@ib.unam.mx",
     "crumbs": [
-      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Contacto y soporte</span>"
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Contacto y soporte</span>"
     ]
   },
   {
@@ -1067,6 +1067,416 @@
     "text": "Sistema operativo base\nLibrerías\nDependencias\nSoftware específico\n\n\nDocker vs Podman vs Apptainer\nActualmente hay decenas de proyectos involucrados en el desarrollo, adopción y uso de contenedores: https://landscape.cncf.io\n\n\n\n\n\n\n\n\n\nCaracterística\nDocker\nPodman\nApptainer\n\n\n\n\nUso principal\nDesarrollo\nDesarrollo sin daemon\nHPC / ciencia\n\n\nRequiere root\nSí\nNo siempre\nNo\n\n\nSeguridad en HPC\nBaja\nMedia\nAlta\n\n\nIntegración HPC\n❌\n⚠️\n✅\n\n\nFormato imagen\nlayered\nlayered\n.sif",
     "crumbs": [
       "<span class='chapter-number'>5</span>  <span class='chapter-title'>Apptainer</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/bots.html#conseguir-tu-chat_id",
+    "href": "chapters/bots.html#conseguir-tu-chat_id",
+    "title": "Notificaciones automáticas",
+    "section": "Conseguir tu chat_id",
+    "text": "Conseguir tu chat_id\nDefine temporalmente el token de tu bot:\nTELEGRAM_BOT_TOKEN=\"TU_TOKEN_AQUI\"\nDespués consulta las actualizaciones del bot:\ncurl -s \"https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/getUpdates\"\nBusca en la salida una sección parecida a esta:\n\"chat\":{\"id\":123456789,\"first_name\":\"Pedro\"}\nEl número que aparece en id es tu TELEGRAM_CHAT_ID.\n\n\n\n\n\n\nSi no aparece tu chat_id\n\n\n\nPrimero escribe cualquier mensaje en el chat de tu bot y vuelve a ejecutar el comando getUpdates.",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Notificaciones automáticas</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/bots.html#enviar-un-mensaje-con-curl",
+    "href": "chapters/bots.html#enviar-un-mensaje-con-curl",
+    "title": "Notificaciones automáticas",
+    "section": "Enviar un mensaje con curl",
+    "text": "Enviar un mensaje con curl\nTELEGRAM_BOT_TOKEN=\"TU_TOKEN_AQUI\"\nTELEGRAM_CHAT_ID=\"TU_CHAT_ID_AQUI\"\n\ncurl -s -X POST \"https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage\" \\\n  -d \"chat_id=${TELEGRAM_CHAT_ID}\" \\\n  -d \"text=Hola 👋 Mensaje enviado desde Bash\"",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Notificaciones automáticas</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/bots.html#guardar-credenciales-en-un-archivo-.env",
+    "href": "chapters/bots.html#guardar-credenciales-en-un-archivo-.env",
+    "title": "Notificaciones automáticas",
+    "section": "Guardar credenciales en un archivo .env",
+    "text": "Guardar credenciales en un archivo .env\nCrea un archivo .env fuera del repositorio del proyecto, o agrégalo al archivo .gitignore.\nnano .env\nContenido recomendado:\nTELEGRAM_BOT_TOKEN=\"TU_TOKEN_AQUI\"\nTELEGRAM_CHAT_ID=\"TU_CHAT_ID_AQUI\"\nProtege el archivo para que solo tu usuario pueda leerlo:\nchmod 600 .env\nSi el archivo .env está dentro de un proyecto con Git, agrégalo a .gitignore:\nnano .gitignore\nAgrega esta línea:\n.env",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Notificaciones automáticas</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/bots.html#función-reusable-tg_send",
+    "href": "chapters/bots.html#función-reusable-tg_send",
+    "title": "Notificaciones automáticas",
+    "section": "Función reusable tg_send",
+    "text": "Función reusable tg_send\nCarga primero las variables del archivo .env:\nsource .env\nDespués define la función:\ntg_send () {\n  local msg=\"$1\"\n\n  curl -s -X POST \"https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage\" \\\n    -d \"chat_id=${TELEGRAM_CHAT_ID}\" \\\n    -d \"text=${msg}\" \\\n    -d \"disable_web_page_preview=true\" &gt; /dev/null\n}\nUso:\ntg_send \"✅ Pipeline terminado correctamente.\"",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Notificaciones automáticas</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/bots.html#usar-telegram-en-un-script-de-bash",
+    "href": "chapters/bots.html#usar-telegram-en-un-script-de-bash",
+    "title": "Notificaciones automáticas",
+    "section": "Usar Telegram en un script de Bash",
+    "text": "Usar Telegram en un script de Bash\nEl siguiente patrón permite enviar una notificación al iniciar y otra al terminar un proceso.\n#!/usr/bin/env bash\nset -euo pipefail\n\nsource /ruta/a/tu/.env\n\ntg_send () {\n  local msg=\"$1\"\n\n  curl -s -X POST \"https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage\" \\\n    -d \"chat_id=${TELEGRAM_CHAT_ID}\" \\\n    -d \"text=${msg}\" \\\n    -d \"disable_web_page_preview=true\" &gt; /dev/null\n}\n\ntg_send \"🚀 Inició el análisis\"\n\nif comando_largo; then\n  tg_send \"✅ El análisis terminó correctamente\"\nelse\n  tg_send \"❌ El análisis terminó con error\"\n  exit 1\nfi",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Notificaciones automáticas</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/bots.html#usar-discord-en-un-script-de-bash",
+    "href": "chapters/bots.html#usar-discord-en-un-script-de-bash",
+    "title": "Notificaciones automáticas",
+    "section": "Usar Discord en un script de Bash",
+    "text": "Usar Discord en un script de Bash\nEl siguiente patrón envía un mensaje cuando inicia un proceso y otro cuando termina. Si el proceso falla, manda el aviso al canal de errores.\n#!/usr/bin/env bash\nset -euo pipefail\n\nsource /ruta/a/tu/.env\n\ndiscord_send () {\n  local webhook=\"$1\"\n  local msg=\"$2\"\n\n  payload=$(python3 -c 'import json,sys; print(json.dumps({\"content\": sys.argv[1]}, ensure_ascii=False))' \"$msg\")\n\n  curl -s -H \"Content-Type: application/json\" \\\n    -X POST \\\n    -d \"$payload\" \\\n    \"$webhook\" &gt; /dev/null\n}\n\non_exit () {\n  status=$?\n\n  if [ \"$status\" -eq 0 ]; then\n    discord_send \"$DISCORD_WEBHOOK_PRUEBAS\" \"✅ El análisis terminó correctamente\"\n  else\n    discord_send \"${DISCORD_WEBHOOK_ERRORES:-$DISCORD_WEBHOOK_PRUEBAS}\" \"❌ El análisis terminó con error\"\n  fi\n}\n\ntrap on_exit EXIT\n\ndiscord_send \"$DISCORD_WEBHOOK_PRUEBAS\" \"🚀 Inició el análisis\"\n\ncomando_largo",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Notificaciones automáticas</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/bots.html#mensajes-para-análisis-específicos",
+    "href": "chapters/bots.html#mensajes-para-análisis-específicos",
+    "title": "Notificaciones automáticas",
+    "section": "Mensajes para análisis específicos",
+    "text": "Mensajes para análisis específicos\nSi tienes un canal específico para BEAST, puedes enviar los mensajes a ese canal:\ndiscord_send \"$DISCORD_WEBHOOK_BEAST\" \"🧬 Inició análisis de BEAST\"\nY en caso de error, usar el canal de errores:\ndiscord_send \"$DISCORD_WEBHOOK_ERRORES\" \"⚠️ Falló el análisis de BEAST\"\nPara análisis que usan GPU, puedes usar un webhook específico:\ndiscord_send \"$DISCORD_WEBHOOK_GPU\" \"🚀 Inició análisis con GPU\"\nAl finalizar:\ndiscord_send \"$DISCORD_WEBHOOK_GPU\" \"✅ Terminó análisis con GPU\"",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Notificaciones automáticas</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/slurm.html#flujo-general-de-trabajo",
+    "href": "chapters/slurm.html#flujo-general-de-trabajo",
+    "title": "Uso básico de Slurm",
+    "section": "Flujo general de trabajo",
+    "text": "Flujo general de trabajo\n\nPreparar un script de Bash con directivas de Slurm.\nEnviar el script a la cola con sbatch.\nRevisar el estado del trabajo con squeue.\nConsultar los archivos de salida y error.",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/slurm.html#cómo-leer-sinfo",
+    "href": "chapters/slurm.html#cómo-leer-sinfo",
+    "title": "Uso básico de Slurm",
+    "section": "Cómo leer sinfo",
+    "text": "Cómo leer sinfo\nColumnas frecuentes:\n\n\n\nColumna\nSignificado\n\n\n\n\nPARTITION\nNombre de la partición\n\n\nAVAIL\nIndica si la partición está disponible\n\n\nTIMELIMIT\nTiempo máximo permitido para trabajos en esa partición\n\n\nNODES\nNúmero de nodos incluidos\n\n\nSTATE\nEstado de los nodos\n\n\nNODELIST\nNombre de los nodos\n\n\n\nEstados comunes de nodos:\n\n\n\nEstado\nSignificado\n\n\n\n\nidle\nEl nodo está libre\n\n\nalloc\nEl nodo está ocupado\n\n\nmix\nEl nodo tiene algunos recursos ocupados y otros libres\n\n\ndown\nEl nodo no está disponible\n\n\ndrain\nEl nodo no acepta nuevos trabajos",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/slurm.html#cómo-leer-squeue",
+    "href": "chapters/slurm.html#cómo-leer-squeue",
+    "title": "Uso básico de Slurm",
+    "section": "Cómo leer squeue",
+    "text": "Cómo leer squeue\nColumnas frecuentes:\n\n\n\n\n\n\n\nColumna\nSignificado\n\n\n\n\nJOBID\nIdentificador único del trabajo\n\n\nPARTITION\nPartición donde está programado el trabajo\n\n\nNAME\nNombre del trabajo\n\n\nUSER\nUsuario que envió el trabajo\n\n\nST\nEstado del trabajo\n\n\nTIME\nTiempo que lleva corriendo\n\n\nNODES\nNúmero de nodos asignados\n\n\nNODELIST(REASON)\nNodo asignado o razón por la que sigue pendiente\n\n\n\nEstados comunes de trabajos:\n\n\n\nEstado\nSignificado\n\n\n\n\nR\nRunning: el trabajo está corriendo\n\n\nPD\nPending: el trabajo está esperando\n\n\nCG\nCompleting: el trabajo está terminando\n\n\nCD\nCompleted: el trabajo terminó correctamente\n\n\nF\nFailed: el trabajo falló\n\n\nCA\nCancelled: el trabajo fue cancelado\n\n\nTO\nTimeout: el trabajo terminó por límite de tiempo",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/slurm.html#estructura-de-un-script-de-slurm",
+    "href": "chapters/slurm.html#estructura-de-un-script-de-slurm",
+    "title": "Uso básico de Slurm",
+    "section": "Estructura de un script de Slurm",
+    "text": "Estructura de un script de Slurm\nUn script de Slurm es un archivo de Bash con instrucciones especiales para solicitar recursos. Tiene tres partes principales:\n\n\n\n\n\n\n\nParte\nQué significa\n\n\n\n\nLínea de intérprete\nDefine qué programa interpretará el script, normalmente Bash\n\n\nDirectivas #SBATCH\nIndican a Slurm qué recursos se solicitan\n\n\nCuerpo del script\nContiene los comandos que se ejecutarán dentro del trabajo\n\n\n\n\nLínea de intérprete\nLa línea de intérprete indica que el archivo debe ejecutarse con Bash.\n\n\n\nLínea\nSignificado\n\n\n\n\n#!/bin/bash\nUsa Bash como intérprete del script\n\n\n\n\n\nDirectivas #SBATCH\nLas líneas que empiezan con #SBATCH son leídas por Slurm antes de ejecutar el cuerpo del script. Aunque parecen comentarios para Bash, Slurm las interpreta como instrucciones de planificación.\n\n\n\n\n\n\n\nDirectiva\nSignificado\n\n\n\n\n#SBATCH -J &lt;nombre&gt;\nNombre del trabajo\n\n\n#SBATCH --job-name=&lt;nombre&gt;\nNombre del trabajo usando la forma larga\n\n\n#SBATCH -p &lt;partición&gt;\nPartición donde se ejecutará\n\n\n#SBATCH --partition=&lt;partición&gt;\nPartición usando la forma larga\n\n\n#SBATCH -N &lt;nodos&gt;\nNúmero de nodos solicitados\n\n\n#SBATCH -n &lt;tareas&gt;\nNúmero total de tareas\n\n\n#SBATCH -c &lt;cpus&gt;\nCPUs por tarea\n\n\n#SBATCH --cpus-per-task=&lt;cpus&gt;\nCPUs por tarea usando la forma larga\n\n\n#SBATCH --mem=&lt;memoria&gt;\nMemoria RAM solicitada\n\n\n#SBATCH --time=&lt;tiempo&gt;\nTiempo máximo de ejecución\n\n\n#SBATCH -o &lt;archivo&gt;\nArchivo de salida estándar\n\n\n#SBATCH -e &lt;archivo&gt;\nArchivo de error estándar\n\n\n#SBATCH --gres=gpu:&lt;n&gt;\nNúmero de GPUs solicitadas",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/slurm.html#qué-significa-cada-parte-del-cuerpo-del-script",
+    "href": "chapters/slurm.html#qué-significa-cada-parte-del-cuerpo-del-script",
+    "title": "Uso básico de Slurm",
+    "section": "Qué significa cada parte del cuerpo del script",
+    "text": "Qué significa cada parte del cuerpo del script\n\n\n\n\n\n\n\nParte del script\nFunción\n\n\n\n\nset -euo pipefail\nHace que el script se detenga ante errores, variables no definidas o fallas en tuberías\n\n\nmkdir -p logs resultados\nCrea carpetas de salida sin fallar si ya existen\n\n\necho\nEscribe mensajes informativos en los archivos de salida\n\n\ndate\nRegistra fecha y hora de inicio o fin\n\n\nhostname\nMuestra el nodo donde corre el trabajo\n\n\nComando principal\nEjecuta el programa real del análisis\n\n\nVariables $SLURM_*\nPermiten usar información asignada por Slurm dentro del script",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/slurm.html#cpus-tareas-y-nodos",
+    "href": "chapters/slurm.html#cpus-tareas-y-nodos",
+    "title": "Uso básico de Slurm",
+    "section": "CPUs, tareas y nodos",
+    "text": "CPUs, tareas y nodos\nEn Slurm, -N, -n y -c no significan lo mismo.\n\n\n\n\n\n\n\n\nOpción\nSignificado\nUso típico\n\n\n\n\n-N\nNúmero de nodos\nTrabajos que necesitan uno o varios nodos\n\n\n-n\nNúmero de tareas\nProgramas paralelos por procesos, como MPI\n\n\n-c\nCPUs por tarea\nProgramas multihilo, como muchas herramientas bioinformáticas\n\n\n\nPara la mayoría de análisis bioinformáticos comunes en BEAGLE, suele usarse un nodo, una tarea y varias CPUs por tarea. El número de CPUs solicitado debe coincidir con el número de hilos que usará el programa.",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/slurm.html#memoria-ram",
+    "href": "chapters/slurm.html#memoria-ram",
+    "title": "Uso básico de Slurm",
+    "section": "Memoria RAM",
+    "text": "Memoria RAM\nLa memoria se solicita con --mem. Slurm reserva esa cantidad de RAM para el trabajo. Si el análisis usa más memoria de la solicitada, puede fallar por falta de memoria.\nFormatos comunes:\n\n\n\n\n\n\n\nFormato\nSignificado\n\n\n\n\n--mem=4G\nSolicita 4 GB de RAM\n\n\n--mem=16000M\nSolicita 16000 MB de RAM\n\n\n--mem=0\nSolicita toda la memoria disponible del nodo, si la configuración lo permite",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/slurm.html#tiempo-máximo",
+    "href": "chapters/slurm.html#tiempo-máximo",
+    "title": "Uso básico de Slurm",
+    "section": "Tiempo máximo",
+    "text": "Tiempo máximo\nEl tiempo se solicita con --time. Cuando el trabajo supera ese límite, Slurm puede cancelarlo automáticamente.\nFormatos comunes:\n\n\n\nFormato\nSignificado\n\n\n\n\n--time=30:00\n30 minutos\n\n\n--time=02:00:00\n2 horas\n\n\n--time=1-00:00:00\n1 día\n\n\n--time=5-00:00:00\n5 días",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/slurm.html#gpus",
+    "href": "chapters/slurm.html#gpus",
+    "title": "Uso básico de Slurm",
+    "section": "GPUs",
+    "text": "GPUs\nLas GPUs se solicitan con --gres=gpu:&lt;n&gt;. Esta directiva solo debe usarse cuando el programa realmente puede usar GPU.\n\n\n\n\n\n\n\nDirectiva\nSignificado\n\n\n\n\n#SBATCH -p gpu_V100\nEnvía el trabajo a la partición con nodo GPU\n\n\n#SBATCH --gres=gpu:1\nSolicita una GPU\n\n\n#SBATCH --gres=gpu:2\nSolicita dos GPUs\n\n\n\nCuando se usan contenedores de Apptainer con GPU NVIDIA, normalmente se agrega la opción --nv al comando apptainer exec. La explicación detallada de Apptainer está en la sección correspondiente.",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/slurm.html#archivos-de-salida-y-error",
+    "href": "chapters/slurm.html#archivos-de-salida-y-error",
+    "title": "Uso básico de Slurm",
+    "section": "Archivos de salida y error",
+    "text": "Archivos de salida y error\nSlurm puede separar la salida normal y los mensajes de error en archivos diferentes.\n\n\n\nDirectiva\nSignificado\n\n\n\n\n#SBATCH -o logs/%x_%j.out\nGuarda la salida estándar en logs/\n\n\n#SBATCH -e logs/%x_%j.err\nGuarda los errores en logs/\n\n\n\nCódigos útiles en nombres de archivo:\n\n\n\nCódigo\nSignificado\n\n\n\n\n%x\nNombre del trabajo\n\n\n%j\nID del trabajo\n\n\n%u\nNombre del usuario\n\n\n%N\nNombre del nodo",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/slurm.html#solicitar-menos-recursos-de-los-necesarios",
+    "href": "chapters/slurm.html#solicitar-menos-recursos-de-los-necesarios",
+    "title": "Uso básico de Slurm",
+    "section": "Solicitar menos recursos de los necesarios",
+    "text": "Solicitar menos recursos de los necesarios\nSolicitar menos recursos puede provocar fallas o ejecuciones muy lentas.\n\n\n\n\n\n\n\nRecurso insuficiente\nConsecuencia posible\n\n\n\n\nPocas CPUs\nEl análisis tarda más o el programa intenta usar más hilos de los asignados\n\n\nPoca memoria\nEl trabajo puede terminar con error de memoria\n\n\nPoco tiempo\nSlurm puede cancelar el trabajo por límite de tiempo\n\n\nNo solicitar GPU\nUn programa que requiere GPU puede no detectar aceleración",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/slurm.html#solicitar-más-recursos-de-los-necesarios",
+    "href": "chapters/slurm.html#solicitar-más-recursos-de-los-necesarios",
+    "title": "Uso básico de Slurm",
+    "section": "Solicitar más recursos de los necesarios",
+    "text": "Solicitar más recursos de los necesarios\nPedir recursos de más no hace que el programa corra más rápido automáticamente. Si un programa solo usa pocas CPUs, las CPUs extra quedan reservadas pero sin uso.\nConsecuencias frecuentes:\n\nel trabajo puede tardar más en iniciar;\notros usuarios no pueden usar los recursos reservados;\nse desperdicia capacidad del clúster;\nbaja la eficiencia general del sistema.",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/slurm.html#dónde-van-los-scripts-completos",
+    "href": "chapters/slurm.html#dónde-van-los-scripts-completos",
+    "title": "Uso básico de Slurm",
+    "section": "Dónde van los scripts completos",
+    "text": "Dónde van los scripts completos\nEsta sección funciona como referencia conceptual. Los scripts completos, prácticas guiadas y comandos para ejecutar análisis están en la sección Ejercicios prácticos.",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/ejercicios.html",
+    "href": "chapters/ejercicios.html",
+    "title": "Ejemplos",
+    "section": "",
+    "text": "Archivo de prueba\nEsta sección utiliza imágenes públicas del repositorio de Docker Hub:\nhttps://hub.docker.com/repositories/ccervantess\nEstas imágenes fueron preparadas y probadas para BEAGLE, con el objetivo de facilitar el uso de software bioinformático sin compilar programas ni modificar el sistema principal del clúster.\nPara esta práctica se usará únicamente el archivo testGTR.xml, una prueba pequeña de BEAST2 que permite verificar que Apptainer, Slurm y el contenedor funcionan correctamente en BEAGLE.\nEl objetivo no es hacer un análisis biológico final ni comparar formalmente CPU contra GPU. Debido a que testGTR.xml es pequeño, la GPU puede no ser más rápida.\nSe recomienda descargar imágenes solo de repositorios confiables, como Docker Hub o Quay.io, usando etiquetas de versión específicas en lugar de latest.\nEl archivo testGTR.xml está disponible en el repositorio oficial de BEAST2, dentro de la carpeta examples: https://github.com/CompEvol/beast2/blob/master/examples/testGTR.xml.\nEn esta práctica, el archivo se descargará dentro de la carpeta de trabajo beast2_testGTR/data/, para mantener juntos los datos, scripts, contenedores, logs y resultados del ejercicio.",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Ejemplos</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/ejercicios.html#archivo-de-prueba",
+    "href": "chapters/ejercicios.html#archivo-de-prueba",
+    "title": "Ejemplos",
+    "section": "",
+    "text": "mkdir -p data\nwget -O data/testGTR.xml \\\n  https://raw.githubusercontent.com/CompEvol/beast2/master/examples/testGTR.xml\n\nls -lh data/testGTR.xml",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Ejemplos</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/ejercicios.html#imágenes-usadas-en-esta-práctica",
+    "href": "chapters/ejercicios.html#imágenes-usadas-en-esta-práctica",
+    "title": "Ejemplos",
+    "section": "Imágenes usadas en esta práctica",
+    "text": "Imágenes usadas en esta práctica\nLas imágenes se descargan desde Docker Hub usando Apptainer. Para reproducibilidad, se recomienda usar etiquetas específicas y evitar latest.\n\n\n\n\n\n\n\n\n\nUso\nImagen de Docker Hub\nEtiqueta\nArchivo .sif sugerido\n\n\n\n\nBEAST2 en CPU\nccervantess/beast2\n2.7.8\nbeast2_2.7.8.sif\n\n\nBEAST2 + BEAGLE + CUDA para V100\nccervantess/beast2-beagle-cuda\n2.7.8-gpu-v100\nbeast2-beagle-cuda_2.7.8-gpu-v100.sif",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Ejemplos</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/ejercicios.html#ejercicio-1-preparar-la-carpeta-de-trabajo",
+    "href": "chapters/ejercicios.html#ejercicio-1-preparar-la-carpeta-de-trabajo",
+    "title": "Ejemplos",
+    "section": "Ejercicio 1: preparar la carpeta de trabajo",
+    "text": "Ejercicio 1: preparar la carpeta de trabajo\nDesde la raíz del repositorio del manual, crea la carpeta de la práctica:\nmkdir -p beast2_testGTR/{data,sif,scripts,logs,runs/cpu,runs/gpu}\nDespués entra a la carpeta de la práctica:\ncd beast2_testGTR\nDescarga el archivo testGTR.xml dentro de la carpeta data/ de la práctica:\nwget -O data/testGTR.xml \\\n  https://raw.githubusercontent.com/CompEvol/beast2/master/examples/testGTR.xml\nVerifica que el archivo se descargó correctamente:\nls -lh data/testGTR.xml\nCopia el archivo testGTR.xml a las carpetas de corrida:\ncp data/testGTR.xml runs/cpu/\ncp data/testGTR.xml runs/gpu/\nLa estructura esperada será:\nbeast2_testGTR/\n├── data/\n│   └── testGTR.xml\n├── logs/\n├── runs/\n│   ├── cpu/\n│   │   └── testGTR.xml\n│   └── gpu/\n│       └── testGTR.xml\n├── scripts/\n└── sif/\n\n\n\n\n\n\n¿Por qué separar CPU y GPU?\n\n\n\nBEAST2 escribirá archivos como primate-mtDNA.log, primate.trees y testGTR.xml.state. Si se ejecutan las pruebas CPU y GPU en la misma carpeta, una corrida puede sobrescribir los resultados de la otra.",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Ejemplos</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/ejercicios.html#ejercicio-2-descargar-la-imagen-de-beast2-para-cpu",
+    "href": "chapters/ejercicios.html#ejercicio-2-descargar-la-imagen-de-beast2-para-cpu",
+    "title": "Ejemplos",
+    "section": "Ejercicio 2: descargar la imagen de BEAST2 para CPU",
+    "text": "Ejercicio 2: descargar la imagen de BEAST2 para CPU\nDescarga la imagen de BEAST2 desde Docker Hub y conviértela a formato .sif:\napptainer pull \\\n  sif/beast2_2.7.8.sif \\\n  docker://ccervantess/beast2:2.7.8\nRevisa que el archivo se haya creado:\nls -lh sif/\nPrueba que el ejecutable beast está disponible dentro del contenedor:\napptainer exec sif/beast2_2.7.8.sif beast -help",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Ejemplos</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/ejercicios.html#ejercicio-3-ejecutar-testgtr.xml-en-cpu-con-slurm",
+    "href": "chapters/ejercicios.html#ejercicio-3-ejecutar-testgtr.xml-en-cpu-con-slurm",
+    "title": "Ejemplos",
+    "section": "Ejercicio 3: ejecutar testGTR.xml en CPU con Slurm",
+    "text": "Ejercicio 3: ejecutar testGTR.xml en CPU con Slurm\nCrea el script:\nnano scripts/beast2_gtr_cpu.sbatch\nContenido:\n#!/bin/bash\n#SBATCH --job-name=beast2_gtr_cpu\n#SBATCH --partition=ib\n#SBATCH --nodes=1\n#SBATCH --ntasks=1\n#SBATCH --cpus-per-task=1\n#SBATCH --mem=4G\n#SBATCH --time=01:00:00\n#SBATCH --output=logs/%x-%j.out\n#SBATCH --error=logs/%x-%j.err\n\nset -euo pipefail\n\ncd \"$SLURM_SUBMIT_DIR\"\n\n# Cargar token y chat_id de Telegram \nif [[ -f \"$HOME/.telegram\" ]]; then\n  source \"$HOME/.telegram\"\nfi\n\nmkdir -p logs\n\nsend_telegram() {\n  local MESSAGE=\"$1\"\n\n  if [[ -n \"${TELEGRAM_BOT_TOKEN:-}\" && -n \"${TELEGRAM_CHAT_ID:-}\" ]]; then\n    curl -s -X POST \"https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage\" \\\n      -d chat_id=\"${TELEGRAM_CHAT_ID}\" \\\n      -d text=\"${MESSAGE}\" &gt; /dev/null || true\n  fi\n}\n\nsend_telegram \"BEAST2 CPU inició. Job: ${SLURM_JOB_NAME} (${SLURM_JOB_ID}) en $(hostname).\"\n\nSTART_TIME=$(date +%s)\n\nfinish() {\n  EXIT_CODE=$?\n  END_TIME=$(date +%s)\n  ELAPSED=$((END_TIME - START_TIME))\n\n  if [[ \"$EXIT_CODE\" -eq 0 ]]; then\n    send_telegram \"BEAST2 CPU terminó correctamente. Job: ${SLURM_JOB_NAME} (${SLURM_JOB_ID}). Tiempo: ${ELAPSED} s.\"\n  else\n    send_telegram \"BEAST2 CPU terminó con error. Job: ${SLURM_JOB_NAME} (${SLURM_JOB_ID}). Código: ${EXIT_CODE}. Revisa logs/.\"\n  fi\n\n  exit \"$EXIT_CODE\"\n}\n\ntrap finish EXIT\n\necho \"====================================\"\necho \"Trabajo: $SLURM_JOB_NAME\"\necho \"Job ID: $SLURM_JOB_ID\"\necho \"Nodo: $(hostname)\"\necho \"Inicio: $(date)\"\necho \"Directorio: $SLURM_SUBMIT_DIR\"\necho \"====================================\"\n\ncd runs/cpu\n\n/usr/bin/time -v apptainer exec \\\n  ../../sif/beast2_2.7.8.sif \\\n  beast \\\n  -overwrite \\\n  testGTR.xml\n\necho \"====================================\"\necho \"Fin: $(date)\"\necho \"====================================\"\nEnvía el trabajo:\nsbatch scripts/beast2_gtr_cpu.sbatch\nRevisa si sigue en cola:\nsqueue -u $USER\nCuando termine, revisa los archivos de salida:\nls -lh logs/\nls -lh runs/cpu/\nRevisa el final del archivo .out:\ntail -n 40 logs/beast2_gtr_cpu-*.out\nRevisa si hubo errores:\ntail -n 40 logs/beast2_gtr_cpu-*.err\nTambién puedes revisar el log principal de BEAST2:\ntail -n 20 runs/cpu/primate-mtDNA.log",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Ejemplos</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/ejercicios.html#ejercicio-4-descargar-la-imagen-de-beast2-con-beagle-cuda-para-gpu",
+    "href": "chapters/ejercicios.html#ejercicio-4-descargar-la-imagen-de-beast2-con-beagle-cuda-para-gpu",
+    "title": "Ejemplos",
+    "section": "Ejercicio 4: descargar la imagen de BEAST2 con BEAGLE CUDA para GPU",
+    "text": "Ejercicio 4: descargar la imagen de BEAST2 con BEAGLE CUDA para GPU\nDescarga la imagen preparada para usar BEAST2 con BEAGLE y CUDA en el nodo con GPU V100:\napptainer pull \\\n  sif/beast2-beagle-cuda_2.7.8-gpu-v100.sif \\\n  docker://ccervantess/beast2-beagle-cuda:2.7.8-gpu-v100\nRevisa que el archivo se haya creado:\nls -lh sif/\nPrueba que el contenedor abre correctamente:\napptainer exec sif/beast2-beagle-cuda_2.7.8-gpu-v100.sif beast -help",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Ejemplos</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/ejercicios.html#ejercicio-5-ejecutar-testgtr.xml-con-gpu",
+    "href": "chapters/ejercicios.html#ejercicio-5-ejecutar-testgtr.xml-con-gpu",
+    "title": "Ejemplos",
+    "section": "Ejercicio 5: ejecutar testGTR.xml con GPU",
+    "text": "Ejercicio 5: ejecutar testGTR.xml con GPU\n\n\n\n\n\n\nSolicita GPU solo cuando la vas a usar\n\n\n\nEste ejercicio solicita una GPU con #SBATCH --gres=gpu:1 y usa apptainer exec --nv para que el contenedor tenga acceso a las bibliotecas NVIDIA del nodo.\n\n\nCrea el script:\nnano scripts/beast2_gtr_gpu.sbatch\nContenido:\n#!/bin/bash\n#SBATCH --job-name=beast2_gtr_gpu\n#SBATCH --partition=gpu_V100\n#SBATCH --nodes=1\n#SBATCH --ntasks=1\n#SBATCH --cpus-per-task=4\n#SBATCH --mem=16G\n#SBATCH --gres=gpu:1\n#SBATCH --time=01:00:00\n#SBATCH --output=logs/%x-%j.out\n#SBATCH --error=logs/%x-%j.err\n\nset -euo pipefail\n\ncd \"$SLURM_SUBMIT_DIR\"\nmkdir -p logs\n\nsend_telegram() {\n  local MESSAGE=\"$1\"\n\n  if [[ -n \"${TELEGRAM_BOT_TOKEN:-}\" && -n \"${TELEGRAM_CHAT_ID:-}\" ]]; then\n    curl -s -X POST \"https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage\" \\\n      -d chat_id=\"${TELEGRAM_CHAT_ID}\" \\\n      -d text=\"${MESSAGE}\" &gt; /dev/null || true\n  fi\n}\n\nsend_telegram \"BEAST2 GPU inició. Job: ${SLURM_JOB_NAME} (${SLURM_JOB_ID}) en $(hostname).\"\n\nSTART_TIME=$(date +%s)\n\nfinish() {\n  EXIT_CODE=$?\n  END_TIME=$(date +%s)\n  ELAPSED=$((END_TIME - START_TIME))\n\n  if [[ \"$EXIT_CODE\" -eq 0 ]]; then\n    send_telegram \"BEAST2 GPU terminó correctamente. Job: ${SLURM_JOB_NAME} (${SLURM_JOB_ID}). Tiempo: ${ELAPSED} s.\"\n  else\n    send_telegram \"BEAST2 GPU terminó con error. Job: ${SLURM_JOB_NAME} (${SLURM_JOB_ID}). Código: ${EXIT_CODE}. Revisa logs/.\"\n  fi\n\n  exit \"$EXIT_CODE\"\n}\n\ntrap finish EXIT\n\necho \"====================================\"\necho \"Trabajo: $SLURM_JOB_NAME\"\necho \"Job ID: $SLURM_JOB_ID\"\necho \"Nodo: $(hostname)\"\necho \"Inicio: $(date)\"\necho \"Directorio: $SLURM_SUBMIT_DIR\"\necho \"CPUs asignadas: ${SLURM_CPUS_PER_TASK}\"\necho \"GPUs asignadas: ${SLURM_GPUS:-No disponible}\"\necho \"====================================\"\n\necho \"Revisando GPU asignada:\"\nnvidia-smi\n\ncd runs/gpu\n\n/usr/bin/time -v apptainer exec \\\n  --nv \\\n  ../../sif/beast2-beagle-cuda_2.7.8-gpu-v100.sif \\\n  beast \\\n  -beagle \\\n  -beagle_GPU \\\n  -beagle_order 1 \\\n  -overwrite \\\n  testGTR.xml\n\necho \"====================================\"\necho \"Fin: $(date)\"\necho \"====================================\"\nEnvía el trabajo:\nsbatch scripts/beast2_gtr_gpu.sbatch\nRevisa si sigue en cola:\nsqueue -u $USER\nCuando termine, revisa los archivos generados:\nls -lh logs/\nls -lh runs/gpu/\nRevisa el archivo de salida:\ntail -n 60 logs/beast2_gtr_gpu-*.out\nRevisa si hubo errores:\ntail -n 60 logs/beast2_gtr_gpu-*.err\nRevisa el log principal de BEAST2:\ntail -n 20 runs/gpu/primate-mtDNA.log",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Ejemplos</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/ejercicios.html#ejercicio-6-revisar-resultados-sin-usar-sacct",
+    "href": "chapters/ejercicios.html#ejercicio-6-revisar-resultados-sin-usar-sacct",
+    "title": "Ejemplos",
+    "section": "Ejercicio 6: revisar resultados sin usar sacct",
+    "text": "Ejercicio 6: revisar resultados sin usar sacct\nEn algunos clústeres, sacct puede no estar disponible si el accounting de Slurm está desactivado. En ese caso, revisa directamente los archivos .out, .err y los archivos generados por el programa.\nPara esta práctica, los archivos importantes son:\nlogs/beast2_gtr_cpu-JOBID.out\nlogs/beast2_gtr_cpu-JOBID.err\nlogs/beast2_gtr_gpu-JOBID.out\nlogs/beast2_gtr_gpu-JOBID.err\nruns/cpu/primate-mtDNA.log\nruns/cpu/primate.trees\nruns/gpu/primate-mtDNA.log\nruns/gpu/primate.trees\nPuedes buscar mensajes de error con:\ngrep -i \"error\\|exception\\|failed\" logs/*.out logs/*.err\nSi no aparece nada, revisa el final de los archivos .out:\ntail -n 40 logs/*.out",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Ejemplos</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/ejercicios.html#ejercicio-7-limpiar-resultados-para-repetir-la-prueba",
+    "href": "chapters/ejercicios.html#ejercicio-7-limpiar-resultados-para-repetir-la-prueba",
+    "title": "Ejemplos",
+    "section": "Ejercicio 7: limpiar resultados para repetir la prueba",
+    "text": "Ejercicio 7: limpiar resultados para repetir la prueba\nSi quieres repetir la prueba desde cero, elimina solo los resultados generados dentro de las carpetas de corrida:\nrm -f runs/cpu/primate-mtDNA.log runs/cpu/primate.trees runs/cpu/testGTR.xml.state\nrm -f runs/gpu/primate-mtDNA.log runs/gpu/primate.trees runs/gpu/testGTR.xml.state\nNo borres las imágenes .sif a menos que quieras descargarlas de nuevo.\n\n\n\n\n\n\nCuidado con rm\n\n\n\nrm borra archivos de forma permanente. Antes de borrar, confirma tu ubicación con:\npwd\nls -lh",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Ejemplos</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/ejercicios.html#ejercicio-6-usar-notificaciones-por-telegram",
+    "href": "chapters/ejercicios.html#ejercicio-6-usar-notificaciones-por-telegram",
+    "title": "Ejemplos",
+    "section": "Ejercicio 6: usar notificaciones por Telegram",
+    "text": "Ejercicio 6: usar notificaciones por Telegram\nLos scripts anteriores pueden mandar un mensaje al iniciar y otro al terminar, siempre que existan las variables TELEGRAM_BOT_TOKEN y TELEGRAM_CHAT_ID.\nAntes de enviar el trabajo, define estas variables en la terminal:\nexport TELEGRAM_BOT_TOKEN=\"TU_TOKEN_DEL_BOT\"\nexport TELEGRAM_CHAT_ID=\"TU_CHAT_ID\"\nDespués envía el trabajo normalmente:\nsbatch scripts/beast2_gtr_cpu.sbatch\nO para GPU:\nsbatch scripts/beast2_gtr_gpu.sbatch\nSi no defines esas variables, el trabajo se ejecutará igual, pero no enviará notificaciones.\n\n\n\n\n\n\nNo escribas tu token dentro del script\n\n\n\nPor seguridad, evita guardar el token de Telegram directamente dentro de archivos .sbatch, especialmente si el repositorio se va a subir a GitHub.\nEs mejor definirlo como variable de entorno en la sesión donde vas a enviar el trabajo.",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Ejemplos</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/ejercicios.html#ejercicio-7-revisar-resultados-sin-usar-sacct",
+    "href": "chapters/ejercicios.html#ejercicio-7-revisar-resultados-sin-usar-sacct",
+    "title": "Ejemplos",
+    "section": "Ejercicio 7: revisar resultados sin usar sacct",
+    "text": "Ejercicio 7: revisar resultados sin usar sacct\nEn algunos clústeres, sacct puede no estar disponible si el accounting de Slurm está desactivado. En ese caso, revisa directamente los archivos .out, .err y los archivos generados por el programa.\nPara esta práctica, los archivos importantes son:\nlogs/beast2_gtr_cpu-JOBID.out\nlogs/beast2_gtr_cpu-JOBID.err\nlogs/beast2_gtr_gpu-JOBID.out\nlogs/beast2_gtr_gpu-JOBID.err\nruns/cpu/primate-mtDNA.log\nruns/cpu/primate.trees\nruns/gpu/primate-mtDNA.log\nruns/gpu/primate.trees\nPuedes buscar mensajes de error con:\ngrep -i \"error\\|exception\\|failed\" logs/*.out logs/*.err\nSi no aparece nada, revisa el final de los archivos .out:\ntail -n 40 logs/*.out",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Ejemplos</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/ejercicios.html#ejercicio-8-limpiar-resultados-para-repetir-la-prueba",
+    "href": "chapters/ejercicios.html#ejercicio-8-limpiar-resultados-para-repetir-la-prueba",
+    "title": "Ejemplos",
+    "section": "Ejercicio 8: limpiar resultados para repetir la prueba",
+    "text": "Ejercicio 8: limpiar resultados para repetir la prueba\nSi quieres repetir la prueba desde cero, elimina solo los resultados generados dentro de las carpetas de corrida:\nrm -f runs/cpu/primate-mtDNA.log runs/cpu/primate.trees runs/cpu/testGTR.xml.state\nrm -f runs/gpu/primate-mtDNA.log runs/gpu/primate.trees runs/gpu/testGTR.xml.state\nNo borres las imágenes .sif a menos que quieras descargarlas de nuevo.\n\n\n\n\n\n\nCuidado con rm\n\n\n\nrm borra archivos de forma permanente. Antes de borrar, confirma tu ubicación con:\npwd\nls -lh",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Ejemplos</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/ejercicios.html#preparar-la-carpeta-de-trabajo",
+    "href": "chapters/ejercicios.html#preparar-la-carpeta-de-trabajo",
+    "title": "Ejemplos",
+    "section": "Preparar la carpeta de trabajo",
+    "text": "Preparar la carpeta de trabajo\nDesde la raíz del repositorio del manual, crea la carpeta de la práctica:\nmkdir -p beast2_testGTR/{data,sif,scripts,logs,runs/cpu,runs/gpu}\nDespués entra a la carpeta de la práctica:\ncd beast2_testGTR\nDescarga el archivo testGTR.xml dentro de la carpeta data/ de la práctica:\nwget -O data/testGTR.xml \\\n  https://raw.githubusercontent.com/CompEvol/beast2/master/examples/testGTR.xml\nVerifica que el archivo se descargó correctamente:\nls -lh data/testGTR.xml\nCopia el archivo testGTR.xml a las carpetas de corrida:\ncp data/testGTR.xml runs/cpu/\ncp data/testGTR.xml runs/gpu/\nLa estructura esperada será:\nbeast2_testGTR/\n├── data/\n│   └── testGTR.xml\n├── logs/\n├── runs/\n│   ├── cpu/\n│   │   └── testGTR.xml\n│   └── gpu/\n│       └── testGTR.xml\n├── scripts/\n└── sif/\n\n\n\n\n\n\n¿Por qué separar CPU y GPU?\n\n\n\nBEAST2 escribirá archivos como primate-mtDNA.log, primate.trees y testGTR.xml.state. Si se ejecutan las pruebas CPU y GPU en la misma carpeta, una corrida puede sobrescribir los resultados de la otra.",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Ejemplos</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/ejercicios.html#descargar-la-imagen-de-beast2-para-cpu",
+    "href": "chapters/ejercicios.html#descargar-la-imagen-de-beast2-para-cpu",
+    "title": "Ejemplos",
+    "section": "Descargar la imagen de BEAST2 para CPU",
+    "text": "Descargar la imagen de BEAST2 para CPU\nDescarga la imagen de BEAST2 desde Docker Hub y conviértela a formato .sif:\napptainer pull \\\n  sif/beast2_2.7.8.sif \\\n  docker://ccervantess/beast2:2.7.8\nRevisa que el archivo se haya creado:\nls -lh sif/\nPrueba que el ejecutable beast está disponible dentro del contenedor:\napptainer exec sif/beast2_2.7.8.sif beast -help",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Ejemplos</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/ejercicios.html#ejecutar-testgtr.xml-en-cpu-con-slurm",
+    "href": "chapters/ejercicios.html#ejecutar-testgtr.xml-en-cpu-con-slurm",
+    "title": "Ejemplos",
+    "section": "Ejecutar testGTR.xml en CPU con Slurm",
+    "text": "Ejecutar testGTR.xml en CPU con Slurm\nCrea el script:\nnano scripts/beast2_gtr_cpu.sbatch\nContenido:\n#!/bin/bash\n#SBATCH --job-name=beast2_gtr_cpu\n#SBATCH --partition=ib\n#SBATCH --nodes=1\n#SBATCH --ntasks=1\n#SBATCH --cpus-per-task=1\n#SBATCH --mem=4G\n#SBATCH --time=01:00:00\n#SBATCH --output=logs/%x-%j.out\n#SBATCH --error=logs/%x-%j.err\n\nset -euo pipefail\n\ncd \"$SLURM_SUBMIT_DIR\"\n\n# Cargar token y chat_id de Telegram \nif [[ -f \"$HOME/.telegram\" ]]; then\n  source \"$HOME/.telegram\"\nfi\n\nmkdir -p logs\n\nsend_telegram() {\n  local MESSAGE=\"$1\"\n\n  if [[ -n \"${TELEGRAM_BOT_TOKEN:-}\" && -n \"${TELEGRAM_CHAT_ID:-}\" ]]; then\n    curl -s -X POST \"https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage\" \\\n      -d chat_id=\"${TELEGRAM_CHAT_ID}\" \\\n      -d text=\"${MESSAGE}\" &gt; /dev/null || true\n  fi\n}\n\nsend_telegram \"BEAST2 CPU inició. Job: ${SLURM_JOB_NAME} (${SLURM_JOB_ID}) en $(hostname).\"\n\nSTART_TIME=$(date +%s)\n\nfinish() {\n  EXIT_CODE=$?\n  END_TIME=$(date +%s)\n  ELAPSED=$((END_TIME - START_TIME))\n\n  if [[ \"$EXIT_CODE\" -eq 0 ]]; then\n    send_telegram \"BEAST2 CPU terminó correctamente. Job: ${SLURM_JOB_NAME} (${SLURM_JOB_ID}). Tiempo: ${ELAPSED} s.\"\n  else\n    send_telegram \"BEAST2 CPU terminó con error. Job: ${SLURM_JOB_NAME} (${SLURM_JOB_ID}). Código: ${EXIT_CODE}. Revisa logs/.\"\n  fi\n\n  exit \"$EXIT_CODE\"\n}\n\ntrap finish EXIT\n\necho \"====================================\"\necho \"Trabajo: $SLURM_JOB_NAME\"\necho \"Job ID: $SLURM_JOB_ID\"\necho \"Nodo: $(hostname)\"\necho \"Inicio: $(date)\"\necho \"Directorio: $SLURM_SUBMIT_DIR\"\necho \"====================================\"\n\ncd runs/cpu\n\n/usr/bin/time -v apptainer exec \\\n  ../../sif/beast2_2.7.8.sif \\\n  beast \\\n  -overwrite \\\n  testGTR.xml\n\necho \"====================================\"\necho \"Fin: $(date)\"\necho \"====================================\"\nEnvía el trabajo:\nsbatch scripts/beast2_gtr_cpu.sbatch\nRevisa si sigue en cola:\nsqueue -u $USER\nCuando termine, revisa los archivos de salida:\nls -lh logs/\nls -lh runs/cpu/\nRevisa el final del archivo .out:\ntail -n 40 logs/beast2_gtr_cpu-*.out\nRevisa si hubo errores:\ntail -n 40 logs/beast2_gtr_cpu-*.err\nTambién puedes revisar el log principal de BEAST2:\ntail -n 20 runs/cpu/primate-mtDNA.log",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Ejemplos</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/ejercicios.html#descargar-la-imagen-de-beast2-con-beagle-cuda-para-gpu",
+    "href": "chapters/ejercicios.html#descargar-la-imagen-de-beast2-con-beagle-cuda-para-gpu",
+    "title": "Ejemplos",
+    "section": "Descargar la imagen de BEAST2 con BEAGLE CUDA para GPU",
+    "text": "Descargar la imagen de BEAST2 con BEAGLE CUDA para GPU\nDescarga la imagen preparada para usar BEAST2 con BEAGLE y CUDA en el nodo con GPU V100:\napptainer pull \\\n  sif/beast2-beagle-cuda_2.7.8-gpu-v100.sif \\\n  docker://ccervantess/beast2-beagle-cuda:2.7.8-gpu-v100\nRevisa que el archivo se haya creado:\nls -lh sif/\nPrueba que el contenedor abre correctamente:\napptainer exec sif/beast2-beagle-cuda_2.7.8-gpu-v100.sif beast -help",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Ejemplos</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/ejercicios.html#ejecutar-testgtr.xml-con-gpu",
+    "href": "chapters/ejercicios.html#ejecutar-testgtr.xml-con-gpu",
+    "title": "Ejemplos",
+    "section": "Ejecutar testGTR.xml con GPU",
+    "text": "Ejecutar testGTR.xml con GPU\n\n\n\n\n\n\nSolicita GPU solo cuando la vas a usar\n\n\n\nEste ejercicio solicita una GPU con #SBATCH --gres=gpu:1 y usa apptainer exec --nv para que el contenedor tenga acceso a las bibliotecas NVIDIA del nodo.\n\n\nCrea el script:\nnano scripts/beast2_gtr_gpu.sbatch\nContenido:\n#!/bin/bash\n#SBATCH --job-name=beast2_gtr_gpu\n#SBATCH --partition=gpu_V100\n#SBATCH --nodes=1\n#SBATCH --ntasks=1\n#SBATCH --cpus-per-task=4\n#SBATCH --mem=16G\n#SBATCH --gres=gpu:1\n#SBATCH --time=01:00:00\n#SBATCH --output=logs/%x-%j.out\n#SBATCH --error=logs/%x-%j.err\n\nset -euo pipefail\n\ncd \"$SLURM_SUBMIT_DIR\"\n\n# Cargar token y chat_id de Telegram \nif [[ -f \"$HOME/.telegram\" ]]; then\n  source \"$HOME/.telegram\"\nfi\n\nmkdir -p logs\n\nsend_telegram() {\n  local MESSAGE=\"$1\"\n\n  if [[ -n \"${TELEGRAM_BOT_TOKEN:-}\" && -n \"${TELEGRAM_CHAT_ID:-}\" ]]; then\n    curl -s -X POST \"https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage\" \\\n      -d chat_id=\"${TELEGRAM_CHAT_ID}\" \\\n      -d text=\"${MESSAGE}\" &gt; /dev/null || true\n  fi\n}\n\nsend_telegram \"BEAST2 GPU inició. Job: ${SLURM_JOB_NAME} (${SLURM_JOB_ID}) en $(hostname).\"\n\nSTART_TIME=$(date +%s)\n\nfinish() {\n  EXIT_CODE=$?\n  END_TIME=$(date +%s)\n  ELAPSED=$((END_TIME - START_TIME))\n\n  if [[ \"$EXIT_CODE\" -eq 0 ]]; then\n    send_telegram \"BEAST2 GPU terminó correctamente. Job: ${SLURM_JOB_NAME} (${SLURM_JOB_ID}). Tiempo: ${ELAPSED} s.\"\n  else\n    send_telegram \"BEAST2 GPU terminó con error. Job: ${SLURM_JOB_NAME} (${SLURM_JOB_ID}). Código: ${EXIT_CODE}. Revisa logs/.\"\n  fi\n\n  exit \"$EXIT_CODE\"\n}\n\ntrap finish EXIT\n\necho \"====================================\"\necho \"Trabajo: $SLURM_JOB_NAME\"\necho \"Job ID: $SLURM_JOB_ID\"\necho \"Nodo: $(hostname)\"\necho \"Inicio: $(date)\"\necho \"Directorio: $SLURM_SUBMIT_DIR\"\necho \"CPUs asignadas: ${SLURM_CPUS_PER_TASK}\"\necho \"GPUs asignadas: ${SLURM_GPUS:-No disponible}\"\necho \"====================================\"\n\necho \"Revisando GPU asignada:\"\nnvidia-smi\n\ncd runs/gpu\n\n/usr/bin/time -v apptainer exec \\\n  --nv \\\n  ../../sif/beast2-beagle-cuda_2.7.8-gpu-v100.sif \\\n  beast \\\n  -beagle \\\n  -beagle_GPU \\\n  -beagle_order 1 \\\n  -overwrite \\\n  testGTR.xml\n\necho \"====================================\"\necho \"Fin: $(date)\"\necho \"====================================\"\nEnvía el trabajo:\nsbatch scripts/beast2_gtr_gpu.sbatch\nRevisa si sigue en cola:\nsqueue -u $USER\nCuando termine, revisa los archivos generados:\nls -lh logs/\nls -lh runs/gpu/\nRevisa el archivo de salida:\ntail -n 60 logs/beast2_gtr_gpu-*.out\nRevisa si hubo errores:\ntail -n 60 logs/beast2_gtr_gpu-*.err\nRevisa el log principal de BEAST2:\ntail -n 20 runs/gpu/primate-mtDNA.log",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Ejemplos</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/ejercicios.html#usar-notificaciones-por-telegram",
+    "href": "chapters/ejercicios.html#usar-notificaciones-por-telegram",
+    "title": "Ejemplos",
+    "section": "Usar notificaciones por Telegram",
+    "text": "Usar notificaciones por Telegram\nLos scripts de esta práctica pueden enviar un mensaje por Telegram al iniciar y otro al terminar el trabajo.\nPara no escribir el token directamente dentro del script .sbatch, se recomienda guardar las credenciales en un archivo oculto dentro del directorio personal del usuario.\nCrea el archivo ~/.telegram:\nnano ~/.telegram\nAgrega tus credenciales:\nexport TELEGRAM_BOT_TOKEN=\"TU_TOKEN_DEL_BOT\"\nexport TELEGRAM_CHAT_ID=\"TU_CHAT_ID\"\nGuarda el archivo y cambia sus permisos:\nchmod 600 ~/.telegram\nDentro del script .sbatch, las credenciales se cargan con:\n# Cargar credenciales de Telegram si existen\nif [[ -f \"$HOME/.telegram\" ]]; then\n  source \"$HOME/.telegram\"\nfi\nDe esta forma, el script puede usar las variables TELEGRAM_BOT_TOKEN y TELEGRAM_CHAT_ID sin que el token quede escrito dentro del archivo .sbatch.\nLa función para enviar mensajes puede definirse así:\nsend_telegram() {\n  local MESSAGE=\"$1\"\n\n  if [[ -n \"${TELEGRAM_BOT_TOKEN:-}\" && -n \"${TELEGRAM_CHAT_ID:-}\" ]]; then\n    curl -s -X POST \"https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage\" \\\n      -d chat_id=\"${TELEGRAM_CHAT_ID}\" \\\n      -d text=\"${MESSAGE}\" &gt; /dev/null || true\n  fi\n}\nDespués se puede enviar un mensaje al iniciar el trabajo:\nsend_telegram \"Inicia BEAST2 CPU | Job ${SLURM_JOB_ID} | Nodo $(hostname)\"\ny otro al terminar:\nsend_telegram \"Terminó BEAST2 CPU | Job ${SLURM_JOB_ID}\"\nSi el archivo ~/.telegram no existe, el trabajo se ejecutará normalmente, pero no enviará notificaciones.",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Ejemplos</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/ejercicios.html#revisar-resultados",
+    "href": "chapters/ejercicios.html#revisar-resultados",
+    "title": "Ejemplos",
+    "section": "Revisar resultados",
+    "text": "Revisar resultados\nRevisa directamente los archivos .out, .err y los archivos generados por el programa.\nPara esta práctica, los archivos importantes son:\nlogs/beast2_gtr_cpu-JOBID.out\nlogs/beast2_gtr_cpu-JOBID.err\nlogs/beast2_gtr_gpu-JOBID.out\nlogs/beast2_gtr_gpu-JOBID.err\nruns/cpu/primate-mtDNA.log\nruns/cpu/primate.trees\nruns/gpu/primate-mtDNA.log\nruns/gpu/primate.trees\nPuedes buscar mensajes de error con:\ngrep -i \"error\\|exception\\|failed\" logs/*.out logs/*.err\nSi no aparece nada, revisa el final de los archivos .out:\ntail -n 40 logs/*.out",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Ejemplos</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/ejercicios.html#limpiar-resultados-para-repetir-la-prueba",
+    "href": "chapters/ejercicios.html#limpiar-resultados-para-repetir-la-prueba",
+    "title": "Ejemplos",
+    "section": "Limpiar resultados para repetir la prueba",
+    "text": "Limpiar resultados para repetir la prueba\nSi quieres repetir la prueba desde cero, elimina solo los resultados generados dentro de las carpetas de corrida:\nrm -f runs/cpu/primate-mtDNA.log runs/cpu/primate.trees runs/cpu/testGTR.xml.state\nrm -f runs/gpu/primate-mtDNA.log runs/gpu/primate.trees runs/gpu/testGTR.xml.state\nNo borres las imágenes .sif a menos que quieras descargarlas de nuevo.\n\n\n\n\n\n\nCuidado con rm\n\n\n\nrm borra archivos de forma permanente. Antes de borrar, confirma tu ubicación con:\npwd\nls -lh",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Ejemplos</span>"
     ]
   }
 ]

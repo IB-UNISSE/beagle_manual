@@ -24,9 +24,10 @@ book:
     - index.qmd
     - chapters/acceso.qmd
     - chapters/terminal_linux.qmd
+    - chapters/bots.qmd
     - chapters/apptainer.qmd
     - chapters/slurm.qmd
-    - chapters/bots.qmd
+    - chapters/ejercicios.qmd
     - contacto.qmd
 
 format:
