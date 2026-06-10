@@ -12,13 +12,13 @@ Micromamba permite crear ambientes independientes para distintos programas o pro
 
 Por ejemplo, un usuario podría tener:
 
--   un ambiente para control de calidad con `FastQC` y `MultiQC`;
+- un ambiente para control de calidad con `FastQC` y `MultiQC`;
 
--   un ambiente para análisis filogenéticos con `IQ-TREE`;
+- un ambiente para análisis filogenéticos con `IQ-TREE`;
 
--   un ambiente para ensamblaje o anotación con herramientas específicas;
+- un ambiente para ensamblaje o anotación con herramientas específicas;
 
--   un ambiente para trabajar con paquetes de R o Python.
+- un ambiente para trabajar con paquetes de R o Python.
 
 Esto evita mezclar programas incompatibles entre sí y ayuda a mantener los análisis más organizados.
 
@@ -26,19 +26,19 @@ Esto evita mezclar programas incompatibles entre sí y ayuda a mantener los aná
 
 El uso de Micromamba en BEAGLE permite:
 
--   instalar software sin utilizar `sudo`;
+- instalar software sin utilizar `sudo`;
 
--   crear ambientes aislados por proyecto o análisis;
+- crear ambientes aislados por proyecto o análisis;
 
--   evitar conflictos entre versiones de programas;
+- evitar conflictos entre versiones de programas;
 
--   instalar paquetes desde canales como `conda-forge` y `bioconda`;
+- instalar paquetes desde canales como `conda-forge` y `bioconda`;
 
--   activar y desactivar ambientes según sea necesario;
+- activar y desactivar ambientes según sea necesario;
 
--   compartir la lista de paquetes usados mediante archivos `environment.yml`;
+- compartir la lista de paquetes usados mediante archivos `environment.yml`;
 
--   comenzar a trabajar con una curva de aprendizaje relativamente baja.
+- comenzar a trabajar con una curva de aprendizaje relativamente baja.
 
 ## Instalación de Micromamba sin permisos de administrador
 
@@ -68,7 +68,7 @@ Si el comando muestra un número de versión, Micromamba quedó instalado correc
 
 ## Ejemplo general de uso
 
-Crear un ambiente nuevo:
+Crear un ambiente nuevo llamado `bioinfo`:
 
 ``` bash
 micromamba create -n bioinfo -c conda-forge -c bioconda fastqc multiqc
@@ -82,17 +82,17 @@ Activar el ambiente:
 micromamba activate bioinfo
 ```
 
-Verificar que el programa está disponible:
+Verificar que los programas están disponibles:
 
 ``` bash
 fastqc --version
 multiqc --version
 ```
 
-Desactivar el ambiente:
+Instalar un paquete adicional en el ambiente `bioinfo`:
 
 ``` bash
-micromamba deactivate
+micromamba install -n bioinfo -c conda-forge -c bioconda trimmomatic
 ```
 
 Listar los ambientes disponibles:
@@ -101,16 +101,46 @@ Listar los ambientes disponibles:
 micromamba env list
 ```
 
-Instalar un paquete adicional en un ambiente ya creado:
+Desactivar el ambiente:
 
 ``` bash
-micromamba install -n fastqc-0.12.1 -c conda-forge -c bioconda trimmomatic=0.40
+micromamba deactivate
 ```
 
 Eliminar un ambiente que ya no se necesita:
 
 ``` bash
 micromamba remove -n bioinfo --all
+```
+
+En algunos casos, si el ambiente ya está vacío, `micromamba` puede mostrar un mensaje como:
+
+``` bash
+Nothing to do.
+```
+
+Si después de ese mensaje el ambiente todavía aparece al ejecutar:
+
+``` bash
+micromamba env list
+```
+
+puedes verificar que la carpeta corresponde al ambiente que quieres borrar:
+
+``` bash
+ls -ld ~/micromamba/envs/bioinfo
+```
+
+Si la ruta es correcta, puedes eliminar la carpeta manualmente:
+
+``` bash
+rm -rf ~/micromamba/envs/bioinfo
+```
+
+Finalmente, verifica que el ambiente ya no aparece:
+
+``` bash
+micromamba env list
 ```
 
 ## Crear un ambiente a partir de un archivo YAML
@@ -130,17 +160,17 @@ channels:
   - bioconda
 dependencies:
   - fastqc=0.12.1
-  - seqkit=2.8.2
-  - mafft=7.525
+  - multiqc=1.35
+  - trimmomatic=0.40
 ```
 
 En este ejemplo:
 
--   `name` indica el nombre del ambiente;
+- `name` indica el nombre del ambiente;
 
--   `channels` define los repositorios donde se buscarán los paquetes;
+- `channels` define los repositorios donde se buscarán los paquetes;
 
--   `dependencies` contiene la lista de programas que se instalarán.
+- `dependencies` contiene la lista de programas que se instalarán.
 
 ## Consideraciones importantes
 
@@ -148,15 +178,15 @@ Aunque Micromamba facilita la instalación de software, es importante considerar
 
 Por esta razón, se recomienda:
 
--   crear un ambiente por proyecto o por tipo de análisis;
+- crear un ambiente por proyecto o por tipo de análisis;
 
--   evitar instalar todos los programas en un solo ambiente;
+- evitar instalar todos los programas en un solo ambiente;
 
--   documentar los paquetes instalados;
+- documentar los paquetes instalados;
 
--   guardar el archivo `environment.yml` del ambiente;
+- guardar el archivo `environment.yml` del ambiente;
 
--   registrar las versiones de los programas usados en cada análisis.
+- registrar las versiones de los programas usados en cada análisis.
 
 Por ejemplo, después de crear un ambiente, se puede guardar su configuración con:
 

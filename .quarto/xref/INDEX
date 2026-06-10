@@ -58,5 +58,11 @@
   },
   "chapters/bots.qmd": {
     "bots.html": "2e966d1f"
+  },
+  "apptainer.qmd": {
+    "apptainer.html": "73d4b1b2"
+  },
+  "micromamba.qmd": {
+    "micromamba.html": "2743f0d9"
   }
 }

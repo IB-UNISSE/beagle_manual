@@ -68,7 +68,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
 <link href="../chapters/slurm.html" rel="next">
-<link href="../chapters/micromamba.html" rel="prev">
+<link href="../chapters/software.html" rel="prev">
 <link href="../images/logo_beagle_2.png" rel="icon" type="image/png">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -183,11 +183,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/micromamba.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Micromamba</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="../chapters/apptainer.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Apptainer</span></a>
   </div>
 </li>
@@ -216,7 +211,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#apptainer" id="toc-apptainer" class="nav-link active" data-scroll-target="#apptainer">Apptainer</a>
+  <li><a href="#qué-es-un-contenedor" id="toc-qué-es-un-contenedor" class="nav-link active" data-scroll-target="#qué-es-un-contenedor">¿Qué es un contenedor?</a></li>
+  <li><a href="#apptainer" id="toc-apptainer" class="nav-link" data-scroll-target="#apptainer">Apptainer</a>
   <ul class="collapse">
   <li><a href="#en-qué-sistemas-funciona-apptainer" id="toc-en-qué-sistemas-funciona-apptainer" class="nav-link" data-scroll-target="#en-qué-sistemas-funciona-apptainer">¿En qué sistemas funciona Apptainer?</a></li>
   <li><a href="#de-dónde-vienen-las-imágenes" id="toc-de-dónde-vienen-las-imágenes" class="nav-link" data-scroll-target="#de-dónde-vienen-las-imágenes">¿De dónde vienen las imágenes?</a></li>
@@ -302,8 +298,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="qué-es-un-contenedor" class="level4">
-<h4 class="anchored" data-anchor-id="qué-es-un-contenedor">¿Qué es un contenedor?</h4>
+<p>BEAGLE es un clúster de cómputo compartido. Para mantenerlo estable, seguro y funcional para todas las personas usuarias, no se debe instalar software directamente en el sistema operativo, modificar instalaciones globales ni usar <code>sudo</code>.</p>
+<p>El software especializado en BEAGLE debe ejecutarse mediante <strong>contenedores con Apptainer</strong>. Esta estrategia permite usar programas bioinformáticos y científicos en entornos aislados, sin alterar el sistema principal del clúster y con mayor reproducibilidad.</p>
+<section id="qué-es-un-contenedor" class="level2">
+<h2 class="anchored" data-anchor-id="qué-es-un-contenedor">¿Qué es un contenedor?</h2>
 <p>Un contenedor es un entorno aislado que incluye:</p>
 <ul>
 <li><p>Sistema operativo base</p></li>
@@ -311,7 +309,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><p>Dependencias</p></li>
 <li><p>Software específico</p></li>
 </ul>
-</section>
 <section id="docker-vs-podman-vs-apptainer" class="level4">
 <h4 class="anchored" data-anchor-id="docker-vs-podman-vs-apptainer">Docker vs Podman vs Apptainer</h4>
 <p>Actualmente hay decenas de proyectos involucrados en el desarrollo, adopción y uso de contenedores: <a href="https://landscape.cncf.io" class="uri">https://landscape.cncf.io</a></p>
@@ -363,6 +360,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 </tbody>
 </table>
+</section>
 </section>
 <section id="apptainer" class="level2">
 <h2 class="anchored" data-anchor-id="apptainer"><a href="https://apptainer.org/">Apptainer</a></h2>
@@ -1405,8 +1403,8 @@ y estos comandos sincronizan el sistema con esos repositorios</p>
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../chapters/micromamba.html" class="pagination-link" aria-label="Micromamba">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Micromamba</span></span>
+      <a href="../chapters/software.html" class="pagination-link" aria-label="Software en BEAGLE">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Software en BEAGLE</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">

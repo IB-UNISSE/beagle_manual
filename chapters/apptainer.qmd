@@ -1,6 +1,10 @@
 # Apptainer
 
-#### ¿Qué es un contenedor?
+BEAGLE es un clúster de cómputo compartido. Para mantenerlo estable, seguro y funcional para todas las personas usuarias, no se debe instalar software directamente en el sistema operativo, modificar instalaciones globales ni usar `sudo`.
+
+El software especializado en BEAGLE debe ejecutarse mediante **contenedores con Apptainer**. Esta estrategia permite usar programas bioinformáticos y científicos en entornos aislados, sin alterar el sistema principal del clúster y con mayor reproducibilidad.
+
+## ¿Qué es un contenedor?
 
 Un contenedor es un entorno aislado que incluye:
 
