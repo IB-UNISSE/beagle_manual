@@ -164,27 +164,97 @@
     "href": "chapters/terminal_linux.html",
     "title": "Comandos básicos de Linux",
     "section": "",
-    "text": "Comandos esenciales para moverte\nEsta sección reúne comandos esenciales para trabajar en BEAGLE desde la terminal. No pretende ser un curso completo de Linux, sino una guía práctica para moverse entre carpetas, revisar archivos, consultar el uso de disco, monitorear procesos y trabajar de forma más segura dentro del servidor.\nEstos comandos son útiles después de ingresar por SSH y antes de comenzar a trabajar con ambientes, contenedores de Apptainer o trabajos enviados mediante Slurm.",
+    "text": "La terminal y la ruta de trabajo\nEsta sección presenta los comandos mínimos para trabajar en BEAGLE desde la terminal. Está pensada como una guía práctica para personas que empiezan a usar Linux en un servidor de cómputo: moverse entre carpetas, organizar archivos, revisar resultados, consultar espacio en disco y trabajar con scripts sencillos.\nNo es necesario memorizar todos los comandos. Lo más importante es entender qué hace cada uno, revisar siempre en qué carpeta estás trabajando y evitar comandos destructivos sin verificar antes.\nCuando entras al servidor por SSH, normalmente llegas a tu carpeta personal. En Linux, las carpetas se organizan como rutas. Por ejemplo:\nEn esta ruta:",
     "crumbs": [
       "<span class='chapter-number'>3</span>  <span class='chapter-title'>Comandos básicos de Linux</span>"
     ]
   },
   {
-    "objectID": "chapters/terminal_linux.html#comandos-esenciales-para-moverte",
-    "href": "chapters/terminal_linux.html#comandos-esenciales-para-moverte",
+    "objectID": "chapters/terminal_linux.html#la-terminal-y-la-ruta-de-trabajo",
+    "href": "chapters/terminal_linux.html#la-terminal-y-la-ruta-de-trabajo",
     "title": "Comandos básicos de Linux",
     "section": "",
-    "text": "¿Dónde estoy?\nPara saber en qué carpeta te encuentras actualmente, usa:\npwd\nEl comando pwd significa print working directory y muestra la ruta completa de tu ubicación actual.\n\n\nListar archivos y carpetas\nPara listar el contenido de la carpeta actual:\nls\nPara ver más detalles, como permisos, tamaño y fecha de modificación:\nls -lh\nPara mostrar también archivos ocultos:\nls -lah\n\n\n\n\n\n\nTipArchivos ocultos\n\n\n\nEn Linux, los archivos o carpetas que comienzan con punto (.) son ocultos. Por ejemplo: .bashrc, .ssh/ o .config/.\n\n\n\n\nCambiar de carpeta\nPara entrar a una carpeta específica:\ncd /ruta/a/la/carpeta\nPara ir a tu carpeta personal:\ncd ~\nPara subir un nivel en la estructura de carpetas:\ncd ..\nPara regresar a la carpeta anterior:\ncd -\n\n\n\n\n\n\nTipAutocompletado\n\n\n\nPuedes usar la tecla Tab para autocompletar nombres de archivos y carpetas. Esto reduce errores al escribir rutas largas.",
+    "text": "/home/usuario/proyecto/data\n\n\n/home/usuario/ es la carpeta personal del usuario.\nproyecto/ es una carpeta de trabajo.\ndata/ puede contener archivos de entrada.\n\n\n\n\n\n\n\nTipBuen hábito\n\n\n\nAntes de copiar, mover o borrar archivos, revisa siempre tu ubicación actual con pwd y el contenido de la carpeta con ls.",
     "crumbs": [
       "<span class='chapter-number'>3</span>  <span class='chapter-title'>Comandos básicos de Linux</span>"
     ]
   },
   {
-    "objectID": "chapters/terminal_linux.html#crear-copiar-mover-y-borrar-archivos",
-    "href": "chapters/terminal_linux.html#crear-copiar-mover-y-borrar-archivos",
+    "objectID": "chapters/terminal_linux.html#saber-dónde-estás",
+    "href": "chapters/terminal_linux.html#saber-dónde-estás",
     "title": "Comandos básicos de Linux",
-    "section": "Crear, copiar, mover y borrar archivos",
-    "text": "Crear, copiar, mover y borrar archivos\n\nCrear carpetas\nPara crear una carpeta:\nmkdir proyecto\nPara crear varias carpetas dentro de un proyecto:\nmkdir -p proyecto/{data,scripts,results,logs,metadata}\nEste comando crea una estructura básica útil para organizar análisis bioinformáticos:\nproyecto/\n├── data/\n├── scripts/\n├── results/\n├── logs/\n└── metadata/\n\n\nCopiar archivos y carpetas\nPara copiar un archivo:\ncp archivoA archivoB\nPara copiar una carpeta completa:\ncp -r carpetaA carpetaB\n\n\nMover o renombrar archivos\nPara renombrar un archivo:\nmv viejo.txt nuevo.txt\nPara mover una carpeta a otra ruta:\nmv carpeta /otra/ruta/\n\n\nBorrar archivos y carpetas\nPara borrar un archivo:\nrm archivo.txt\nPara borrar una carpeta completa:\nrm -r carpeta/",
+    "section": "Saber dónde estás",
+    "text": "Saber dónde estás\nPara mostrar la carpeta actual:\npwd\nEjemplo de salida:\n/home/usuario\nEl comando pwd significa print working directory y sirve para confirmar desde dónde estás ejecutando los comandos.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Comandos básicos de Linux</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/terminal_linux.html#listar-archivos-y-carpetas",
+    "href": "chapters/terminal_linux.html#listar-archivos-y-carpetas",
+    "title": "Comandos básicos de Linux",
+    "section": "Listar archivos y carpetas",
+    "text": "Listar archivos y carpetas\nPara ver el contenido de la carpeta actual:\nls\nPara ver detalles como permisos, propietario, tamaño y fecha de modificación:\nls -lh\nPara incluir archivos ocultos:\nls -lah\nEn Linux, los archivos o carpetas que comienzan con punto (.) son ocultos. Algunos ejemplos comunes son:\n.bashrc\n.ssh/\n.config/",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Comandos básicos de Linux</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/terminal_linux.html#cambiar-de-carpeta",
+    "href": "chapters/terminal_linux.html#cambiar-de-carpeta",
+    "title": "Comandos básicos de Linux",
+    "section": "Cambiar de carpeta",
+    "text": "Cambiar de carpeta\nPara entrar a una carpeta:\ncd carpeta/\nPara entrar usando una ruta completa:\ncd /home/usuario/proyecto\nPara regresar a tu carpeta personal:\ncd ~\nPara subir un nivel:\ncd ..\nPara regresar a la carpeta anterior:\ncd -\n\n\n\n\n\n\nTipAutocompletado\n\n\n\nUsa la tecla Tab para autocompletar nombres de archivos y carpetas. Esto ayuda a evitar errores al escribir rutas largas.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Comandos básicos de Linux</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/terminal_linux.html#crear-una-estructura-de-proyecto",
+    "href": "chapters/terminal_linux.html#crear-una-estructura-de-proyecto",
+    "title": "Comandos básicos de Linux",
+    "section": "Crear una estructura de proyecto",
+    "text": "Crear una estructura de proyecto\nUna forma ordenada de iniciar un análisis es crear una carpeta de proyecto con subcarpetas separadas para datos, scripts, resultados y logs.\nmkdir -p mi_proyecto/{data,scripts,results,logs,metadata}\nDespués entra al proyecto:\ncd mi_proyecto\nLa estructura creada será:\nmi_proyecto/\n├── data/\n├── scripts/\n├── results/\n├── logs/\n└── metadata/\nUso sugerido:\n\n\n\n\n\n\n\nCarpeta\nUso recomendado\n\n\n\n\ndata/\nArchivos de entrada, como FASTA, FASTQ, VCF, CSV o XML\n\n\nscripts/\nScripts de Bash, Slurm, R o Python\n\n\nresults/\nResultados finales o intermedios importantes\n\n\nlogs/\nArchivos de salida y error de Slurm o programas\n\n\nmetadata/\nTablas de muestras, notas, parámetros o archivos de diseño\n\n\n\n\n\n\n\n\n\nImportantNo mezcles todo en una sola carpeta\n\n\n\nSeparar datos, scripts, logs y resultados facilita revisar errores, repetir análisis y compartir el proyecto con otras personas.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Comandos básicos de Linux</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/terminal_linux.html#crear-archivos-vacíos",
+    "href": "chapters/terminal_linux.html#crear-archivos-vacíos",
+    "title": "Comandos básicos de Linux",
+    "section": "Crear archivos vacíos",
+    "text": "Crear archivos vacíos\nPara crear un archivo vacío:\ntouch notas.txt\nEsto también puede usarse para comprobar que tienes permiso de escritura en una carpeta.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Comandos básicos de Linux</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/terminal_linux.html#copiar-archivos-y-carpetas",
+    "href": "chapters/terminal_linux.html#copiar-archivos-y-carpetas",
+    "title": "Comandos básicos de Linux",
+    "section": "Copiar archivos y carpetas",
+    "text": "Copiar archivos y carpetas\nPara copiar un archivo:\ncp archivo_original.txt copia.txt\nPara copiar un archivo a otra carpeta:\ncp archivo.txt results/\nPara copiar una carpeta completa:\ncp -r carpeta_original/ carpeta_copia/\n\n\n\n\n\n\nNoteCopias de seguridad rápidas\n\n\n\nAntes de modificar un archivo importante, puedes hacer una copia:\ncp archivo.tsv archivo.tsv.bak",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Comandos básicos de Linux</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/terminal_linux.html#mover-o-renombrar-archivos",
+    "href": "chapters/terminal_linux.html#mover-o-renombrar-archivos",
+    "title": "Comandos básicos de Linux",
+    "section": "Mover o renombrar archivos",
+    "text": "Mover o renombrar archivos\nEl comando mv sirve tanto para mover como para renombrar.\nRenombrar un archivo:\nmv viejo_nombre.txt nuevo_nombre.txt\nMover un archivo a otra carpeta:\nmv archivo.txt results/\nMover una carpeta completa:\nmv carpeta/ /otra/ruta/",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Comandos básicos de Linux</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/terminal_linux.html#borrar-archivos-y-carpetas",
+    "href": "chapters/terminal_linux.html#borrar-archivos-y-carpetas",
+    "title": "Comandos básicos de Linux",
+    "section": "Borrar archivos y carpetas",
+    "text": "Borrar archivos y carpetas\nPara borrar un archivo:\nrm archivo.txt\nPara borrar una carpeta completa:\nrm -r carpeta/",
     "crumbs": [
       "<span class='chapter-number'>3</span>  <span class='chapter-title'>Comandos básicos de Linux</span>"
     ]
@@ -194,47 +264,77 @@
     "href": "chapters/terminal_linux.html#cuidado-con-rm",
     "title": "Comandos básicos de Linux",
     "section": "Cuidado con rm",
-    "text": "Cuidado con rm\nEl comando rm borra archivos directamente. En la terminal no hay papelera de reciclaje.\nAntes de borrar, revisa con:\nls\nTambién puedes revisar el contenido de una carpeta antes de eliminarla:\nls carpeta/",
+    "text": "Cuidado con rm\nEl comando rm borra directamente. En la terminal no hay papelera de reciclaje.\nAntes de borrar, revisa con:\nls -lh\nSi vas a borrar una carpeta, revisa primero su contenido:\nls -lah carpeta/",
     "crumbs": [
       "<span class='chapter-number'>3</span>  <span class='chapter-title'>Comandos básicos de Linux</span>"
     ]
   },
   {
-    "objectID": "chapters/terminal_linux.html#revisar-archivos-rápidamente",
-    "href": "chapters/terminal_linux.html#revisar-archivos-rápidamente",
+    "objectID": "chapters/terminal_linux.html#ver-archivos-de-texto",
+    "href": "chapters/terminal_linux.html#ver-archivos-de-texto",
     "title": "Comandos básicos de Linux",
-    "section": "Revisar archivos rápidamente",
-    "text": "Revisar archivos rápidamente\n\nVer el contenido completo de un archivo\ncat archivo.txt\nEste comando es útil para archivos pequeños. Para archivos grandes, es mejor usar less, head o tail.\n\n\nVer las primeras líneas\nhead archivo.txt\nPara mostrar un número específico de líneas:\nhead -n 20 archivo.txt\n\n\nVer las últimas líneas\ntail archivo.txt\nPara mostrar un número específico de líneas:\ntail -n 20 archivo.txt\n\n\nSeguir un archivo en tiempo real\nEsto es útil para revisar archivos de salida o archivos .log mientras se está ejecutando un proceso:\ntail -f archivo.log\nPara salir, presiona:\nCtrl + c\n\n\nVer archivos largos página por página\nless archivo.txt\nDentro de less, puedes moverte con las flechas del teclado o con la barra espaciadora.\nPara salir de less, presiona:\nq",
+    "section": "Ver archivos de texto",
+    "text": "Ver archivos de texto\n\nVer un archivo completo\nPara archivos pequeños:\ncat archivo.txt\nNo uses cat para archivos muy grandes, como FASTQ, BAM, VCF grandes o logs extensos.\n\n\nVer las primeras líneas\nhead archivo.txt\nPara mostrar un número específico de líneas:\nhead -n 20 archivo.txt\n\n\nVer las últimas líneas\ntail archivo.txt\nPara ver las últimas 50 líneas:\ntail -n 50 archivo.txt\n\n\nSeguir un archivo en tiempo real\nEsto es útil para revisar archivos .log, .out o .err mientras un proceso escribe resultados:\ntail -f logs/mi_trabajo.out\nPara salir:\nCtrl + c\n\n\nLeer archivos largos página por página\nless archivo.txt\nDentro de less:\n\n\n\nAcción\nTecla\n\n\n\n\nAvanzar\nEspacio\n\n\nRetroceder\nb\n\n\nBuscar texto\n/texto\n\n\nSalir\nq",
     "crumbs": [
       "<span class='chapter-number'>3</span>  <span class='chapter-title'>Comandos básicos de Linux</span>"
     ]
   },
   {
-    "objectID": "chapters/terminal_linux.html#revisar-almacenamiento-y-tamaño-de-datos",
-    "href": "chapters/terminal_linux.html#revisar-almacenamiento-y-tamaño-de-datos",
+    "objectID": "chapters/terminal_linux.html#contar-líneas-palabras-y-caracteres",
+    "href": "chapters/terminal_linux.html#contar-líneas-palabras-y-caracteres",
     "title": "Comandos básicos de Linux",
-    "section": "Revisar almacenamiento y tamaño de datos",
-    "text": "Revisar almacenamiento y tamaño de datos\n\nEspacio libre por partición\nPara revisar el espacio disponible en los discos o particiones montadas:\ndf -h\nLa opción -h muestra los tamaños en formato legible, por ejemplo en G o T.\n\n\nTamaño de una carpeta\nPara revisar el tamaño total de una carpeta:\ndu -sh carpeta/\nPara revisar el tamaño de todo lo que hay en la carpeta actual:\ndu -sh *\n\n\nEncontrar lo que más pesa\ndu -sh * | sort -h\nEste comando calcula el tamaño de los archivos y carpetas, y luego los ordena por tamaño.\n\n\n\n\n\n\nTipBuen hábito\n\n\n\nRevisa tu uso de disco antes de lanzar análisis grandes, especialmente si trabajarás con archivos FASTQ, BAM, VCF, ensamblajes o resultados intermedios grandes.",
+    "section": "Contar líneas, palabras y caracteres",
+    "text": "Contar líneas, palabras y caracteres\nPara contar líneas, palabras y caracteres:\nwc archivo.txt\nPara contar solo líneas:\nwc -l archivo.txt\nEjemplo útil para contar secuencias en un FASTA:\ngrep -c \"^&gt;\" secuencias.fasta",
     "crumbs": [
       "<span class='chapter-number'>3</span>  <span class='chapter-title'>Comandos básicos de Linux</span>"
     ]
   },
   {
-    "objectID": "chapters/terminal_linux.html#revisar-recursos-disponibles-cpu-y-ram",
-    "href": "chapters/terminal_linux.html#revisar-recursos-disponibles-cpu-y-ram",
+    "objectID": "chapters/terminal_linux.html#buscar-texto-dentro-de-archivos",
+    "href": "chapters/terminal_linux.html#buscar-texto-dentro-de-archivos",
     "title": "Comandos básicos de Linux",
-    "section": "Revisar recursos disponibles: CPU y RAM",
-    "text": "Revisar recursos disponibles: CPU y RAM\n\nRevisar CPU\nPara ver información del procesador, número de núcleos e hilos disponibles:\nlscpu\n\n\nRevisar memoria RAM\nPara revisar la memoria disponible:\nfree -h\n\n\nVer procesos en tiempo real\ntop\nPara salir de top, presiona:\nq\nSi está instalado, htop suele ser más cómodo:\nhtop\n\n\n\n\n\n\nNoteNota\n\n\n\nEn servidores administrados con Slurm, la disponibilidad real de CPU y memoria para tus análisis depende de los recursos solicitados en el script de trabajo, no solo de lo que aparece con lscpu o free -h.",
+    "section": "Buscar texto dentro de archivos",
+    "text": "Buscar texto dentro de archivos\nPara buscar una palabra o patrón dentro de un archivo:\ngrep \"patron\" archivo.txt\nEjemplo:\ngrep \"error\" logs/analisis.err\nPara ignorar mayúsculas y minúsculas:\ngrep -i \"error\" logs/analisis.err\nPara mostrar el número de línea donde aparece el texto:\ngrep -n \"error\" logs/analisis.err\nPara buscar dentro de varios archivos:\ngrep -n \"error\" logs/*",
     "crumbs": [
       "<span class='chapter-number'>3</span>  <span class='chapter-title'>Comandos básicos de Linux</span>"
     ]
   },
   {
-    "objectID": "chapters/terminal_linux.html#monitoreo-básico-de-procesos",
-    "href": "chapters/terminal_linux.html#monitoreo-básico-de-procesos",
+    "objectID": "chapters/terminal_linux.html#buscar-archivos-y-carpetas",
+    "href": "chapters/terminal_linux.html#buscar-archivos-y-carpetas",
     "title": "Comandos básicos de Linux",
-    "section": "Monitoreo básico de procesos",
-    "text": "Monitoreo básico de procesos\nUn proceso es un programa que se está ejecutando. Cada proceso tiene un identificador llamado PID (Process ID).\n\nVer procesos de tu usuario\nps -u $USER\nUna versión más legible y ordenada por uso de CPU:\nps -u $USER -o pid,ppid,cmd,%cpu,%mem,etime --sort=-%cpu | head -n 20\n\n\nBuscar un proceso por nombre\npgrep -a nombre_programa\nPor ejemplo:\npgrep -a mafft\n\n\nVer el PID de un proceso específico\npidof nombre_programa",
+    "section": "Buscar archivos y carpetas",
+    "text": "Buscar archivos y carpetas\nPara buscar archivos por nombre desde la carpeta actual:\nfind . -name \"*.fasta\"\nBuscar archivos .log dentro de una carpeta:\nfind logs/ -name \"*.log\"\nBuscar carpetas llamadas results:\nfind . -type d -name \"results\"\nBuscar archivos mayores a 1 GB:\nfind . -type f -size +1G",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Comandos básicos de Linux</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/terminal_linux.html#revisar-espacio-en-disco",
+    "href": "chapters/terminal_linux.html#revisar-espacio-en-disco",
+    "title": "Comandos básicos de Linux",
+    "section": "Revisar espacio en disco",
+    "text": "Revisar espacio en disco\nPara ver el espacio disponible en los discos o particiones:\ndf -h\nLa opción -h muestra tamaños en formato legible, por ejemplo G o T.\nPara revisar cuánto ocupa una carpeta:\ndu -sh carpeta/\nPara revisar el tamaño de todo lo que está en la carpeta actual:\ndu -sh *\nPara ordenar por tamaño:\ndu -sh * | sort -h\n\n\n\n\n\n\nTipArchivos grandes en bioinformática\n\n\n\nLos archivos FASTQ, BAM, SAM, VCF, ensamblajes, alineamientos y resultados intermedios pueden ocupar mucho espacio. Revisa tu uso de disco antes y después de análisis grandes.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Comandos básicos de Linux</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/terminal_linux.html#revisar-cpu-y-memoria",
+    "href": "chapters/terminal_linux.html#revisar-cpu-y-memoria",
+    "title": "Comandos básicos de Linux",
+    "section": "Revisar CPU y memoria",
+    "text": "Revisar CPU y memoria\nPara ver información general del procesador:\nlscpu\nPara revisar memoria RAM disponible:\nfree -h\nPara ver procesos en tiempo real:\ntop\nPara salir de top:\nq\nSi está disponible, htop muestra una vista más cómoda:\nhtop\n\n\n\n\n\n\nWarningRecursos en un clúster con Slurm\n\n\n\nAunque lscpu o free -h muestren muchos recursos disponibles en el nodo, tus análisis deben usar los recursos que solicitaste en Slurm. No asumas que todo el servidor está disponible para una sola persona.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Comandos básicos de Linux</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/terminal_linux.html#ver-procesos-de-tu-usuario",
+    "href": "chapters/terminal_linux.html#ver-procesos-de-tu-usuario",
+    "title": "Comandos básicos de Linux",
+    "section": "Ver procesos de tu usuario",
+    "text": "Ver procesos de tu usuario\nPara listar procesos asociados a tu usuario:\nps -u $USER\nUna salida más útil ordenada por uso de CPU:\nps -u $USER -o pid,ppid,cmd,%cpu,%mem,etime --sort=-%cpu | head -n 20\nPara buscar un proceso por nombre:\npgrep -a nombre_programa\nEjemplo:\npgrep -a mafft",
     "crumbs": [
       "<span class='chapter-number'>3</span>  <span class='chapter-title'>Comandos básicos de Linux</span>"
     ]
@@ -244,77 +344,117 @@
     "href": "chapters/terminal_linux.html#detener-procesos",
     "title": "Comandos básicos de Linux",
     "section": "Detener procesos",
-    "text": "Detener procesos\n\n\n\n\n\n\nWarningAntes de detener un proceso\n\n\n\nAsegúrate de que el proceso sea tuyo y de que realmente quieras detenerlo. No intentes detener procesos de otros usuarios o procesos del sistema.\n\n\n\nDetener un proceso por PID\nPrimero intenta un apagado limpio:\nkill PID\nPor ejemplo:\nkill 12345\nSi el proceso no se detiene, puedes forzarlo:\nkill -9 PID\n\n\n\n\n\n\nWarningkill -9 como último recurso\n\n\n\nUsa kill normal primero. El comando kill -9 fuerza el cierre inmediato del proceso y puede dejar archivos incompletos o resultados corruptos.\n\n\n\n\nDetener varios procesos por nombre\nPrimero verifica qué procesos coinciden con el nombre:\npgrep -a nombre_programa\nDespués puedes detenerlos con:\npkill nombre_programa\nPor ejemplo:\npgrep -a mafft\npkill mafft",
+    "text": "Detener procesos\nPrimero identifica el proceso y su PID:\nps -u $USER\nDespués intenta detenerlo de forma normal:\nkill PID\nEjemplo:\nkill 12345\nSi no se detiene, como último recurso:\nkill -9 PID",
     "crumbs": [
       "<span class='chapter-number'>3</span>  <span class='chapter-title'>Comandos básicos de Linux</span>"
     ]
   },
   {
-    "objectID": "chapters/terminal_linux.html#sesiones-persistentes-con-tmux",
-    "href": "chapters/terminal_linux.html#sesiones-persistentes-con-tmux",
+    "objectID": "chapters/terminal_linux.html#usa-kill--9-solo-si-es-necesario",
+    "href": "chapters/terminal_linux.html#usa-kill--9-solo-si-es-necesario",
     "title": "Comandos básicos de Linux",
-    "section": "Sesiones persistentes con tmux",
-    "text": "Sesiones persistentes con tmux\nCuando trabajas por SSH, la conexión puede cortarse por fallas de red, suspensión de la computadora o cierre accidental de la terminal. Para evitar perder tu trabajo, es recomendable usar sesiones persistentes con tmux.\n\nCrear una sesión\ntmux new -s mi_sesion\n\n\nSalir de la sesión sin cerrarla\nPresiona:\nCtrl + b\nLuego suelta las teclas y presiona:\nd\nEsto te desconecta de la sesión, pero la sesión sigue activa en el servidor.\n\n\nVolver a entrar a una sesión\ntmux attach -t mi_sesion\n\n\nListar sesiones activas\ntmux ls\n\n\n\n\n\n\nTipRecomendación\n\n\n\nUsa tmux cuando estés revisando archivos, preparando datos o ejecutando tareas cortas. Para análisis largos o pesados, usa Slurm.",
+    "section": "Usa kill -9 solo si es necesario",
+    "text": "Usa kill -9 solo si es necesario\nkill -9 fuerza el cierre inmediato del proceso. Puede dejar archivos incompletos, resultados corruptos o carpetas temporales sin limpiar.",
     "crumbs": [
       "<span class='chapter-number'>3</span>  <span class='chapter-title'>Comandos básicos de Linux</span>"
     ]
   },
   {
-    "objectID": "chapters/terminal_linux.html#permisos-y-propiedad",
-    "href": "chapters/terminal_linux.html#permisos-y-propiedad",
+    "objectID": "chapters/terminal_linux.html#editar-archivos-con-nano",
+    "href": "chapters/terminal_linux.html#editar-archivos-con-nano",
     "title": "Comandos básicos de Linux",
-    "section": "Permisos y propiedad",
-    "text": "Permisos y propiedad\n\nVer permisos\nls -l\nLa salida muestra permisos, propietario, grupo, tamaño, fecha y nombre del archivo.\nEjemplo:\n-rw-r--r-- 1 usuario grupo 1200 Jun  8  archivo.txt\nLos permisos se interpretan de la siguiente forma:\nrw- r-- r--\n│   │   │\n│   │   └── otros usuarios\n│   └────── grupo\n└────────── dueño\nDonde:\n\nr significa lectura.\nw significa escritura.\nx significa ejecución.\n\n\n\nDar permiso de ejecución a un script\nchmod +x script.sh\nEsto permite ejecutar el script así:\n./script.sh\n\n\nPermisos comunes\nPara archivos de texto o datos:\nchmod 644 archivo.txt\nPara carpetas o scripts ejecutables:\nchmod 755 carpeta/\nDe forma general:\n\n644: lectura para todos, escritura solo para el dueño.\n755: el dueño puede escribir; otros pueden leer y entrar.",
+    "section": "Editar archivos con nano",
+    "text": "Editar archivos con nano\nnano es un editor sencillo para crear o modificar archivos desde la terminal.\nPara abrir un archivo:\nnano archivo.txt\nPara crear un script:\nnano scripts/mi_script.sh\nAtajos básicos:\n\n\n\nAcción\nAtajo\n\n\n\n\nGuardar\nCtrl + O, luego Enter\n\n\nSalir\nCtrl + X\n\n\nBuscar texto\nCtrl + W\n\n\nCortar línea\nCtrl + K\n\n\nPegar línea\nCtrl + U\n\n\n\n\n\n\n\n\n\nNoteOtros editores\n\n\n\nTambién existen editores como vim o emacs, pero nano suele ser más sencillo para comenzar.",
     "crumbs": [
       "<span class='chapter-number'>3</span>  <span class='chapter-title'>Comandos básicos de Linux</span>"
     ]
   },
   {
-    "objectID": "chapters/terminal_linux.html#edición-rápida-de-archivos-con-nano",
-    "href": "chapters/terminal_linux.html#edición-rápida-de-archivos-con-nano",
+    "objectID": "chapters/terminal_linux.html#crear-y-ejecutar-scripts-sencillos",
+    "href": "chapters/terminal_linux.html#crear-y-ejecutar-scripts-sencillos",
     "title": "Comandos básicos de Linux",
-    "section": "Edición rápida de archivos con nano",
-    "text": "Edición rápida de archivos con nano\nnano es un editor de texto sencillo que funciona dentro de la terminal.\nPara abrir o crear un archivo:\nnano archivo.txt\nAtajos útiles:\n\n\n\nAcción\nAtajo\n\n\n\n\nGuardar\nCtrl + O, luego Enter\n\n\nSalir\nCtrl + X\n\n\nBuscar texto\nCtrl + W\n\n\nCortar línea\nCtrl + K\n\n\nPegar línea\nCtrl + U\n\n\n\n\n\n\n\n\n\nNoteNota\n\n\n\nTambién existen otros editores como vim o emacs, pero nano suele ser más sencillo para comenzar.",
+    "section": "Crear y ejecutar scripts sencillos",
+    "text": "Crear y ejecutar scripts sencillos\nUn script de Bash permite guardar comandos en un archivo para ejecutarlos después.\nCrea un script:\nnano scripts/revisar_archivos.sh\nContenido de ejemplo:\n#!/bin/bash\n\npwd\nls -lh\ndu -sh *\nGuarda el archivo y dale permiso de ejecución:\nchmod +x scripts/revisar_archivos.sh\nEjecútalo:\n./scripts/revisar_archivos.sh\n\n\n\n\n\n\nImportantScripts y Slurm\n\n\n\nUn script de Bash no es lo mismo que un script de Slurm, pero la base es similar. En la sección de Slurm se explica cómo agregar directivas #SBATCH para enviar trabajos a la cola.",
     "crumbs": [
       "<span class='chapter-number'>3</span>  <span class='chapter-title'>Comandos básicos de Linux</span>"
     ]
   },
   {
-    "objectID": "chapters/terminal_linux.html#compresión-y-empaquetado",
-    "href": "chapters/terminal_linux.html#compresión-y-empaquetado",
+    "objectID": "chapters/terminal_linux.html#permisos-de-archivos",
+    "href": "chapters/terminal_linux.html#permisos-de-archivos",
     "title": "Comandos básicos de Linux",
-    "section": "Compresión y empaquetado",
-    "text": "Compresión y empaquetado\n\nCrear un archivo .tar.gz\nPara comprimir una carpeta completa:\ntar -czvf proyecto.tar.gz proyecto/\nDonde:\n\nc crea un archivo.\nz comprime con gzip.\nv muestra el progreso.\nf indica el nombre del archivo de salida.\n\n\n\nExtraer un archivo .tar.gz\ntar -xzvf proyecto.tar.gz\n\n\nComprimir un archivo con gzip\ngzip archivo.txt\nEsto genera:\narchivo.txt.gz\n\n\nDescomprimir un archivo .gz\ngunzip archivo.txt.gz",
+    "section": "Permisos de archivos",
+    "text": "Permisos de archivos\nPara ver permisos:\nls -l\nEjemplo de salida:\n-rw-r--r-- 1 usuario grupo 1200 Jun  8 archivo.txt\nLos permisos se leen así:\nrw- r-- r--\n│   │   │\n│   │   └── otros usuarios\n│   └────── grupo\n└────────── dueño\nSignificado:\n\n\n\nLetra\nSignificado\n\n\n\n\nr\nlectura\n\n\nw\nescritura\n\n\nx\nejecución\n\n\n\nPara dar permiso de ejecución a un script:\nchmod +x script.sh\nPermisos comunes:\n\n\n\nPermiso\nUso común\n\n\n\n\n644\nArchivos de texto o datos\n\n\n755\nCarpetas o scripts ejecutables\n\n\n\nEjemplos:\nchmod 644 archivo.txt\nchmod 755 script.sh",
     "crumbs": [
       "<span class='chapter-number'>3</span>  <span class='chapter-title'>Comandos básicos de Linux</span>"
     ]
   },
   {
-    "objectID": "chapters/terminal_linux.html#compresión-paralela-con-pigz",
-    "href": "chapters/terminal_linux.html#compresión-paralela-con-pigz",
+    "objectID": "chapters/terminal_linux.html#comprimir-y-descomprimir-archivos",
+    "href": "chapters/terminal_linux.html#comprimir-y-descomprimir-archivos",
     "title": "Comandos básicos de Linux",
-    "section": "Compresión paralela con pigz",
-    "text": "Compresión paralela con pigz\npigz funciona de forma similar a gzip, pero puede usar varios núcleos para comprimir más rápido.\n\nComprimir con pigz\npigz archivo_grande.fastq\nEsto genera:\narchivo_grande.fastq.gz\n\n\nDescomprimir con unpigz\nunpigz archivo_grande.fastq.gz\n\n\n\n\n\n\nTipArchivos FASTQ\n\n\n\nEn bioinformática es común trabajar con archivos .fastq.gz o .fq.gz. Generalmente no es necesario descomprimirlos para todos los programas, ya que muchas herramientas pueden leerlos comprimidos.",
+    "section": "Comprimir y descomprimir archivos",
+    "text": "Comprimir y descomprimir archivos\n\nCrear un .tar.gz\nPara empaquetar y comprimir una carpeta:\ntar -czvf proyecto.tar.gz proyecto/\n\n\nExtraer un .tar.gz\ntar -xzvf proyecto.tar.gz\n\n\nComprimir con gzip\ngzip archivo.txt\nEsto genera:\narchivo.txt.gz\n\n\nDescomprimir con gunzip\ngunzip archivo.txt.gz\n\n\nComprimir más rápido con pigz\nSi pigz está disponible, puede comprimir usando varios hilos:\npigz archivo_grande.fastq\nPara descomprimir:\nunpigz archivo_grande.fastq.gz\n\n\n\n\n\n\nTipNo siempre hay que descomprimir\n\n\n\nMuchas herramientas bioinformáticas pueden leer archivos .fastq.gz directamente. Antes de descomprimir archivos grandes, revisa si el programa acepta archivos comprimidos.",
     "crumbs": [
       "<span class='chapter-number'>3</span>  <span class='chapter-title'>Comandos básicos de Linux</span>"
     ]
   },
   {
-    "objectID": "chapters/terminal_linux.html#revisar-comandos-usados-previamente",
-    "href": "chapters/terminal_linux.html#revisar-comandos-usados-previamente",
+    "objectID": "chapters/terminal_linux.html#historial-de-comandos",
+    "href": "chapters/terminal_linux.html#historial-de-comandos",
     "title": "Comandos básicos de Linux",
-    "section": "Revisar comandos usados previamente",
-    "text": "Revisar comandos usados previamente\nLa terminal guarda un historial de comandos. Para verlo:\nhistory\nTambién puedes usar las flechas del teclado para recuperar comandos anteriores.\nPara buscar comandos usados anteriormente, presiona:\nCtrl + r\ny escribe una parte del comando que quieres encontrar.",
+    "section": "Historial de comandos",
+    "text": "Historial de comandos\nPara ver comandos usados anteriormente:\nhistory\nTambién puedes recuperar comandos previos usando las flechas del teclado.\nPara buscar en el historial:\nCtrl + r\nDespués escribe una parte del comando que quieres encontrar.",
     "crumbs": [
       "<span class='chapter-number'>3</span>  <span class='chapter-title'>Comandos básicos de Linux</span>"
     ]
   },
   {
-    "objectID": "chapters/terminal_linux.html#buenas-prácticas-generales",
-    "href": "chapters/terminal_linux.html#buenas-prácticas-generales",
+    "objectID": "chapters/terminal_linux.html#trabajo-interactivo-y-trabajos-largos",
+    "href": "chapters/terminal_linux.html#trabajo-interactivo-y-trabajos-largos",
     "title": "Comandos básicos de Linux",
-    "section": "Buenas prácticas generales",
-    "text": "Buenas prácticas generales\n\nRevisa siempre en qué carpeta estás con pwd antes de mover, copiar o borrar archivos.\nUsa ls antes de ejecutar comandos destructivos como rm.\nOrganiza tus proyectos en carpetas como data/, scripts/, results/, logs/ y metadata/.\nGuarda los comandos importantes en scripts dentro de la carpeta scripts/.\nUsa nombres de archivos claros, sin espacios y con fechas o identificadores cuando sea necesario.\nRevisa el espacio disponible con df -h y el tamaño de tus carpetas con du -sh.\nPara análisis largos o pesados, usa Slurm en lugar de ejecutar directamente en la terminal.",
+    "section": "Trabajo interactivo y trabajos largos",
+    "text": "Trabajo interactivo y trabajos largos\nLa terminal de acceso debe usarse principalmente para tareas ligeras: crear carpetas, revisar archivos, editar scripts, preparar datos pequeños y consultar resultados.\nLos análisis largos, pesados o que requieran varios CPU, mucha RAM o GPU deben enviarse mediante Slurm. Esto permite que el clúster administre los recursos de forma ordenada y evita que una sesión SSH dependa de que tu computadora permanezca conectada.\nEjemplos de tareas adecuadas para la terminal:\npwd\nls -lh\nhead archivo.txt\ngrep -n \"error\" logs/analisis.err\nnano scripts/mi_trabajo.sbatch\nEjemplos de tareas que deben enviarse por Slurm:\nsbatch scripts/mi_trabajo.sbatch\nsqueue -u $USER\nsacct -j JOBID\n\n\n\n\n\n\nImportantNo uses la terminal de acceso para análisis pesados\n\n\n\nAunque un comando pueda ejecutarse directamente en la terminal, en BEAGLE los análisis computacionales deben prepararse como scripts y enviarse a la cola con Slurm.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Comandos básicos de Linux</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/terminal_linux.html#nombres-recomendados-para-archivos",
+    "href": "chapters/terminal_linux.html#nombres-recomendados-para-archivos",
+    "title": "Comandos básicos de Linux",
+    "section": "Nombres recomendados para archivos",
+    "text": "Nombres recomendados para archivos\nEvita espacios, acentos y caracteres especiales en nombres de archivos o carpetas. Esto reduce errores al trabajar en la terminal y en scripts.\nRecomendado:\nmuestras_2026.tsv\nalineamiento_ITS.fasta\nbeast2_gtr_cpu.sbatch\nEvita:\nmis muestras final.tsv\nalineación versión buena.fasta\nscript final bueno.sh\nBuenas prácticas:\n\nUsa nombres cortos pero descriptivos.\nUsa guion bajo _ en lugar de espacios.\nIncluye fechas o versiones cuando sea necesario.\nMantén extensiones claras: .fasta, .fastq.gz, .tsv, .csv, .log, .err, .sbatch.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Comandos básicos de Linux</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/terminal_linux.html#comandos-que-debes-usar-con-cuidado",
+    "href": "chapters/terminal_linux.html#comandos-que-debes-usar-con-cuidado",
+    "title": "Comandos básicos de Linux",
+    "section": "Comandos que debes usar con cuidado",
+    "text": "Comandos que debes usar con cuidado\n\n\n\nComando\nRiesgo\n\n\n\n\nrm\nBorra archivos sin papelera\n\n\nrm -r\nBorra carpetas completas\n\n\nrm -rf\nFuerza borrado recursivo sin preguntar\n\n\nmv\nPuede sobrescribir archivos si el destino ya existe\n\n\nchmod -R\nCambia permisos de muchas carpetas y archivos\n\n\nkill -9\nFuerza procesos y puede dejar resultados incompletos",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Comandos básicos de Linux</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/terminal_linux.html#evita-copiar-comandos-destructivos-sin-entenderlos",
+    "href": "chapters/terminal_linux.html#evita-copiar-comandos-destructivos-sin-entenderlos",
+    "title": "Comandos básicos de Linux",
+    "section": "Evita copiar comandos destructivos sin entenderlos",
+    "text": "Evita copiar comandos destructivos sin entenderlos\nNunca ejecutes comandos como rm -rf * si no tienes absoluta certeza de la carpeta donde estás y de los archivos que serán eliminados.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Comandos básicos de Linux</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/terminal_linux.html#buenas-prácticas-en-beagle",
+    "href": "chapters/terminal_linux.html#buenas-prácticas-en-beagle",
+    "title": "Comandos básicos de Linux",
+    "section": "Buenas prácticas en BEAGLE",
+    "text": "Buenas prácticas en BEAGLE\n\nTrabaja dentro de tu carpeta personal o en las rutas asignadas por la administración del clúster.\nMantén cada proyecto en una carpeta separada.\nGuarda scripts dentro de scripts/ y salidas de programas dentro de logs/ o results/.\nNo instales software con sudo.\nUsa Apptainer para ejecutar software especializado.\nUsa Slurm para análisis largos, pesados o que requieran CPU, RAM o GPU.\nRevisa el espacio disponible antes de generar archivos grandes.\nNo borres archivos de otras personas usuarias.\nNo compartas tu cuenta ni tus llaves SSH.",
     "crumbs": [
       "<span class='chapter-number'>3</span>  <span class='chapter-title'>Comandos básicos de Linux</span>"
     ]
@@ -324,7 +464,7 @@
     "href": "chapters/terminal_linux.html#resumen-de-comandos",
     "title": "Comandos básicos de Linux",
     "section": "Resumen de comandos",
-    "text": "Resumen de comandos\n\n\n\n\n\n\n\nTarea\nComando\n\n\n\n\nVer ubicación actual\npwd\n\n\nListar archivos\nls -lh\n\n\nEntrar a una carpeta\ncd carpeta/\n\n\nSubir un nivel\ncd ..\n\n\nCrear carpeta\nmkdir carpeta\n\n\nCrear estructura de proyecto\nmkdir -p proyecto/{data,scripts,results,logs,metadata}\n\n\nCopiar archivo\ncp archivoA archivoB\n\n\nCopiar carpeta\ncp -r carpetaA carpetaB\n\n\nMover o renombrar\nmv origen destino\n\n\nBorrar archivo\nrm archivo.txt\n\n\nRevisar espacio libre\ndf -h\n\n\nRevisar tamaño de carpeta\ndu -sh carpeta/\n\n\nVer CPU\nlscpu\n\n\nVer RAM\nfree -h\n\n\nVer procesos\ntop o htop\n\n\nBuscar proceso\npgrep -a nombre\n\n\nDetener proceso\nkill PID\n\n\nCrear sesión tmux\ntmux new -s mi_sesion\n\n\nReentrar a tmux\ntmux attach -t mi_sesion\n\n\nDar ejecución a script\nchmod +x script.sh\n\n\nEditar archivo\nnano archivo.txt\n\n\nCrear .tar.gz\ntar -czvf archivo.tar.gz carpeta/\n\n\nExtraer .tar.gz\ntar -xzvf archivo.tar.gz",
+    "text": "Resumen de comandos\n\n\n\n\n\n\n\nTarea\nComando\n\n\n\n\nVer ubicación actual\npwd\n\n\nListar archivos\nls -lh\n\n\nListar archivos ocultos\nls -lah\n\n\nCambiar de carpeta\ncd carpeta/\n\n\nIr a carpeta personal\ncd ~\n\n\nSubir un nivel\ncd ..\n\n\nCrear carpeta\nmkdir carpeta\n\n\nCrear estructura de proyecto\nmkdir -p proyecto/{data,scripts,results,logs,metadata}\n\n\nCrear archivo vacío\ntouch archivo.txt\n\n\nCopiar archivo\ncp origen destino\n\n\nCopiar carpeta\ncp -r carpetaA/ carpetaB/\n\n\nMover o renombrar\nmv origen destino\n\n\nBorrar archivo\nrm archivo.txt\n\n\nVer primeras líneas\nhead archivo.txt\n\n\nVer últimas líneas\ntail archivo.txt\n\n\nSeguir log en tiempo real\ntail -f archivo.log\n\n\nLeer archivo largo\nless archivo.txt\n\n\nContar líneas\nwc -l archivo.txt\n\n\nBuscar texto\ngrep \"patron\" archivo.txt\n\n\nBuscar archivos\nfind . -name \"*.fasta\"\n\n\nVer espacio libre\ndf -h\n\n\nVer tamaño de carpeta\ndu -sh carpeta/\n\n\nVer CPU\nlscpu\n\n\nVer RAM\nfree -h\n\n\nVer procesos\ntop o htop\n\n\nVer tus procesos\nps -u $USER\n\n\nBuscar proceso\npgrep -a nombre\n\n\nDetener proceso\nkill PID\n\n\nEditar archivo\nnano archivo.txt\n\n\nDar permiso de ejecución\nchmod +x script.sh\n\n\nCrear .tar.gz\ntar -czvf archivo.tar.gz carpeta/\n\n\nExtraer .tar.gz\ntar -xzvf archivo.tar.gz\n\n\nVer historial\nhistory",
     "crumbs": [
       "<span class='chapter-number'>3</span>  <span class='chapter-title'>Comandos básicos de Linux</span>"
     ]
