@@ -174,7 +174,7 @@
     "href": "chapters/terminal_linux.html#la-terminal-y-la-ruta-de-trabajo",
     "title": "Comandos básicos de Linux",
     "section": "",
-    "text": "/home/usuario/proyecto/data\n\n\n/home/usuario/ es la carpeta personal del usuario.\nproyecto/ es una carpeta de trabajo.\ndata/ puede contener archivos de entrada.\n\n\n\n\n\n\n\nTipBuen hábito\n\n\n\nAntes de copiar, mover o borrar archivos, revisa siempre tu ubicación actual con pwd y el contenido de la carpeta con ls.",
+    "text": "/home/usuario/proyecto/data\n\n\n/home/usuario/ es la carpeta personal del usuario.\nproyecto/ es una carpeta de trabajo.\ndata/ puede contener archivos de entrada.\n\n\n\n\n\n\n\nBuen hábito\n\n\n\nAntes de copiar, mover o borrar archivos, revisa siempre tu ubicación actual con pwd y el contenido de la carpeta con ls.",
     "crumbs": [
       "<span class='chapter-number'>3</span>  <span class='chapter-title'>Comandos básicos de Linux</span>"
     ]
@@ -204,7 +204,7 @@
     "href": "chapters/terminal_linux.html#cambiar-de-carpeta",
     "title": "Comandos básicos de Linux",
     "section": "Cambiar de carpeta",
-    "text": "Cambiar de carpeta\nPara entrar a una carpeta:\ncd carpeta/\nPara entrar usando una ruta completa:\ncd /home/usuario/proyecto\nPara regresar a tu carpeta personal:\ncd ~\nPara subir un nivel:\ncd ..\nPara regresar a la carpeta anterior:\ncd -\n\n\n\n\n\n\nTipAutocompletado\n\n\n\nUsa la tecla Tab para autocompletar nombres de archivos y carpetas. Esto ayuda a evitar errores al escribir rutas largas.",
+    "text": "Cambiar de carpeta\nPara entrar a una carpeta:\ncd carpeta/\nPara entrar usando una ruta completa:\ncd /home/usuario/proyecto\nPara regresar a tu carpeta personal:\ncd ~\nPara subir un nivel:\ncd ..\nPara regresar a la carpeta anterior:\ncd -\n\n\n\n\n\n\nAutocompletado\n\n\n\nUsa la tecla Tab para autocompletar nombres de archivos y carpetas. Esto ayuda a evitar errores al escribir rutas largas.",
     "crumbs": [
       "<span class='chapter-number'>3</span>  <span class='chapter-title'>Comandos básicos de Linux</span>"
     ]
@@ -214,7 +214,7 @@
     "href": "chapters/terminal_linux.html#crear-una-estructura-de-proyecto",
     "title": "Comandos básicos de Linux",
     "section": "Crear una estructura de proyecto",
-    "text": "Crear una estructura de proyecto\nUna forma ordenada de iniciar un análisis es crear una carpeta de proyecto con subcarpetas separadas para datos, scripts, resultados y logs.\nmkdir -p mi_proyecto/{data,scripts,results,logs,metadata}\nDespués entra al proyecto:\ncd mi_proyecto\nLa estructura creada será:\nmi_proyecto/\n├── data/\n├── scripts/\n├── results/\n├── logs/\n└── metadata/\nUso sugerido:\n\n\n\n\n\n\n\nCarpeta\nUso recomendado\n\n\n\n\ndata/\nArchivos de entrada, como FASTA, FASTQ, VCF, CSV o XML\n\n\nscripts/\nScripts de Bash, Slurm, R o Python\n\n\nresults/\nResultados finales o intermedios importantes\n\n\nlogs/\nArchivos de salida y error de Slurm o programas\n\n\nmetadata/\nTablas de muestras, notas, parámetros o archivos de diseño\n\n\n\n\n\n\n\n\n\nImportantNo mezcles todo en una sola carpeta\n\n\n\nSeparar datos, scripts, logs y resultados facilita revisar errores, repetir análisis y compartir el proyecto con otras personas.",
+    "text": "Crear una estructura de proyecto\nUna forma ordenada de iniciar un análisis es crear una carpeta de proyecto con subcarpetas separadas para datos, scripts, resultados y logs.\nmkdir -p mi_proyecto/{data,scripts,results,logs,metadata}\nDespués entra al proyecto:\ncd mi_proyecto\nLa estructura creada será:\nmi_proyecto/\n├── data/\n├── scripts/\n├── results/\n├── logs/\n└── metadata/\nUso sugerido:\n\n\n\n\n\n\n\nCarpeta\nUso recomendado\n\n\n\n\ndata/\nArchivos de entrada, como FASTA, FASTQ, VCF, CSV o XML\n\n\nscripts/\nScripts de Bash, Slurm, R o Python\n\n\nresults/\nResultados finales o intermedios importantes\n\n\nlogs/\nArchivos de salida y error de Slurm o programas\n\n\nmetadata/\nTablas de muestras, notas, parámetros o archivos de diseño\n\n\n\n\n\n\n\n\n\nNo mezcles todo en una sola carpeta\n\n\n\nSeparar datos, scripts, logs y resultados facilita revisar errores, repetir análisis y compartir el proyecto con otras personas.",
     "crumbs": [
       "<span class='chapter-number'>3</span>  <span class='chapter-title'>Comandos básicos de Linux</span>"
     ]
@@ -234,7 +234,7 @@
     "href": "chapters/terminal_linux.html#copiar-archivos-y-carpetas",
     "title": "Comandos básicos de Linux",
     "section": "Copiar archivos y carpetas",
-    "text": "Copiar archivos y carpetas\nPara copiar un archivo:\ncp archivo_original.txt copia.txt\nPara copiar un archivo a otra carpeta:\ncp archivo.txt results/\nPara copiar una carpeta completa:\ncp -r carpeta_original/ carpeta_copia/\n\n\n\n\n\n\nNoteCopias de seguridad rápidas\n\n\n\nAntes de modificar un archivo importante, puedes hacer una copia:\ncp archivo.tsv archivo.tsv.bak",
+    "text": "Copiar archivos y carpetas\nPara copiar un archivo:\ncp archivo_original.txt copia.txt\nPara copiar un archivo a otra carpeta:\ncp archivo.txt results/\nPara copiar una carpeta completa:\ncp -r carpeta_original/ carpeta_copia/\n\n\n\n\n\n\nCopias de seguridad rápidas\n\n\n\nAntes de modificar un archivo importante, puedes hacer una copia:\ncp archivo.tsv archivo.tsv.bak",
     "crumbs": [
       "<span class='chapter-number'>3</span>  <span class='chapter-title'>Comandos básicos de Linux</span>"
     ]
@@ -314,7 +314,7 @@
     "href": "chapters/terminal_linux.html#revisar-espacio-en-disco",
     "title": "Comandos básicos de Linux",
     "section": "Revisar espacio en disco",
-    "text": "Revisar espacio en disco\nPara ver el espacio disponible en los discos o particiones:\ndf -h\nLa opción -h muestra tamaños en formato legible, por ejemplo G o T.\nPara revisar cuánto ocupa una carpeta:\ndu -sh carpeta/\nPara revisar el tamaño de todo lo que está en la carpeta actual:\ndu -sh *\nPara ordenar por tamaño:\ndu -sh * | sort -h\n\n\n\n\n\n\nTipArchivos grandes en bioinformática\n\n\n\nLos archivos FASTQ, BAM, SAM, VCF, ensamblajes, alineamientos y resultados intermedios pueden ocupar mucho espacio. Revisa tu uso de disco antes y después de análisis grandes.",
+    "text": "Revisar espacio en disco\nPara ver el espacio disponible en los discos o particiones:\ndf -h\nLa opción -h muestra tamaños en formato legible, por ejemplo G o T.\nPara revisar cuánto ocupa una carpeta:\ndu -sh carpeta/\nPara revisar el tamaño de todo lo que está en la carpeta actual:\ndu -sh *\nPara ordenar por tamaño:\ndu -sh * | sort -h\n\n\n\n\n\n\nArchivos grandes en bioinformática\n\n\n\nLos archivos FASTQ, BAM, SAM, VCF, ensamblajes, alineamientos y resultados intermedios pueden ocupar mucho espacio. Revisa tu uso de disco antes y después de análisis grandes.",
     "crumbs": [
       "<span class='chapter-number'>3</span>  <span class='chapter-title'>Comandos básicos de Linux</span>"
     ]
@@ -324,7 +324,7 @@
     "href": "chapters/terminal_linux.html#revisar-cpu-y-memoria",
     "title": "Comandos básicos de Linux",
     "section": "Revisar CPU y memoria",
-    "text": "Revisar CPU y memoria\nPara ver información general del procesador:\nlscpu\nPara revisar memoria RAM disponible:\nfree -h\nPara ver procesos en tiempo real:\ntop\nPara salir de top:\nq\nSi está disponible, htop muestra una vista más cómoda:\nhtop\n\n\n\n\n\n\nWarningRecursos en un clúster con Slurm\n\n\n\nAunque lscpu o free -h muestren muchos recursos disponibles en el nodo, tus análisis deben usar los recursos que solicitaste en Slurm. No asumas que todo el servidor está disponible para una sola persona.",
+    "text": "Revisar CPU y memoria\nPara ver información general del procesador:\nlscpu\nPara revisar memoria RAM disponible:\nfree -h\nPara ver procesos en tiempo real:\ntop\nPara salir de top:\nq\nSi está disponible, htop muestra una vista más cómoda:\nhtop\n\n\n\n\n\n\nRecursos en un clúster con Slurm\n\n\n\nAunque lscpu o free -h muestren muchos recursos disponibles en el nodo, tus análisis deben usar los recursos que solicitaste en Slurm. No asumas que todo el servidor está disponible para una sola persona.",
     "crumbs": [
       "<span class='chapter-number'>3</span>  <span class='chapter-title'>Comandos básicos de Linux</span>"
     ]
@@ -364,7 +364,7 @@
     "href": "chapters/terminal_linux.html#editar-archivos-con-nano",
     "title": "Comandos básicos de Linux",
     "section": "Editar archivos con nano",
-    "text": "Editar archivos con nano\nnano es un editor sencillo para crear o modificar archivos desde la terminal.\nPara abrir un archivo:\nnano archivo.txt\nPara crear un script:\nnano scripts/mi_script.sh\nAtajos básicos:\n\n\n\nAcción\nAtajo\n\n\n\n\nGuardar\nCtrl + O, luego Enter\n\n\nSalir\nCtrl + X\n\n\nBuscar texto\nCtrl + W\n\n\nCortar línea\nCtrl + K\n\n\nPegar línea\nCtrl + U\n\n\n\n\n\n\n\n\n\nNoteOtros editores\n\n\n\nTambién existen editores como vim o emacs, pero nano suele ser más sencillo para comenzar.",
+    "text": "Editar archivos con nano\nnano es un editor sencillo para crear o modificar archivos desde la terminal.\nPara abrir un archivo:\nnano archivo.txt\nPara crear un script:\nnano scripts/mi_script.sh\nAtajos básicos:\n\n\n\nAcción\nAtajo\n\n\n\n\nGuardar\nCtrl + O, luego Enter\n\n\nSalir\nCtrl + X\n\n\nBuscar texto\nCtrl + W\n\n\nCortar línea\nCtrl + K\n\n\nPegar línea\nCtrl + U\n\n\n\n\n\n\n\n\n\nOtros editores\n\n\n\nTambién existen editores como vim o emacs, pero nano suele ser más sencillo para comenzar.",
     "crumbs": [
       "<span class='chapter-number'>3</span>  <span class='chapter-title'>Comandos básicos de Linux</span>"
     ]
@@ -374,7 +374,7 @@
     "href": "chapters/terminal_linux.html#crear-y-ejecutar-scripts-sencillos",
     "title": "Comandos básicos de Linux",
     "section": "Crear y ejecutar scripts sencillos",
-    "text": "Crear y ejecutar scripts sencillos\nUn script de Bash permite guardar comandos en un archivo para ejecutarlos después.\nCrea un script:\nnano scripts/revisar_archivos.sh\nContenido de ejemplo:\n#!/bin/bash\n\npwd\nls -lh\ndu -sh *\nGuarda el archivo y dale permiso de ejecución:\nchmod +x scripts/revisar_archivos.sh\nEjecútalo:\n./scripts/revisar_archivos.sh\n\n\n\n\n\n\nImportantScripts y Slurm\n\n\n\nUn script de Bash no es lo mismo que un script de Slurm, pero la base es similar. En la sección de Slurm se explica cómo agregar directivas #SBATCH para enviar trabajos a la cola.",
+    "text": "Crear y ejecutar scripts sencillos\nUn script de Bash permite guardar comandos en un archivo para ejecutarlos después.\nCrea un script:\nnano scripts/revisar_archivos.sh\nContenido de ejemplo:\n#!/bin/bash\n\npwd\nls -lh\ndu -sh *\nGuarda el archivo y dale permiso de ejecución:\nchmod +x scripts/revisar_archivos.sh\nEjecútalo:\n./scripts/revisar_archivos.sh\n\n\n\n\n\n\nScripts y Slurm\n\n\n\nUn script de Bash no es lo mismo que un script de Slurm, pero la base es similar. En la sección de Slurm se explica cómo agregar directivas #SBATCH para enviar trabajos a la cola.",
     "crumbs": [
       "<span class='chapter-number'>3</span>  <span class='chapter-title'>Comandos básicos de Linux</span>"
     ]
@@ -394,7 +394,7 @@
     "href": "chapters/terminal_linux.html#comprimir-y-descomprimir-archivos",
     "title": "Comandos básicos de Linux",
     "section": "Comprimir y descomprimir archivos",
-    "text": "Comprimir y descomprimir archivos\n\nCrear un .tar.gz\nPara empaquetar y comprimir una carpeta:\ntar -czvf proyecto.tar.gz proyecto/\n\n\nExtraer un .tar.gz\ntar -xzvf proyecto.tar.gz\n\n\nComprimir con gzip\ngzip archivo.txt\nEsto genera:\narchivo.txt.gz\n\n\nDescomprimir con gunzip\ngunzip archivo.txt.gz\n\n\nComprimir más rápido con pigz\nSi pigz está disponible, puede comprimir usando varios hilos:\npigz archivo_grande.fastq\nPara descomprimir:\nunpigz archivo_grande.fastq.gz\n\n\n\n\n\n\nTipNo siempre hay que descomprimir\n\n\n\nMuchas herramientas bioinformáticas pueden leer archivos .fastq.gz directamente. Antes de descomprimir archivos grandes, revisa si el programa acepta archivos comprimidos.",
+    "text": "Comprimir y descomprimir archivos\n\nCrear un .tar.gz\nPara empaquetar y comprimir una carpeta:\ntar -czvf proyecto.tar.gz proyecto/\n\n\nExtraer un .tar.gz\ntar -xzvf proyecto.tar.gz\n\n\nComprimir con gzip\ngzip archivo.txt\nEsto genera:\narchivo.txt.gz\n\n\nDescomprimir con gunzip\ngunzip archivo.txt.gz\n\n\nComprimir más rápido con pigz\nSi pigz está disponible, puede comprimir usando varios hilos:\npigz archivo_grande.fastq\nPara descomprimir:\nunpigz archivo_grande.fastq.gz\n\n\n\n\n\n\nNo siempre hay que descomprimir\n\n\n\nMuchas herramientas bioinformáticas pueden leer archivos .fastq.gz directamente. Antes de descomprimir archivos grandes, revisa si el programa acepta archivos comprimidos.",
     "crumbs": [
       "<span class='chapter-number'>3</span>  <span class='chapter-title'>Comandos básicos de Linux</span>"
     ]
@@ -414,7 +414,7 @@
     "href": "chapters/terminal_linux.html#trabajo-interactivo-y-trabajos-largos",
     "title": "Comandos básicos de Linux",
     "section": "Trabajo interactivo y trabajos largos",
-    "text": "Trabajo interactivo y trabajos largos\nLa terminal de acceso debe usarse principalmente para tareas ligeras: crear carpetas, revisar archivos, editar scripts, preparar datos pequeños y consultar resultados.\nLos análisis largos, pesados o que requieran varios CPU, mucha RAM o GPU deben enviarse mediante Slurm. Esto permite que el clúster administre los recursos de forma ordenada y evita que una sesión SSH dependa de que tu computadora permanezca conectada.\nEjemplos de tareas adecuadas para la terminal:\npwd\nls -lh\nhead archivo.txt\ngrep -n \"error\" logs/analisis.err\nnano scripts/mi_trabajo.sbatch\nEjemplos de tareas que deben enviarse por Slurm:\nsbatch scripts/mi_trabajo.sbatch\nsqueue -u $USER\nsacct -j JOBID\n\n\n\n\n\n\nImportantNo uses la terminal de acceso para análisis pesados\n\n\n\nAunque un comando pueda ejecutarse directamente en la terminal, en BEAGLE los análisis computacionales deben prepararse como scripts y enviarse a la cola con Slurm.",
+    "text": "Trabajo interactivo y trabajos largos\nLa terminal de acceso debe usarse principalmente para tareas ligeras: crear carpetas, revisar archivos, editar scripts, preparar datos pequeños y consultar resultados.\nLos análisis largos, pesados o que requieran varios CPU, mucha RAM o GPU deben enviarse mediante Slurm. Esto permite que el clúster administre los recursos de forma ordenada y evita que una sesión SSH dependa de que tu computadora permanezca conectada.\nEjemplos de tareas adecuadas para la terminal:\npwd\nls -lh\nhead archivo.txt\ngrep -n \"error\" logs/analisis.err\nnano scripts/mi_trabajo.sbatch\nEjemplos de tareas que deben enviarse por Slurm:\nsbatch scripts/mi_trabajo.sbatch\nsqueue -u $USER\nsacct -j JOBID\n\n\n\n\n\n\nNo uses la terminal de acceso para análisis pesados\n\n\n\nAunque un comando pueda ejecutarse directamente en la terminal, en BEAGLE los análisis computacionales deben prepararse como scripts y enviarse a la cola con Slurm.",
     "crumbs": [
       "<span class='chapter-number'>3</span>  <span class='chapter-title'>Comandos básicos de Linux</span>"
     ]
@@ -636,7 +636,7 @@
     "section": "",
     "text": "¿Qué es un contenedor?\nBEAGLE es un clúster de cómputo compartido. Para mantenerlo estable, seguro y funcional para todas las personas usuarias, no se debe instalar software directamente en el sistema operativo, modificar instalaciones globales ni usar sudo.\nEl software especializado en BEAGLE debe ejecutarse mediante contenedores con Apptainer. Esta estrategia permite usar programas bioinformáticos y científicos en entornos aislados, sin alterar el sistema principal del clúster y con mayor reproducibilidad.\nUn contenedor es un entorno aislado que incluye:",
     "crumbs": [
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Apptainer</span>"
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Apptainer</span>"
     ]
   },
   {
@@ -646,7 +646,7 @@
     "section": "",
     "text": "Sistema operativo base\nLibrerías\nDependencias\nSoftware específico\n\n\nDocker vs Podman vs Apptainer\nActualmente hay decenas de proyectos involucrados en el desarrollo, adopción y uso de contenedores: https://landscape.cncf.io\n\n\n\n\n\n\n\n\n\nCaracterística\nDocker\nPodman\nApptainer\n\n\n\n\nUso principal\nDesarrollo\nDesarrollo sin daemon\nHPC / ciencia\n\n\nRequiere root\nSí\nNo siempre\nNo\n\n\nSeguridad en HPC\nBaja\nMedia\nAlta\n\n\nIntegración HPC\n❌\n⚠️\n✅\n\n\nFormato imagen\nlayered\nlayered\n.sif",
     "crumbs": [
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Apptainer</span>"
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Apptainer</span>"
     ]
   },
   {
@@ -656,7 +656,7 @@
     "section": "Apptainer",
     "text": "Apptainer\nApptainer es una plataforma de contenedores de código abierto enfocada en ciencia y cómputo de alto rendimiento (HPC). Permite ejecutar aplicaciones dentro de entornos aislados que incluyen todas sus dependencias, facilitando la reproducibilidad y evitando conflictos de software, sin requerir privilegios de administrador.\n\n¿En qué sistemas funciona Apptainer?\nApptainer está diseñado para funcionar de manera nativa en sistemas Linux.\nEsto se debe a que utiliza características propias del kernel de Linux, como:\n\nnamespaces (aislamiento de procesos)\ncgroups (control de recursos)\nsistema de archivos tipo overlay\n\n👉 Estas tecnologías permiten crear contenedores de forma eficiente y segura.\n\n\n¿De dónde vienen las imágenes?\nLas imágenes de contenedores provienen generalmente de repositorios en línea como:\n👉 Docker Hub\n👉 Quay.io\n\n📦 Docker Hub\nDocker Hub es una plataforma donde se almacenan miles de imágenes listas para usar:\n\nsistemas operativos\nlenguajes de programación\nherramientas científicas\n\nCada imagen tiene versiones llamadas tags, por ejemplo:\n\nubuntu:22.04\nubuntu:20.04\nubuntu:latest\n\n💡 Esto permite elegir exactamente qué entorno queremos usar.\n\n\n🧬 ¿Qué son los BioContainers?\nExisten repositorios especializados llamados BioContainers, que contienen imágenes enfocadas en bioinformática.\n👉 Son contenedores que ya incluyen software científico instalado, como:\n\nMrBayes\nBLAST\nFastQC\nBowtie2\n\n👉 Muchos de estos contenedores están disponibles en:\n\nDocker Hub\nQuay.io (más actualizado en muchos casos)",
     "crumbs": [
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Apptainer</span>"
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Apptainer</span>"
     ]
   },
   {
@@ -666,7 +666,7 @@
     "section": "📥 Descargar imágenes",
     "text": "📥 Descargar imágenes\nEl comando pull permite descargar una imagen y convertirla al formato de Apptainer (.sif), que es el formato estándar para ejecutar contenedores.\napptainer pull docker://ubuntu\n👉 Este comando descarga una imagen de Ubuntu desde Docker Hub y genera un archivo como:\nubuntu_latest.sif\nEste archivo .sif contiene un sistema base listo para usarse con Apptainer.\n\n📦 Versiones específicas\nTambién es posible descargar una versión concreta de una imagen usando una etiqueta (:versión). Esto es útil cuando se necesita trabajar con una versión específica del sistema operativo o del software para mantener compatibilidad y reproducibilidad.\napptainer pull docker://centos:7",
     "crumbs": [
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Apptainer</span>"
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Apptainer</span>"
     ]
   },
   {
@@ -676,7 +676,7 @@
     "section": "Uso básico de contenedores",
     "text": "Uso básico de contenedores\nUUna vez que hemos descargado una imagen con pull, podemos comenzar a interactuar con ella.\napptainer pull docker://ubuntu\n👉 Esto genera un archivo .sif, que contiene un sistema Linux mínimo.\nCuando usamos Apptainer, no estamos ejecutando “un programa”, sino un sistema operativo completo pero ligero.\n👉 Es como tener una instalación de Linux dentro de un archivo.\n💡 Sin embargo, estas imágenes suelen ser:\n\nmuy ligeras\nsin programas adicionales\ncon solo lo esencial para funcionar\n\n\nEntrar a un contenedor (modo interactivo)\napptainer shell ubuntu_latest.sif\n👉 Esto abre una terminal dentro del contenedor.\nDentro de esta terminal puedes:\n\nnavegar (ls, cd)\ncrear archivos\nejecutar comandos\ninstalar software (si es writable)\n\n💡 Es como si estuvieras usando otra computadora con Linux.\n\n\n⚠️ ¿Se puede modificar?\nPor defecto:\n\n❌ NO puedes modificar la imagen .sif\n✅ solo puedes explorarla\n\n👉 Si quieres modificarla, necesitas usar:\n\nun sandbox\no entrar con --writable\n\n\n\nEjecutar comandos sin entrar\nTambién puedes ejecutar comandos directamente sin abrir una terminal interactiva:\napptainer exec ubuntu_latest.sif ls /\n👉 Esto ejecuta ls / dentro del contenedor y regresa al sistema host.\nDentro del contenedor puedes usar comandos básicos como:\nls\npwd\nwhoami\ncat /etc/os-release\n👉 Esto demuestra que:\n\nestás dentro de un sistema Linux independiente\ncon su propia estructura de archivos\nsu propio entorno\n\n\n\nModificar un contenedor temporalmente (--writable)\nAunque las imágenes .sif no son modificables por defecto, Apptainer permite hacer cambios temporales durante una sesión usando ciertas opciones.\napptainer shell --writable --fakeroot ubuntu_latest.sif\n\n--writable → permite modificar el sistema dentro del contenedor\n--fakeroot → simula permisos de administrador (root)\n\n👉 Esto permite instalar software dentro del contenedor.\n\n⚠️ Importante\n💡 Este modo funciona mejor con sandbox\nEn archivos .sif, puede no funcionar o ser limitado\nPor eso este ejemplo es solo para entender el concepto",
     "crumbs": [
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Apptainer</span>"
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Apptainer</span>"
     ]
   },
   {
@@ -686,7 +686,7 @@
     "section": "¿Qué es un sandbox?",
     "text": "¿Qué es un sandbox?\nUn sandbox es un contenedor en formato de directorio editable.\nA diferencia de .sif, permite:\n\ninstalar programas\nmodificar configuraciones\ncompilar software\n\n\nCrear un sandbox\nEl comando build --sandbox crea un contenedor editable a partir de una imagen base.\napptainer build --sandbox NOMBRE_DEL_DIRECTORIO IMAGEN_BASE.sif\n\nEjemplo\napptainer build --sandbox mrbayes ubuntu_latest.sif\nPuedes usar cualquier nombre:\nmrbayes\nubuntu_editable\ntest_container\nbioinfo_env\nEsto creará una carpeta llamada:\nmrbayes/\nY dentro:\n\n/bin\n/etc\n/usr\n/lib\n\n👉 Es decir:\n\nUn sistema Linux completo dentro de una carpeta\n\n\n\n\nExplorar el contenedor de forma interactiva\nUna vez creado el sandbox, puedes entrar a él con una shell interactiva y trabajar dentro del contenedor como si fuera otro sistema Linux.\napptainer shell mrbayes/\n👉 Esto abre una terminal dentro del contenedor, desde donde puedes navegar, revisar archivos o ejecutar comandos.\n\n\nSalir del contenedor\nPara salir del entorno interactivo, solo escribe:\nexit\n\n\nEntrar en modo escritura y con root simulado\nCuando quieres modificar un sandbox, por ejemplo para instalar paquetes o compilar programas, necesitas abrirlo con opciones adicionales.\napptainer shell --writable --fakeroot --pwd / mrbayes\n--writable\nPermite modificar el contenedor. Sin esta opción, el sistema se abre solo para lectura.\n--fakeroot\nSimula permisos de administrador dentro del contenedor. Esto permite usar comandos como apt install aunque no tengas root real en el sistema anfitrión.\n--pwd /\nHace que la shell inicie en el directorio raíz (/) del contenedor.",
     "crumbs": [
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Apptainer</span>"
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Apptainer</span>"
     ]
   },
   {
@@ -696,7 +696,7 @@
     "section": "⚙️ Configuración básica del sistema dentro del contenedor",
     "text": "⚙️ Configuración básica del sistema dentro del contenedor\nLas imágenes base descargadas desde Docker Hub suelen ser versiones mínimas de Linux.\n👉 Esto significa que:\n\nNo tienen configuraciones completas\nNo incluyen muchos programas\nSolo contienen lo esencial para funcionar\n\n💡 Por esta razón, antes de trabajar con software, es necesario configurar el sistema operativo dentro del contenedor.\n\n🔄 Actualizar el sistema\napt update\napt upgrade -y\n\napt update → actualiza la lista de paquetes disponibles\napt upgrade → actualiza los programas instalados\n\n\nLinux usa repositorios en línea para instalar software\ny estos comandos sincronizan el sistema con esos repositorios\n\n\n\n🌍 Configurar idioma (locale)\napt install -y locales\nlocale-gen en_US.UTF-8\nupdate-locale LANG=en_US.UTF-8\nexport LANG=en_US.UTF-8\nexport LC_ALL=en_US.UTF-8\n👉 Esto configura el sistema para trabajar con codificación UTF-8.\n¿Por qué es importante?\n\nEvita errores con caracteres especiales\nAsegura compatibilidad con muchos programas\nMejora la reproducibilidad\n\n\n\n🕒 Configurar zona horaria\napt install -y tzdata\nln -sf /usr/share/zoneinfo/Etc/UTC /etc/localtime\n👉 Define la hora del sistema dentro del contenedor.\n¿Por qué importa?\n\nLogs correctos\nFechas reproducibles\nConsistencia en análisis\n\n\n\n📦 Instalación de programas y dependencias\napt install -y build-essential make pkg-config git wget curl \\\nlatexmk texlive-latex-base texlive-fonts-recommended \\\ntexlive-fonts-extra texlive-latex-extra nano \\\nopenmpi-bin openmpi-common openmpi-doc libopenmpi-dev\n\n\n¿Qué es apt?\napt es un gestor de paquetes utilizado en sistemas basados en Debian (como Ubuntu).\n👉 Permite:\n\ninstalar programas\neliminar programas\nactualizar software\n\n\nOtros gestores de paquetes\n\n\n\nSistema\nGestor\n\n\n\n\nDebian / Ubuntu\napt\n\n\nRedHat / CentOS / Rocky\nyum / dnf\n\n\n\n💡 Importante:\n\nLos comandos cambian dependiendo de la distribución Linux\n\n\n\n🧩 ¿Qué son las dependencias?\nMuchos programas necesitan otras librerías para funcionar.\nEjemplo:\n\nbuild-essential → compiladores (gcc, g++)\nlibopenmpi-dev → paralelización\npkg-config → encuentra librerías al compilar\n\n\nUn programa no funciona solo, depende de otros componentes\n\n\n\nCompilación desde código fuente\nUna vez que el sistema está listo, podemos instalar programas desde su código fuente.\ncd /opt\ngit clone https://github.com/NBISweden/MrBayes.git\ncd MrBayes\n./configure --with-mpi\nmake -j$(nproc)\nmake install\n\n\n¿Qué significa “compilar”?\nCompilar es el proceso de:\n👉 Convertir código fuente (legible por humanos)\n👉 en un programa ejecutable (legible por la máquina)",
     "crumbs": [
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Apptainer</span>"
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Apptainer</span>"
     ]
   },
   {
@@ -706,7 +706,7 @@
     "section": "Empaquetar el sandbox como imagen .sif",
     "text": "Empaquetar el sandbox como imagen .sif\nCuando ya terminaste de personalizar tu sandbox, puedes convertirlo en una imagen final para transportarlo y ejecutarlo fácilmente.\napptainer build --fakeroot mrbayes_mpi.sif mrbayes\n👉 Esto crea un archivo .sif a partir del sandbox mi_contenedor.\nLa imagen .sif ya no está pensada para editarse, sino para distribuirse y ejecutarse.\n\nEjecutar un programa dentro del contenedor\nEl comando exec permite correr directamente un programa dentro de la imagen sin necesidad de abrir una shell interactiva.\napptainer exec mrbayes_mpi.sif mb analisis/data/analysis.nex\n👉 Aquí se ejecuta MrBayes dentro del contenedor usando un archivo externo como entrada.\n\n\nEjecutar con MPI\nSi el programa fue compilado con soporte para MPI, puede ejecutarse usando varios núcleos.\napptainer exec mrbayes_mpi.sif mpirun -np 4 mb \n👉 En este caso, MrBayes se ejecuta usando 4 procesos paralelos.",
     "crumbs": [
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Apptainer</span>"
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Apptainer</span>"
     ]
   },
   {
@@ -716,7 +716,7 @@
     "section": "📂 Uso de volúmenes (montaje de carpetas)",
     "text": "📂 Uso de volúmenes (montaje de carpetas)\nCuando trabajas con contenedores, tus datos normalmente están fuera del contenedor, en tu sistema.\n👉 Para que el contenedor pueda verlos, es necesario montar (bind) directorios.\n\nMontar una carpeta\napptainer exec --bind /ruta/local:/ruta/contenedor contenedor.sif comando\n\n\nEjemplo práctico\nSupongamos que tienes tus datos en:\n/home/usuario/proyecto/datos\nPuedes montarlos dentro del contenedor así:\napptainer exec --bind /home/usuario/proyecto/datos:/data revbayes_mpi.sif ls /data\n👉 Dentro del contenedor, la carpeta aparecerá como:\n/data\n\n\n📂 Usar tus archivos en RevBayes\nSi tienes un archivo:\nanalysis.Rev\npuedes ejecutarlo así:\napptainer exec --bind /home/usuario/proyecto/datos:/data revbayes_mpi.sif rb-mpi /data/analysis.Rev\n\n\nUso de pwd (muy importante)\nPara evitar escribir rutas largas, puedes usar:\npwd\n👉 Esto muestra tu directorio actual.\n\n\nEjemplo práctico con pwd\napptainer exec --bind $(pwd):/data revbayes_mpi.sif rb-mpi /data/analysis.Rev\n👉 Aquí:\n\n$(pwd) → ruta actual en tu sistema\n/data → ruta dentro del contenedor\n\n\n\nVentaja de usar pwd\n\nevita errores de ruta\nhace scripts más portables\nfacilita reproducibilidad\n\n\n\n⚠️ Nota importante\nApptainer ya monta automáticamente algunas rutas como:\n\n$HOME\nel directorio actual (en muchos casos)\n\n👉 Pero usar --bind explícito es más claro y reproducible.\n\n\n🧪 Probar que el volumen funciona\napptainer exec --bind $(pwd):/data revbayes_mpi.sif ls /data\n👉 Si ves tus archivos, el montaje funcionó correctamente.\n\n\n🚀 Bonus (muy útil)\nTambién puedes montar múltiples carpetas:\napptainer exec --bind $(pwd):/data,/otra/ruta:/ref contenedor.sif comando",
     "crumbs": [
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Apptainer</span>"
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Apptainer</span>"
     ]
   },
   {
@@ -726,7 +726,7 @@
     "section": "¿Qué es un archivo .def?",
     "text": "¿Qué es un archivo .def?\nUn archivo .def en Apptainer es un archivo de definición que contiene todas las instrucciones necesarias para construir un contenedor reproducible.\n👉 En lugar de instalar programas manualmente dentro de un sandbox, aquí escribimos una receta que describe:\n\nqué sistema operativo usar\nqué paquetes instalar\nqué software descargar\ncómo compilarlo\nqué variables de entorno definir\nqué debe hacer el contenedor al ejecutarse\n\n\nUn archivo .def permite reconstruir el mismo contenedor cuantas veces sea necesario.\n\n\n🧱 Partes de un archivo .def en Apptainer\nUn archivo .def está compuesto por secciones que indican cómo construir y cómo ejecutar un contenedor.\n🔹 Bootstrap: docker\nIndica el método de construcción del contenedor.\n👉 En este caso, significa que la imagen base será obtenida desde un repositorio compatible con Docker (como Docker Hub).\n🔹 From: ubuntu:22.04\nDefine la imagen base sobre la cual se construirá el contenedor.\n👉 Aquí se está utilizando Ubuntu 22.04 como sistema operativo inicial.\n🔹 %environment\nDefine variables de entorno que estarán disponibles cada vez que el contenedor se ejecute.\n👉 Se aplican cuando usas:\n\napptainer shell\napptainer exec\napptainer run\n\n💡 Sirve para configurar el entorno automáticamente (idioma, rutas de librerías, etc.).\n🔹 %post\nContiene los comandos que se ejecutan durante la construcción del contenedor.\n👉 Aquí es donde se:\n\ninstalan paquetes (apt install)\ndescargan programas (git clone)\ncompilan software (make)\n\n💡 Es la sección donde realmente “se arma” el contenedor.\n🔹 %runscript\nDefine qué ocurre cuando el contenedor se ejecuta con:\napptainer run archivo.sif\n👉 Permite establecer un comportamiento por defecto del contenedor.\n💡 Por ejemplo:\n\nmostrar un mensaje\nejecutar automáticamente un programa\n\nArchivo ejemplo revbayes_mpi.def\n# ============================================================\n# Archivo de definición de Apptainer para RevBayes con MPI\n# ============================================================\n\n# ------------------------------------------------------------\n# Bootstrap\n# ------------------------------------------------------------\n# Indica el tipo de origen de la imagen base.\n# En este caso, se utilizará una imagen proveniente de Docker Hub.\nBootstrap: docker\n\n# ------------------------------------------------------------\n# From\n# ------------------------------------------------------------\n# Especifica la imagen base sobre la cual se construirá el contenedor.\n# Aquí se usa Ubuntu 22.04 como sistema operativo inicial.\nFrom: ubuntu:22.04\n\n\n# ============================================================\n# %environment\n# ============================================================\n# Esta sección define variables de entorno que estarán disponibles\n# cada vez que el contenedor se ejecute (shell, exec, run).\n# No se ejecuta durante el build, sino en tiempo de uso.\n\n%environment\n    # Configuración de idioma y codificación\n    export LANG=C.UTF-8\n    export LC_ALL=C.UTF-8\n\n    # Ruta donde se buscarán bibliotecas compartidas\n    export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH\n\n\n# ============================================================\n# %post\n# ============================================================\n# Esta sección se ejecuta durante la construcción del contenedor.\n# Aquí se instala y configura el software.\n\n%post\n    # Evita preguntas interactivas durante la instalación\n    export DEBIAN_FRONTEND=noninteractive\n\n    # --------------------------------------------------------\n    # Actualizar sistema\n    # --------------------------------------------------------\n    apt update\n\n    # --------------------------------------------------------\n    # Instalar dependencias necesarias\n    # --------------------------------------------------------\n    apt install -y \\\n        build-essential \\\n        cmake \\\n        git \\\n        wget \\\n        curl \\\n        ca-certificates \\\n        libopenmpi-dev \\\n        openmpi-bin \\\n        libboost-all-dev \\\n        bison \\\n        flex \\\n        zlib1g-dev\n\n    # --------------------------------------------------------\n    # Descargar código fuente de RevBayes\n    # --------------------------------------------------------\n    cd /opt\n    git clone --branch development https://github.com/revbayes/revbayes.git\n\n    # --------------------------------------------------------\n    # Compilar RevBayes con soporte MPI\n    # --------------------------------------------------------\n    cd /opt/revbayes/projects/cmake\n    chmod +x build.sh\n    ./build.sh -mpi true\n\n    # --------------------------------------------------------\n    # Copiar ejecutables a una ruta accesible\n    # --------------------------------------------------------\n    if [ -f rb-mpi ]; then\n        cp rb-mpi /usr/local/bin/rb-mpi\n        chmod 755 /usr/local/bin/rb-mpi\n    fi\n\n    if [ -f rb ]; then\n        cp rb /usr/local/bin/rb\n        chmod 755 /usr/local/bin/rb\n    fi\n\n\n# ============================================================\n# %runscript\n# ============================================================\n# Define qué ocurre cuando se ejecuta el contenedor con:\n# apptainer run archivo.sif\n\n%runscript\n    echo \"RevBayes con MPI listo para usarse\"\n    exec \"$@\"\n\n\n🔧 Construir el contenedor a partir del archivo .def\nUna vez que el archivo revbayes_mpi.def está listo, el siguiente paso es construir la imagen .sif.\napptainer build revbayes_mpi.sif revbayes_mpi.def\nSi todo sale bien, al final tendrás un archivo como este:\nrevbayes_mpi.sif\nEse archivo ya contiene:\n\nUbuntu 22.04\ndependencias instaladas\nRevBayes compilado con MPI\nvariables de entorno configuradas\n\n\n\nProbar el contenedor\nUna forma sencilla de verificar que el contenedor se construyó correctamente es ejecutar comandos directamente con exec, sin necesidad de entrar en una shell interactiva.\napptainer exec revbayes_mpi.sif which rb-mpi\nTambién puedes comprobar que el programa funciona correctamente con:\napptainer exec revbayes_mpi.sif rb-mpi --help",
     "crumbs": [
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Apptainer</span>"
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Apptainer</span>"
     ]
   },
   {
@@ -736,7 +736,7 @@
     "section": "🔎 Buscar imágenes existentes antes de construir un contenedor",
     "text": "🔎 Buscar imágenes existentes antes de construir un contenedor\nAntes de crear un contenedor desde cero, es recomendable revisar si ya existe una imagen disponible en\n👉 Docker Hub\n👉 Quay.io\nEn este repositorio hay miles de imágenes creadas por la comunidad, incluyendo:\n\nsistemas operativos\nlenguajes de programación\nherramientas bioinformáticas\npipelines completos\n\n👉 Es muy probable que el software que necesitas ya esté disponible en forma de contenedor.\n\nEjemplo\nEn lugar de construir manualmente un contenedor para MrBayes, puedes usar:\napptainer pull quay.io/biocontainers/mrbayes\n👉 Esta imagen ya contiene el software instalado y listo para usarse.\n\n\n⚖️ Ventajas de usar imágenes existentes\n\n✔ Ahorra tiempo\n✔ No necesitas instalar dependencias\n✔ Listas para ejecutar\n✔ Útiles para pruebas rápidas\n\n\n\n⚠️ Desventajas\n\n❌ No siempre sabes cómo fue construida la imagen\n❌ Puede no estar actualizada\n❌ Puede incluir software innecesario\n❌ Menor control sobre dependencias y versiones\n\n\n\n🔧 Ventajas de construir tu propio contenedor\n\n✔ Control total del entorno\n✔ Puedes documentar cada paso (.def)\n✔ Reproducibilidad garantizada\n✔ Ajuste específico a tu análisis",
     "crumbs": [
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Apptainer</span>"
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Apptainer</span>"
     ]
   },
   {
@@ -764,7 +764,7 @@
     "href": "chapters/slurm.html#particiones-disponibles-para-usuarios-del-ib-unam",
     "title": "Uso básico de Slurm",
     "section": "Particiones disponibles para usuarios del IB-UNAM",
-    "text": "Particiones disponibles para usuarios del IB-UNAM\nEn BEAGLE, las particiones principales para usuarios del Instituto de Biología, UNAM, son:\n\n\n\n\n\n\n\n\n\nPartición\nNodo(s)\nRecursos principales\nUso recomendado\n\n\n\n\nib\nbeagle-01, beagle-02\nCPUs y memoria RAM\nTrabajos generales de bioinformática con CPU\n\n\ngpu_V100\nbeagle-gpu-01\nCPUs, memoria RAM y GPUs NVIDIA V100\nTrabajos que requieren GPU o análisis grandes que necesitan muchos CPUs y memoria\n\n\n\nRecursos disponibles por nodo:\n\n\n\n\n\n\n\n\n\n\nNodo\nCPUs\nMemoria aproximada\nGPU\nPartición\n\n\n\n\nbeagle-01\n32\n94 GB\nNo\nib\n\n\nbeagle-02\n20\n188 GB\nNo\nib\n\n\nbeagle-gpu-01\n80\n754 GB\n3 × NVIDIA V100\ngpu_V100\n\n\n\n\n\n\n\n\n\nNoteUso de la partición gpu_V100\n\n\n\nLa partición gpu_V100 contiene el nodo con mayor capacidad de CPU y memoria dentro de BEAGLE, pero también contiene las GPUs. No se debe solicitar GPU si el programa no la usa.",
+    "text": "Particiones disponibles para usuarios del IB-UNAM\nEn BEAGLE, las particiones principales para usuarios del Instituto de Biología, UNAM, son:\n\n\n\n\n\n\n\n\n\nPartición\nNodo(s)\nRecursos principales\nUso recomendado\n\n\n\n\nib\nbeagle-01, beagle-02\nCPUs y memoria RAM\nTrabajos generales de bioinformática con CPU\n\n\ngpu_V100\nbeagle-gpu-01\nCPUs, memoria RAM y GPUs NVIDIA V100\nTrabajos que requieren GPU o análisis grandes que necesitan muchos CPUs y memoria\n\n\n\nRecursos disponibles por nodo:\n\n\n\n\n\n\n\n\n\n\nNodo\nCPUs\nMemoria aproximada\nGPU\nPartición\n\n\n\n\nbeagle-01\n32\n94 GB\nNo\nib\n\n\nbeagle-02\n20\n188 GB\nNo\nib\n\n\nbeagle-gpu-01\n80\n754 GB\n3 × NVIDIA V100\ngpu_V100\n\n\n\n\n\n\n\n\n\nUso de la partición gpu_V100\n\n\n\nLa partición gpu_V100 contiene el nodo con mayor capacidad de CPU y memoria dentro de BEAGLE, pero también contiene las GPUs. No se debe solicitar GPU si el programa no la usa.",
     "crumbs": [
       "<span class='chapter-number'>6</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
     ]
@@ -1027,6 +1027,186 @@
     "text": "Para consultas generales, dudas sobre el uso del clúster de cómputo BEAGLE, comentarios sobre este manual o solicitudes de orientación, puedes contactar a:\nDr. Cristian Cervantes\nTécnico Académico\nUnidad de Síntesis en Sistemática y Evolución (UniSSE)\nInstituto de Biología, UNAM\n📧 cristian.cervantes@ib.unam.mx\n\nAntes de solicitar ayuda\nPara poder atender mejor tu duda, incluye la siguiente información en tu mensaje:\n\nNombre completo.\nAdscripción, laboratorio o grupo de trabajo.\nNombre de usuario en BEAGLE, si ya cuentas con uno.\nDescripción breve del problema.\nComando que ejecutaste.\nMensaje de error completo, si aplica.\n\n\n\nReportar errores o sugerencias del manual\nSi encontraste un error en este manual, una instrucción incompleta, un enlace que no funciona o tienes una sugerencia para mejorarlo, puedes reportarlo mediante la sección de Issues del repositorio en GitHub.\nTambién puedes enviar tus comentarios directamente por correo electrónico, especialmente si se trata de una duda particular o de una solicitud que requiera seguimiento personalizado.\n📧 cristian.cervantes@ib.unam.mx",
     "crumbs": [
       "<span class='chapter-number'>8</span>  <span class='chapter-title'>Contacto y soporte</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/micromamba.html",
+    "href": "chapters/micromamba.html",
+    "title": "Micromamba",
+    "section": "",
+    "text": "Objetivos de aprendizaje\nMicromamba es un gestor de ambientes y paquetes compatible con el ecosistema de conda. Permite crear espacios de trabajo aislados donde se pueden instalar programas, librerías y dependencias sin modificar el sistema operativo del clúster y sin requerir permisos de administrador (sudo).\nMicromamba es una herramienta independiente que permite instalar software de distintos tipos: programas escritos en Python, R, C, C++, Perl, Java u otros lenguajes, siempre que estén disponibles en canales compatibles como conda-forge o bioconda.\nEn BEAGLE, Micromamba es una opción práctica para instalar y usar herramientas bioinformáticas de forma relativamente sencilla. Su curva de aprendizaje suele ser menor que la de los contenedores, por lo que puede ser una buena primera opción para usuarios que necesitan instalar programas comunes o crear ambientes específicos para sus análisis.\nAl final de esta sección, la persona usuaria será capaz de:",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Micromamba</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/micromamba.html#objetivos-de-aprendizaje",
+    "href": "chapters/micromamba.html#objetivos-de-aprendizaje",
+    "title": "Micromamba",
+    "section": "",
+    "text": "explicar qué es Micromamba y para qué sirve;\ncrear, activar, desactivar y eliminar ambientes;\ninstalar software desde canales como conda-forge y bioconda;\ncrear ambientes a partir de archivos environment.yml;\nusar programas instalados con Micromamba dentro de scripts de Bash o trabajos de Slurm;\nreconocer cuándo conviene usar Micromamba y cuándo considerar Apptainer.",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Micromamba</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/micromamba.html#para-qué-sirve-micromamba",
+    "href": "chapters/micromamba.html#para-qué-sirve-micromamba",
+    "title": "Micromamba",
+    "section": "¿Para qué sirve Micromamba?",
+    "text": "¿Para qué sirve Micromamba?\nMicromamba permite crear ambientes independientes para distintos programas o proyectos. Cada ambiente puede tener sus propias versiones de software y dependencias.\nPor ejemplo, una persona usuaria podría tener:\n\nun ambiente para control de calidad con FastQC y MultiQC;\nun ambiente para análisis filogenéticos con IQ-TREE;\nun ambiente para ensamblaje o anotación con herramientas específicas;\nun ambiente para trabajar con paquetes de R o Python.\n\nEsto evita mezclar programas incompatibles entre sí y ayuda a mantener los análisis más organizados.",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Micromamba</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/micromamba.html#ventajas-de-usar-micromamba",
+    "href": "chapters/micromamba.html#ventajas-de-usar-micromamba",
+    "title": "Micromamba",
+    "section": "Ventajas de usar Micromamba",
+    "text": "Ventajas de usar Micromamba\nEl uso de Micromamba en BEAGLE permite:\n\ninstalar software sin utilizar sudo;\ncrear ambientes aislados por proyecto o análisis;\nevitar conflictos entre versiones de programas;\ninstalar paquetes desde canales como conda-forge y bioconda;\nactivar y desactivar ambientes según sea necesario;\ncompartir la lista de paquetes usados mediante archivos environment.yml;\ncomenzar a trabajar con una curva de aprendizaje relativamente baja.\n\n\n\n\n\n\n\nAntes de instalar software\n\n\n\nAunque Micromamba no requiere permisos de administrador, los ambientes pueden ocupar varios GB y generar muchas lecturas y escrituras en el sistema de archivos compartido.\nAntes de instalar software en tu cuenta, revisa las políticas de uso del clúster. En algunos casos, puede ser preferible usar módulos ya instalados o contenedores con Apptainer.",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Micromamba</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/micromamba.html#micromamba-módulos-y-apptainer",
+    "href": "chapters/micromamba.html#micromamba-módulos-y-apptainer",
+    "title": "Micromamba",
+    "section": "Micromamba, módulos y Apptainer",
+    "text": "Micromamba, módulos y Apptainer\nEn un clúster pueden coexistir distintas formas de usar software:\n\n\n\n\n\n\n\n\nHerramienta\n¿Para qué sirve mejor?\nComentario\n\n\n\n\nMódulos del sistema\nUsar software ya instalado por administradores\nEs la opción más simple cuando el programa ya está disponible\n\n\nMicromamba\nCrear ambientes de usuario sin sudo\nÚtil para programas comunes y análisis exploratorios\n\n\nApptainer\nEjecutar contenedores reproducibles\nRecomendado para análisis complejos, compartibles o publicables\n\n\n\nMicromamba es una buena opción para comenzar, pero no siempre es la mejor opción para todo. Para análisis que deben repetirse, compartirse o publicarse, los contenedores con Apptainer suelen ofrecer mayor portabilidad y reproducibilidad.",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Micromamba</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/micromamba.html#instalación-de-micromamba-sin-permisos-de-administrador",
+    "href": "chapters/micromamba.html#instalación-de-micromamba-sin-permisos-de-administrador",
+    "title": "Micromamba",
+    "section": "Instalación de Micromamba sin permisos de administrador",
+    "text": "Instalación de Micromamba sin permisos de administrador\nMicromamba puede instalarse directamente en la cuenta del usuario, sin requerir permisos de administrador (sudo). Esto resulta útil en clústeres compartidos y ambientes de HPC, donde los usuarios no deben modificar el sistema operativo ni las instalaciones globales del clúster.\n\nInstalación\nPara instalar Micromamba, ejecuta:\n\"${SHELL}\" &lt;(curl -L micro.mamba.pm/install.sh)\nDurante la instalación, Micromamba puede hacer algunas preguntas sobre la ubicación donde se instalará y el tipo de shell que se configurará. En general, puede aceptarse la configuración sugerida por defecto.\nDespués de la instalación, conviene cerrar y abrir nuevamente la terminal. También se puede recargar el archivo de configuración del shell con:\nsource ~/.bashrc\nPara comprobar que la instalación funcionó correctamente, ejecuta:\nmicromamba --version\nSi el comando muestra un número de versión, Micromamba quedó instalado correctamente.\n\n\n\n\n\n\nConsejo\n\n\n\nNo se recomienda instalar programas de análisis directamente en el ambiente base. Es mejor crear un ambiente específico para cada proyecto o tipo de análisis.",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Micromamba</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/micromamba.html#diagnóstico-rápido",
+    "href": "chapters/micromamba.html#diagnóstico-rápido",
+    "title": "Micromamba",
+    "section": "Diagnóstico rápido",
+    "text": "Diagnóstico rápido\nSi tienes dudas sobre la instalación, puedes revisar:\nwhich micromamba\nmicromamba --version\nmicromamba info\nmicromamba env list\necho $MAMBA_ROOT_PREFIX\nEsto permite identificar:\n\nqué ejecutable de Micromamba estás usando;\ndónde se guardan los ambientes;\nqué ambientes existen;\nsi Micromamba está correctamente configurado.",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Micromamba</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/micromamba.html#ejemplo-general-de-uso",
+    "href": "chapters/micromamba.html#ejemplo-general-de-uso",
+    "title": "Micromamba",
+    "section": "Ejemplo general de uso",
+    "text": "Ejemplo general de uso\n\nCrear un ambiente nuevo\nCrear un ambiente llamado bioinfo con FastQC y MultiQC:\nmicromamba create -n bioinfo -c conda-forge -c bioconda fastqc multiqc\n\n\n\n\n\n\nNote\n\n\n\nAntes de crear un ambiente, puedes buscar si un programa está disponible en Anaconda.org. Herramientas bioinformáticas como fastqc, multiqc, samtools, bwa, iqtree y muchas otras suelen encontrarse en canales como bioconda y conda-forge.\n\n\n\n\nActivar el ambiente\nmicromamba activate bioinfo\nCuando el ambiente está activo, normalmente aparece su nombre al inicio de la línea de comandos:\n(bioinfo) usuario@servidor:~$\n\n\nVerificar que los programas están disponibles\nfastqc --version\nmultiqc --version\nTambién puedes revisar desde dónde se está ejecutando cada programa:\nwhich fastqc\nwhich multiqc\n\n\nInstalar un paquete adicional\nInstalar trimmomatic dentro del ambiente bioinfo:\nmicromamba install -n bioinfo -c conda-forge -c bioconda trimmomatic\n\n\nListar los ambientes disponibles\nmicromamba env list\n\n\nDesactivar el ambiente\nmicromamba deactivate\n\n\nEliminar un ambiente que ya no se necesita\nmicromamba remove -n bioinfo --all\nEn algunos casos, si el ambiente ya está vacío, Micromamba puede mostrar un mensaje como:\nNothing to do.\nSi después de ese mensaje el ambiente todavía aparece al ejecutar:\nmicromamba env list\npuedes verificar que la carpeta corresponde al ambiente que quieres borrar:\nls -ld ~/micromamba/envs/bioinfo\nSi la ruta es correcta, puedes eliminar la carpeta manualmente:\nrm -rf ~/micromamba/envs/bioinfo\nFinalmente, verifica que el ambiente ya no aparece:\nmicromamba env list\n\n\n\n\n\n\nCuidado con rm -rf\n\n\n\nUsa rm -rf solo después de verificar cuidadosamente que la ruta corresponde al ambiente que quieres eliminar. Un error en la ruta puede borrar archivos importantes.",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Micromamba</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/micromamba.html#limpieza-de-caché",
+    "href": "chapters/micromamba.html#limpieza-de-caché",
+    "title": "Micromamba",
+    "section": "Limpieza de caché",
+    "text": "Limpieza de caché\nDespués de instalar paquetes, Micromamba puede conservar archivos descargados en caché. En clústeres compartidos, conviene limpiar estos archivos para ahorrar espacio.\nmicromamba clean -a\nPuedes usar este comando después de crear ambientes grandes o después de instalar muchos paquetes.",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Micromamba</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/micromamba.html#crear-un-ambiente-a-partir-de-un-archivo-yaml",
+    "href": "chapters/micromamba.html#crear-un-ambiente-a-partir-de-un-archivo-yaml",
+    "title": "Micromamba",
+    "section": "Crear un ambiente a partir de un archivo YAML",
+    "text": "Crear un ambiente a partir de un archivo YAML\nUna forma muy útil de trabajar con Micromamba es definir el ambiente en un archivo de configuración en formato YAML. Esto permite guardar el nombre del ambiente, los canales y los paquetes necesarios en un solo archivo, lo que facilita la reproducibilidad y evita tener que escribir comandos largos cada vez.\nEste archivo suele llamarse environment.yml o env.yml, porque son nombres comunes por convención. Sin embargo, no es obligatorio que tenga ese nombre. Puede llamarse de otra forma, siempre que se indique el archivo correcto al momento de crear el ambiente.\n\nEstructura básica de un archivo YAML\nUn archivo YAML para un ambiente de Micromamba puede verse así:\nname: bioinfo\nchannels:\n  - conda-forge\n  - bioconda\ndependencies:\n  - fastqc=0.12.1\n  - multiqc=1.35\n  - trimmomatic=0.40\nEn este ejemplo:\n\nname indica el nombre del ambiente;\nchannels define los repositorios donde se buscarán los paquetes;\ndependencies contiene la lista de programas que se instalarán.\n\n\n\nCrear el ambiente desde el archivo YAML\nSi el archivo se llama environment.yml, puedes crear el ambiente con:\nmicromamba create -f environment.yml\nDespués puedes activarlo:\nmicromamba activate bioinfo\n\n\nExportar un ambiente existente\nDespués de crear y ajustar un ambiente, se puede guardar su configuración con:\nmicromamba env export -n bioinfo &gt; environment.yml\nEste archivo puede guardarse junto con los scripts del proyecto para facilitar la reproducibilidad.\n\n\n\n\n\n\nBuena práctica\n\n\n\nGuarda el archivo environment.yml junto con tus scripts, datos de entrada pequeños o documentación del proyecto. Esto ayuda a saber qué programas y versiones se usaron en el análisis.",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Micromamba</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/micromamba.html#consideraciones-importantes",
+    "href": "chapters/micromamba.html#consideraciones-importantes",
+    "title": "Micromamba",
+    "section": "Consideraciones importantes",
+    "text": "Consideraciones importantes\nAunque Micromamba facilita la instalación de software, es importante considerar que un ambiente puede cambiar con el tiempo si no se documentan adecuadamente las versiones de los paquetes instalados.\nPor esta razón, se recomienda:\n\ncrear un ambiente por proyecto o por tipo de análisis;\nevitar instalar todos los programas en un solo ambiente;\nevitar instalar programas de análisis en el ambiente base;\ndocumentar los paquetes instalados;\nguardar el archivo environment.yml del ambiente;\nregistrar las versiones de los programas usados en cada análisis;\nlimpiar la caché cuando ya no sea necesaria.",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Micromamba</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/micromamba.html#uso-de-micromamba-dentro-de-scripts",
+    "href": "chapters/micromamba.html#uso-de-micromamba-dentro-de-scripts",
+    "title": "Micromamba",
+    "section": "Uso de Micromamba dentro de scripts",
+    "text": "Uso de Micromamba dentro de scripts\nCuando se trabaja de forma interactiva en la terminal, es común activar un ambiente antes de ejecutar un programa:\nmicromamba activate bioinfo\nfastqc --version\nSin embargo, dentro de scripts de Bash o trabajos enviados con Slurm, la activación de ambientes puede ser menos directa, ya que el script se ejecuta en una sesión no interactiva. Por esta razón, en BEAGLE se recomienda usar una de las siguientes estrategias.\n\nOpción recomendada: usar la ruta directa del ejecutable\nUna forma sencilla y robusta de usar un programa instalado en un ambiente de Micromamba es llamar directamente al ejecutable dentro de la carpeta bin del ambiente.\nPor ejemplo, si FastQC está instalado en el ambiente bioinfo, se puede localizar su ruta con:\nmicromamba activate bioinfo\nwhich fastqc\nEsto puede devolver una ruta similar a:\n/home/usuario/micromamba/envs/bioinfo/bin/fastqc\nEntonces, dentro de un script se puede ejecutar directamente:\n/home/usuario/micromamba/envs/bioinfo/bin/fastqc --version\nO, en un script de análisis:\n#!/bin/bash\n\nFASTQC=\"/home/usuario/micromamba/envs/bioinfo/bin/fastqc\"\nMULTIQC=\"/home/usuario/micromamba/envs/bioinfo/bin/multiqc\"\n\nmkdir -p resultados_fastqc\n\n$FASTQC datos/*.fastq.gz -o resultados_fastqc\n$MULTIQC resultados_fastqc -o resultados_fastqc\nEsta estrategia tiene la ventaja de que no depende de activar el ambiente dentro del script. El programa se ejecuta directamente desde el ambiente donde fue instalado.\n\n\nOpción alternativa: usar micromamba run\nOtra opción es ejecutar comandos dentro de un ambiente usando micromamba run:\nmicromamba run -n bioinfo fastqc --version\nPor ejemplo, dentro de un script:\n#!/bin/bash\n\nmicromamba run -n bioinfo fastqc datos/*.fastq.gz -o resultados_fastqc\nmicromamba run -n bioinfo multiqc resultados_fastqc -o resultados_fastqc\nEsta opción es clara porque indica explícitamente qué ambiente se está usando. Sin embargo, puede ser un poco más lenta si se ejecuta muchas veces dentro de ciclos grandes, ya que Micromamba debe preparar el entorno para cada comando.\n\n\nOpción con activación dentro del script\nTambién es posible activar el ambiente dentro del script, pero esto puede requerir inicializar Micromamba correctamente en sesiones no interactivas.\nUn ejemplo sería:\n#!/bin/bash\n\neval \"$(micromamba shell hook --shell bash)\"\nmicromamba activate bioinfo\n\nfastqc datos/*.fastq.gz -o resultados_fastqc\nmultiqc resultados_fastqc -o resultados_fastqc\nEsta opción puede ser útil cuando se ejecutan muchos comandos del mismo ambiente dentro de un solo script. Sin embargo, si hay problemas con la activación del ambiente, puede ser más sencillo usar la ruta directa del ejecutable.",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Micromamba</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/micromamba.html#uso-de-micromamba-con-slurm",
+    "href": "chapters/micromamba.html#uso-de-micromamba-con-slurm",
+    "title": "Micromamba",
+    "section": "Uso de Micromamba con Slurm",
+    "text": "Uso de Micromamba con Slurm\nEn trabajos enviados con Slurm, no se recomienda crear ambientes ni instalar paquetes dentro del job. Lo ideal es crear y probar el ambiente antes de enviar el análisis.\n\n\n\n\n\n\nNo instalar dentro de jobs\n\n\n\nEvita ejecutar comandos como micromamba create o micromamba install dentro de un trabajo de Slurm. Crea el ambiente antes, verifica que funciona y dentro del job solo ejecuta los programas ya instalados.\n\n\n\nEjemplo de script Slurm usando rutas directas\n#!/bin/bash\n#SBATCH --job-name=fastqc_micromamba\n#SBATCH --cpus-per-task=4\n#SBATCH --mem=8G\n#SBATCH --time=02:00:00\n#SBATCH --output=fastqc_%j.out\n#SBATCH --error=fastqc_%j.err\n\nFASTQC=\"$HOME/micromamba/envs/bioinfo/bin/fastqc\"\nMULTIQC=\"$HOME/micromamba/envs/bioinfo/bin/multiqc\"\n\nmkdir -p resultados_fastqc\n\n$FASTQC -t $SLURM_CPUS_PER_TASK datos/*.fastq.gz -o resultados_fastqc\n$MULTIQC resultados_fastqc -o resultados_fastqc\n\n\nEjemplo de script Slurm usando micromamba run\n#!/bin/bash\n#SBATCH --job-name=fastqc_micromamba\n#SBATCH --cpus-per-task=4\n#SBATCH --mem=8G\n#SBATCH --time=02:00:00\n#SBATCH --output=fastqc_%j.out\n#SBATCH --error=fastqc_%j.err\n\nmkdir -p resultados_fastqc\n\nmicromamba run -n bioinfo fastqc -t $SLURM_CPUS_PER_TASK datos/*.fastq.gz -o resultados_fastqc\nmicromamba run -n bioinfo multiqc resultados_fastqc -o resultados_fastqc",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Micromamba</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/micromamba.html#problemas-comunes",
+    "href": "chapters/micromamba.html#problemas-comunes",
+    "title": "Micromamba",
+    "section": "Problemas comunes",
+    "text": "Problemas comunes\n\nmicromamba activate no funciona\nSi aparece un mensaje como:\ncritical libmamba Shell not initialized\npuedes inicializar Micromamba para la sesión actual con:\neval \"$(micromamba shell hook --shell bash)\"\nmicromamba activate bioinfo\nSi quieres dejarlo configurado para futuras sesiones:\nmicromamba shell init --shell bash --root-prefix=\"$HOME/micromamba\"\nsource ~/.bashrc\n\n\nEl ambiente no existe\nSi aparece un mensaje como:\nCannot activate, prefix does not exist\nrevisa los ambientes disponibles:\nmicromamba env list\nSi el ambiente no aparece, debes crearlo primero:\nmicromamba create -n bioinfo -c conda-forge -c bioconda fastqc multiqc\n\n\nSe está usando otro programa del sistema\nSi activaste un ambiente pero parece que se usa otro programa, revisa:\nwhich fastqc\nfastqc --version\nLa ruta debería apuntar al ambiente activo, por ejemplo:\n/home/usuario/micromamba/envs/bioinfo/bin/fastqc",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Micromamba</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/micromamba.html#cuándo-usar-micromamba-y-cuándo-usar-apptainer",
+    "href": "chapters/micromamba.html#cuándo-usar-micromamba-y-cuándo-usar-apptainer",
+    "title": "Micromamba",
+    "section": "Cuándo usar Micromamba y cuándo usar Apptainer",
+    "text": "Cuándo usar Micromamba y cuándo usar Apptainer\nMicromamba es una buena opción cuando:\n\nnecesitas instalar herramientas comunes rápidamente;\nestás haciendo análisis exploratorios;\nquieres crear ambientes sencillos por proyecto;\nlos programas están disponibles en conda-forge o bioconda.\n\nApptainer puede ser mejor opción cuando:\n\nnecesitas máxima reproducibilidad;\nel análisis será compartido, publicado o repetido a largo plazo;\nel software tiene dependencias complejas;\nel ambiente de Micromamba se vuelve difícil de resolver;\nnecesitas mover exactamente el mismo entorno a otro servidor.",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Micromamba</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/micromamba.html#recomendación-final",
+    "href": "chapters/micromamba.html#recomendación-final",
+    "title": "Micromamba",
+    "section": "Recomendación final",
+    "text": "Recomendación final\nMicromamba es una buena opción para comenzar a trabajar con software bioinformático en BEAGLE, especialmente por su facilidad de uso. Sin embargo, para análisis que deben repetirse, compartirse o publicarse, se recomienda documentar cuidadosamente el ambiente o considerar el uso de contenedores con Apptainer.\nEn general:\n\nusa Micromamba para ambientes sencillos, exploratorios o de aprendizaje;\nusa Apptainer para análisis complejos, colaborativos o de largo plazo;\ndocumenta siempre las versiones de los programas;\nguarda tus archivos environment.yml;\nevita instalar software dentro de trabajos de Slurm.",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Micromamba</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/software.html",
+    "href": "chapters/software.html",
+    "title": "Software en BEAGLE",
+    "section": "",
+    "text": "¿Qué es un ambiente de Micromamba?\nBEAGLE es un clúster de cómputo compartido utilizado por varias personas para ejecutar análisis bioinformáticos, filogenómicos y otros cálculos científicos que requieren recursos computacionales especializados. Al ser una infraestructura compartida, es importante mantener un entorno estable, seguro y ordenado para todos los usuarios.\nPara evitar conflictos entre programas, reducir riesgos de seguridad, prevenir cambios que puedan afectar a otros usuarios y facilitar la mantenibilidad del clúster, en BEAGLE no se permite instalar software directamente en el sistema operativo ni modificar las instalaciones globales del sistema.\nEn su lugar, en BEAGLE se priorizan dos estrategias principales para manejar software de forma segura y reproducible:\nAmbas estrategias permiten ejecutar programas sin alterar el sistema principal del clúster y, en general, no requieren permisos de administrador (sudo) por parte de los usuarios. Esto permite instalar o ejecutar software dentro de espacios controlados, manteniendo separado el entorno de trabajo del usuario de las configuraciones globales del clúster.\nLa elección entre una u otra dependerá del tipo de software, del nivel de reproducibilidad requerido y de la experiencia del usuario.\nUn ambiente de Micromamba es un espacio aislado donde se pueden instalar programas, librerías y dependencias específicas para un análisis o proyecto, sin modificar el sistema operativo ni requerir permisos de administrador.\nPor ejemplo, un usuario puede tener un ambiente para FastQC, otro para IQ-TREE y otro para BUSCO, cada uno con sus propias versiones de programas y dependencias.\nEl uso de ambientes de Micromamba permite:\nEn general, Micromamba suele ser la opción más sencilla para los usuarios, especialmente cuando el programa que se necesita está disponible en bioconda o conda-forge. Por esta razón, puede ser una buena alternativa para herramientas comunes, análisis exploratorios o flujos de trabajo que no requieren un control estricto del entorno completo.\nSin embargo, aunque los ambientes de Micromamba ayudan a organizar el software, pueden ser menos reproducibles que un contenedor, ya que las versiones de paquetes y dependencias pueden cambiar con el tiempo si no se documentan o congelan adecuadamente.",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Software en BEAGLE</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/software.html#importante",
+    "href": "chapters/software.html#importante",
+    "title": "Software en BEAGLE",
+    "section": "Importante",
+    "text": "Importante\nEn BEAGLE no se debe instalar software directamente en el sistema operativo ni modificar las instalaciones globales del clúster.\nEl uso de Micromamba y Apptainer permite trabajar con software especializado sin requerir permisos de administrador (sudo) y sin alterar la configuración general del clúster.\nSi necesitas usar un programa nuevo, primero revisa si puede ejecutarse mediante Micromamba o Apptainer. Ambas opciones están permitidas en BEAGLE, pero se recomienda elegir la estrategia más adecuada según el tipo de análisis, la complejidad del programa y el nivel de reproducibilidad requerido.\nSi el programa requiere una instalación especial o no sabes cuál estrategia conviene usar, consulta con la administración de BEAGLE antes de modificar cualquier configuración del clúster.",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Software en BEAGLE</span>"
     ]
   }
 ]

@@ -6,7 +6,7 @@ subtitle: "Servidor de cómputo para bioinformática"
 ::: beagle-hero
 # Manual de usuario BEAGLE
 
-Guía práctica para ingresar al servidor, organizar archivos, usar software bioinformático mediante **Micromamba** o **Apptainer**, y enviar análisis al sistema de colas con **Slurm**.
+Guía práctica para ingresar al servidor, organizar archivos, usar software bioinformático mediante **Apptainer** y enviar análisis al sistema de colas con **Slurm**.
 :::
 
 ![](images/baner_beagle.png){fig-align="center" width="550"}
