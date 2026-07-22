@@ -4,7 +4,7 @@
     "href": "index.html",
     "title": "Manual de usuario BEAGLE",
     "section": "",
-    "text": "Manual de usuario BEAGLE\nGuía práctica para ingresar al servidor, organizar archivos, usar software bioinformático mediante Micromamba o Apptainer, y enviar análisis al sistema de colas con Slurm.",
+    "text": "Manual de usuario BEAGLE\nGuía práctica para ingresar al servidor, organizar archivos, usar software bioinformático mediante Apptainer y enviar análisis al sistema de colas con Slurm.",
     "crumbs": [
       "<span class='chapter-number'>1</span>  <span class='chapter-title'>Manual de usuario BEAGLE</span>"
     ]
@@ -470,173 +470,13 @@
     ]
   },
   {
-    "objectID": "chapters/bots.html",
-    "href": "chapters/bots.html",
-    "title": "Notificaciones automáticas",
-    "section": "",
-    "text": "Mensajes a Telegram\nEsta sección explica cómo preparar notificaciones automáticas desde scripts de Bash, pipelines o análisis largos. La idea es recibir avisos cuando un proceso inicia, termina correctamente o falla.",
-    "crumbs": [
-      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Notificaciones automáticas</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/bots.html#mensajes-a-telegram",
-    "href": "chapters/bots.html#mensajes-a-telegram",
-    "title": "Notificaciones automáticas",
-    "section": "",
-    "text": "Crear un bot en Telegram\n\nBusca @BotFather y abre el chat.\n\n\n\n\n\n\n\nCrea un nuevo bot.\n\n\n\n\n\n\n\nPonle un nombre al bot y elige un nombre de usuario que termine en bot. El username debe estar disponible.\n\n\n\n\n\n\n\nBotFather te dará un token.\n\n\n\n\n\n\n✅ Ese token es tu contraseña del bot. No lo compartas.\n\nAbre el chat con tu bot, buscándolo por su username.\n\n\n\n\n\n\n\nPresiona Iniciar.",
-    "crumbs": [
-      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Notificaciones automáticas</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/bots.html#conseguir-tu-chat_id",
-    "href": "chapters/bots.html#conseguir-tu-chat_id",
-    "title": "Notificaciones automáticas",
-    "section": "Conseguir tu chat_id",
-    "text": "Conseguir tu chat_id\nDefine temporalmente el token de tu bot:\nTELEGRAM_BOT_TOKEN=\"TU_TOKEN_AQUI\"\nDespués consulta las actualizaciones del bot:\ncurl -s \"https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/getUpdates\"\nBusca en la salida una sección parecida a esta:\n\"chat\":{\"id\":123456789,\"first_name\":\"Pedro\"}\nEl número que aparece en id es tu TELEGRAM_CHAT_ID.\n\n\n\n\n\n\nNoteSi no aparece tu chat_id\n\n\n\nPrimero escribe cualquier mensaje en el chat de tu bot y vuelve a ejecutar el comando getUpdates.",
-    "crumbs": [
-      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Notificaciones automáticas</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/bots.html#enviar-un-mensaje-con-curl",
-    "href": "chapters/bots.html#enviar-un-mensaje-con-curl",
-    "title": "Notificaciones automáticas",
-    "section": "Enviar un mensaje con curl",
-    "text": "Enviar un mensaje con curl\nTELEGRAM_BOT_TOKEN=\"TU_TOKEN_AQUI\"\nTELEGRAM_CHAT_ID=\"TU_CHAT_ID_AQUI\"\n\ncurl -s -X POST \"https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage\" \\\n  -d \"chat_id=${TELEGRAM_CHAT_ID}\" \\\n  -d \"text=Hola 👋 Mensaje enviado desde Bash\"",
-    "crumbs": [
-      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Notificaciones automáticas</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/bots.html#guardar-credenciales-en-un-archivo-.env",
-    "href": "chapters/bots.html#guardar-credenciales-en-un-archivo-.env",
-    "title": "Notificaciones automáticas",
-    "section": "Guardar credenciales en un archivo .env",
-    "text": "Guardar credenciales en un archivo .env\nCrea un archivo .env fuera del repositorio del proyecto, o agrégalo al archivo .gitignore.\nnano .env\nContenido recomendado:\nTELEGRAM_BOT_TOKEN=\"TU_TOKEN_AQUI\"\nTELEGRAM_CHAT_ID=\"TU_CHAT_ID_AQUI\"\nProtege el archivo para que solo tu usuario pueda leerlo:\nchmod 600 .env\nSi el archivo .env está dentro de un proyecto con Git, agrégalo a .gitignore:\nnano .gitignore\nAgrega esta línea:\n.env",
-    "crumbs": [
-      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Notificaciones automáticas</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/bots.html#función-reusable-tg_send",
-    "href": "chapters/bots.html#función-reusable-tg_send",
-    "title": "Notificaciones automáticas",
-    "section": "Función reusable tg_send",
-    "text": "Función reusable tg_send\nCarga primero las variables del archivo .env:\nsource .env\nDespués define la función:\ntg_send () {\n  local msg=\"$1\"\n\n  curl -s -X POST \"https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage\" \\\n    -d \"chat_id=${TELEGRAM_CHAT_ID}\" \\\n    -d \"text=${msg}\" \\\n    -d \"disable_web_page_preview=true\" &gt; /dev/null\n}\nUso:\ntg_send \"✅ Pipeline terminado correctamente.\"",
-    "crumbs": [
-      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Notificaciones automáticas</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/bots.html#usar-telegram-en-un-script-de-bash",
-    "href": "chapters/bots.html#usar-telegram-en-un-script-de-bash",
-    "title": "Notificaciones automáticas",
-    "section": "Usar Telegram en un script de Bash",
-    "text": "Usar Telegram en un script de Bash\nEl siguiente patrón permite enviar una notificación al iniciar y otra al terminar un proceso.\n#!/usr/bin/env bash\nset -euo pipefail\n\nsource /ruta/a/tu/.env\n\ntg_send () {\n  local msg=\"$1\"\n\n  curl -s -X POST \"https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage\" \\\n    -d \"chat_id=${TELEGRAM_CHAT_ID}\" \\\n    -d \"text=${msg}\" \\\n    -d \"disable_web_page_preview=true\" &gt; /dev/null\n}\n\ntg_send \"🚀 Inició el análisis\"\n\nif comando_largo; then\n  tg_send \"✅ El análisis terminó correctamente\"\nelse\n  tg_send \"❌ El análisis terminó con error\"\n  exit 1\nfi",
-    "crumbs": [
-      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Notificaciones automáticas</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/bots.html#mensajes-a-discord",
-    "href": "chapters/bots.html#mensajes-a-discord",
-    "title": "Notificaciones automáticas",
-    "section": "Mensajes a Discord",
-    "text": "Mensajes a Discord\nDiscord puede utilizarse para recibir notificaciones automáticas desde scripts de Bash. Para este uso no es necesario crear un bot completo: lo más práctico es usar webhooks.\nUn webhook es una URL especial asociada a un canal de Discord. Cuando un script envía un mensaje a esa URL, el mensaje aparece automáticamente en ese canal.\n\n\n\n\n\n\nTipRecomendación para BEAGLE\n\n\n\nUsa un webhook por canal para mantener las notificaciones ordenadas.\n\n\n\n\n\n\n\nCanal de Discord\nUso sugerido\n\n\n\n\n#pruebas\nProbar mensajes antes de usarlos en análisis reales\n\n\n#beast\nNotificaciones de análisis de BEAST/BEAST2\n\n\n#cpu\nAnálisis generales con CPU\n\n\n#gpu\nAnálisis que usan GPU\n\n\n#errores\nMensajes cuando un proceso falla\n\n\n\n\n\nEn Discord, crea un servidor nuevo para organizar los canales de notificación.\n\nSelecciona Crear mi propio modelo.\n\n\n\n\n\n\n\nDiscord puede preguntar si el servidor será para una comunidad o para amigos. Para un grupo de trabajo, curso o laboratorio, puedes elegir Para un club o una comunidad. También puedes omitir esta pregunta.\n\n\n\n\n\n\n\nAsigna un nombre al servidor. En este ejemplo se usa UniSSE.\n\n\n\n\n\n\n\nDiscord puede mostrar una pantalla para invitar personas. Puedes copiar el enlace, compartirlo o cerrar esta pantalla y continuar configurando el servidor.\n\n\n\n\n\n\n\nUna vez creado el servidor, verás los canales disponibles. En este ejemplo se crearon canales como #pruebas y #beast.",
-    "crumbs": [
-      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Notificaciones automáticas</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/bots.html#crear-canales",
-    "href": "chapters/bots.html#crear-canales",
-    "title": "Notificaciones automáticas",
-    "section": "Crear canales",
-    "text": "Crear canales\nPara crear canales desde la aplicación móvil:\n\nAbre el menú del servidor.\nSelecciona Más opciones.\n\n\n\n\n\n\n\nSelecciona Crear un canal.\n\n\n\n\n\n\nPuedes crear canales separados para diferentes tipos de análisis:\n#pruebas\n#beast\n#cpu\n#gpu\n#errores\n\n\n\n\n\n\nNote¿Por qué varios canales?\n\n\n\nSeparar los mensajes ayuda a evitar ruido. Los análisis de prueba pueden llegar a #pruebas, los análisis con GPU a #gpu y los errores a #errores.",
-    "crumbs": [
-      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Notificaciones automáticas</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/bots.html#crear-un-webhook-para-un-canal",
-    "href": "chapters/bots.html#crear-un-webhook-para-un-canal",
-    "title": "Notificaciones automáticas",
-    "section": "Crear un webhook para un canal",
-    "text": "Crear un webhook para un canal\n\n\n\n\n\n\nWarningLos webhooks no se crean desde la app móvil\n\n\n\nEn la app móvil de Discord puede aparecer el apartado de Webhooks, pero Discord indica que, por ahora, los webhooks solo se pueden crear desde la aplicación de escritorio o desde Discord en la web.\nPara crear y copiar la URL del webhook, usa una computadora o entra a Discord desde el navegador.\n\n\n\n\n\n\n\n\nDesde Discord de escritorio o navegador\n\nEntra al servidor y selecciona el canal donde quieres recibir mensajes, por ejemplo #pruebas.\nColoca el cursor sobre el canal y selecciona el ícono de engrane para abrir la configuración del canal.\n\n\n\n\n\n\n\nEn la configuración del canal, entra a Integraciones.\n\n\n\n\n\n\n\nEn Integraciones, selecciona Crear Webhook.\n\n\n\n\n\n\n\nDiscord creará un webhook. Puedes cambiarle el nombre, seleccionar el canal y copiar la URL.\n\n\n\n\n\n\n\nPuedes crear más webhooks. En este ejemplo se creó un webhook llamado beagle.\n\n\n\n\n\n\n\n\n\n\n\n\nImportantNo compartas la URL del webhook\n\n\n\nLa URL del webhook funciona como una contraseña. Cualquier persona con esa URL puede enviar mensajes al canal.\nNo la compartas, no la pegues en documentos públicos y no la subas a GitHub.",
-    "crumbs": [
-      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Notificaciones automáticas</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/bots.html#guardar-los-webhooks-en-un-archivo-.env",
-    "href": "chapters/bots.html#guardar-los-webhooks-en-un-archivo-.env",
-    "title": "Notificaciones automáticas",
-    "section": "Guardar los webhooks en un archivo .env",
-    "text": "Guardar los webhooks en un archivo .env\nCrea un archivo .env para guardar las URLs de los webhooks.\nnano .env\nContenido recomendado:\nDISCORD_WEBHOOK_PRUEBAS=\"https://discord.com/api/webhooks/XXXX/YYYY\"\nDISCORD_WEBHOOK_BEAST=\"https://discord.com/api/webhooks/XXXX/YYYY\"\nDISCORD_WEBHOOK_CPU=\"https://discord.com/api/webhooks/XXXX/YYYY\"\nDISCORD_WEBHOOK_GPU=\"https://discord.com/api/webhooks/XXXX/YYYY\"\nDISCORD_WEBHOOK_ERRORES=\"https://discord.com/api/webhooks/XXXX/YYYY\"\nDale permisos restringidos al archivo:\nchmod 600 .env\nSi el archivo .env está dentro de un proyecto con Git, agrégalo al archivo .gitignore:\nnano .gitignore\nAgrega:\n.env",
-    "crumbs": [
-      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Notificaciones automáticas</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/bots.html#probar-un-webhook-con-curl",
-    "href": "chapters/bots.html#probar-un-webhook-con-curl",
-    "title": "Notificaciones automáticas",
-    "section": "Probar un webhook con curl",
-    "text": "Probar un webhook con curl\nPrimero carga las variables del archivo .env:\nsource .env\nDespués envía un mensaje de prueba:\ncurl -s -H \"Content-Type: application/json\" \\\n  -X POST \\\n  -d '{\"content\":\"Hola 👋 mensaje enviado desde Bash\"}' \\\n  \"$DISCORD_WEBHOOK_PRUEBAS\"\nSi todo está bien configurado, el mensaje aparecerá en el canal de Discord asociado a ese webhook.",
-    "crumbs": [
-      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Notificaciones automáticas</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/bots.html#función-reusable-discord_send",
-    "href": "chapters/bots.html#función-reusable-discord_send",
-    "title": "Notificaciones automáticas",
-    "section": "Función reusable discord_send",
-    "text": "Función reusable discord_send\nPara reutilizar el envío de mensajes en varios scripts, puedes definir una función de Bash:\ndiscord_send () {\n  local webhook=\"$1\"\n  local msg=\"$2\"\n\n  payload=$(python3 -c 'import json,sys; print(json.dumps({\"content\": sys.argv[1]}, ensure_ascii=False))' \"$msg\")\n\n  curl -s -H \"Content-Type: application/json\" \\\n    -X POST \\\n    -d \"$payload\" \\\n    \"$webhook\" &gt; /dev/null\n}\nUso:\nsource .env\n\ndiscord_send \"$DISCORD_WEBHOOK_PRUEBAS\" \"✅ Mensaje enviado desde Bash\"",
-    "crumbs": [
-      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Notificaciones automáticas</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/bots.html#usar-discord-en-un-script-de-bash",
-    "href": "chapters/bots.html#usar-discord-en-un-script-de-bash",
-    "title": "Notificaciones automáticas",
-    "section": "Usar Discord en un script de Bash",
-    "text": "Usar Discord en un script de Bash\nEl siguiente patrón envía un mensaje cuando inicia un proceso y otro cuando termina. Si el proceso falla, manda el aviso al canal de errores.\n#!/usr/bin/env bash\nset -euo pipefail\n\nsource /ruta/a/tu/.env\n\ndiscord_send () {\n  local webhook=\"$1\"\n  local msg=\"$2\"\n\n  payload=$(python3 -c 'import json,sys; print(json.dumps({\"content\": sys.argv[1]}, ensure_ascii=False))' \"$msg\")\n\n  curl -s -H \"Content-Type: application/json\" \\\n    -X POST \\\n    -d \"$payload\" \\\n    \"$webhook\" &gt; /dev/null\n}\n\non_exit () {\n  status=$?\n\n  if [ \"$status\" -eq 0 ]; then\n    discord_send \"$DISCORD_WEBHOOK_PRUEBAS\" \"✅ El análisis terminó correctamente\"\n  else\n    discord_send \"${DISCORD_WEBHOOK_ERRORES:-$DISCORD_WEBHOOK_PRUEBAS}\" \"❌ El análisis terminó con error\"\n  fi\n}\n\ntrap on_exit EXIT\n\ndiscord_send \"$DISCORD_WEBHOOK_PRUEBAS\" \"🚀 Inició el análisis\"\n\ncomando_largo",
-    "crumbs": [
-      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Notificaciones automáticas</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/bots.html#mensajes-para-análisis-específicos",
-    "href": "chapters/bots.html#mensajes-para-análisis-específicos",
-    "title": "Notificaciones automáticas",
-    "section": "Mensajes para análisis específicos",
-    "text": "Mensajes para análisis específicos\nSi tienes un canal específico para BEAST, puedes enviar los mensajes a ese canal:\ndiscord_send \"$DISCORD_WEBHOOK_BEAST\" \"🧬 Inició análisis de BEAST\"\nY en caso de error, usar el canal de errores:\ndiscord_send \"$DISCORD_WEBHOOK_ERRORES\" \"⚠️ Falló el análisis de BEAST\"\nPara análisis que usan GPU, puedes usar un webhook específico:\ndiscord_send \"$DISCORD_WEBHOOK_GPU\" \"🚀 Inició análisis con GPU\"\nAl finalizar:\ndiscord_send \"$DISCORD_WEBHOOK_GPU\" \"✅ Terminó análisis con GPU\"",
-    "crumbs": [
-      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Notificaciones automáticas</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/bots.html#qué-hacer-si-se-filtró-una-url-de-webhook",
-    "href": "chapters/bots.html#qué-hacer-si-se-filtró-una-url-de-webhook",
-    "title": "Notificaciones automáticas",
-    "section": "¿Qué hacer si se filtró una URL de webhook?",
-    "text": "¿Qué hacer si se filtró una URL de webhook?\nSi accidentalmente compartiste una URL de webhook o la subiste a GitHub:\n\nEntra a Discord.\nAbre la configuración del canal.\nVe a Integraciones.\nEntra a Webhooks.\nElimina el webhook comprometido.\nCrea un webhook nuevo.\nActualiza tu archivo .env.\n\n\n\n\n\n\n\nWarningImportante\n\n\n\nNo basta con borrar la URL del repositorio si ya fue publicada. Lo más seguro es eliminar ese webhook y crear uno nuevo.",
-    "crumbs": [
-      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Notificaciones automáticas</span>"
-    ]
-  },
-  {
     "objectID": "chapters/apptainer.html",
     "href": "chapters/apptainer.html",
     "title": "Apptainer",
     "section": "",
     "text": "¿Qué es un contenedor?\nBEAGLE es un clúster de cómputo compartido. Para mantenerlo estable, seguro y funcional para todas las personas usuarias, no se debe instalar software directamente en el sistema operativo, modificar instalaciones globales ni usar sudo.\nEl software especializado en BEAGLE debe ejecutarse mediante contenedores con Apptainer. Esta estrategia permite usar programas bioinformáticos y científicos en entornos aislados, sin alterar el sistema principal del clúster y con mayor reproducibilidad.\nUn contenedor es un entorno aislado que incluye:",
     "crumbs": [
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Apptainer</span>"
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Apptainer</span>"
     ]
   },
   {
@@ -646,7 +486,7 @@
     "section": "",
     "text": "Sistema operativo base\nLibrerías\nDependencias\nSoftware específico\n\n\nDocker vs Podman vs Apptainer\nActualmente hay decenas de proyectos involucrados en el desarrollo, adopción y uso de contenedores: https://landscape.cncf.io\n\n\n\n\n\n\n\n\n\nCaracterística\nDocker\nPodman\nApptainer\n\n\n\n\nUso principal\nDesarrollo\nDesarrollo sin daemon\nHPC / ciencia\n\n\nRequiere root\nSí\nNo siempre\nNo\n\n\nSeguridad en HPC\nBaja\nMedia\nAlta\n\n\nIntegración HPC\n❌\n⚠️\n✅\n\n\nFormato imagen\nlayered\nlayered\n.sif",
     "crumbs": [
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Apptainer</span>"
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Apptainer</span>"
     ]
   },
   {
@@ -656,7 +496,7 @@
     "section": "Apptainer",
     "text": "Apptainer\nApptainer es una plataforma de contenedores de código abierto enfocada en ciencia y cómputo de alto rendimiento (HPC). Permite ejecutar aplicaciones dentro de entornos aislados que incluyen todas sus dependencias, facilitando la reproducibilidad y evitando conflictos de software, sin requerir privilegios de administrador.\n\n¿En qué sistemas funciona Apptainer?\nApptainer está diseñado para funcionar de manera nativa en sistemas Linux.\nEsto se debe a que utiliza características propias del kernel de Linux, como:\n\nnamespaces (aislamiento de procesos)\ncgroups (control de recursos)\nsistema de archivos tipo overlay\n\n👉 Estas tecnologías permiten crear contenedores de forma eficiente y segura.\n\n\n¿De dónde vienen las imágenes?\nLas imágenes de contenedores provienen generalmente de repositorios en línea como:\n👉 Docker Hub\n👉 Quay.io\n\n📦 Docker Hub\nDocker Hub es una plataforma donde se almacenan miles de imágenes listas para usar:\n\nsistemas operativos\nlenguajes de programación\nherramientas científicas\n\nCada imagen tiene versiones llamadas tags, por ejemplo:\n\nubuntu:22.04\nubuntu:20.04\nubuntu:latest\n\n💡 Esto permite elegir exactamente qué entorno queremos usar.\n\n\n🧬 ¿Qué son los BioContainers?\nExisten repositorios especializados llamados BioContainers, que contienen imágenes enfocadas en bioinformática.\n👉 Son contenedores que ya incluyen software científico instalado, como:\n\nMrBayes\nBLAST\nFastQC\nBowtie2\n\n👉 Muchos de estos contenedores están disponibles en:\n\nDocker Hub\nQuay.io (más actualizado en muchos casos)",
     "crumbs": [
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Apptainer</span>"
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Apptainer</span>"
     ]
   },
   {
@@ -666,7 +506,7 @@
     "section": "📥 Descargar imágenes",
     "text": "📥 Descargar imágenes\nEl comando pull permite descargar una imagen y convertirla al formato de Apptainer (.sif), que es el formato estándar para ejecutar contenedores.\napptainer pull docker://ubuntu\n👉 Este comando descarga una imagen de Ubuntu desde Docker Hub y genera un archivo como:\nubuntu_latest.sif\nEste archivo .sif contiene un sistema base listo para usarse con Apptainer.\n\n📦 Versiones específicas\nTambién es posible descargar una versión concreta de una imagen usando una etiqueta (:versión). Esto es útil cuando se necesita trabajar con una versión específica del sistema operativo o del software para mantener compatibilidad y reproducibilidad.\napptainer pull docker://centos:7",
     "crumbs": [
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Apptainer</span>"
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Apptainer</span>"
     ]
   },
   {
@@ -676,7 +516,7 @@
     "section": "Uso básico de contenedores",
     "text": "Uso básico de contenedores\nUUna vez que hemos descargado una imagen con pull, podemos comenzar a interactuar con ella.\napptainer pull docker://ubuntu\n👉 Esto genera un archivo .sif, que contiene un sistema Linux mínimo.\nCuando usamos Apptainer, no estamos ejecutando “un programa”, sino un sistema operativo completo pero ligero.\n👉 Es como tener una instalación de Linux dentro de un archivo.\n💡 Sin embargo, estas imágenes suelen ser:\n\nmuy ligeras\nsin programas adicionales\ncon solo lo esencial para funcionar\n\n\nEntrar a un contenedor (modo interactivo)\napptainer shell ubuntu_latest.sif\n👉 Esto abre una terminal dentro del contenedor.\nDentro de esta terminal puedes:\n\nnavegar (ls, cd)\ncrear archivos\nejecutar comandos\ninstalar software (si es writable)\n\n💡 Es como si estuvieras usando otra computadora con Linux.\n\n\n⚠️ ¿Se puede modificar?\nPor defecto:\n\n❌ NO puedes modificar la imagen .sif\n✅ solo puedes explorarla\n\n👉 Si quieres modificarla, necesitas usar:\n\nun sandbox\no entrar con --writable\n\n\n\nEjecutar comandos sin entrar\nTambién puedes ejecutar comandos directamente sin abrir una terminal interactiva:\napptainer exec ubuntu_latest.sif ls /\n👉 Esto ejecuta ls / dentro del contenedor y regresa al sistema host.\nDentro del contenedor puedes usar comandos básicos como:\nls\npwd\nwhoami\ncat /etc/os-release\n👉 Esto demuestra que:\n\nestás dentro de un sistema Linux independiente\ncon su propia estructura de archivos\nsu propio entorno\n\n\n\nModificar un contenedor temporalmente (--writable)\nAunque las imágenes .sif no son modificables por defecto, Apptainer permite hacer cambios temporales durante una sesión usando ciertas opciones.\napptainer shell --writable --fakeroot ubuntu_latest.sif\n\n--writable → permite modificar el sistema dentro del contenedor\n--fakeroot → simula permisos de administrador (root)\n\n👉 Esto permite instalar software dentro del contenedor.\n\n⚠️ Importante\n💡 Este modo funciona mejor con sandbox\nEn archivos .sif, puede no funcionar o ser limitado\nPor eso este ejemplo es solo para entender el concepto",
     "crumbs": [
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Apptainer</span>"
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Apptainer</span>"
     ]
   },
   {
@@ -686,7 +526,7 @@
     "section": "¿Qué es un sandbox?",
     "text": "¿Qué es un sandbox?\nUn sandbox es un contenedor en formato de directorio editable.\nA diferencia de .sif, permite:\n\ninstalar programas\nmodificar configuraciones\ncompilar software\n\n\nCrear un sandbox\nEl comando build --sandbox crea un contenedor editable a partir de una imagen base.\napptainer build --sandbox NOMBRE_DEL_DIRECTORIO IMAGEN_BASE.sif\n\nEjemplo\napptainer build --sandbox mrbayes ubuntu_latest.sif\nPuedes usar cualquier nombre:\nmrbayes\nubuntu_editable\ntest_container\nbioinfo_env\nEsto creará una carpeta llamada:\nmrbayes/\nY dentro:\n\n/bin\n/etc\n/usr\n/lib\n\n👉 Es decir:\n\nUn sistema Linux completo dentro de una carpeta\n\n\n\n\nExplorar el contenedor de forma interactiva\nUna vez creado el sandbox, puedes entrar a él con una shell interactiva y trabajar dentro del contenedor como si fuera otro sistema Linux.\napptainer shell mrbayes/\n👉 Esto abre una terminal dentro del contenedor, desde donde puedes navegar, revisar archivos o ejecutar comandos.\n\n\nSalir del contenedor\nPara salir del entorno interactivo, solo escribe:\nexit\n\n\nEntrar en modo escritura y con root simulado\nCuando quieres modificar un sandbox, por ejemplo para instalar paquetes o compilar programas, necesitas abrirlo con opciones adicionales.\napptainer shell --writable --fakeroot --pwd / mrbayes\n--writable\nPermite modificar el contenedor. Sin esta opción, el sistema se abre solo para lectura.\n--fakeroot\nSimula permisos de administrador dentro del contenedor. Esto permite usar comandos como apt install aunque no tengas root real en el sistema anfitrión.\n--pwd /\nHace que la shell inicie en el directorio raíz (/) del contenedor.",
     "crumbs": [
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Apptainer</span>"
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Apptainer</span>"
     ]
   },
   {
@@ -696,7 +536,7 @@
     "section": "⚙️ Configuración básica del sistema dentro del contenedor",
     "text": "⚙️ Configuración básica del sistema dentro del contenedor\nLas imágenes base descargadas desde Docker Hub suelen ser versiones mínimas de Linux.\n👉 Esto significa que:\n\nNo tienen configuraciones completas\nNo incluyen muchos programas\nSolo contienen lo esencial para funcionar\n\n💡 Por esta razón, antes de trabajar con software, es necesario configurar el sistema operativo dentro del contenedor.\n\n🔄 Actualizar el sistema\napt update\napt upgrade -y\n\napt update → actualiza la lista de paquetes disponibles\napt upgrade → actualiza los programas instalados\n\n\nLinux usa repositorios en línea para instalar software\ny estos comandos sincronizan el sistema con esos repositorios\n\n\n\n🌍 Configurar idioma (locale)\napt install -y locales\nlocale-gen en_US.UTF-8\nupdate-locale LANG=en_US.UTF-8\nexport LANG=en_US.UTF-8\nexport LC_ALL=en_US.UTF-8\n👉 Esto configura el sistema para trabajar con codificación UTF-8.\n¿Por qué es importante?\n\nEvita errores con caracteres especiales\nAsegura compatibilidad con muchos programas\nMejora la reproducibilidad\n\n\n\n🕒 Configurar zona horaria\napt install -y tzdata\nln -sf /usr/share/zoneinfo/Etc/UTC /etc/localtime\n👉 Define la hora del sistema dentro del contenedor.\n¿Por qué importa?\n\nLogs correctos\nFechas reproducibles\nConsistencia en análisis\n\n\n\n📦 Instalación de programas y dependencias\napt install -y build-essential make pkg-config git wget curl \\\nlatexmk texlive-latex-base texlive-fonts-recommended \\\ntexlive-fonts-extra texlive-latex-extra nano \\\nopenmpi-bin openmpi-common openmpi-doc libopenmpi-dev\n\n\n¿Qué es apt?\napt es un gestor de paquetes utilizado en sistemas basados en Debian (como Ubuntu).\n👉 Permite:\n\ninstalar programas\neliminar programas\nactualizar software\n\n\nOtros gestores de paquetes\n\n\n\nSistema\nGestor\n\n\n\n\nDebian / Ubuntu\napt\n\n\nRedHat / CentOS / Rocky\nyum / dnf\n\n\n\n💡 Importante:\n\nLos comandos cambian dependiendo de la distribución Linux\n\n\n\n🧩 ¿Qué son las dependencias?\nMuchos programas necesitan otras librerías para funcionar.\nEjemplo:\n\nbuild-essential → compiladores (gcc, g++)\nlibopenmpi-dev → paralelización\npkg-config → encuentra librerías al compilar\n\n\nUn programa no funciona solo, depende de otros componentes\n\n\n\nCompilación desde código fuente\nUna vez que el sistema está listo, podemos instalar programas desde su código fuente.\ncd /opt\ngit clone https://github.com/NBISweden/MrBayes.git\ncd MrBayes\n./configure --with-mpi\nmake -j$(nproc)\nmake install\n\n\n¿Qué significa “compilar”?\nCompilar es el proceso de:\n👉 Convertir código fuente (legible por humanos)\n👉 en un programa ejecutable (legible por la máquina)",
     "crumbs": [
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Apptainer</span>"
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Apptainer</span>"
     ]
   },
   {
@@ -706,7 +546,7 @@
     "section": "Empaquetar el sandbox como imagen .sif",
     "text": "Empaquetar el sandbox como imagen .sif\nCuando ya terminaste de personalizar tu sandbox, puedes convertirlo en una imagen final para transportarlo y ejecutarlo fácilmente.\napptainer build --fakeroot mrbayes_mpi.sif mrbayes\n👉 Esto crea un archivo .sif a partir del sandbox mi_contenedor.\nLa imagen .sif ya no está pensada para editarse, sino para distribuirse y ejecutarse.\n\nEjecutar un programa dentro del contenedor\nEl comando exec permite correr directamente un programa dentro de la imagen sin necesidad de abrir una shell interactiva.\napptainer exec mrbayes_mpi.sif mb analisis/data/analysis.nex\n👉 Aquí se ejecuta MrBayes dentro del contenedor usando un archivo externo como entrada.\n\n\nEjecutar con MPI\nSi el programa fue compilado con soporte para MPI, puede ejecutarse usando varios núcleos.\napptainer exec mrbayes_mpi.sif mpirun -np 4 mb \n👉 En este caso, MrBayes se ejecuta usando 4 procesos paralelos.",
     "crumbs": [
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Apptainer</span>"
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Apptainer</span>"
     ]
   },
   {
@@ -716,7 +556,7 @@
     "section": "📂 Uso de volúmenes (montaje de carpetas)",
     "text": "📂 Uso de volúmenes (montaje de carpetas)\nCuando trabajas con contenedores, tus datos normalmente están fuera del contenedor, en tu sistema.\n👉 Para que el contenedor pueda verlos, es necesario montar (bind) directorios.\n\nMontar una carpeta\napptainer exec --bind /ruta/local:/ruta/contenedor contenedor.sif comando\n\n\nEjemplo práctico\nSupongamos que tienes tus datos en:\n/home/usuario/proyecto/datos\nPuedes montarlos dentro del contenedor así:\napptainer exec --bind /home/usuario/proyecto/datos:/data revbayes_mpi.sif ls /data\n👉 Dentro del contenedor, la carpeta aparecerá como:\n/data\n\n\n📂 Usar tus archivos en RevBayes\nSi tienes un archivo:\nanalysis.Rev\npuedes ejecutarlo así:\napptainer exec --bind /home/usuario/proyecto/datos:/data revbayes_mpi.sif rb-mpi /data/analysis.Rev\n\n\nUso de pwd (muy importante)\nPara evitar escribir rutas largas, puedes usar:\npwd\n👉 Esto muestra tu directorio actual.\n\n\nEjemplo práctico con pwd\napptainer exec --bind $(pwd):/data revbayes_mpi.sif rb-mpi /data/analysis.Rev\n👉 Aquí:\n\n$(pwd) → ruta actual en tu sistema\n/data → ruta dentro del contenedor\n\n\n\nVentaja de usar pwd\n\nevita errores de ruta\nhace scripts más portables\nfacilita reproducibilidad\n\n\n\n⚠️ Nota importante\nApptainer ya monta automáticamente algunas rutas como:\n\n$HOME\nel directorio actual (en muchos casos)\n\n👉 Pero usar --bind explícito es más claro y reproducible.\n\n\n🧪 Probar que el volumen funciona\napptainer exec --bind $(pwd):/data revbayes_mpi.sif ls /data\n👉 Si ves tus archivos, el montaje funcionó correctamente.\n\n\n🚀 Bonus (muy útil)\nTambién puedes montar múltiples carpetas:\napptainer exec --bind $(pwd):/data,/otra/ruta:/ref contenedor.sif comando",
     "crumbs": [
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Apptainer</span>"
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Apptainer</span>"
     ]
   },
   {
@@ -726,7 +566,7 @@
     "section": "¿Qué es un archivo .def?",
     "text": "¿Qué es un archivo .def?\nUn archivo .def en Apptainer es un archivo de definición que contiene todas las instrucciones necesarias para construir un contenedor reproducible.\n👉 En lugar de instalar programas manualmente dentro de un sandbox, aquí escribimos una receta que describe:\n\nqué sistema operativo usar\nqué paquetes instalar\nqué software descargar\ncómo compilarlo\nqué variables de entorno definir\nqué debe hacer el contenedor al ejecutarse\n\n\nUn archivo .def permite reconstruir el mismo contenedor cuantas veces sea necesario.\n\n\n🧱 Partes de un archivo .def en Apptainer\nUn archivo .def está compuesto por secciones que indican cómo construir y cómo ejecutar un contenedor.\n🔹 Bootstrap: docker\nIndica el método de construcción del contenedor.\n👉 En este caso, significa que la imagen base será obtenida desde un repositorio compatible con Docker (como Docker Hub).\n🔹 From: ubuntu:22.04\nDefine la imagen base sobre la cual se construirá el contenedor.\n👉 Aquí se está utilizando Ubuntu 22.04 como sistema operativo inicial.\n🔹 %environment\nDefine variables de entorno que estarán disponibles cada vez que el contenedor se ejecute.\n👉 Se aplican cuando usas:\n\napptainer shell\napptainer exec\napptainer run\n\n💡 Sirve para configurar el entorno automáticamente (idioma, rutas de librerías, etc.).\n🔹 %post\nContiene los comandos que se ejecutan durante la construcción del contenedor.\n👉 Aquí es donde se:\n\ninstalan paquetes (apt install)\ndescargan programas (git clone)\ncompilan software (make)\n\n💡 Es la sección donde realmente “se arma” el contenedor.\n🔹 %runscript\nDefine qué ocurre cuando el contenedor se ejecuta con:\napptainer run archivo.sif\n👉 Permite establecer un comportamiento por defecto del contenedor.\n💡 Por ejemplo:\n\nmostrar un mensaje\nejecutar automáticamente un programa\n\nArchivo ejemplo revbayes_mpi.def\n# ============================================================\n# Archivo de definición de Apptainer para RevBayes con MPI\n# ============================================================\n\n# ------------------------------------------------------------\n# Bootstrap\n# ------------------------------------------------------------\n# Indica el tipo de origen de la imagen base.\n# En este caso, se utilizará una imagen proveniente de Docker Hub.\nBootstrap: docker\n\n# ------------------------------------------------------------\n# From\n# ------------------------------------------------------------\n# Especifica la imagen base sobre la cual se construirá el contenedor.\n# Aquí se usa Ubuntu 22.04 como sistema operativo inicial.\nFrom: ubuntu:22.04\n\n\n# ============================================================\n# %environment\n# ============================================================\n# Esta sección define variables de entorno que estarán disponibles\n# cada vez que el contenedor se ejecute (shell, exec, run).\n# No se ejecuta durante el build, sino en tiempo de uso.\n\n%environment\n    # Configuración de idioma y codificación\n    export LANG=C.UTF-8\n    export LC_ALL=C.UTF-8\n\n    # Ruta donde se buscarán bibliotecas compartidas\n    export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH\n\n\n# ============================================================\n# %post\n# ============================================================\n# Esta sección se ejecuta durante la construcción del contenedor.\n# Aquí se instala y configura el software.\n\n%post\n    # Evita preguntas interactivas durante la instalación\n    export DEBIAN_FRONTEND=noninteractive\n\n    # --------------------------------------------------------\n    # Actualizar sistema\n    # --------------------------------------------------------\n    apt update\n\n    # --------------------------------------------------------\n    # Instalar dependencias necesarias\n    # --------------------------------------------------------\n    apt install -y \\\n        build-essential \\\n        cmake \\\n        git \\\n        wget \\\n        curl \\\n        ca-certificates \\\n        libopenmpi-dev \\\n        openmpi-bin \\\n        libboost-all-dev \\\n        bison \\\n        flex \\\n        zlib1g-dev\n\n    # --------------------------------------------------------\n    # Descargar código fuente de RevBayes\n    # --------------------------------------------------------\n    cd /opt\n    git clone --branch development https://github.com/revbayes/revbayes.git\n\n    # --------------------------------------------------------\n    # Compilar RevBayes con soporte MPI\n    # --------------------------------------------------------\n    cd /opt/revbayes/projects/cmake\n    chmod +x build.sh\n    ./build.sh -mpi true\n\n    # --------------------------------------------------------\n    # Copiar ejecutables a una ruta accesible\n    # --------------------------------------------------------\n    if [ -f rb-mpi ]; then\n        cp rb-mpi /usr/local/bin/rb-mpi\n        chmod 755 /usr/local/bin/rb-mpi\n    fi\n\n    if [ -f rb ]; then\n        cp rb /usr/local/bin/rb\n        chmod 755 /usr/local/bin/rb\n    fi\n\n\n# ============================================================\n# %runscript\n# ============================================================\n# Define qué ocurre cuando se ejecuta el contenedor con:\n# apptainer run archivo.sif\n\n%runscript\n    echo \"RevBayes con MPI listo para usarse\"\n    exec \"$@\"\n\n\n🔧 Construir el contenedor a partir del archivo .def\nUna vez que el archivo revbayes_mpi.def está listo, el siguiente paso es construir la imagen .sif.\napptainer build revbayes_mpi.sif revbayes_mpi.def\nSi todo sale bien, al final tendrás un archivo como este:\nrevbayes_mpi.sif\nEse archivo ya contiene:\n\nUbuntu 22.04\ndependencias instaladas\nRevBayes compilado con MPI\nvariables de entorno configuradas\n\n\n\nProbar el contenedor\nUna forma sencilla de verificar que el contenedor se construyó correctamente es ejecutar comandos directamente con exec, sin necesidad de entrar en una shell interactiva.\napptainer exec revbayes_mpi.sif which rb-mpi\nTambién puedes comprobar que el programa funciona correctamente con:\napptainer exec revbayes_mpi.sif rb-mpi --help",
     "crumbs": [
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Apptainer</span>"
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Apptainer</span>"
     ]
   },
   {
@@ -736,7 +576,7 @@
     "section": "🔎 Buscar imágenes existentes antes de construir un contenedor",
     "text": "🔎 Buscar imágenes existentes antes de construir un contenedor\nAntes de crear un contenedor desde cero, es recomendable revisar si ya existe una imagen disponible en\n👉 Docker Hub\n👉 Quay.io\nEn este repositorio hay miles de imágenes creadas por la comunidad, incluyendo:\n\nsistemas operativos\nlenguajes de programación\nherramientas bioinformáticas\npipelines completos\n\n👉 Es muy probable que el software que necesitas ya esté disponible en forma de contenedor.\n\nEjemplo\nEn lugar de construir manualmente un contenedor para MrBayes, puedes usar:\napptainer pull quay.io/biocontainers/mrbayes\n👉 Esta imagen ya contiene el software instalado y listo para usarse.\n\n\n⚖️ Ventajas de usar imágenes existentes\n\n✔ Ahorra tiempo\n✔ No necesitas instalar dependencias\n✔ Listas para ejecutar\n✔ Útiles para pruebas rápidas\n\n\n\n⚠️ Desventajas\n\n❌ No siempre sabes cómo fue construida la imagen\n❌ Puede no estar actualizada\n❌ Puede incluir software innecesario\n❌ Menor control sobre dependencias y versiones\n\n\n\n🔧 Ventajas de construir tu propio contenedor\n\n✔ Control total del entorno\n✔ Puedes documentar cada paso (.def)\n✔ Reproducibilidad garantizada\n✔ Ajuste específico a tu análisis",
     "crumbs": [
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Apptainer</span>"
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Apptainer</span>"
     ]
   },
   {
@@ -746,7 +586,7 @@
     "section": "",
     "text": "¿Qué es Slurm?\nSlurm es un sistema de administración de trabajos para servidores y clústeres de cómputo. Su función es organizar el uso de recursos compartidos como CPUs, memoria RAM, GPUs, nodos y tiempo de ejecución.\nEn un clúster, los análisis pesados no deben ejecutarse directamente en la terminal de acceso. En su lugar, se envían a una cola mediante Slurm. El sistema decide cuándo y en qué nodo se ejecutan, de acuerdo con los recursos solicitados y la disponibilidad del clúster.\nSlurm ayuda a:",
     "crumbs": [
-      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
     ]
   },
   {
@@ -756,7 +596,7 @@
     "section": "",
     "text": "evitar que una sola persona sature el servidor;\norganizar los análisis de varias personas usuarias;\nasignar CPUs, memoria y GPUs de manera controlada;\nregistrar los trabajos ejecutados;\nmejorar la reproducibilidad de los análisis.",
     "crumbs": [
-      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
     ]
   },
   {
@@ -766,7 +606,7 @@
     "section": "Particiones disponibles para usuarios del IB-UNAM",
     "text": "Particiones disponibles para usuarios del IB-UNAM\nEn BEAGLE, las particiones principales para usuarios del Instituto de Biología, UNAM, son:\n\n\n\n\n\n\n\n\n\nPartición\nNodo(s)\nRecursos principales\nUso recomendado\n\n\n\n\nib\nbeagle-01, beagle-02\nCPUs y memoria RAM\nTrabajos generales de bioinformática con CPU\n\n\ngpu_V100\nbeagle-gpu-01\nCPUs, memoria RAM y GPUs NVIDIA V100\nTrabajos que requieren GPU o análisis grandes que necesitan muchos CPUs y memoria\n\n\n\nRecursos disponibles por nodo:\n\n\n\n\n\n\n\n\n\n\nNodo\nCPUs\nMemoria aproximada\nGPU\nPartición\n\n\n\n\nbeagle-01\n32\n94 GB\nNo\nib\n\n\nbeagle-02\n20\n188 GB\nNo\nib\n\n\nbeagle-gpu-01\n80\n754 GB\n3 × NVIDIA V100\ngpu_V100\n\n\n\n\n\n\n\n\n\nNoteUso de la partición gpu_V100\n\n\n\nLa partición gpu_V100 contiene el nodo con mayor capacidad de CPU y memoria dentro de BEAGLE, pero también contiene las GPUs. No se debe solicitar GPU si el programa no la usa.",
     "crumbs": [
-      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
     ]
   },
   {
@@ -776,7 +616,7 @@
     "section": "Conceptos básicos",
     "text": "Conceptos básicos\n\nJob\nUn job es un trabajo enviado a Slurm. Puede ejecutar un programa, un script de Bash, un análisis en R o Python, un contenedor de Apptainer, o una herramienta bioinformática.\n\n\nCola\nLa cola es la lista de trabajos que están esperando, corriendo, terminando o detenidos dentro del sistema.\n\n\nNodo\nUn nodo es una computadora del clúster. Cada nodo tiene una cantidad específica de CPUs, memoria RAM y, en algunos casos, GPUs.\n\n\nPartición\nUna partición es un grupo lógico de nodos. Al enviar un trabajo se indica la partición donde debe ejecutarse.\n\n\nRecurso\nUn recurso es una parte del clúster que Slurm puede asignar a un trabajo. Los recursos más comunes son CPUs, memoria RAM, tiempo de ejecución, nodos y GPUs.",
     "crumbs": [
-      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
     ]
   },
   {
@@ -786,7 +626,7 @@
     "section": "Flujo general de trabajo",
     "text": "Flujo general de trabajo\n\nPreparar un script de Bash con directivas de Slurm.\nEnviar el script a la cola con sbatch.\nRevisar el estado del trabajo con squeue.\nConsultar los archivos de salida y error.",
     "crumbs": [
-      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
     ]
   },
   {
@@ -796,7 +636,7 @@
     "section": "Comandos básicos",
     "text": "Comandos básicos\n\n\n\n\n\n\n\n\nAcción\nComando\nPara qué sirve\n\n\n\n\nVer estado del clúster\nsinfo\nMuestra particiones, nodos y estados generales\n\n\nVer particiones del IB-UNAM\nsinfo -p ib,gpu_V100\nFiltra la información a las particiones principales de BEAGLE\n\n\nVer recursos por nodo\nsinfo -N -p ib,gpu_V100 -o \"%N %c CPUs %m MB %G %T\"\nMuestra CPUs, memoria, GPUs y estado de cada nodo\n\n\nVer la cola\nsqueue\nLista los trabajos activos o pendientes\n\n\nVer solo tus trabajos\nsqueue -u $USER\nFiltra la cola por tu usuario\n\n\nEnviar un trabajo\nsbatch &lt;script.sh&gt;\nEnvía un script a Slurm\n\n\nCancelar un trabajo\nscancel &lt;JOBID&gt;\nCancela un trabajo específico\n\n\nCancelar tus trabajos\nscancel -u $USER\nCancela todos los trabajos de tu usuario",
     "crumbs": [
-      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
     ]
   },
   {
@@ -806,7 +646,7 @@
     "section": "Cómo leer sinfo",
     "text": "Cómo leer sinfo\nColumnas frecuentes:\n\n\n\nColumna\nSignificado\n\n\n\n\nPARTITION\nNombre de la partición\n\n\nAVAIL\nIndica si la partición está disponible\n\n\nTIMELIMIT\nTiempo máximo permitido para trabajos en esa partición\n\n\nNODES\nNúmero de nodos incluidos\n\n\nSTATE\nEstado de los nodos\n\n\nNODELIST\nNombre de los nodos\n\n\n\nEstados comunes de nodos:\n\n\n\nEstado\nSignificado\n\n\n\n\nidle\nEl nodo está libre\n\n\nalloc\nEl nodo está ocupado\n\n\nmix\nEl nodo tiene algunos recursos ocupados y otros libres\n\n\ndown\nEl nodo no está disponible\n\n\ndrain\nEl nodo no acepta nuevos trabajos",
     "crumbs": [
-      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
     ]
   },
   {
@@ -816,7 +656,7 @@
     "section": "Cómo leer squeue",
     "text": "Cómo leer squeue\nColumnas frecuentes:\n\n\n\n\n\n\n\nColumna\nSignificado\n\n\n\n\nJOBID\nIdentificador único del trabajo\n\n\nPARTITION\nPartición donde está programado el trabajo\n\n\nNAME\nNombre del trabajo\n\n\nUSER\nUsuario que envió el trabajo\n\n\nST\nEstado del trabajo\n\n\nTIME\nTiempo que lleva corriendo\n\n\nNODES\nNúmero de nodos asignados\n\n\nNODELIST(REASON)\nNodo asignado o razón por la que sigue pendiente\n\n\n\nEstados comunes de trabajos:\n\n\n\nEstado\nSignificado\n\n\n\n\nR\nRunning: el trabajo está corriendo\n\n\nPD\nPending: el trabajo está esperando\n\n\nCG\nCompleting: el trabajo está terminando\n\n\nCD\nCompleted: el trabajo terminó correctamente\n\n\nF\nFailed: el trabajo falló\n\n\nCA\nCancelled: el trabajo fue cancelado\n\n\nTO\nTimeout: el trabajo terminó por límite de tiempo",
     "crumbs": [
-      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
     ]
   },
   {
@@ -826,7 +666,7 @@
     "section": "Estructura de un script de Slurm",
     "text": "Estructura de un script de Slurm\nUn script de Slurm es un archivo de Bash con instrucciones especiales para solicitar recursos. Tiene tres partes principales:\n\n\n\n\n\n\n\nParte\nQué significa\n\n\n\n\nLínea de intérprete\nDefine qué programa interpretará el script, normalmente Bash\n\n\nDirectivas #SBATCH\nIndican a Slurm qué recursos se solicitan\n\n\nCuerpo del script\nContiene los comandos que se ejecutarán dentro del trabajo\n\n\n\n\nLínea de intérprete\nLa línea de intérprete indica que el archivo debe ejecutarse con Bash.\n\n\n\nLínea\nSignificado\n\n\n\n\n#!/bin/bash\nUsa Bash como intérprete del script\n\n\n\n\n\nDirectivas #SBATCH\nLas líneas que empiezan con #SBATCH son leídas por Slurm antes de ejecutar el cuerpo del script. Aunque parecen comentarios para Bash, Slurm las interpreta como instrucciones de planificación.\n\n\n\n\n\n\n\nDirectiva\nSignificado\n\n\n\n\n#SBATCH -J &lt;nombre&gt;\nNombre del trabajo\n\n\n#SBATCH --job-name=&lt;nombre&gt;\nNombre del trabajo usando la forma larga\n\n\n#SBATCH -p &lt;partición&gt;\nPartición donde se ejecutará\n\n\n#SBATCH --partition=&lt;partición&gt;\nPartición usando la forma larga\n\n\n#SBATCH -N &lt;nodos&gt;\nNúmero de nodos solicitados\n\n\n#SBATCH -n &lt;tareas&gt;\nNúmero total de tareas\n\n\n#SBATCH -c &lt;cpus&gt;\nCPUs por tarea\n\n\n#SBATCH --cpus-per-task=&lt;cpus&gt;\nCPUs por tarea usando la forma larga\n\n\n#SBATCH --mem=&lt;memoria&gt;\nMemoria RAM solicitada\n\n\n#SBATCH --time=&lt;tiempo&gt;\nTiempo máximo de ejecución\n\n\n#SBATCH -o &lt;archivo&gt;\nArchivo de salida estándar\n\n\n#SBATCH -e &lt;archivo&gt;\nArchivo de error estándar\n\n\n#SBATCH --gres=gpu:&lt;n&gt;\nNúmero de GPUs solicitadas",
     "crumbs": [
-      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
     ]
   },
   {
@@ -836,7 +676,7 @@
     "section": "CPUs, tareas y nodos",
     "text": "CPUs, tareas y nodos\nEn Slurm, -N, -n y -c no significan lo mismo.\n\n\n\n\n\n\n\n\nOpción\nSignificado\nUso típico\n\n\n\n\n-N\nNúmero de nodos\nTrabajos que necesitan uno o varios nodos\n\n\n-n\nNúmero de tareas\nProgramas paralelos por procesos, como MPI\n\n\n-c\nCPUs por tarea\nProgramas multihilo, como muchas herramientas bioinformáticas\n\n\n\nPara la mayoría de análisis bioinformáticos comunes en BEAGLE, suele usarse un nodo, una tarea y varias CPUs por tarea. El número de CPUs solicitado debe coincidir con el número de hilos que usará el programa.",
     "crumbs": [
-      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
     ]
   },
   {
@@ -846,7 +686,7 @@
     "section": "Memoria RAM",
     "text": "Memoria RAM\nLa memoria se solicita con --mem. Slurm reserva esa cantidad de RAM para el trabajo. Si el análisis usa más memoria de la solicitada, puede fallar por falta de memoria.\nFormatos comunes:\n\n\n\n\n\n\n\nFormato\nSignificado\n\n\n\n\n--mem=4G\nSolicita 4 GB de RAM\n\n\n--mem=16000M\nSolicita 16000 MB de RAM\n\n\n--mem=0\nSolicita toda la memoria disponible del nodo, si la configuración lo permite",
     "crumbs": [
-      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
     ]
   },
   {
@@ -856,7 +696,7 @@
     "section": "Tiempo máximo",
     "text": "Tiempo máximo\nEl tiempo se solicita con --time. Cuando el trabajo supera ese límite, Slurm puede cancelarlo automáticamente.\nFormatos comunes:\n\n\n\nFormato\nSignificado\n\n\n\n\n--time=30:00\n30 minutos\n\n\n--time=02:00:00\n2 horas\n\n\n--time=1-00:00:00\n1 día\n\n\n--time=5-00:00:00\n5 días",
     "crumbs": [
-      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
     ]
   },
   {
@@ -866,7 +706,7 @@
     "section": "GPUs",
     "text": "GPUs\nLas GPUs se solicitan con --gres=gpu:&lt;n&gt;. Esta directiva solo debe usarse cuando el programa realmente puede usar GPU.\n\n\n\n\n\n\n\nDirectiva\nSignificado\n\n\n\n\n#SBATCH -p gpu_V100\nEnvía el trabajo a la partición con nodo GPU\n\n\n#SBATCH --gres=gpu:1\nSolicita una GPU\n\n\n#SBATCH --gres=gpu:2\nSolicita dos GPUs\n\n\n\nCuando se usan contenedores de Apptainer con GPU NVIDIA, normalmente se agrega la opción --nv al comando apptainer exec. La explicación detallada de Apptainer está en la sección correspondiente.",
     "crumbs": [
-      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
     ]
   },
   {
@@ -876,7 +716,7 @@
     "section": "Archivos de salida y error",
     "text": "Archivos de salida y error\nSlurm puede separar la salida normal y los mensajes de error en archivos diferentes.\n\n\n\nDirectiva\nSignificado\n\n\n\n\n#SBATCH -o logs/%x_%j.out\nGuarda la salida estándar en logs/\n\n\n#SBATCH -e logs/%x_%j.err\nGuarda los errores en logs/\n\n\n\nCódigos útiles en nombres de archivo:\n\n\n\nCódigo\nSignificado\n\n\n\n\n%x\nNombre del trabajo\n\n\n%j\nID del trabajo\n\n\n%u\nNombre del usuario\n\n\n%N\nNombre del nodo",
     "crumbs": [
-      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
     ]
   },
   {
@@ -886,7 +726,7 @@
     "section": "Variables útiles de Slurm",
     "text": "Variables útiles de Slurm\nSlurm crea variables automáticamente dentro de cada trabajo.\n\n\n\n\n\n\n\nVariable\nSignificado\n\n\n\n\n$SLURM_JOB_ID\nID del trabajo\n\n\n$SLURM_JOB_NAME\nNombre del trabajo\n\n\n$SLURM_CPUS_PER_TASK\nCPUs asignadas por tarea\n\n\n$SLURM_SUBMIT_DIR\nCarpeta desde donde se envió el trabajo\n\n\n$SLURM_JOB_NODELIST\nNodo o nodos asignados\n\n\n$SLURM_GPUS\nGPUs asignadas, si aplica\n\n\n$SLURM_MEM_PER_NODE\nMemoria asignada por nodo, si está disponible\n\n\n$SLURM_NTASKS\nNúmero de tareas asignadas",
     "crumbs": [
-      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
     ]
   },
   {
@@ -896,7 +736,7 @@
     "section": "Solicitar menos recursos de los necesarios",
     "text": "Solicitar menos recursos de los necesarios\nSolicitar menos recursos puede provocar fallas o ejecuciones muy lentas.\n\n\n\n\n\n\n\nRecurso insuficiente\nConsecuencia posible\n\n\n\n\nPocas CPUs\nEl análisis tarda más o el programa intenta usar más hilos de los asignados\n\n\nPoca memoria\nEl trabajo puede terminar con error de memoria\n\n\nPoco tiempo\nSlurm puede cancelar el trabajo por límite de tiempo\n\n\nNo solicitar GPU\nUn programa que requiere GPU puede no detectar aceleración",
     "crumbs": [
-      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
     ]
   },
   {
@@ -906,7 +746,7 @@
     "section": "Solicitar más recursos de los necesarios",
     "text": "Solicitar más recursos de los necesarios\nPedir recursos de más no hace que el programa corra más rápido automáticamente. Si un programa solo usa pocas CPUs, las CPUs extra quedan reservadas pero sin uso.\nConsecuencias frecuentes:\n\nel trabajo puede tardar más en iniciar;\notros usuarios no pueden usar los recursos reservados;\nse desperdicia capacidad del clúster;\nbaja la eficiencia general del sistema.",
     "crumbs": [
-      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
     ]
   },
   {
@@ -916,7 +756,167 @@
     "section": "Buenas prácticas",
     "text": "Buenas prácticas\n\nNo correr análisis pesados en la terminal de acceso\nLa terminal de acceso debe usarse para preparar archivos, revisar resultados, editar scripts y enviar trabajos. Los análisis pesados deben enviarse a Slurm.\n\n\nSolicitar recursos razonables\nPide CPUs, memoria y tiempo de acuerdo con el programa y el tamaño de tus datos. Si no conoces el consumo, empieza con una prueba pequeña y revisa los resultados.\n\n\nUsar la partición correcta\nUsa ib para trabajos generales con CPU. Usa gpu_V100 cuando necesites GPU o cuando el análisis requiera más CPU y memoria de la que ofrecen los nodos de ib.\n\n\nHacer coincidir CPUs e hilos\nEl número de CPUs solicitado debe coincidir con los hilos configurados dentro del programa. Para scripts, es recomendable usar $SLURM_CPUS_PER_TASK cuando el programa permita definir hilos.\n\n\nGuardar salidas y errores\nUsa una carpeta logs/ para archivos .out y .err. Esto facilita revisar si el trabajo terminó correctamente o si falló.\n\n\nNo solicitar GPU sin necesidad\nUna GPU reservada queda bloqueada para otros usuarios. Solo solicita GPU cuando el programa esté preparado para usarla.\n\n\nRevisar el historial de trabajos\nDespués de terminar un análisis, consulta el estado final, el tiempo usado y posibles errores. Esto ayuda a ajustar recursos para futuros trabajos.",
     "crumbs": [
-      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/bots.html",
+    "href": "chapters/bots.html",
+    "title": "Notificaciones automáticas",
+    "section": "",
+    "text": "Mensajes a Telegram\nEsta sección explica cómo preparar notificaciones automáticas desde scripts de Bash, pipelines o análisis largos. La idea es recibir avisos cuando un proceso inicia, termina correctamente o falla.",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Notificaciones automáticas</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/bots.html#mensajes-a-telegram",
+    "href": "chapters/bots.html#mensajes-a-telegram",
+    "title": "Notificaciones automáticas",
+    "section": "",
+    "text": "Crear un bot en Telegram\n\nBusca @BotFather y abre el chat.\n\n\n\n\n\n\n\nCrea un nuevo bot.\n\n\n\n\n\n\n\nPonle un nombre al bot y elige un nombre de usuario que termine en bot. El username debe estar disponible.\n\n\n\n\n\n\n\nBotFather te dará un token.\n\n\n\n\n\n\n✅ Ese token es tu contraseña del bot. No lo compartas.\n\nAbre el chat con tu bot, buscándolo por su username.\n\n\n\n\n\n\n\nPresiona Iniciar.",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Notificaciones automáticas</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/bots.html#conseguir-tu-chat_id",
+    "href": "chapters/bots.html#conseguir-tu-chat_id",
+    "title": "Notificaciones automáticas",
+    "section": "Conseguir tu chat_id",
+    "text": "Conseguir tu chat_id\nDefine temporalmente el token de tu bot:\nTELEGRAM_BOT_TOKEN=\"TU_TOKEN_AQUI\"\nDespués consulta las actualizaciones del bot:\ncurl -s \"https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/getUpdates\"\nBusca en la salida una sección parecida a esta:\n\"chat\":{\"id\":123456789,\"first_name\":\"Pedro\"}\nEl número que aparece en id es tu TELEGRAM_CHAT_ID.\n\n\n\n\n\n\nNoteSi no aparece tu chat_id\n\n\n\nPrimero escribe cualquier mensaje en el chat de tu bot y vuelve a ejecutar el comando getUpdates.",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Notificaciones automáticas</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/bots.html#enviar-un-mensaje-con-curl",
+    "href": "chapters/bots.html#enviar-un-mensaje-con-curl",
+    "title": "Notificaciones automáticas",
+    "section": "Enviar un mensaje con curl",
+    "text": "Enviar un mensaje con curl\nTELEGRAM_BOT_TOKEN=\"TU_TOKEN_AQUI\"\nTELEGRAM_CHAT_ID=\"TU_CHAT_ID_AQUI\"\n\ncurl -s -X POST \"https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage\" \\\n  -d \"chat_id=${TELEGRAM_CHAT_ID}\" \\\n  -d \"text=Hola 👋 Mensaje enviado desde Bash\"",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Notificaciones automáticas</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/bots.html#guardar-credenciales-en-un-archivo-.env",
+    "href": "chapters/bots.html#guardar-credenciales-en-un-archivo-.env",
+    "title": "Notificaciones automáticas",
+    "section": "Guardar credenciales en un archivo .env",
+    "text": "Guardar credenciales en un archivo .env\nCrea un archivo .env fuera del repositorio del proyecto, o agrégalo al archivo .gitignore.\nnano .env\nContenido recomendado:\nTELEGRAM_BOT_TOKEN=\"TU_TOKEN_AQUI\"\nTELEGRAM_CHAT_ID=\"TU_CHAT_ID_AQUI\"\nProtege el archivo para que solo tu usuario pueda leerlo:\nchmod 600 .env\nSi el archivo .env está dentro de un proyecto con Git, agrégalo a .gitignore:\nnano .gitignore\nAgrega esta línea:\n.env",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Notificaciones automáticas</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/bots.html#función-reusable-tg_send",
+    "href": "chapters/bots.html#función-reusable-tg_send",
+    "title": "Notificaciones automáticas",
+    "section": "Función reusable tg_send",
+    "text": "Función reusable tg_send\nCarga primero las variables del archivo .env:\nsource .env\nDespués define la función:\ntg_send () {\n  local msg=\"$1\"\n\n  curl -s -X POST \"https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage\" \\\n    -d \"chat_id=${TELEGRAM_CHAT_ID}\" \\\n    -d \"text=${msg}\" \\\n    -d \"disable_web_page_preview=true\" &gt; /dev/null\n}\nUso:\ntg_send \"✅ Pipeline terminado correctamente.\"",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Notificaciones automáticas</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/bots.html#usar-telegram-en-un-script-de-bash",
+    "href": "chapters/bots.html#usar-telegram-en-un-script-de-bash",
+    "title": "Notificaciones automáticas",
+    "section": "Usar Telegram en un script de Bash",
+    "text": "Usar Telegram en un script de Bash\nEl siguiente patrón permite enviar una notificación al iniciar y otra al terminar un proceso.\n#!/usr/bin/env bash\nset -euo pipefail\n\nsource /ruta/a/tu/.env\n\ntg_send () {\n  local msg=\"$1\"\n\n  curl -s -X POST \"https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage\" \\\n    -d \"chat_id=${TELEGRAM_CHAT_ID}\" \\\n    -d \"text=${msg}\" \\\n    -d \"disable_web_page_preview=true\" &gt; /dev/null\n}\n\ntg_send \"🚀 Inició el análisis\"\n\nif comando_largo; then\n  tg_send \"✅ El análisis terminó correctamente\"\nelse\n  tg_send \"❌ El análisis terminó con error\"\n  exit 1\nfi",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Notificaciones automáticas</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/bots.html#mensajes-a-discord",
+    "href": "chapters/bots.html#mensajes-a-discord",
+    "title": "Notificaciones automáticas",
+    "section": "Mensajes a Discord",
+    "text": "Mensajes a Discord\nDiscord puede utilizarse para recibir notificaciones automáticas desde scripts de Bash. Para este uso no es necesario crear un bot completo: lo más práctico es usar webhooks.\nUn webhook es una URL especial asociada a un canal de Discord. Cuando un script envía un mensaje a esa URL, el mensaje aparece automáticamente en ese canal.\n\n\n\n\n\n\nTipRecomendación para BEAGLE\n\n\n\nUsa un webhook por canal para mantener las notificaciones ordenadas.\n\n\n\n\n\n\n\nCanal de Discord\nUso sugerido\n\n\n\n\n#pruebas\nProbar mensajes antes de usarlos en análisis reales\n\n\n#beast\nNotificaciones de análisis de BEAST/BEAST2\n\n\n#cpu\nAnálisis generales con CPU\n\n\n#gpu\nAnálisis que usan GPU\n\n\n#errores\nMensajes cuando un proceso falla\n\n\n\n\n\nEn Discord, crea un servidor nuevo para organizar los canales de notificación.\n\nSelecciona Crear mi propio modelo.\n\n\n\n\n\n\n\nDiscord puede preguntar si el servidor será para una comunidad o para amigos. Para un grupo de trabajo, curso o laboratorio, puedes elegir Para un club o una comunidad. También puedes omitir esta pregunta.\n\n\n\n\n\n\n\nAsigna un nombre al servidor. En este ejemplo se usa UniSSE.\n\n\n\n\n\n\n\nDiscord puede mostrar una pantalla para invitar personas. Puedes copiar el enlace, compartirlo o cerrar esta pantalla y continuar configurando el servidor.\n\n\n\n\n\n\n\nUna vez creado el servidor, verás los canales disponibles. En este ejemplo se crearon canales como #pruebas y #beast.",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Notificaciones automáticas</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/bots.html#crear-canales",
+    "href": "chapters/bots.html#crear-canales",
+    "title": "Notificaciones automáticas",
+    "section": "Crear canales",
+    "text": "Crear canales\nPara crear canales desde la aplicación móvil:\n\nAbre el menú del servidor.\nSelecciona Más opciones.\n\n\n\n\n\n\n\nSelecciona Crear un canal.\n\n\n\n\n\n\nPuedes crear canales separados para diferentes tipos de análisis:\n#pruebas\n#beast\n#cpu\n#gpu\n#errores\n\n\n\n\n\n\nNote¿Por qué varios canales?\n\n\n\nSeparar los mensajes ayuda a evitar ruido. Los análisis de prueba pueden llegar a #pruebas, los análisis con GPU a #gpu y los errores a #errores.",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Notificaciones automáticas</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/bots.html#crear-un-webhook-para-un-canal",
+    "href": "chapters/bots.html#crear-un-webhook-para-un-canal",
+    "title": "Notificaciones automáticas",
+    "section": "Crear un webhook para un canal",
+    "text": "Crear un webhook para un canal\n\n\n\n\n\n\nWarningLos webhooks no se crean desde la app móvil\n\n\n\nEn la app móvil de Discord puede aparecer el apartado de Webhooks, pero Discord indica que, por ahora, los webhooks solo se pueden crear desde la aplicación de escritorio o desde Discord en la web.\nPara crear y copiar la URL del webhook, usa una computadora o entra a Discord desde el navegador.\n\n\n\n\n\n\n\n\nDesde Discord de escritorio o navegador\n\nEntra al servidor y selecciona el canal donde quieres recibir mensajes, por ejemplo #pruebas.\nColoca el cursor sobre el canal y selecciona el ícono de engrane para abrir la configuración del canal.\n\n\n\n\n\n\n\nEn la configuración del canal, entra a Integraciones.\n\n\n\n\n\n\n\nEn Integraciones, selecciona Crear Webhook.\n\n\n\n\n\n\n\nDiscord creará un webhook. Puedes cambiarle el nombre, seleccionar el canal y copiar la URL.\n\n\n\n\n\n\n\nPuedes crear más webhooks. En este ejemplo se creó un webhook llamado beagle.\n\n\n\n\n\n\n\n\n\n\n\n\nImportantNo compartas la URL del webhook\n\n\n\nLa URL del webhook funciona como una contraseña. Cualquier persona con esa URL puede enviar mensajes al canal.\nNo la compartas, no la pegues en documentos públicos y no la subas a GitHub.",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Notificaciones automáticas</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/bots.html#guardar-los-webhooks-en-un-archivo-.env",
+    "href": "chapters/bots.html#guardar-los-webhooks-en-un-archivo-.env",
+    "title": "Notificaciones automáticas",
+    "section": "Guardar los webhooks en un archivo .env",
+    "text": "Guardar los webhooks en un archivo .env\nCrea un archivo .env para guardar las URLs de los webhooks.\nnano .env\nContenido recomendado:\nDISCORD_WEBHOOK_PRUEBAS=\"https://discord.com/api/webhooks/XXXX/YYYY\"\nDISCORD_WEBHOOK_BEAST=\"https://discord.com/api/webhooks/XXXX/YYYY\"\nDISCORD_WEBHOOK_CPU=\"https://discord.com/api/webhooks/XXXX/YYYY\"\nDISCORD_WEBHOOK_GPU=\"https://discord.com/api/webhooks/XXXX/YYYY\"\nDISCORD_WEBHOOK_ERRORES=\"https://discord.com/api/webhooks/XXXX/YYYY\"\nDale permisos restringidos al archivo:\nchmod 600 .env\nSi el archivo .env está dentro de un proyecto con Git, agrégalo al archivo .gitignore:\nnano .gitignore\nAgrega:\n.env",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Notificaciones automáticas</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/bots.html#probar-un-webhook-con-curl",
+    "href": "chapters/bots.html#probar-un-webhook-con-curl",
+    "title": "Notificaciones automáticas",
+    "section": "Probar un webhook con curl",
+    "text": "Probar un webhook con curl\nPrimero carga las variables del archivo .env:\nsource .env\nDespués envía un mensaje de prueba:\ncurl -s -H \"Content-Type: application/json\" \\\n  -X POST \\\n  -d '{\"content\":\"Hola 👋 mensaje enviado desde Bash\"}' \\\n  \"$DISCORD_WEBHOOK_PRUEBAS\"\nSi todo está bien configurado, el mensaje aparecerá en el canal de Discord asociado a ese webhook.",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Notificaciones automáticas</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/bots.html#función-reusable-discord_send",
+    "href": "chapters/bots.html#función-reusable-discord_send",
+    "title": "Notificaciones automáticas",
+    "section": "Función reusable discord_send",
+    "text": "Función reusable discord_send\nPara reutilizar el envío de mensajes en varios scripts, puedes definir una función de Bash:\ndiscord_send () {\n  local webhook=\"$1\"\n  local msg=\"$2\"\n\n  payload=$(python3 -c 'import json,sys; print(json.dumps({\"content\": sys.argv[1]}, ensure_ascii=False))' \"$msg\")\n\n  curl -s -H \"Content-Type: application/json\" \\\n    -X POST \\\n    -d \"$payload\" \\\n    \"$webhook\" &gt; /dev/null\n}\nUso:\nsource .env\n\ndiscord_send \"$DISCORD_WEBHOOK_PRUEBAS\" \"✅ Mensaje enviado desde Bash\"",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Notificaciones automáticas</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/bots.html#usar-discord-en-un-script-de-bash",
+    "href": "chapters/bots.html#usar-discord-en-un-script-de-bash",
+    "title": "Notificaciones automáticas",
+    "section": "Usar Discord en un script de Bash",
+    "text": "Usar Discord en un script de Bash\nEl siguiente patrón envía un mensaje cuando inicia un proceso y otro cuando termina. Si el proceso falla, manda el aviso al canal de errores.\n#!/usr/bin/env bash\nset -euo pipefail\n\nsource /ruta/a/tu/.env\n\ndiscord_send () {\n  local webhook=\"$1\"\n  local msg=\"$2\"\n\n  payload=$(python3 -c 'import json,sys; print(json.dumps({\"content\": sys.argv[1]}, ensure_ascii=False))' \"$msg\")\n\n  curl -s -H \"Content-Type: application/json\" \\\n    -X POST \\\n    -d \"$payload\" \\\n    \"$webhook\" &gt; /dev/null\n}\n\non_exit () {\n  status=$?\n\n  if [ \"$status\" -eq 0 ]; then\n    discord_send \"$DISCORD_WEBHOOK_PRUEBAS\" \"✅ El análisis terminó correctamente\"\n  else\n    discord_send \"${DISCORD_WEBHOOK_ERRORES:-$DISCORD_WEBHOOK_PRUEBAS}\" \"❌ El análisis terminó con error\"\n  fi\n}\n\ntrap on_exit EXIT\n\ndiscord_send \"$DISCORD_WEBHOOK_PRUEBAS\" \"🚀 Inició el análisis\"\n\ncomando_largo",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Notificaciones automáticas</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/bots.html#mensajes-para-análisis-específicos",
+    "href": "chapters/bots.html#mensajes-para-análisis-específicos",
+    "title": "Notificaciones automáticas",
+    "section": "Mensajes para análisis específicos",
+    "text": "Mensajes para análisis específicos\nSi tienes un canal específico para BEAST, puedes enviar los mensajes a ese canal:\ndiscord_send \"$DISCORD_WEBHOOK_BEAST\" \"🧬 Inició análisis de BEAST\"\nY en caso de error, usar el canal de errores:\ndiscord_send \"$DISCORD_WEBHOOK_ERRORES\" \"⚠️ Falló el análisis de BEAST\"\nPara análisis que usan GPU, puedes usar un webhook específico:\ndiscord_send \"$DISCORD_WEBHOOK_GPU\" \"🚀 Inició análisis con GPU\"\nAl finalizar:\ndiscord_send \"$DISCORD_WEBHOOK_GPU\" \"✅ Terminó análisis con GPU\"",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Notificaciones automáticas</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/bots.html#qué-hacer-si-se-filtró-una-url-de-webhook",
+    "href": "chapters/bots.html#qué-hacer-si-se-filtró-una-url-de-webhook",
+    "title": "Notificaciones automáticas",
+    "section": "¿Qué hacer si se filtró una URL de webhook?",
+    "text": "¿Qué hacer si se filtró una URL de webhook?\nSi accidentalmente compartiste una URL de webhook o la subiste a GitHub:\n\nEntra a Discord.\nAbre la configuración del canal.\nVe a Integraciones.\nEntra a Webhooks.\nElimina el webhook comprometido.\nCrea un webhook nuevo.\nActualiza tu archivo .env.\n\n\n\n\n\n\n\nWarningImportante\n\n\n\nNo basta con borrar la URL del repositorio si ya fue publicada. Lo más seguro es eliminar ese webhook y crear uno nuevo.",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Notificaciones automáticas</span>"
     ]
   },
   {
