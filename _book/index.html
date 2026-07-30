@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.32">
+<meta name="generator" content="quarto-1.8.26">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="IB-UNISSE">
-<meta name="dcterms.date" content="2026-07-09">
+<meta name="dcterms.date" content="2026-07-22">
 
 <title>Manual de usuario BEAGLE</title>
 <style>
@@ -70,14 +70,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="./images/logo_beagle_2.png" rel="icon" type="image/png">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-13f3b9144cfbd4bffe19d1212ca92176.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-ae5d55f8a41ff9e4654feece7b8084e3.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -142,7 +143,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
       <a href="./index.html" class="sidebar-logo-link">
-      <img src="./images/beagle_logo_blanco.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      <img src="./images/beagle_logo_blanco.png" alt="" class="sidebar-logo light-content py-0 d-lg-inline d-none">
+      <img src="./images/beagle_logo_blanco.png" alt="" class="sidebar-logo dark-content py-0 d-lg-inline d-none">
       </a>
     <div class="sidebar-title mb-0 py-0">
       <a href="./">BEAGLE</a> 
@@ -241,7 +243,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">July 9, 2026</p>
+      <p class="date">July 22, 2026</p>
     </div>
   </div>
   
@@ -255,7 +257,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <section id="manual-de-usuario-beagle" class="level1 beagle-hero">
 <h1>Manual de usuario BEAGLE</h1>
-<p>Guía práctica para ingresar al servidor, organizar archivos, usar software bioinformático mediante <strong>Micromamba</strong> o <strong>Apptainer</strong>, y enviar análisis al sistema de colas con <strong>Slurm</strong>.</p>
+<p>Guía práctica para ingresar al servidor, organizar archivos, usar software bioinformático mediante <strong>Apptainer</strong> y enviar análisis al sistema de colas con <strong>Slurm</strong>.</p>
 </section>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -272,7 +274,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Alcance de este manual
+<span class="screen-reader-only">Note</span>Alcance de este manual
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -320,7 +322,7 @@ Alcance de este manual
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Las cuentas son personales e intransferibles
+<span class="screen-reader-only">Caution</span>Las cuentas son personales e intransferibles
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -333,7 +335,7 @@ Las cuentas son personales e intransferibles
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-BEAGLE es un recurso compartido
+<span class="screen-reader-only">Important</span>BEAGLE es un recurso compartido
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -346,11 +348,11 @@ BEAGLE es un recurso compartido
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-No instales software en el sistema principal
+<span class="screen-reader-only">Warning</span>No instales software en el sistema principal
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>En BEAGLE no se debe modificar el sistema operativo ni instalar programas globalmente con <code>sudo</code>. Para usar software especializado, utiliza <strong>Micromamba</strong> o <strong>Apptainer</strong>.</p>
+<p>En BEAGLE no se debe modificar el sistema operativo ni instalar programas globalmente con <code>sudo</code>. Para usar software especializado, utiliza <strong>Apptainer</strong>.</p>
 </div>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
@@ -359,7 +361,7 @@ No instales software en el sistema principal
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Solicita solo los recursos necesarios
+<span class="screen-reader-only">Note</span>Solicita solo los recursos necesarios
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -370,12 +372,12 @@ Solicita solo los recursos necesarios
 <section id="organización-recomendada-de-proyectos" class="level2">
 <h2 class="anchored" data-anchor-id="organización-recomendada-de-proyectos">Organización recomendada de proyectos</h2>
 <p>Una buena organización de carpetas evita confusiones y facilita encontrar errores. Para cada proyecto o análisis se recomienda usar una estructura similar a:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">mi_proyecto/</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">mi_proyecto/</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> datos/</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> scripts/</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> resultados/</span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> logs/</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="ex">└──</span> metadata/</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="ex">└──</span> metadata/</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Donde:</p>
 <ul>
 <li><code>datos/</code> contiene archivos de entrada, como FASTA, FASTQ, matrices, árboles o tablas;</li>
@@ -454,13 +456,14 @@ Solicita solo los recursos necesarios
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy

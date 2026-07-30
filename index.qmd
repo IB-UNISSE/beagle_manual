@@ -74,7 +74,7 @@ Evita ejecutar análisis pesados directamente en la terminal de acceso. Los aná
 ::: callout-warning
 ## No instales software en el sistema principal
 
-En BEAGLE no se debe modificar el sistema operativo ni instalar programas globalmente con `sudo`. Para usar software especializado, utiliza **Micromamba** o **Apptainer**.
+En BEAGLE no se debe modificar el sistema operativo ni instalar programas globalmente con `sudo`. Para usar software especializado, utiliza **Apptainer**.
 :::
 
 ::: callout-note

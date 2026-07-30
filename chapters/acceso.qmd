@@ -12,9 +12,9 @@ ssh <usuario>@<servidor>
 
 Donde:
 
-- `<usuario>` corresponde a tu nombre de usuario en el servidor.
+-   `<usuario>` corresponde a tu nombre de usuario en el servidor.
 
-- `<servidor>` corresponde a la dirección IP o dominio del servidor.
+-   `<servidor>` corresponde a la dirección IP o dominio del servidor.
 
 Por ejemplo:
 
@@ -51,25 +51,150 @@ Después ingresa tu contraseña cuando el sistema la solicite.
 
 ## Cambio de contraseña al primer ingreso
 
-Al recibir una cuenta nueva en el servidor, el sistema solicitará cambiar la contraseña inicial durante el **primer inicio de sesión**. Este cambio es obligatorio por seguridad.
+Cuando se crea una cuenta nueva en el servidor, se proporciona una **contraseña temporal**. Esta contraseña se utiliza únicamente para realizar el primer inicio de sesión y deberá cambiarse obligatoriamente al ingresar por primera vez.
 
-Después de conectarte por SSH, el sistema pedirá primero la contraseña temporal o inicial que se te proporcionó. Posteriormente, solicitará que escribas una nueva contraseña y que la confirmes escribiéndola una segunda vez.
+Primero conéctate normalmente mediante SSH:
 
-Es importante considerar que, en la terminal, **cuando escribes una contraseña no aparecen letras, números, asteriscos ni puntos en la pantalla**. Esto puede dar la impresión de que no se está escribiendo nada, pero sí se está registrando la contraseña. Escribe con cuidado y presiona `Enter` al terminar.
+``` bash
+ssh <usuario>@<servidor>
+```
+
+El servidor solicitará la contraseña:
+
+``` text
+(<usuario>@<servidor>) Password:
+```
+
+Aquí debes escribir la **contraseña temporal que se te proporcionó** y presionar `Enter`.
+
+Después de ingresar correctamente, el sistema indicará que la contraseña ha expirado y que debe cambiarse:
+
+``` text
+Password expired. Change your password now.
+Current Password:
+```
+
+Cuando aparezca:
+
+``` text
+Current Password:
+```
+
+debes escribir **nuevamente la contraseña temporal** que utilizaste para ingresar.
+
+Posteriormente, el sistema solicitará una nueva contraseña:
+
+``` text
+New password:
+```
+
+Aquí debes escribir la **nueva contraseña** que deseas utilizar.
+
+Finalmente aparecerá:
+
+``` text
+Retype new password:
+```
+
+Debes escribir nuevamente la misma contraseña para confirmarla.
+
+El proceso completo se verá aproximadamente así:
+
+``` text
+$ ssh <usuario>@<servidor>
+
+(<usuario>@<servidor>) Password:
+
+Password expired. Change your password now.
+
+Current Password:
+New password:
+Retype new password:
+```
+
+El significado de cada solicitud es:
+
+1.  `Password:` → escribe la **contraseña temporal** proporcionada.
+2.  `Current Password:` → escribe nuevamente la **contraseña temporal**.
+3.  `New password:` → escribe tu **nueva contraseña**.
+4.  `Retype new password:` → vuelve a escribir la **nueva contraseña** para confirmarla.
+
+::: callout-warning
+## Importante: la contraseña no se muestra en pantalla
+
+Cuando escribes una contraseña en la terminal, **no aparece ningún carácter en pantalla**.
+
+No verás letras, números, puntos ni asteriscos mientras escribes.
+
+Aunque parezca que no estás escribiendo nada, **la terminal sí está registrando la contraseña**. Escribe la contraseña normalmente y presiona `Enter` al terminar.
+:::
+
+### Recomendaciones para la nueva contraseña
 
 Se recomienda que la nueva contraseña tenga al menos:
 
-- 12 caracteres.
-
-- Una letra mayúscula.
-
-- Una letra minúscula.
-
-- Un número.
-
-- Un carácter especial, por ejemplo: `!`, `@`, `#`, `$`, `%`, `*`.
+-   12 caracteres.
+-   Una letra mayúscula.
+-   Una letra minúscula.
+-   Un número.
+-   Un carácter especial, por ejemplo: `!`, `@`, `#`, `$`, `%`, `*`.
 
 No uses contraseñas fáciles de adivinar, como nombres propios, fechas de nacimiento, nombres de mascotas o combinaciones simples como `123456`, `password` o `qwerty`.
+
+Una vez realizado correctamente el cambio, la **contraseña temporal dejará de utilizarse**. En las siguientes conexiones al servidor deberás ingresar utilizando tu nueva contraseña.
+
+## Cambiar la contraseña posteriormente
+
+Si posteriormente deseas cambiar o renovar tu contraseña, puedes hacerlo desde una sesión activa en el servidor utilizando el comando:
+
+``` bash
+passwd
+```
+
+El sistema solicitará primero tu contraseña actual:
+
+``` text
+Current Password:
+```
+
+Después solicitará la nueva contraseña:
+
+``` text
+New password:
+```
+
+Finalmente pedirá que escribas nuevamente la nueva contraseña:
+
+``` text
+Retype new password:
+```
+
+El proceso se verá aproximadamente así:
+
+``` text
+$ passwd
+
+Changing password for user usuario.
+Current Password:
+New password:
+Retype new password:
+```
+
+En este caso:
+
+1.  `Current Password:` → escribe tu **contraseña actual**.
+2.  `New password:` → escribe la **nueva contraseña**.
+3.  `Retype new password:` → vuelve a escribir la nueva contraseña para confirmarla.
+
+::: callout-warning
+## Recuerda
+
+Al utilizar `passwd`, las contraseñas tampoco se muestran en pantalla mientras las escribes.
+
+Aunque parezca que no estás escribiendo nada, **la terminal sí está registrando la contraseña**. Esto es normal.
+:::
+
+Si el cambio se realiza correctamente, a partir de ese momento deberás utilizar la **nueva contraseña** para ingresar al servidor.
 
 ## Creación de una llave SSH
 
@@ -77,9 +202,9 @@ Aunque se puede ingresar con contraseña, se recomienda usar una **llave SSH**. 
 
 Una llave SSH consiste en dos archivos:
 
-- Una **llave privada**, que permanece en tu computadora.
+-   Una **llave privada**, que permanece en tu computadora.
 
-- Una **llave pública**, que se copia al servidor.
+-   Una **llave pública**, que se copia al servidor.
 
 La llave privada **no debe compartirse nunca**.
 
@@ -256,7 +381,7 @@ Aunque es posible conectarse al servidor directamente desde la terminal usando `
 El uso de estos programas es opcional. Para la mayoría de los análisis bioinformáticos será necesario aprender a usar la terminal, pero los clientes gráficos pueden ser muy útiles para transferir archivos o administrar carpetas de manera visual.
 
 | Programa | Sistema operativo | Gratuito | SSH terminal | Transferencia SFTP | Recomendado para |
-|------------|------------|------------|------------|------------|------------|
+|----|----|----|----|----|----|
 | Terminal / OpenSSH | Windows, macOS, Linux | Sí | Sí | Sí, mediante `scp` | Uso general del servidor |
 | [PuTTY](https://putty.org/index.html) | Windows | Sí | Sí | No como interfaz gráfica principal | Usuarios de Windows que quieren una terminal SSH sencilla |
 | [FileZilla](https://filezilla-project.org/) | Windows, macOS, Linux | Sí | No | Sí | Transferir archivos de forma gráfica |
