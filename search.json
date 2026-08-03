@@ -934,7 +934,107 @@
     "href": "chapters/ejercicios.html",
     "title": "Ejemplos",
     "section": "",
-    "text": "Archivo de prueba\nEsta sección utiliza imágenes públicas del repositorio de Docker Hub:\nhttps://hub.docker.com/repositories/ccervantess\nEstas imágenes fueron preparadas y probadas para BEAGLE, con el objetivo de facilitar el uso de software bioinformático sin compilar programas ni modificar el sistema principal del clúster.\nPara esta práctica se usará únicamente el archivo testGTR.xml, una prueba pequeña de BEAST2 que permite verificar que Apptainer, Slurm y el contenedor funcionan correctamente en BEAGLE.\nEl objetivo no es hacer un análisis biológico final ni comparar formalmente CPU contra GPU. Debido a que testGTR.xml es pequeño, la GPU puede no ser más rápida.\nSe recomienda descargar imágenes solo de repositorios confiables, como Docker Hub o Quay.io, usando etiquetas de versión específicas en lugar de latest.\nEl archivo testGTR.xml está disponible en el repositorio oficial de BEAST2, dentro de la carpeta examples: https://github.com/CompEvol/beast2/blob/master/examples/testGTR.xml.\nEn esta práctica, el archivo se descargará dentro de la carpeta de trabajo beast2_testGTR/data/, para mantener juntos los datos, scripts, contenedores, logs y resultados del ejercicio.",
+    "text": "Ejemplo: Descarga de secuencias de GenBank\nAntes de ejecutar análisis más complejos, veremos tres formas de descargar secuencias de GenBank con Entrez Direct, Apptainer y Slurm.\nLos tres ejemplos realizan prácticamente la misma tarea, pero muestran distintas formas de organizar el trabajo:",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Ejemplos</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/ejercicios.html#ejemplo-descarga-de-secuencias-de-genbank",
+    "href": "chapters/ejercicios.html#ejemplo-descarga-de-secuencias-de-genbank",
+    "title": "Ejemplos",
+    "section": "",
+    "text": "Ejemplo\n¿Qué hace?\nEjecución\n\n\n\n\nUna accesión\nDescarga una secuencia\nUn trabajo de Slurm\n\n\nBucle while\nRecorre una lista de accesiones\nUn trabajo; las descargas se realizan una tras otra\n\n\nArray de Slurm\nAsigna una accesión a cada tarea\nVarias tareas pueden ejecutarse simultáneamente\n\n\n\n\n\n\n\n\n\nImportantEl bucle while no paraleliza\n\n\n\nEl bucle permite automatizar el procesamiento de varias muestras, pero las procesa secuencialmente dentro de un solo trabajo. El array es el ejemplo que realmente permite procesar varias accesiones al mismo tiempo.",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Ejemplos</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/ejercicios.html#preparar-la-práctica",
+    "href": "chapters/ejercicios.html#preparar-la-práctica",
+    "title": "Ejemplos",
+    "section": "Preparar la práctica",
+    "text": "Preparar la práctica\nCrea una carpeta con subdirectorios para el contenedor, los scripts, los registros y las secuencias descargadas:\nmkdir -p efetch_test/{sif,scripts,logs,fasta}\ncd efetch_test\n\n\n\n\n\n\nNote\n\n\n\nLa carpeta logs/ debe existir antes de ejecutar sbatch. Slurm abre los archivos de salida y error antes de comenzar el script.",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Ejemplos</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/ejercicios.html#descargar-el-contenedor",
+    "href": "chapters/ejercicios.html#descargar-el-contenedor",
+    "title": "Ejemplos",
+    "section": "Descargar el contenedor",
+    "text": "Descargar el contenedor\nPara esta práctica utilizaremos la imagen de Entrez Direct disponible en BioContainers:\napptainer pull \\\n  sif/entrez-direct_25.3.sif \\\n  docker://quay.io/biocontainers/entrez-direct:25.3--he881be0_0\nComprueba que efetch está disponible dentro del contenedor:\napptainer exec sif/entrez-direct_25.3.sif efetch -help\nDescargar la imagen una sola vez evita que cada trabajo o cada tarea del array tenga que consultar nuevamente el registro de contenedores.",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Ejemplos</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/ejercicios.html#ejemplo-1-descargar-una-secuencia",
+    "href": "chapters/ejercicios.html#ejemplo-1-descargar-una-secuencia",
+    "title": "Ejemplos",
+    "section": "Ejemplo 1: descargar una secuencia",
+    "text": "Ejemplo 1: descargar una secuencia\nEste primer script descarga una sola secuencia de la base de datos nuccore de NCBI en formato FASTA.\nCrea el archivo:\nnano scripts/efetch_single.sbatch\nContenido:\n#!/bin/bash\n#SBATCH --job-name=efetch_single\n#SBATCH --partition=ib\n#SBATCH --ntasks=1\n#SBATCH --cpus-per-task=1\n#SBATCH --mem=1G\n#SBATCH --time=00:10:00\n#SBATCH --output=logs/%x-%j.out\n#SBATCH --error=logs/%x-%j.err\n\nset -euo pipefail\n\ncd \"$SLURM_SUBMIT_DIR\"\n\nIMG=\"sif/entrez-direct_25.3.sif\"\nACCESSION=\"KY293680.1\"\nOUTPUT=\"fasta/${ACCESSION}.fasta\"\n\necho \"Descargando: $ACCESSION\"\n\napptainer exec \"$IMG\" \\\n  efetch -db nuccore -id \"$ACCESSION\" -format fasta \\\n  &gt; \"$OUTPUT\"\n\necho \"Archivo creado: $OUTPUT\"\nEnvía el trabajo:\nsbatch scripts/efetch_single.sbatch\nRevisa el resultado cuando termine:\nsqueue -u \"$USER\"\nhead fasta/KY293680.1.fasta",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Ejemplos</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/ejercicios.html#crear-una-lista-de-accesiones",
+    "href": "chapters/ejercicios.html#crear-una-lista-de-accesiones",
+    "title": "Ejemplos",
+    "section": "Crear una lista de accesiones",
+    "text": "Crear una lista de accesiones\nPara los siguientes ejemplos se necesita un archivo de texto con una accesión de GenBank por línea. En este contexto conviene llamarlas accesiones o identificadores de GenBank; un voucher es el ejemplar biológico de referencia y no necesariamente corresponde al identificador de la secuencia.\nCrea list.txt:\nNC_001477.1\nNC_001498.1\nNC_001542.1\nNC_001802.1\nNC_001806.2\nNC_002549.1\nNC_003977.2\nNC_004102.1\nNC_007605.1\nNC_045512.2\nComprueba el número de accesiones:\nwc -l list.txt\nPara el array, evita líneas vacías y espacios adicionales en esta lista.",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Ejemplos</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/ejercicios.html#ejemplo-2-procesar-una-lista-con-while",
+    "href": "chapters/ejercicios.html#ejemplo-2-procesar-una-lista-con-while",
+    "title": "Ejemplos",
+    "section": "Ejemplo 2: procesar una lista con while",
+    "text": "Ejemplo 2: procesar una lista con while\nEste script utiliza un bucle while para leer list.txt. Todas las accesiones forman parte de un solo trabajo y se descargan una después de otra.\nCrea el archivo:\nnano scripts/efetch_loop.sbatch\nContenido:\n#!/bin/bash\n#SBATCH --job-name=efetch_loop\n#SBATCH --partition=ib\n#SBATCH --ntasks=1\n#SBATCH --cpus-per-task=1\n#SBATCH --mem=1G\n#SBATCH --time=00:20:00\n#SBATCH --output=logs/%x-%j.out\n#SBATCH --error=logs/%x-%j.err\n\nset -euo pipefail\n\ncd \"$SLURM_SUBMIT_DIR\"\n\nLIST=\"list.txt\"\nOUTPUT_DIR=\"fasta\"\nIMG=\"sif/entrez-direct_25.3.sif\"\n\nmkdir -p \"$OUTPUT_DIR\"\n\nwhile IFS= read -r ACCESSION; do\n  [[ -z \"$ACCESSION\" ]] && continue\n\n  echo \"Descargando: $ACCESSION\"\n\n  apptainer exec \"$IMG\" \\\n    efetch -db nuccore -id \"$ACCESSION\" -format fasta \\\n    &gt; \"$OUTPUT_DIR/${ACCESSION}.fasta\"\ndone &lt; \"$LIST\"\n\necho \"Todas las descargas terminaron\"\nEnvía el trabajo:\nsbatch scripts/efetch_loop.sbatch\nCuando termine, revisa cuántos archivos se crearon:\nfind fasta -maxdepth 1 -name '*.fasta' | wc -l",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Ejemplos</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/ejercicios.html#ejemplo-3-paralelizar-con-un-array-de-slurm",
+    "href": "chapters/ejercicios.html#ejemplo-3-paralelizar-con-un-array-de-slurm",
+    "title": "Ejemplos",
+    "section": "Ejemplo 3: paralelizar con un array de Slurm",
+    "text": "Ejemplo 3: paralelizar con un array de Slurm\nUn array crea varias tareas a partir del mismo script. La variable SLURM_ARRAY_TASK_ID indica qué línea de list.txt debe procesar cada tarea.\nPrimero obtén el número de accesiones:\nN=$(wc -l &lt; list.txt)\necho \"$N\"\nCrea el archivo:\nnano scripts/efetch_array.sbatch\nContenido:\n#!/bin/bash\n#SBATCH --job-name=efetch_array\n#SBATCH --partition=ib\n#SBATCH --ntasks=1\n#SBATCH --cpus-per-task=1\n#SBATCH --mem=1G\n#SBATCH --time=00:10:00\n#SBATCH --output=logs/%x-%A_%a.out\n#SBATCH --error=logs/%x-%A_%a.err\n\nset -euo pipefail\n\ncd \"$SLURM_SUBMIT_DIR\"\n\nLIST=\"list.txt\"\nOUTPUT_DIR=\"fasta\"\nIMG=\"sif/entrez-direct_25.3.sif\"\n\nmkdir -p \"$OUTPUT_DIR\"\n\nACCESSION=$(sed -n \"${SLURM_ARRAY_TASK_ID}p\" \"$LIST\")\n\nif [[ -z \"$ACCESSION\" ]]; then\n  echo \"No se encontró una accesión para la tarea ${SLURM_ARRAY_TASK_ID}\" &gt;&2\n  exit 1\nfi\n\necho \"Tarea ${SLURM_ARRAY_TASK_ID}: descargando $ACCESSION\"\n\napptainer exec \"$IMG\" \\\n  efetch -db nuccore -id \"$ACCESSION\" -format fasta \\\n  &gt; \"$OUTPUT_DIR/${ACCESSION}.fasta\"\n\necho \"Tarea ${SLURM_ARRAY_TASK_ID}: terminó $ACCESSION\"\nEnvía una tarea por cada línea y permite ejecutar como máximo cinco al mismo tiempo:\nN=$(wc -l &lt; list.txt)\nsbatch --array=\"1-${N}%5\" scripts/efetch_array.sbatch\nEn 1-${N}%5:\n\n1-${N} crea una tarea por cada línea de la lista.\n%5 limita el array a un máximo de cinco tareas ejecutándose simultáneamente.\nCada tarea solicita 1 CPU y 1 GB de memoria.\nPor lo tanto, cinco tareas simultáneas pueden utilizar en conjunto hasta 5 CPU y 5 GB.\n\nRevisa las tareas del array:\nsqueue -u \"$USER\"\nAl finalizar, revisa los archivos y los registros:\nls -lh fasta/\nls -lh logs/",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Ejemplos</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/ejercicios.html#comparación-de-los-tres-métodos",
+    "href": "chapters/ejercicios.html#comparación-de-los-tres-métodos",
+    "title": "Ejemplos",
+    "section": "Comparación de los tres métodos",
+    "text": "Comparación de los tres métodos\n\n\n\n\n\n\n\n\n\nMétodo\nTrabajos o tareas\nOrden de procesamiento\nUso recomendado\n\n\n\n\nUna accesión\n1\nUna sola descarga\nProbar el contenedor y el comando\n\n\nBucle while\n1\nSecuencial\nListas pequeñas o tareas muy breves\n\n\nArray\nUna tarea por accesión\nParalelo, sujeto a los recursos disponibles\nMuchas muestras independientes\n\n\n\n\n\n\n\n\n\nTip¿Por qué usar %5?\n\n\n\nEl límite evita enviar demasiadas descargas simultáneas a NCBI y reduce la presión sobre el clúster. Aumentarlo no garantiza que el trabajo termine antes: Slurm solamente iniciará tareas cuando existan recursos disponibles.",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Ejemplos</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/ejercicios.html#ejemplo-análisis-filogenético-con-beast2",
+    "href": "chapters/ejercicios.html#ejemplo-análisis-filogenético-con-beast2",
+    "title": "Ejemplos",
+    "section": "Ejemplo: Análisis filogenético con BEAST2",
+    "text": "Ejemplo: Análisis filogenético con BEAST2\nEsta sección utiliza imágenes públicas del repositorio de Docker Hub:\nhttps://hub.docker.com/repositories/ccervantess\nEstas imágenes fueron preparadas y probadas para BEAGLE, con el objetivo de facilitar el uso de software bioinformático sin compilar programas ni modificar el sistema principal del clúster.\nPara esta práctica se usará únicamente el archivo testGTR.xml, una prueba pequeña de BEAST2 que permite verificar que Apptainer, Slurm y el contenedor funcionan correctamente en BEAGLE.\nEl objetivo no es hacer un análisis biológico final ni comparar formalmente CPU contra GPU. Debido a que testGTR.xml es pequeño, la GPU puede no ser más rápida.\nSe recomienda descargar imágenes solo de repositorios confiables, como Docker Hub o Quay.io, usando etiquetas de versión específicas en lugar de latest.",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Ejemplos</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/ejercicios.html#archivo-de-prueba",
+    "href": "chapters/ejercicios.html#archivo-de-prueba",
+    "title": "Ejemplos",
+    "section": "Archivo de prueba",
+    "text": "Archivo de prueba\nEl archivo testGTR.xml está disponible en el repositorio oficial de BEAST2, dentro de la carpeta examples: https://github.com/CompEvol/beast2/blob/master/examples/testGTR.xml.\nEn esta práctica, el archivo se descargará dentro de la carpeta de trabajo beast2_testGTR/data/, para mantener juntos los datos, scripts, contenedores, logs y resultados del ejercicio.",
     "crumbs": [
       "<span class='chapter-number'>7</span>  <span class='chapter-title'>Ejemplos</span>"
     ]
