@@ -74,7 +74,7 @@
     "href": "chapters/acceso.html",
     "title": "Acceso al servidor",
     "section": "",
-    "text": "Cambio de contraseña al primer ingreso\nEl acceso al servidor se realiza mediante SSH (Secure Shell), un protocolo seguro que permite conectarse de forma remota a una computadora o servidor mediante una terminal. SSH permite trabajar en el servidor como si estuviéramos frente a él, ejecutando comandos, administrando archivos y enviando trabajos de análisis.\nActualmente, Windows, macOS y Linux ya incluyen un cliente SSH por defecto, por lo que normalmente no es necesario instalar programas adicionales para conectarse al servidor.\nEn este manual usaremos la siguiente estructura general:\nDonde:\nPor ejemplo:\nO, si se usa una dirección IP:\nEn Windows 10 y Windows 11 se puede usar PowerShell o la Terminal de Windows.\nPara conectarte al servidor, abre PowerShell y escribe:\nLa primera vez que te conectes, el sistema puede mostrar un mensaje parecido a este:\nEscribe:\nDespués se solicitará la contraseña de tu usuario.\nDespués ingresa tu contraseña cuando el sistema la solicite.\nAl recibir una cuenta nueva en el servidor, el sistema solicitará cambiar la contraseña inicial durante el primer inicio de sesión. Este cambio es obligatorio por seguridad.\nDespués de conectarte por SSH, el sistema pedirá primero la contraseña temporal o inicial que se te proporcionó. Posteriormente, solicitará que escribas una nueva contraseña y que la confirmes escribiéndola una segunda vez.\nEs importante considerar que, en la terminal, cuando escribes una contraseña no aparecen letras, números, asteriscos ni puntos en la pantalla. Esto puede dar la impresión de que no se está escribiendo nada, pero sí se está registrando la contraseña. Escribe con cuidado y presiona Enter al terminar.\nSe recomienda que la nueva contraseña tenga al menos:\nNo uses contraseñas fáciles de adivinar, como nombres propios, fechas de nacimiento, nombres de mascotas o combinaciones simples como 123456, password o qwerty.",
+    "text": "Cambio de contraseña al primer ingreso\nEl acceso al servidor se realiza mediante SSH (Secure Shell), un protocolo seguro que permite conectarse de forma remota a una computadora o servidor mediante una terminal. SSH permite trabajar en el servidor como si estuviéramos frente a él, ejecutando comandos, administrando archivos y enviando trabajos de análisis.\nActualmente, Windows, macOS y Linux ya incluyen un cliente SSH por defecto, por lo que normalmente no es necesario instalar programas adicionales para conectarse al servidor.\nEn este manual usaremos la siguiente estructura general:\nDonde:\nPor ejemplo:\nO, si se usa una dirección IP:\nEn Windows 10 y Windows 11 se puede usar PowerShell o la Terminal de Windows.\nPara conectarte al servidor, abre PowerShell y escribe:\nLa primera vez que te conectes, el sistema puede mostrar un mensaje parecido a este:\nEscribe:\nDespués se solicitará la contraseña de tu usuario.\nDespués ingresa tu contraseña cuando el sistema la solicite.\nCuando se crea una cuenta nueva en el servidor, se proporciona una contraseña temporal. Esta contraseña se utiliza únicamente para realizar el primer inicio de sesión y deberá cambiarse obligatoriamente al ingresar por primera vez.\nPrimero conéctate normalmente mediante SSH:\nEl servidor solicitará la contraseña:\nAquí debes escribir la contraseña temporal que se te proporcionó y presionar Enter.\nDespués de ingresar correctamente, el sistema indicará que la contraseña ha expirado y que debe cambiarse:\nCuando aparezca:\ndebes escribir nuevamente la contraseña temporal que utilizaste para ingresar.\nPosteriormente, el sistema solicitará una nueva contraseña:\nAquí debes escribir la nueva contraseña que deseas utilizar.\nFinalmente aparecerá:\nDebes escribir nuevamente la misma contraseña para confirmarla.\nEl proceso completo se verá aproximadamente así:\nEl significado de cada solicitud es:",
     "crumbs": [
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>Acceso al servidor</span>"
     ]
@@ -84,7 +84,17 @@
     "href": "chapters/acceso.html#cambio-de-contraseña-al-primer-ingreso",
     "title": "Acceso al servidor",
     "section": "",
-    "text": "12 caracteres.\nUna letra mayúscula.\nUna letra minúscula.\nUn número.\nUn carácter especial, por ejemplo: !, @, #, $, %, *.",
+    "text": "ssh &lt;usuario&gt;@&lt;servidor&gt;\n\n(&lt;usuario&gt;@&lt;servidor&gt;) Password:\n\n\nPassword expired. Change your password now.\nCurrent Password:\n\nCurrent Password:\n\n\nNew password:\n\n\nRetype new password:\n\n\n$ ssh &lt;usuario&gt;@&lt;servidor&gt;\n\n(&lt;usuario&gt;@&lt;servidor&gt;) Password:\n\nPassword expired. Change your password now.\n\nCurrent Password:\nNew password:\nRetype new password:\n\n\nPassword: → escribe la contraseña temporal proporcionada.\nCurrent Password: → escribe nuevamente la contraseña temporal.\nNew password: → escribe tu nueva contraseña.\nRetype new password: → vuelve a escribir la nueva contraseña para confirmarla.\n\n\n\n\n\n\n\nWarningImportante: la contraseña no se muestra en pantalla\n\n\n\nCuando escribes una contraseña en la terminal, no aparece ningún carácter en pantalla.\nNo verás letras, números, puntos ni asteriscos mientras escribes.\nAunque parezca que no estás escribiendo nada, la terminal sí está registrando la contraseña. Escribe la contraseña normalmente y presiona Enter al terminar.\n\n\n\nRecomendaciones para la nueva contraseña\nSe recomienda que la nueva contraseña tenga al menos:\n\n12 caracteres.\nUna letra mayúscula.\nUna letra minúscula.\nUn número.\nUn carácter especial, por ejemplo: !, @, #, $, %, *.\n\nNo uses contraseñas fáciles de adivinar, como nombres propios, fechas de nacimiento, nombres de mascotas o combinaciones simples como 123456, password o qwerty.\nUna vez realizado correctamente el cambio, la contraseña temporal dejará de utilizarse. En las siguientes conexiones al servidor deberás ingresar utilizando tu nueva contraseña.",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Acceso al servidor</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/acceso.html#cambiar-la-contraseña-posteriormente",
+    "href": "chapters/acceso.html#cambiar-la-contraseña-posteriormente",
+    "title": "Acceso al servidor",
+    "section": "Cambiar la contraseña posteriormente",
+    "text": "Cambiar la contraseña posteriormente\nSi posteriormente deseas cambiar o renovar tu contraseña, puedes hacerlo desde una sesión activa en el servidor utilizando el comando:\npasswd\nEl sistema solicitará primero tu contraseña actual:\nCurrent Password:\nDespués solicitará la nueva contraseña:\nNew password:\nFinalmente pedirá que escribas nuevamente la nueva contraseña:\nRetype new password:\nEl proceso se verá aproximadamente así:\n$ passwd\n\nChanging password for user usuario.\nCurrent Password:\nNew password:\nRetype new password:\nEn este caso:\n\nCurrent Password: → escribe tu contraseña actual.\nNew password: → escribe la nueva contraseña.\nRetype new password: → vuelve a escribir la nueva contraseña para confirmarla.\n\n\n\n\n\n\n\nWarningRecuerda\n\n\n\nAl utilizar passwd, las contraseñas tampoco se muestran en pantalla mientras las escribes.\nAunque parezca que no estás escribiendo nada, la terminal sí está registrando la contraseña. Esto es normal.\n\n\nSi el cambio se realiza correctamente, a partir de ese momento deberás utilizar la nueva contraseña para ingresar al servidor.",
     "crumbs": [
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>Acceso al servidor</span>"
     ]
@@ -604,7 +614,7 @@
     "href": "chapters/slurm.html#particiones-disponibles-para-usuarios-del-ib-unam",
     "title": "Uso básico de Slurm",
     "section": "Particiones disponibles para usuarios del IB-UNAM",
-    "text": "Particiones disponibles para usuarios del IB-UNAM\nEn BEAGLE, las particiones principales para usuarios del Instituto de Biología, UNAM, son:\n\n\n\n\n\n\n\n\n\nPartición\nNodo(s)\nRecursos principales\nUso recomendado\n\n\n\n\nib\nbeagle-01, beagle-02\nCPUs y memoria RAM\nTrabajos generales de bioinformática con CPU\n\n\ngpu_V100\nbeagle-gpu-01\nCPUs, memoria RAM y GPUs NVIDIA V100\nTrabajos que requieren GPU o análisis grandes que necesitan muchos CPUs y memoria\n\n\n\nRecursos disponibles por nodo:\n\n\n\n\n\n\n\n\n\n\nNodo\nCPUs\nMemoria aproximada\nGPU\nPartición\n\n\n\n\nbeagle-01\n32\n94 GB\nNo\nib\n\n\nbeagle-02\n20\n188 GB\nNo\nib\n\n\nbeagle-gpu-01\n80\n754 GB\n3 × NVIDIA V100\ngpu_V100\n\n\n\n\n\n\n\n\n\nNoteUso de la partición gpu_V100\n\n\n\nLa partición gpu_V100 contiene el nodo con mayor capacidad de CPU y memoria dentro de BEAGLE, pero también contiene las GPUs. No se debe solicitar GPU si el programa no la usa.",
+    "text": "Particiones disponibles para usuarios del IB-UNAM\nEn BEAGLE, las particiones principales para usuarios del Instituto de Biología, UNAM, son:\n\n\n\n\n\n\n\n\n\nPartición\nNodo(s)\nRecursos principales\nUso recomendado\n\n\n\n\nib\nbeagle-01, beagle-02\nCPUs y memoria RAM\nTrabajos generales de bioinformática con CPU\n\n\ngpu_V100\nbeagle-gpu-01\nCPUs, memoria RAM y GPUs NVIDIA V100\nTrabajos que requieren GPU o análisis grandes que necesitan muchos CPUs y memoria\n\n\n\nRecursos disponibles por nodo:\n\n\n\n\n\n\n\n\n\n\nNodo\nCPUs\nMemoria aproximada\nGPU\nPartición\n\n\n\n\nbeagle-01\n32\n94 GB\nNo\nib\n\n\nbeagle-02\n20\n188 GB\nNo\nib\n\n\nbeagle-gpu-01\n80\n754 GB\n3 × NVIDIA V100\ngpu_V100\n\n\n\n\n\n\n\n\n\nUso de la partición gpu_V100\n\n\n\nLa partición gpu_V100 contiene el nodo con mayor capacidad de CPU y memoria dentro de BEAGLE, pero también contiene las GPUs. No se debe solicitar GPU si el programa no la usa.",
     "crumbs": [
       "<span class='chapter-number'>5</span>  <span class='chapter-title'>Uso básico de Slurm</span>"
     ]
@@ -924,7 +934,7 @@
     "href": "chapters/ejercicios.html",
     "title": "Ejemplos",
     "section": "",
-    "text": "Archivo de prueba\nEsta sección utiliza imágenes públicas del repositorio de Docker Hub:\nhttps://hub.docker.com/repositories/ccervantess\nEstas imágenes fueron preparadas y probadas para BEAGLE, con el objetivo de facilitar el uso de software bioinformático sin compilar programas ni modificar el sistema principal del clúster.\nPara esta práctica se usará únicamente el archivo testGTR.xml, una prueba pequeña de BEAST2 que permite verificar que Apptainer, Slurm y el contenedor funcionan correctamente en BEAGLE.\nEl objetivo no es hacer un análisis biológico final ni comparar formalmente CPU contra GPU. Debido a que testGTR.xml es pequeño, la GPU puede no ser más rápida.\nSe recomienda descargar imágenes solo de repositorios confiables, como Docker Hub o Quay.io, usando etiquetas de versión específicas en lugar de latest.\nEl archivo testGTR.xml está disponible en el repositorio oficial de BEAST2, dentro de la carpeta examples: https://github.com/CompEvol/beast2/blob/master/examples/testGTR.xml.\nEn esta práctica, el archivo se descargará dentro de la carpeta de trabajo beast2_testGTR/data/, para mantener juntos los datos, scripts, contenedores, logs y resultados del ejercicio.",
+    "text": "Ejemplo: Descarga de secuencias de GenBank\nAntes de ejecutar análisis más complejos, veremos tres formas de descargar secuencias de GenBank con Entrez Direct, Apptainer y Slurm.\nLos tres ejemplos realizan prácticamente la misma tarea, pero muestran distintas formas de organizar el trabajo:",
     "crumbs": [
       "<span class='chapter-number'>7</span>  <span class='chapter-title'>Ejemplos</span>"
     ]
@@ -944,7 +954,7 @@
     "href": "chapters/ejercicios.html#preparar-la-carpeta-de-trabajo",
     "title": "Ejemplos",
     "section": "Preparar la carpeta de trabajo",
-    "text": "Preparar la carpeta de trabajo\nDesde la raíz del repositorio del manual, crea la carpeta de la práctica:\nmkdir -p beast2_testGTR/{data,sif,scripts,logs,runs/cpu,runs/gpu}\nDespués entra a la carpeta de la práctica:\ncd beast2_testGTR\nDescarga el archivo testGTR.xml dentro de la carpeta data/ de la práctica:\nwget -O data/testGTR.xml \\\n  https://raw.githubusercontent.com/CompEvol/beast2/master/examples/testGTR.xml\nVerifica que el archivo se descargó correctamente:\nls -lh data/testGTR.xml\nCopia el archivo testGTR.xml a las carpetas de corrida:\ncp data/testGTR.xml runs/cpu/\ncp data/testGTR.xml runs/gpu/\nLa estructura esperada será:\nbeast2_testGTR/\n├── data/\n│   └── testGTR.xml\n├── logs/\n├── runs/\n│   ├── cpu/\n│   │   └── testGTR.xml\n│   └── gpu/\n│       └── testGTR.xml\n├── scripts/\n└── sif/\n\n\n\n\n\n\nNote¿Por qué separar CPU y GPU?\n\n\n\nBEAST2 escribirá archivos como primate-mtDNA.log, primate.trees y testGTR.xml.state. Si se ejecutan las pruebas CPU y GPU en la misma carpeta, una corrida puede sobrescribir los resultados de la otra.",
+    "text": "Preparar la carpeta de trabajo\nDesde la raíz del repositorio del manual, crea la carpeta de la práctica:\nmkdir -p beast2_testGTR/{data,sif,scripts,logs,runs/cpu,runs/gpu}\nDespués entra a la carpeta de la práctica:\ncd beast2_testGTR\nDescarga el archivo testGTR.xml dentro de la carpeta data/ de la práctica:\nwget -O data/testGTR.xml \\\n  https://raw.githubusercontent.com/CompEvol/beast2/master/examples/testGTR.xml\nVerifica que el archivo se descargó correctamente:\nls -lh data/testGTR.xml\nCopia el archivo testGTR.xml a las carpetas de corrida:\ncp data/testGTR.xml runs/cpu/\ncp data/testGTR.xml runs/gpu/\nLa estructura esperada será:\nbeast2_testGTR/\n├── data/\n│   └── testGTR.xml\n├── logs/\n├── runs/\n│   ├── cpu/\n│   │   └── testGTR.xml\n│   └── gpu/\n│       └── testGTR.xml\n├── scripts/\n└── sif/\n\n\n\n\n\n\n¿Por qué separar CPU y GPU?\n\n\n\nBEAST2 escribirá archivos como primate-mtDNA.log, primate.trees y testGTR.xml.state. Si se ejecutan las pruebas CPU y GPU en la misma carpeta, una corrida puede sobrescribir los resultados de la otra.",
     "crumbs": [
       "<span class='chapter-number'>7</span>  <span class='chapter-title'>Ejemplos</span>"
     ]
@@ -984,7 +994,7 @@
     "href": "chapters/ejercicios.html#ejecutar-testgtr.xml-con-gpu",
     "title": "Ejemplos",
     "section": "Ejecutar testGTR.xml con GPU",
-    "text": "Ejecutar testGTR.xml con GPU\n\n\n\n\n\n\nWarningSolicita GPU solo cuando la vas a usar\n\n\n\nEste ejercicio solicita una GPU con #SBATCH --gres=gpu:1 y usa apptainer exec --nv para que el contenedor tenga acceso a las bibliotecas NVIDIA del nodo.\n\n\nCrea el script:\nnano scripts/beast2_gtr_gpu.sbatch\nContenido:\n#!/bin/bash\n#SBATCH --job-name=beast2_gtr_gpu\n#SBATCH --partition=gpu_V100\n#SBATCH --nodes=1\n#SBATCH --ntasks=1\n#SBATCH --cpus-per-task=4\n#SBATCH --mem=16G\n#SBATCH --gres=gpu:1\n#SBATCH --time=01:00:00\n#SBATCH --output=logs/%x-%j.out\n#SBATCH --error=logs/%x-%j.err\n\nset -euo pipefail\n\ncd \"$SLURM_SUBMIT_DIR\"\n\n# Cargar token y chat_id de Telegram \nif [[ -f \"$HOME/.telegram\" ]]; then\n  source \"$HOME/.telegram\"\nfi\n\nmkdir -p logs\n\nsend_telegram() {\n  local MESSAGE=\"$1\"\n\n  if [[ -n \"${TELEGRAM_BOT_TOKEN:-}\" && -n \"${TELEGRAM_CHAT_ID:-}\" ]]; then\n    curl -s -X POST \"https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage\" \\\n      -d chat_id=\"${TELEGRAM_CHAT_ID}\" \\\n      -d text=\"${MESSAGE}\" &gt; /dev/null || true\n  fi\n}\n\nsend_telegram \"BEAST2 GPU inició. Job: ${SLURM_JOB_NAME} (${SLURM_JOB_ID}) en $(hostname).\"\n\nSTART_TIME=$(date +%s)\n\nfinish() {\n  EXIT_CODE=$?\n  END_TIME=$(date +%s)\n  ELAPSED=$((END_TIME - START_TIME))\n\n  if [[ \"$EXIT_CODE\" -eq 0 ]]; then\n    send_telegram \"BEAST2 GPU terminó correctamente. Job: ${SLURM_JOB_NAME} (${SLURM_JOB_ID}). Tiempo: ${ELAPSED} s.\"\n  else\n    send_telegram \"BEAST2 GPU terminó con error. Job: ${SLURM_JOB_NAME} (${SLURM_JOB_ID}). Código: ${EXIT_CODE}. Revisa logs/.\"\n  fi\n\n  exit \"$EXIT_CODE\"\n}\n\ntrap finish EXIT\n\necho \"====================================\"\necho \"Trabajo: $SLURM_JOB_NAME\"\necho \"Job ID: $SLURM_JOB_ID\"\necho \"Nodo: $(hostname)\"\necho \"Inicio: $(date)\"\necho \"Directorio: $SLURM_SUBMIT_DIR\"\necho \"CPUs asignadas: ${SLURM_CPUS_PER_TASK}\"\necho \"GPUs asignadas: ${SLURM_GPUS:-No disponible}\"\necho \"====================================\"\n\necho \"Revisando GPU asignada:\"\nnvidia-smi\n\ncd runs/gpu\n\n/usr/bin/time -v apptainer exec \\\n  --nv \\\n  ../../sif/beast2-beagle-cuda_2.7.8-gpu-v100.sif \\\n  beast \\\n  -beagle \\\n  -beagle_GPU \\\n  -beagle_order 1 \\\n  -overwrite \\\n  testGTR.xml\n\necho \"====================================\"\necho \"Fin: $(date)\"\necho \"====================================\"\nEnvía el trabajo:\nsbatch scripts/beast2_gtr_gpu.sbatch\nRevisa si sigue en cola:\nsqueue -u $USER\nCuando termine, revisa los archivos generados:\nls -lh logs/\nls -lh runs/gpu/\nRevisa el archivo de salida:\ntail -n 60 logs/beast2_gtr_gpu-*.out\nRevisa si hubo errores:\ntail -n 60 logs/beast2_gtr_gpu-*.err\nRevisa el log principal de BEAST2:\ntail -n 20 runs/gpu/primate-mtDNA.log",
+    "text": "Ejecutar testGTR.xml con GPU\n\n\n\n\n\n\nSolicita GPU solo cuando la vas a usar\n\n\n\nEste ejercicio solicita una GPU con #SBATCH --gres=gpu:1 y usa apptainer exec --nv para que el contenedor tenga acceso a las bibliotecas NVIDIA del nodo.\n\n\nCrea el script:\nnano scripts/beast2_gtr_gpu.sbatch\nContenido:\n#!/bin/bash\n#SBATCH --job-name=beast2_gtr_gpu\n#SBATCH --partition=gpu_V100\n#SBATCH --nodes=1\n#SBATCH --ntasks=1\n#SBATCH --cpus-per-task=4\n#SBATCH --mem=16G\n#SBATCH --gres=gpu:1\n#SBATCH --time=01:00:00\n#SBATCH --output=logs/%x-%j.out\n#SBATCH --error=logs/%x-%j.err\n\nset -euo pipefail\n\ncd \"$SLURM_SUBMIT_DIR\"\n\n# Cargar token y chat_id de Telegram \nif [[ -f \"$HOME/.telegram\" ]]; then\n  source \"$HOME/.telegram\"\nfi\n\nmkdir -p logs\n\nsend_telegram() {\n  local MESSAGE=\"$1\"\n\n  if [[ -n \"${TELEGRAM_BOT_TOKEN:-}\" && -n \"${TELEGRAM_CHAT_ID:-}\" ]]; then\n    curl -s -X POST \"https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage\" \\\n      -d chat_id=\"${TELEGRAM_CHAT_ID}\" \\\n      -d text=\"${MESSAGE}\" &gt; /dev/null || true\n  fi\n}\n\nsend_telegram \"BEAST2 GPU inició. Job: ${SLURM_JOB_NAME} (${SLURM_JOB_ID}) en $(hostname).\"\n\nSTART_TIME=$(date +%s)\n\nfinish() {\n  EXIT_CODE=$?\n  END_TIME=$(date +%s)\n  ELAPSED=$((END_TIME - START_TIME))\n\n  if [[ \"$EXIT_CODE\" -eq 0 ]]; then\n    send_telegram \"BEAST2 GPU terminó correctamente. Job: ${SLURM_JOB_NAME} (${SLURM_JOB_ID}). Tiempo: ${ELAPSED} s.\"\n  else\n    send_telegram \"BEAST2 GPU terminó con error. Job: ${SLURM_JOB_NAME} (${SLURM_JOB_ID}). Código: ${EXIT_CODE}. Revisa logs/.\"\n  fi\n\n  exit \"$EXIT_CODE\"\n}\n\ntrap finish EXIT\n\necho \"====================================\"\necho \"Trabajo: $SLURM_JOB_NAME\"\necho \"Job ID: $SLURM_JOB_ID\"\necho \"Nodo: $(hostname)\"\necho \"Inicio: $(date)\"\necho \"Directorio: $SLURM_SUBMIT_DIR\"\necho \"CPUs asignadas: ${SLURM_CPUS_PER_TASK}\"\necho \"GPUs asignadas: ${SLURM_GPUS:-No disponible}\"\necho \"====================================\"\n\necho \"Revisando GPU asignada:\"\nnvidia-smi\n\ncd runs/gpu\n\n/usr/bin/time -v apptainer exec \\\n  --nv \\\n  ../../sif/beast2-beagle-cuda_2.7.8-gpu-v100.sif \\\n  beast \\\n  -beagle \\\n  -beagle_GPU \\\n  -beagle_order 1 \\\n  -overwrite \\\n  testGTR.xml\n\necho \"====================================\"\necho \"Fin: $(date)\"\necho \"====================================\"\nEnvía el trabajo:\nsbatch scripts/beast2_gtr_gpu.sbatch\nRevisa si sigue en cola:\nsqueue -u $USER\nCuando termine, revisa los archivos generados:\nls -lh logs/\nls -lh runs/gpu/\nRevisa el archivo de salida:\ntail -n 60 logs/beast2_gtr_gpu-*.out\nRevisa si hubo errores:\ntail -n 60 logs/beast2_gtr_gpu-*.err\nRevisa el log principal de BEAST2:\ntail -n 20 runs/gpu/primate-mtDNA.log",
     "crumbs": [
       "<span class='chapter-number'>7</span>  <span class='chapter-title'>Ejemplos</span>"
     ]
@@ -1014,7 +1024,7 @@
     "href": "chapters/ejercicios.html#limpiar-resultados-para-repetir-la-prueba",
     "title": "Ejemplos",
     "section": "Limpiar resultados para repetir la prueba",
-    "text": "Limpiar resultados para repetir la prueba\nSi quieres repetir la prueba desde cero, elimina solo los resultados generados dentro de las carpetas de corrida:\nrm -f runs/cpu/primate-mtDNA.log runs/cpu/primate.trees runs/cpu/testGTR.xml.state\nrm -f runs/gpu/primate-mtDNA.log runs/gpu/primate.trees runs/gpu/testGTR.xml.state\nNo borres las imágenes .sif a menos que quieras descargarlas de nuevo.\n\n\n\n\n\n\nWarningCuidado con rm\n\n\n\nrm borra archivos de forma permanente. Antes de borrar, confirma tu ubicación con:\npwd\nls -lh",
+    "text": "Limpiar resultados para repetir la prueba\nSi quieres repetir la prueba desde cero, elimina solo los resultados generados dentro de las carpetas de corrida:\nrm -f runs/cpu/primate-mtDNA.log runs/cpu/primate.trees runs/cpu/testGTR.xml.state\nrm -f runs/gpu/primate-mtDNA.log runs/gpu/primate.trees runs/gpu/testGTR.xml.state\nNo borres las imágenes .sif a menos que quieras descargarlas de nuevo.\n\n\n\n\n\n\nCuidado con rm\n\n\n\nrm borra archivos de forma permanente. Antes de borrar, confirma tu ubicación con:\npwd\nls -lh",
     "crumbs": [
       "<span class='chapter-number'>7</span>  <span class='chapter-title'>Ejemplos</span>"
     ]
@@ -1027,6 +1037,106 @@
     "text": "Para consultas generales, dudas sobre el uso del clúster de cómputo BEAGLE, comentarios sobre este manual o solicitudes de orientación, puedes contactar a:\nDr. Cristian Cervantes\nTécnico Académico\nUnidad de Síntesis en Sistemática y Evolución (UniSSE)\nInstituto de Biología, UNAM\n📧 cristian.cervantes@ib.unam.mx\n\nAntes de solicitar ayuda\nPara poder atender mejor tu duda, incluye la siguiente información en tu mensaje:\n\nNombre completo.\nAdscripción, laboratorio o grupo de trabajo.\nNombre de usuario en BEAGLE, si ya cuentas con uno.\nDescripción breve del problema.\nComando que ejecutaste.\nMensaje de error completo, si aplica.\n\n\n\nReportar errores o sugerencias del manual\nSi encontraste un error en este manual, una instrucción incompleta, un enlace que no funciona o tienes una sugerencia para mejorarlo, puedes reportarlo mediante la sección de Issues del repositorio en GitHub.\nTambién puedes enviar tus comentarios directamente por correo electrónico, especialmente si se trata de una duda particular o de una solicitud que requiera seguimiento personalizado.\n📧 cristian.cervantes@ib.unam.mx",
     "crumbs": [
       "<span class='chapter-number'>8</span>  <span class='chapter-title'>Contacto y soporte</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/ejercicios.html#ejemplo-descarga-de-secuencias-de-genbank",
+    "href": "chapters/ejercicios.html#ejemplo-descarga-de-secuencias-de-genbank",
+    "title": "Ejemplos",
+    "section": "",
+    "text": "Ejemplo\n¿Qué hace?\nEjecución\n\n\n\n\nUna accesión\nDescarga una secuencia\nUn trabajo de Slurm\n\n\nBucle while\nRecorre una lista de accesiones\nUn trabajo; las descargas se realizan una tras otra\n\n\nArray de Slurm\nAsigna una accesión a cada tarea\nVarias tareas pueden ejecutarse simultáneamente\n\n\n\n\n\n\n\n\n\nEl bucle while no paraleliza\n\n\n\nEl bucle permite automatizar el procesamiento de varias muestras, pero las procesa secuencialmente dentro de un solo trabajo. El array es el ejemplo que realmente permite procesar varias accesiones al mismo tiempo.",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Ejemplos</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/ejercicios.html#preparar-la-práctica",
+    "href": "chapters/ejercicios.html#preparar-la-práctica",
+    "title": "Ejemplos",
+    "section": "Preparar la práctica",
+    "text": "Preparar la práctica\nCrea una carpeta con subdirectorios para el contenedor, los scripts, los registros y las secuencias descargadas:\nmkdir -p efetch_test/{sif,scripts,logs,fasta}\ncd efetch_test\n\n\n\n\n\n\nNote\n\n\n\nLa carpeta logs/ debe existir antes de ejecutar sbatch. Slurm abre los archivos de salida y error antes de comenzar el script.",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Ejemplos</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/ejercicios.html#descargar-el-contenedor",
+    "href": "chapters/ejercicios.html#descargar-el-contenedor",
+    "title": "Ejemplos",
+    "section": "Descargar el contenedor",
+    "text": "Descargar el contenedor\nPara esta práctica utilizaremos la imagen de Entrez Direct disponible en BioContainers:\napptainer pull \\\n  sif/entrez-direct_25.3.sif \\\n  docker://quay.io/biocontainers/entrez-direct:25.3--he881be0_0\nComprueba que efetch está disponible dentro del contenedor:\napptainer exec sif/entrez-direct_25.3.sif efetch -help\nDescargar la imagen una sola vez evita que cada trabajo o cada tarea del array tenga que consultar nuevamente el registro de contenedores.",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Ejemplos</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/ejercicios.html#ejemplo-1-descargar-una-secuencia",
+    "href": "chapters/ejercicios.html#ejemplo-1-descargar-una-secuencia",
+    "title": "Ejemplos",
+    "section": "Ejemplo 1: descargar una secuencia",
+    "text": "Ejemplo 1: descargar una secuencia\nEste primer script descarga una sola secuencia de la base de datos nuccore de NCBI en formato FASTA.\nCrea el archivo:\nnano scripts/efetch_single.sbatch\nContenido:\n#!/bin/bash\n#SBATCH --job-name=efetch_single\n#SBATCH --partition=ib\n#SBATCH --ntasks=1\n#SBATCH --cpus-per-task=1\n#SBATCH --mem=1G\n#SBATCH --time=00:10:00\n#SBATCH --output=logs/%x-%j.out\n#SBATCH --error=logs/%x-%j.err\n\nset -euo pipefail\n\ncd \"$SLURM_SUBMIT_DIR\"\n\nIMG=\"sif/entrez-direct_25.3.sif\"\nACCESSION=\"KY293680.1\"\nOUTPUT=\"fasta/${ACCESSION}.fasta\"\n\necho \"Descargando: $ACCESSION\"\n\napptainer exec \"$IMG\" \\\n  efetch -db nuccore -id \"$ACCESSION\" -format fasta \\\n  &gt; \"$OUTPUT\"\n\necho \"Archivo creado: $OUTPUT\"\nEnvía el trabajo:\nsbatch scripts/efetch_single.sbatch\nRevisa el resultado cuando termine:\nsqueue -u \"$USER\"\nhead fasta/KY293680.1.fasta",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Ejemplos</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/ejercicios.html#crear-una-lista-de-accesiones",
+    "href": "chapters/ejercicios.html#crear-una-lista-de-accesiones",
+    "title": "Ejemplos",
+    "section": "Crear una lista de accesiones",
+    "text": "Crear una lista de accesiones\nPara los siguientes ejemplos se necesita un archivo de texto con una accesión de GenBank por línea. En este contexto conviene llamarlas accesiones o identificadores de GenBank; un voucher es el ejemplar biológico de referencia y no necesariamente corresponde al identificador de la secuencia.\nCrea list.txt:\nNC_001477.1\nNC_001498.1\nNC_001542.1\nNC_001802.1\nNC_001806.2\nNC_002549.1\nNC_003977.2\nNC_004102.1\nNC_007605.1\nNC_045512.2\nComprueba el número de accesiones:\nwc -l list.txt\nPara el array, evita líneas vacías y espacios adicionales en esta lista.",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Ejemplos</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/ejercicios.html#ejemplo-2-procesar-una-lista-con-while",
+    "href": "chapters/ejercicios.html#ejemplo-2-procesar-una-lista-con-while",
+    "title": "Ejemplos",
+    "section": "Ejemplo 2: procesar una lista con while",
+    "text": "Ejemplo 2: procesar una lista con while\nEste script utiliza un bucle while para leer list.txt. Todas las accesiones forman parte de un solo trabajo y se descargan una después de otra.\nCrea el archivo:\nnano scripts/efetch_loop.sbatch\nContenido:\n#!/bin/bash\n#SBATCH --job-name=efetch_loop\n#SBATCH --partition=ib\n#SBATCH --ntasks=1\n#SBATCH --cpus-per-task=1\n#SBATCH --mem=1G\n#SBATCH --time=00:20:00\n#SBATCH --output=logs/%x-%j.out\n#SBATCH --error=logs/%x-%j.err\n\nset -euo pipefail\n\ncd \"$SLURM_SUBMIT_DIR\"\n\nLIST=\"list.txt\"\nOUTPUT_DIR=\"fasta\"\nIMG=\"sif/entrez-direct_25.3.sif\"\n\nmkdir -p \"$OUTPUT_DIR\"\n\nwhile IFS= read -r ACCESSION; do\n  [[ -z \"$ACCESSION\" ]] && continue\n\n  echo \"Descargando: $ACCESSION\"\n\n  apptainer exec \"$IMG\" \\\n    efetch -db nuccore -id \"$ACCESSION\" -format fasta \\\n    &gt; \"$OUTPUT_DIR/${ACCESSION}.fasta\"\ndone &lt; \"$LIST\"\n\necho \"Todas las descargas terminaron\"\nEnvía el trabajo:\nsbatch scripts/efetch_loop.sbatch\nCuando termine, revisa cuántos archivos se crearon:\nfind fasta -maxdepth 1 -name '*.fasta' | wc -l",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Ejemplos</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/ejercicios.html#ejemplo-3-paralelizar-con-un-array-de-slurm",
+    "href": "chapters/ejercicios.html#ejemplo-3-paralelizar-con-un-array-de-slurm",
+    "title": "Ejemplos",
+    "section": "Ejemplo 3: paralelizar con un array de Slurm",
+    "text": "Ejemplo 3: paralelizar con un array de Slurm\nUn array crea varias tareas a partir del mismo script. La variable SLURM_ARRAY_TASK_ID indica qué línea de list.txt debe procesar cada tarea.\nPrimero obtén el número de accesiones:\nN=$(wc -l &lt; list.txt)\necho \"$N\"\nCrea el archivo:\nnano scripts/efetch_array.sbatch\nContenido:\n#!/bin/bash\n#SBATCH --job-name=efetch_array\n#SBATCH --partition=ib\n#SBATCH --ntasks=1\n#SBATCH --cpus-per-task=1\n#SBATCH --mem=1G\n#SBATCH --time=00:10:00\n#SBATCH --output=logs/%x-%A_%a.out\n#SBATCH --error=logs/%x-%A_%a.err\n\nset -euo pipefail\n\ncd \"$SLURM_SUBMIT_DIR\"\n\nLIST=\"list.txt\"\nOUTPUT_DIR=\"fasta\"\nIMG=\"sif/entrez-direct_25.3.sif\"\n\nmkdir -p \"$OUTPUT_DIR\"\n\nACCESSION=$(sed -n \"${SLURM_ARRAY_TASK_ID}p\" \"$LIST\")\n\nif [[ -z \"$ACCESSION\" ]]; then\n  echo \"No se encontró una accesión para la tarea ${SLURM_ARRAY_TASK_ID}\" &gt;&2\n  exit 1\nfi\n\necho \"Tarea ${SLURM_ARRAY_TASK_ID}: descargando $ACCESSION\"\n\napptainer exec \"$IMG\" \\\n  efetch -db nuccore -id \"$ACCESSION\" -format fasta \\\n  &gt; \"$OUTPUT_DIR/${ACCESSION}.fasta\"\n\necho \"Tarea ${SLURM_ARRAY_TASK_ID}: terminó $ACCESSION\"\nEnvía una tarea por cada línea y permite ejecutar como máximo cinco al mismo tiempo:\nN=$(wc -l &lt; list.txt)\nsbatch --array=\"1-${N}%5\" scripts/efetch_array.sbatch\nEn 1-${N}%5:\n\n1-${N} crea una tarea por cada línea de la lista.\n%5 limita el array a un máximo de cinco tareas ejecutándose simultáneamente.\nCada tarea solicita 1 CPU y 1 GB de memoria.\nPor lo tanto, cinco tareas simultáneas pueden utilizar en conjunto hasta 5 CPU y 5 GB.\n\nRevisa las tareas del array:\nsqueue -u \"$USER\"\nAl finalizar, revisa los archivos y los registros:\nls -lh fasta/\nls -lh logs/",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Ejemplos</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/ejercicios.html#comparación-de-los-tres-métodos",
+    "href": "chapters/ejercicios.html#comparación-de-los-tres-métodos",
+    "title": "Ejemplos",
+    "section": "Comparación de los tres métodos",
+    "text": "Comparación de los tres métodos\n\n\n\n\n\n\n\n\n\nMétodo\nTrabajos o tareas\nOrden de procesamiento\nUso recomendado\n\n\n\n\nUna accesión\n1\nUna sola descarga\nProbar el contenedor y el comando\n\n\nBucle while\n1\nSecuencial\nListas pequeñas o tareas muy breves\n\n\nArray\nUna tarea por accesión\nParalelo, sujeto a los recursos disponibles\nMuchas muestras independientes\n\n\n\n\n\n\n\n\n\n¿Por qué usar %5?\n\n\n\nEl límite evita enviar demasiadas descargas simultáneas a NCBI y reduce la presión sobre el clúster. Aumentarlo no garantiza que el trabajo termine antes: Slurm solamente iniciará tareas cuando existan recursos disponibles.",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Ejemplos</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/ejercicios.html#ejemplo-análisis-filogenético-con-beast2",
+    "href": "chapters/ejercicios.html#ejemplo-análisis-filogenético-con-beast2",
+    "title": "Ejemplos",
+    "section": "Ejemplo: Análisis filogenético con BEAST2",
+    "text": "Ejemplo: Análisis filogenético con BEAST2\nEsta sección utiliza imágenes públicas del repositorio de Docker Hub:\nhttps://hub.docker.com/repositories/ccervantess\nEstas imágenes fueron preparadas y probadas para BEAGLE, con el objetivo de facilitar el uso de software bioinformático sin compilar programas ni modificar el sistema principal del clúster.\nPara esta práctica se usará únicamente el archivo testGTR.xml, una prueba pequeña de BEAST2 que permite verificar que Apptainer, Slurm y el contenedor funcionan correctamente en BEAGLE.\nEl objetivo no es hacer un análisis biológico final ni comparar formalmente CPU contra GPU. Debido a que testGTR.xml es pequeño, la GPU puede no ser más rápida.\nSe recomienda descargar imágenes solo de repositorios confiables, como Docker Hub o Quay.io, usando etiquetas de versión específicas en lugar de latest.",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Ejemplos</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/ejercicios.html#archivo-de-prueba",
+    "href": "chapters/ejercicios.html#archivo-de-prueba",
+    "title": "Ejemplos",
+    "section": "Archivo de prueba",
+    "text": "Archivo de prueba\nEl archivo testGTR.xml está disponible en el repositorio oficial de BEAST2, dentro de la carpeta examples: https://github.com/CompEvol/beast2/blob/master/examples/testGTR.xml.\nEn esta práctica, el archivo se descargará dentro de la carpeta de trabajo beast2_testGTR/data/, para mantener juntos los datos, scripts, contenedores, logs y resultados del ejercicio.",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Ejemplos</span>"
     ]
   }
 ]

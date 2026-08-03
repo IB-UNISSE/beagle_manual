@@ -1,5 +1,293 @@
 # Ejemplos
 
+## Ejemplo: Descarga de secuencias de GenBank
+
+Antes de ejecutar análisis más complejos, veremos tres formas de descargar secuencias de GenBank con **Entrez Direct**, **Apptainer** y **Slurm**.
+
+Los tres ejemplos realizan prácticamente la misma tarea, pero muestran distintas formas de organizar el trabajo:
+
+| Ejemplo | ¿Qué hace? | Ejecución |
+|---|---|---|
+| Una accesión | Descarga una secuencia | Un trabajo de Slurm |
+| Bucle `while` | Recorre una lista de accesiones | Un trabajo; las descargas se realizan una tras otra |
+| Array de Slurm | Asigna una accesión a cada tarea | Varias tareas pueden ejecutarse simultáneamente |
+
+::: callout-important
+## El bucle `while` no paraleliza
+
+El bucle permite automatizar el procesamiento de varias muestras, pero las procesa **secuencialmente** dentro de un solo trabajo. El array es el ejemplo que realmente permite procesar varias accesiones al mismo tiempo.
+:::
+
+## Preparar la práctica
+
+Crea una carpeta con subdirectorios para el contenedor, los scripts, los registros y las secuencias descargadas:
+
+```bash
+mkdir -p efetch_test/{sif,scripts,logs,fasta}
+cd efetch_test
+```
+
+::: callout-note
+La carpeta `logs/` debe existir **antes** de ejecutar `sbatch`. Slurm abre los archivos de salida y error antes de comenzar el script.
+:::
+
+## Descargar el contenedor
+
+Para esta práctica utilizaremos la imagen de Entrez Direct disponible en BioContainers:
+
+```bash
+apptainer pull \
+  sif/entrez-direct_25.3.sif \
+  docker://quay.io/biocontainers/entrez-direct:25.3--he881be0_0
+```
+
+Comprueba que `efetch` está disponible dentro del contenedor:
+
+```bash
+apptainer exec sif/entrez-direct_25.3.sif efetch -help
+```
+
+Descargar la imagen una sola vez evita que cada trabajo o cada tarea del array tenga que consultar nuevamente el registro de contenedores.
+
+## Ejemplo 1: descargar una secuencia
+
+Este primer script descarga una sola secuencia de la base de datos `nuccore` de NCBI en formato FASTA.
+
+Crea el archivo:
+
+```bash
+nano scripts/efetch_single.sbatch
+```
+
+Contenido:
+
+```bash
+#!/bin/bash
+#SBATCH --job-name=efetch_single
+#SBATCH --partition=ib
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=1
+#SBATCH --mem=1G
+#SBATCH --time=00:10:00
+#SBATCH --output=logs/%x-%j.out
+#SBATCH --error=logs/%x-%j.err
+
+set -euo pipefail
+
+cd "$SLURM_SUBMIT_DIR"
+
+IMG="sif/entrez-direct_25.3.sif"
+ACCESSION="KY293680.1"
+OUTPUT="fasta/${ACCESSION}.fasta"
+
+echo "Descargando: $ACCESSION"
+
+apptainer exec "$IMG" \
+  efetch -db nuccore -id "$ACCESSION" -format fasta \
+  > "$OUTPUT"
+
+echo "Archivo creado: $OUTPUT"
+```
+
+Envía el trabajo:
+
+```bash
+sbatch scripts/efetch_single.sbatch
+```
+
+Revisa el resultado cuando termine:
+
+```bash
+squeue -u "$USER"
+head fasta/KY293680.1.fasta
+```
+
+## Crear una lista de accesiones
+
+Para los siguientes ejemplos se necesita un archivo de texto con **una accesión de GenBank por línea**. En este contexto conviene llamarlas *accesiones* o *identificadores de GenBank*; un *voucher* es el ejemplar biológico de referencia y no necesariamente corresponde al identificador de la secuencia.
+
+Crea `list.txt`:
+
+```text
+NC_001477.1
+NC_001498.1
+NC_001542.1
+NC_001802.1
+NC_001806.2
+NC_002549.1
+NC_003977.2
+NC_004102.1
+NC_007605.1
+NC_045512.2
+```
+
+Comprueba el número de accesiones:
+
+```bash
+wc -l list.txt
+```
+
+Para el array, evita líneas vacías y espacios adicionales en esta lista.
+
+## Ejemplo 2: procesar una lista con `while`
+
+Este script utiliza un bucle `while` para leer `list.txt`. Todas las accesiones forman parte de un solo trabajo y se descargan una después de otra.
+
+Crea el archivo:
+
+```bash
+nano scripts/efetch_loop.sbatch
+```
+
+Contenido:
+
+```bash
+#!/bin/bash
+#SBATCH --job-name=efetch_loop
+#SBATCH --partition=ib
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=1
+#SBATCH --mem=1G
+#SBATCH --time=00:20:00
+#SBATCH --output=logs/%x-%j.out
+#SBATCH --error=logs/%x-%j.err
+
+set -euo pipefail
+
+cd "$SLURM_SUBMIT_DIR"
+
+LIST="list.txt"
+OUTPUT_DIR="fasta"
+IMG="sif/entrez-direct_25.3.sif"
+
+mkdir -p "$OUTPUT_DIR"
+
+while IFS= read -r ACCESSION; do
+  [[ -z "$ACCESSION" ]] && continue
+
+  echo "Descargando: $ACCESSION"
+
+  apptainer exec "$IMG" \
+    efetch -db nuccore -id "$ACCESSION" -format fasta \
+    > "$OUTPUT_DIR/${ACCESSION}.fasta"
+done < "$LIST"
+
+echo "Todas las descargas terminaron"
+```
+
+Envía el trabajo:
+
+```bash
+sbatch scripts/efetch_loop.sbatch
+```
+
+Cuando termine, revisa cuántos archivos se crearon:
+
+```bash
+find fasta -maxdepth 1 -name '*.fasta' | wc -l
+```
+
+## Ejemplo 3: paralelizar con un array de Slurm
+
+Un array crea varias tareas a partir del mismo script. La variable `SLURM_ARRAY_TASK_ID` indica qué línea de `list.txt` debe procesar cada tarea.
+
+Primero obtén el número de accesiones:
+
+```bash
+N=$(wc -l < list.txt)
+echo "$N"
+```
+
+Crea el archivo:
+
+```bash
+nano scripts/efetch_array.sbatch
+```
+
+Contenido:
+
+```bash
+#!/bin/bash
+#SBATCH --job-name=efetch_array
+#SBATCH --partition=ib
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=1
+#SBATCH --mem=1G
+#SBATCH --time=00:10:00
+#SBATCH --output=logs/%x-%A_%a.out
+#SBATCH --error=logs/%x-%A_%a.err
+
+set -euo pipefail
+
+cd "$SLURM_SUBMIT_DIR"
+
+LIST="list.txt"
+OUTPUT_DIR="fasta"
+IMG="sif/entrez-direct_25.3.sif"
+
+mkdir -p "$OUTPUT_DIR"
+
+ACCESSION=$(sed -n "${SLURM_ARRAY_TASK_ID}p" "$LIST")
+
+if [[ -z "$ACCESSION" ]]; then
+  echo "No se encontró una accesión para la tarea ${SLURM_ARRAY_TASK_ID}" >&2
+  exit 1
+fi
+
+echo "Tarea ${SLURM_ARRAY_TASK_ID}: descargando $ACCESSION"
+
+apptainer exec "$IMG" \
+  efetch -db nuccore -id "$ACCESSION" -format fasta \
+  > "$OUTPUT_DIR/${ACCESSION}.fasta"
+
+echo "Tarea ${SLURM_ARRAY_TASK_ID}: terminó $ACCESSION"
+```
+
+Envía una tarea por cada línea y permite ejecutar como máximo cinco al mismo tiempo:
+
+```bash
+N=$(wc -l < list.txt)
+sbatch --array="1-${N}%5" scripts/efetch_array.sbatch
+```
+
+En `1-${N}%5`:
+
+- `1-${N}` crea una tarea por cada línea de la lista.
+- `%5` limita el array a un máximo de cinco tareas ejecutándose simultáneamente.
+- Cada tarea solicita 1 CPU y 1 GB de memoria.
+- Por lo tanto, cinco tareas simultáneas pueden utilizar en conjunto hasta 5 CPU y 5 GB.
+
+Revisa las tareas del array:
+
+```bash
+squeue -u "$USER"
+```
+
+Al finalizar, revisa los archivos y los registros:
+
+```bash
+ls -lh fasta/
+ls -lh logs/
+```
+
+## Comparación de los tres métodos
+
+| Método | Trabajos o tareas | Orden de procesamiento | Uso recomendado |
+|---|---:|---|---|
+| Una accesión | 1 | Una sola descarga | Probar el contenedor y el comando |
+| Bucle `while` | 1 | Secuencial | Listas pequeñas o tareas muy breves |
+| Array | Una tarea por accesión | Paralelo, sujeto a los recursos disponibles | Muchas muestras independientes |
+
+::: callout-tip
+## ¿Por qué usar `%5`?
+
+El límite evita enviar demasiadas descargas simultáneas a NCBI y reduce la presión sobre el clúster. Aumentarlo no garantiza que el trabajo termine antes: Slurm solamente iniciará tareas cuando existan recursos disponibles.
+:::
+
+
+
+## Ejemplo: Análisis filogenético con BEAST2
+
 Esta sección utiliza imágenes públicas del repositorio de Docker Hub:
 
 <https://hub.docker.com/repositories/ccervantess>
