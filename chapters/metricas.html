@@ -6,10 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="IB-UNISSE">
-<meta name="dcterms.date" content="2026-09-04">
 
-<title>Manual de usuario BEAGLE</title>
+<title>Métricas BEAGLE – Manual de usuario BEAGLE</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -22,63 +20,27 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<link href="./chapters/acceso.html" rel="next">
-<link href="./images/logo_beagle_2.png" rel="icon" type="image/png">
-<script src="site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-ae5d55f8a41ff9e4654feece7b8084e3.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../images/logo_beagle_2.png" rel="icon" type="image/png">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-ae5d55f8a41ff9e4654feece7b8084e3.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -109,17 +71,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <style>html{ scroll-behavior: smooth; }</style>
 <meta name="description" content="Manual de usuario del servidor BEAGLE: acceso por SSH, transferencia de archivos, Apptainer y envío de trabajos con Slurm.">
 <meta name="robots" content="index,follow">
-<meta property="og:title" content="Manual de usuario BEAGLE">
-<meta property="og:description" content="Servidor de cómputo para bioinformática">
+<meta property="og:title" content="Métricas BEAGLE – Manual de usuario BEAGLE">
+<meta property="og:description" content="">
 <meta property="og:image" content="images/beagle_logo.png">
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary_large_image">
 
 
-<link rel="stylesheet" href="styles/styles.css">
+<link rel="stylesheet" href="../styles/styles.css">
 </head>
 
-<body class="nav-sidebar floating quarto-light">
+<body class="nav-sidebar floating fullcontent quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -128,7 +90,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html"><span class="chapter-title">Manual de usuario BEAGLE</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/metricas.html"><span class="chapter-title">Métricas BEAGLE</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -142,12 +104,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
-      <a href="./index.html" class="sidebar-logo-link">
-      <img src="./images/beagle_logo_blanco.png" alt="" class="sidebar-logo light-content py-0 d-lg-inline d-none">
-      <img src="./images/beagle_logo_blanco.png" alt="" class="sidebar-logo dark-content py-0 d-lg-inline d-none">
+      <a href="../index.html" class="sidebar-logo-link">
+      <img src="../images/beagle_logo_blanco.png" alt="" class="sidebar-logo light-content py-0 d-lg-inline d-none">
+      <img src="../images/beagle_logo_blanco.png" alt="" class="sidebar-logo dark-content py-0 d-lg-inline d-none">
       </a>
     <div class="sidebar-title mb-0 py-0">
-      <a href="./">BEAGLE</a> 
+      <a href="../">BEAGLE</a> 
         <div class="sidebar-tools-main">
     <a href="https://github.com/IB-UNISSE/beagle_manual" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
 </div>
@@ -162,47 +124,47 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Manual de usuario BEAGLE</span></a>
+  <a href="../index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Manual de usuario BEAGLE</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./chapters/acceso.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Acceso al servidor</span></a>
+  <a href="../chapters/acceso.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Acceso al servidor</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./chapters/terminal_linux.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Comandos básicos de Linux</span></a>
+  <a href="../chapters/terminal_linux.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Comandos básicos de Linux</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./chapters/apptainer.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Apptainer</span></a>
+  <a href="../chapters/apptainer.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Apptainer</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./chapters/slurm.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Uso básico de Slurm</span></a>
+  <a href="../chapters/slurm.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Uso básico de Slurm</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./chapters/bots.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Notificaciones automáticas</span></a>
+  <a href="../chapters/bots.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Notificaciones automáticas</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./chapters/ejercicios.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Ejemplos</span></a>
+  <a href="../chapters/ejercicios.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Ejemplos</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./chapters/metricas.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Métricas BEAGLE</span></a>
+  <a href="../chapters/metricas.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Métricas BEAGLE</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./contacto.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Contacto y soporte</span></a>
+  <a href="../contacto.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Contacto y soporte</span></a>
   </div>
 </li>
     </ul>
@@ -210,47 +172,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Table of contents</h2>
-   
-  <ul>
-  <li><a href="#manual-de-usuario-beagle" id="toc-manual-de-usuario-beagle" class="nav-link active" data-scroll-target="#manual-de-usuario-beagle">Manual de usuario BEAGLE</a></li>
-  <li><a href="#bienvenida" id="toc-bienvenida" class="nav-link" data-scroll-target="#bienvenida">Bienvenida</a></li>
-  <li><a href="#a-quién-está-dirigido" id="toc-a-quién-está-dirigido" class="nav-link" data-scroll-target="#a-quién-está-dirigido">¿A quién está dirigido?</a></li>
-  <li><a href="#qué-aprenderás-en-este-manual" id="toc-qué-aprenderás-en-este-manual" class="nav-link" data-scroll-target="#qué-aprenderás-en-este-manual">¿Qué aprenderás en este manual?</a></li>
-  <li><a href="#reglas-generales-de-uso" id="toc-reglas-generales-de-uso" class="nav-link" data-scroll-target="#reglas-generales-de-uso">Reglas generales de uso</a></li>
-  <li><a href="#organización-recomendada-de-proyectos" id="toc-organización-recomendada-de-proyectos" class="nav-link" data-scroll-target="#organización-recomendada-de-proyectos">Organización recomendada de proyectos</a></li>
-  <li><a href="#cómo-pedir-ayuda" id="toc-cómo-pedir-ayuda" class="nav-link" data-scroll-target="#cómo-pedir-ayuda">Cómo pedir ayuda</a></li>
-  </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/IB-UNISSE/beagle_manual/edit/main/index.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/IB-UNISSE/beagle_manual/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
-    </div>
+    
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Manual de usuario BEAGLE</h1>
-<p class="subtitle lead">Servidor de cómputo para bioinformática</p>
+<h1 class="title"><span class="chapter-title">Métricas BEAGLE</span></h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>IB-UNISSE </p>
-          </div>
-  </div>
     
-    <div>
-    <div class="quarto-title-meta-heading">Published</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">September 4, 2026</p>
-    </div>
-  </div>
   
     
   </div>
@@ -260,154 +195,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="manual-de-usuario-beagle" class="level1 beagle-hero">
-<h1>Manual de usuario BEAGLE</h1>
-<p>Guía práctica para ingresar al servidor, organizar archivos, usar software bioinformático mediante <strong>Apptainer</strong> y enviar análisis al sistema de colas con <strong>Slurm</strong>.</p>
-</section>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><a href="https://beagle.ib.unam.mx/"><img src="images/baner_beagle.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="550"></a></p>
-</figure>
-</div>
-<section id="bienvenida" class="level2">
-<h2 class="anchored" data-anchor-id="bienvenida">Bienvenida</h2>
-<p>BEAGLE es una infraestructura de cómputo compartida para apoyar análisis bioinformáticos, filogenómicos y otros procesos computacionales utilizados por la comunidad académica del Instituto de Biología, UNAM.</p>
-<p>Este manual está diseñado como una <strong>guía rápida de uso práctico de BEAGLE</strong>. Su objetivo es que las personas usuarias puedan comenzar a trabajar en el servidor de forma ordenada, segura y reproducible, desde el acceso inicial por <strong>SSH</strong> hasta el envío de trabajos mediante <strong>Slurm</strong>.</p>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Alcance de este manual
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Este manual no pretende ser un curso completo de programación, Linux o Bash. Su propósito es servir como una guía práctica para el uso cotidiano de BEAGLE.</p>
-<p>Si te interesa una formación más completa, puedes consultar el curso de posgrado en Ciencias Biológicas <strong>Introducción a la programación para bioinformática con Bash</strong>, impartido por el <strong>Dr.&nbsp;Cristian Cervantes</strong> y el <strong>M. en I. Mauricio Morgado</strong>.</p>
-<p>Sitio del curso: <a href="https://ib-unisse.github.io/intro_bash_bioinfo/" class="uri">https://ib-unisse.github.io/intro_bash_bioinfo/</a></p>
-</div>
-</div>
-<p>No es necesario leer todo el manual de una sola vez. Puedes avanzar por secciones según lo que necesites hacer: conectarte al servidor, transferir archivos, usar la terminal, cargar software, trabajar con contenedores o enviar análisis a la cola de cómputo.</p>
-</section>
-<section id="a-quién-está-dirigido" class="level2">
-<h2 class="anchored" data-anchor-id="a-quién-está-dirigido">¿A quién está dirigido?</h2>
-<p>Este manual está dirigido principalmente a estudiantes, personal académico, técnico y personas usuarias que realizan análisis en BEAGLE.</p>
-<p>Puede ser útil para quienes:</p>
-<ul>
-<li>ingresan por primera vez al servidor;</li>
-<li>necesitan transferir archivos desde su computadora;</li>
-<li>quieren aprender comandos básicos de Linux;</li>
-<li>requieren instalar o usar software bioinformático;</li>
-<li>desean ejecutar análisis mediante contenedores de Apptainer;</li>
-<li>necesitan enviar trabajos usando Slurm;</li>
-<li>buscan organizar mejor sus proyectos y resultados.</li>
-</ul>
-</section>
-<section id="qué-aprenderás-en-este-manual" class="level2">
-<h2 class="anchored" data-anchor-id="qué-aprenderás-en-este-manual">¿Qué aprenderás en este manual?</h2>
-<p>Al terminar las secciones principales, deberías poder:</p>
-<ul>
-<li>conectarte al servidor usando <code>ssh</code>;</li>
-<li>cambiar tu contraseña inicial y crear una llave SSH;</li>
-<li>subir y descargar archivos con <code>scp</code>, <code>sftp</code> o clientes gráficos;</li>
-<li>moverte dentro del sistema de archivos de Linux;</li>
-<li>revisar el uso de disco, CPU, RAM y procesos;</li>
-<li>ejecutar software mediante <strong>Apptainer</strong>;</li>
-<li>enviar trabajos a Slurm con <code>sbatch</code>;</li>
-<li>monitorear, revisar y cancelar trabajos;</li>
-<li>recibir notificaciones básicas de tus análisis mediante Telegram.</li>
-</ul>
-</section>
-<section id="reglas-generales-de-uso" class="level2">
-<h2 class="anchored" data-anchor-id="reglas-generales-de-uso">Reglas generales de uso</h2>
-<div class="callout callout-style-default callout-caution callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Caution</span>Las cuentas son personales e intransferibles
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Las cuentas de usuario en BEAGLE son personales e intransferibles. No compartas tu contraseña, llaves SSH ni accesos con otras personas, incluso si pertenecen al mismo laboratorio o grupo de trabajo. Cada persona debe ingresar con su propia cuenta, ya que el uso del servidor queda asociado al usuario registrado.</p>
-</div>
-</div>
-<div class="callout callout-style-default callout-important callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Important</span>BEAGLE es un recurso compartido
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Evita ejecutar análisis pesados directamente en la terminal de acceso. Los análisis que consumen muchos recursos deben enviarse mediante <strong>Slurm</strong> usando <code>sbatch</code>.</p>
-</div>
-</div>
-<div class="callout callout-style-default callout-warning callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Warning</span>No instales software en el sistema principal
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>En BEAGLE no se debe modificar el sistema operativo ni instalar programas globalmente con <code>sudo</code>. Para usar software especializado, utiliza <strong>Apptainer</strong>.</p>
-</div>
-</div>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Solicita solo los recursos necesarios
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Al enviar trabajos con Slurm, pide una cantidad razonable de CPUs, memoria RAM y tiempo. Solicitar muchos recursos sin necesitarlos puede retrasar tus trabajos y afectar a otras personas usuarias.</p>
-</div>
-</div>
-</section>
-<section id="organización-recomendada-de-proyectos" class="level2">
-<h2 class="anchored" data-anchor-id="organización-recomendada-de-proyectos">Organización recomendada de proyectos</h2>
-<p>Una buena organización de carpetas evita confusiones y facilita encontrar errores. Para cada proyecto o análisis se recomienda usar una estructura similar a:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">mi_proyecto/</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> datos/</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> scripts/</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> resultados/</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> logs/</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="ex">└──</span> metadata/</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Donde:</p>
-<ul>
-<li><code>datos/</code> contiene archivos de entrada, como FASTA, FASTQ, matrices, árboles o tablas;</li>
-<li><code>scripts/</code> contiene scripts de Bash, R, Python o Slurm;</li>
-<li><code>resultados/</code> contiene los archivos generados por los análisis;</li>
-<li><code>logs/</code> contiene las salidas estándar y errores de los trabajos;</li>
-<li><code>metadata/</code> contiene tablas de muestras, accesiones, parámetros o documentación adicional.</li>
-</ul>
-</section>
-<section id="cómo-pedir-ayuda" class="level2">
-<h2 class="anchored" data-anchor-id="cómo-pedir-ayuda">Cómo pedir ayuda</h2>
-<p>Cuando reportes un problema, incluye la mayor cantidad posible de información para facilitar el diagnóstico:</p>
-<ul>
-<li>nombre de usuario en BEAGLE;</li>
-<li>carpeta donde ocurrió el problema;</li>
-<li>comando o script que ejecutaste;</li>
-<li>mensaje de error completo;</li>
-<li>ID del trabajo de Slurm, si aplica;</li>
-<li>archivo <code>.out</code> y <code>.err</code>, si existen;</li>
-<li>programa, ambiente o contenedor utilizado.</li>
-</ul>
-<p>Para dudas generales, consulta la sección de <a href="./contacto.html">contacto y soporte</a>.</p>
+<script>
+  window.location.replace("dashboard.html");
+</script>
+<noscript>
+<p>
+<a href="dashboard.html">Abrir Métricas BEAGLE</a>
+</p>
+</noscript>
 
 
-</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -815,19 +612,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     }
   });
   </script>
-<nav class="page-navigation">
-  <div class="nav-page nav-page-previous">
-  </div>
-  <div class="nav-page nav-page-next">
-      <a href="./chapters/acceso.html" class="pagination-link" aria-label="Acceso al servidor">
-        <span class="nav-page-text"><span class="chapter-title">Acceso al servidor</span></span> <i class="bi bi-arrow-right-short"></i>
-      </a>
-  </div>
-</nav>
 </div> <!-- /content -->
 
 
 
 
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/IB-UNISSE/beagle_manual/edit/main/index.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/IB-UNISSE/beagle_manual/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer><script src="site_libs/quarto-html/zenscroll-min.js"></script>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions"><ul><li><a href="https://github.com/IB-UNISSE/beagle_manual/edit/main/chapters/metricas.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/IB-UNISSE/beagle_manual/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer><script src="../site_libs/quarto-html/zenscroll-min.js"></script>
 </body></html>

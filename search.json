@@ -1130,13 +1130,23 @@
     ]
   },
   {
+    "objectID": "chapters/metricas.html",
+    "href": "chapters/metricas.html",
+    "title": "Métricas BEAGLE",
+    "section": "",
+    "text": "Abrir Métricas BEAGLE",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Métricas BEAGLE</span>"
+    ]
+  },
+  {
     "objectID": "contacto.html",
     "href": "contacto.html",
     "title": "Contacto y soporte",
     "section": "",
     "text": "Para consultas generales, dudas sobre el uso del clúster de cómputo BEAGLE, comentarios sobre este manual o solicitudes de orientación, puedes contactar a:\nDr. Cristian Cervantes\nTécnico Académico\nUnidad de Síntesis en Sistemática y Evolución (UniSSE)\nInstituto de Biología, UNAM\n📧 cristian.cervantes@ib.unam.mx\n\nAntes de solicitar ayuda\nPara poder atender mejor tu duda, incluye la siguiente información en tu mensaje:\n\nNombre completo.\nAdscripción, laboratorio o grupo de trabajo.\nNombre de usuario en BEAGLE, si ya cuentas con uno.\nDescripción breve del problema.\nComando que ejecutaste.\nMensaje de error completo, si aplica.\n\n\n\nReportar errores o sugerencias del manual\nSi encontraste un error en este manual, una instrucción incompleta, un enlace que no funciona o tienes una sugerencia para mejorarlo, puedes reportarlo mediante la sección de Issues del repositorio en GitHub.\nTambién puedes enviar tus comentarios directamente por correo electrónico, especialmente si se trata de una duda particular o de una solicitud que requiera seguimiento personalizado.\n📧 cristian.cervantes@ib.unam.mx",
     "crumbs": [
-      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Contacto y soporte</span>"
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Contacto y soporte</span>"
     ]
   }
 ]
