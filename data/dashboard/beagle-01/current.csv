@@ -1,0 +1,2 @@
+timestamp,node,partition,state,cpu_alloc,cpu_idle,cpu_other,cpu_total,cpu_used_pct,ram_used_bytes,ram_total_bytes,load1,load5,load15,uptime_seconds
+2026-09-04T14:15:01-06:00,beagle-01,ib,mix,16,16,0,32,0.9,5640286208,100731203584,8.43,8.63,6.82,7956221

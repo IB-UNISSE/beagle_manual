@@ -1,0 +1,4 @@
+timestamp,gpu,name,utilization_pct,memory_used_mib,memory_total_mib,temperature_c,power_w,power_limit_w
+2026-09-04T14:15:01-06:00,0,Tesla V100-PCIE-32GB,43,630,32768,39,46.39,250.00
+2026-09-04T14:15:01-06:00,1,Tesla V100-PCIE-32GB,0,4,32768,34,23.43,250.00
+2026-09-04T14:15:01-06:00,2,Tesla V100-PCIE-32GB,0,4,32768,36,26.80,250.00

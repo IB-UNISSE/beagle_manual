@@ -1,0 +1,219 @@
+/* ============================================================
+   Métricas BEAGLE
+   Ajuste mínimo: no cortar value boxes y reducir OPERATIVO
+   ============================================================ */
+
+.quarto-dashboard-content {
+  width: calc(100% - 1rem);
+  max-width: 1180px;
+  margin-inline: auto;
+  padding-top: 0.4rem;
+  padding-bottom: 0.8rem;
+}
+
+.dashboard-page,
+.card,
+.card-body,
+.cell,
+.cell-output,
+.cell-output-display {
+  min-width: 0 !important;
+  max-width: 100%;
+}
+
+.dashboard-page .bslib-grid {
+  gap: 0.5rem !important;
+}
+
+/* Barra superior */
+
+#quarto-dashboard-header .navbar {
+  min-height: 52px;
+}
+
+.navbar-brand-container {
+  display: flex;
+  align-items: center;
+}
+
+.navbar-logo {
+  display: block !important;
+  max-height: 38px !important;
+  width: auto !important;
+  object-fit: contain;
+  margin-right: 0.45rem;
+}
+
+.navbar-title-text {
+  font-size: 0.96rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.navbar-author {
+  font-size: 0.70rem;
+  opacity: 0.78;
+}
+
+/* Tarjetas */
+
+.card {
+  overflow: hidden;
+  border-radius: 0.25rem;
+}
+
+.card-body {
+  padding: 0.45rem 0.55rem;
+}
+
+.card-header {
+  padding: 0.36rem 0.52rem;
+}
+
+.card-title {
+  font-size: 0.83rem;
+  font-weight: 600;
+}
+
+/* Value boxes:
+   No forzamos altura pequeña: dejamos que Quarto distribuya el contenido. */
+
+.valuebox,
+.bslib-value-box {
+  overflow: hidden;
+}
+
+/* Tamaño normal para los valores numéricos */
+.value-box-value {
+  line-height: 1 !important;
+}
+
+/* Solo el PRIMER value box de la primera fila de Resumen:
+   Estado BEAGLE / OPERATIVO */
+#resumen .bslib-grid:first-of-type > .bslib-grid-item:first-child .value-box-value,
+#resumen .bslib-grid:first-of-type > div:first-child .value-box-value {
+  font-size: 2.05rem !important;
+  white-space: nowrap;
+}
+
+/* Gráficas */
+
+.cell-output-display img,
+.quarto-figure img,
+.figure-img {
+  display: block;
+  width: 100% !important;
+  max-width: 100% !important;
+  height: auto !important;
+  max-height: 215px !important;
+  object-fit: contain;
+  margin-inline: auto;
+}
+
+.plot-container,
+.cell-output-display {
+  min-height: 0 !important;
+}
+
+/* Tablas */
+
+table {
+  width: 100%;
+  font-size: 0.77rem;
+}
+
+.table > :not(caption) > * > * {
+  padding: 0.27rem 0.32rem;
+}
+
+/* Navegación */
+
+.nav-tabs .nav-link,
+#quarto-dashboard-header .nav-link {
+  font-size: 0.81rem;
+  padding: 0.40rem 0.60rem;
+}
+
+/* Tablet */
+
+@media (max-width: 1000px) {
+  .quarto-dashboard-content {
+    width: calc(100% - 0.7rem);
+    max-width: 900px;
+  }
+}
+
+/* Celular */
+
+@media (max-width: 768px) {
+
+  body.quarto-dashboard {
+    overflow-x: hidden;
+  }
+
+  .quarto-dashboard-content {
+    width: calc(100% - 0.55rem);
+    max-width: 520px;
+    padding-top: 0.25rem;
+  }
+
+  .dashboard-page .bslib-grid {
+    grid-template-columns: minmax(0, 1fr) !important;
+    grid-auto-columns: minmax(0, 1fr) !important;
+    gap: 0.35rem !important;
+  }
+
+  /* En móvil ignoramos alturas de escritorio. */
+  .dashboard-page .card,
+  .dashboard-page .card-body,
+  .dashboard-page .html-fill-item,
+  .dashboard-page .html-fill-container,
+  .dashboard-page .bslib-grid {
+    height: auto !important;
+    min-height: 0 !important;
+  }
+
+  #quarto-dashboard-header .navbar {
+    min-height: 46px;
+  }
+
+  .navbar-logo {
+    max-height: 29px !important;
+  }
+
+  .navbar-title-text {
+    font-size: 0.82rem;
+  }
+
+  .navbar-author {
+    font-size: 0.62rem;
+  }
+
+  .card-body {
+    padding: 0.36rem 0.40rem;
+  }
+
+  .card-header {
+    padding: 0.29rem 0.40rem;
+  }
+
+  .card-title {
+    font-size: 0.75rem;
+  }
+
+  /* OPERATIVO más pequeño en celular */
+  #resumen .bslib-grid:first-of-type > .bslib-grid-item:first-child .value-box-value,
+  #resumen .bslib-grid:first-of-type > div:first-child .value-box-value {
+    font-size: 1.45rem !important;
+  }
+
+  .cell-output-display img,
+  .quarto-figure img,
+  .figure-img {
+    max-height: 155px !important;
+  }
+
+  table {
+    font-size: 0.67rem;
+  }
+}

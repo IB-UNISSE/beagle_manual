@@ -1,0 +1,4 @@
+node,partition,type,gpu
+beagle-01,ib,cpu,
+beagle-02,ib,cpu,
+beagle-gpu-01,gpu_V100,gpu,NVIDIA_V100

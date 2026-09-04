@@ -1,0 +1,1135 @@
+---
+title: "Métricas BEAGLE"
+author: "IB-UNISSE"
+
+format:
+  dashboard:
+    logo: ../images/logo_beagle_2.png
+    theme: cosmo
+    css: ../styles/dashboard.css
+    scrolling: true
+    expandable: true
+    nav-buttons:
+      - icon: house
+        href: https://ib-unisse.github.io/beagle_manual/
+        aria-label: "Manual BEAGLE"
+      - icon: github
+        href: https://github.com/IB-UNISSE/beagle_manual
+        aria-label: "GitHub"
+
+execute:
+  echo: false
+  warning: false
+  message: false
+  cache: false
+---
+
+```{r}
+#| context: setup
+
+library(tidyverse)
+library(lubridate)
+library(scales)
+library(grid)
+
+knitr::opts_chunk$set(
+  fig.width = 8,
+  fig.height = 2.55,
+  dpi = 120,
+  out.width = "100%"
+)
+
+read_history <- function(path) {
+  files <- list.files(
+    path,
+    pattern = "\\.csv$",
+    recursive = TRUE,
+    full.names = TRUE
+  )
+
+  if (length(files) == 0) {
+    return(tibble())
+  }
+
+  purrr::map_dfr(
+    files,
+    ~ readr::read_csv(.x, show_col_types = FALSE)
+  )
+}
+
+to_tib <- function(x) {
+  x / 1024^4
+}
+
+maintenance_states <- c(
+  "MAINT",
+  "DRAIN",
+  "DRAINED",
+  "DRAINING"
+)
+
+alert_states <- c(
+  "DOWN",
+  "FAIL",
+  "FAILING",
+  "NO_RESPOND",
+  "INVAL",
+  "UNKNOWN"
+)
+
+theme_beagle <- function() {
+  theme_minimal(base_size = 10.5) +
+    theme(
+      legend.position = "bottom",
+      legend.title = element_text(size = 9.5),
+      legend.text = element_text(size = 9.5),
+      legend.key.width = unit(1.0, "cm"),
+      legend.spacing.x = unit(0.15, "cm"),
+      panel.grid.minor = element_blank(),
+      axis.title.x = element_blank(),
+      axis.title.y = element_text(
+        size = 13,
+        margin = margin(r = 7)
+      ),
+      axis.text.x = element_text(size = 12),
+      axis.text.y = element_text(size = 12),
+      plot.margin = margin(5, 7, 5, 7)
+    )
+}
+
+cluster_current <- read_csv(
+  "../data/dashboard/cluster/current.csv",
+  show_col_types = FALSE
+)
+
+node_current <- bind_rows(
+  read_csv(
+    "../data/dashboard/beagle-01/current.csv",
+    show_col_types = FALSE
+  ),
+  read_csv(
+    "../data/dashboard/beagle-02/current.csv",
+    show_col_types = FALSE
+  ),
+  read_csv(
+    "../data/dashboard/beagle-gpu-01/current.csv",
+    show_col_types = FALSE
+  )
+)
+
+gpu_current <- read_csv(
+  "../data/dashboard/beagle-gpu-01/gpu.csv",
+  show_col_types = FALSE
+)
+
+cluster_history <- read_history(
+  "../data/dashboard/cluster/history"
+)
+
+node_history <- bind_rows(
+  read_history("../data/dashboard/beagle-01/history"),
+  read_history("../data/dashboard/beagle-02/history"),
+  read_history("../data/dashboard/beagle-gpu-01/history")
+)
+
+gpu_history <- read_history(
+  "../data/dashboard/beagle-gpu-01/gpu_history"
+)
+
+cluster_current <- cluster_current |>
+  mutate(
+    timestamp = with_tz(
+      ymd_hms(timestamp),
+      "America/Mexico_City"
+    )
+  )
+
+node_current <- node_current |>
+  mutate(
+    timestamp = with_tz(
+      ymd_hms(timestamp),
+      "America/Mexico_City"
+    )
+  )
+
+gpu_current <- gpu_current |>
+  mutate(
+    timestamp = with_tz(
+      ymd_hms(timestamp),
+      "America/Mexico_City"
+    )
+  )
+
+cluster_history <- cluster_history |>
+  mutate(
+    timestamp = with_tz(
+      ymd_hms(timestamp),
+      "America/Mexico_City"
+    )
+  )
+
+node_history <- node_history |>
+  mutate(
+    timestamp = with_tz(
+      ymd_hms(timestamp),
+      "America/Mexico_City"
+    )
+  )
+
+gpu_history <- gpu_history |>
+  mutate(
+    timestamp = with_tz(
+      ymd_hms(timestamp),
+      "America/Mexico_City"
+    )
+  )
+
+last_update <- max(
+  cluster_current$timestamp,
+  na.rm = TRUE
+)
+
+storage_used <- to_tib(
+  cluster_current$storage_used_bytes
+)
+
+storage_total <- to_tib(
+  cluster_current$storage_total_bytes
+)
+
+storage_available <- to_tib(
+  cluster_current$storage_available_bytes
+)
+
+node_status_check <- node_current |>
+  mutate(
+    state = toupper(state)
+  )
+
+node_maintenance <- node_status_check |>
+  filter(
+    str_detect(
+      state,
+      paste(maintenance_states, collapse = "|")
+    )
+  )
+
+node_alert <- node_status_check |>
+  filter(
+    str_detect(
+      state,
+      paste(alert_states, collapse = "|")
+    )
+  )
+
+cluster_status <- case_when(
+  nrow(node_alert) > 0 ~ "ALERTA",
+  nrow(node_maintenance) > 0 ~ "MANT.",
+  TRUE ~ "OK"
+)
+
+cluster_icon <- case_when(
+  cluster_status == "OK" ~ "check-circle",
+  cluster_status == "MANT." ~ "tools",
+  TRUE ~ "exclamation-triangle"
+)
+
+cluster_color <- case_when(
+  cluster_status == "OK" ~ "success",
+  cluster_status == "MANT." ~ "warning",
+  TRUE ~ "danger"
+)
+
+last_timestamp <- max(
+  cluster_history$timestamp,
+  na.rm = TRUE
+)
+
+nodes_24h <- node_history |>
+  filter(
+    timestamp >= last_timestamp - hours(24)
+  )
+
+gpu_24h <- gpu_history |>
+  filter(
+    timestamp >= last_timestamp - hours(24)
+  )
+
+nodes_daily <- node_history |>
+  mutate(
+    date = as.Date(timestamp)
+  ) |>
+  group_by(
+    date,
+    node
+  ) |>
+  summarise(
+    cpu_mean = mean(
+      cpu_used_pct,
+      na.rm = TRUE
+    ),
+    ram_mean = mean(
+      ram_used_bytes / ram_total_bytes * 100,
+      na.rm = TRUE
+    ),
+    .groups = "drop"
+  )
+
+gpu_daily <- gpu_history |>
+  mutate(
+    date = as.Date(timestamp),
+    gpu = paste("GPU", gpu),
+    memory_pct =
+      memory_used_mib / memory_total_mib * 100
+  ) |>
+  group_by(
+    date,
+    gpu
+  ) |>
+  summarise(
+    utilization_mean = mean(
+      utilization_pct,
+      na.rm = TRUE
+    ),
+    memory_mean = mean(
+      memory_pct,
+      na.rm = TRUE
+    ),
+    temperature_mean = mean(
+      temperature_c,
+      na.rm = TRUE
+    ),
+    power_mean = mean(
+      power_w,
+      na.rm = TRUE
+    ),
+    .groups = "drop"
+  )
+```
+
+# Resumen
+
+## Row {height=150}
+
+```{r}
+#| content: valuebox
+#| title: "Estado BEAGLE"
+
+list(
+  icon = cluster_icon,
+  color = cluster_color,
+  value = cluster_status
+)
+```
+
+```{r}
+#| content: valuebox
+#| title: "Usuarios"
+#| icon: people
+#| color: primary
+
+list(
+  value = cluster_current$users_home_ib
+)
+```
+
+```{r}
+#| content: valuebox
+#| title: "Usuarios activos"
+#| icon: person-check
+#| color: info
+
+list(
+  value = cluster_current$active_users
+)
+```
+
+## Row {height=150}
+
+```{r}
+#| content: valuebox
+#| title: "Jobs running"
+#| icon: activity
+#| color: success
+
+list(
+  value = cluster_current$jobs_running
+)
+```
+
+```{r}
+#| content: valuebox
+#| title: "Jobs pending"
+#| icon: hourglass
+#| color: warning
+
+list(
+  value = cluster_current$jobs_pending
+)
+```
+
+```{r}
+#| content: valuebox
+#| title: "Almacenamiento /home/ib"
+#| icon: device-hdd
+
+list(
+  color = if (
+    cluster_current$storage_used_pct >= 90
+  ) {
+    "danger"
+  } else if (
+    cluster_current$storage_used_pct >= 75
+  ) {
+    "warning"
+  } else {
+    "primary"
+  },
+  value = paste0(
+    cluster_current$storage_used_pct,
+    "%"
+  )
+)
+```
+
+## Row {height=220}
+
+```{r}
+#| title: "Estado de los nodos"
+
+node_status <- node_current |>
+  transmute(
+    Nodo = node,
+    Partición = partition,
+    Estado = toupper(state),
+    `CPU asignadas` =
+      paste0(cpu_alloc, "/", cpu_total),
+    `CPU real (%)` =
+      round(cpu_used_pct, 1),
+    `RAM (%)` =
+      round(
+        ram_used_bytes / ram_total_bytes * 100,
+        1
+      )
+  )
+
+knitr::kable(
+  node_status,
+  align = "lccccc"
+)
+```
+
+```{r}
+#| title: "CPU utilizada"
+
+node_current |>
+  ggplot(
+    aes(
+      x = reorder(node, cpu_used_pct),
+      y = cpu_used_pct
+    )
+  ) +
+  geom_col(width = 0.62) +
+  coord_flip() +
+  scale_y_continuous(
+    limits = c(0, 100),
+    labels = label_percent(scale = 1),
+    expand = expansion(
+      mult = c(0, 0.02)
+    )
+  ) +
+  labs(
+    x = NULL,
+    y = NULL
+  ) +
+  theme_beagle()
+```
+
+```{r}
+#| title: "Memoria RAM"
+
+node_current |>
+  mutate(
+    ram_pct =
+      ram_used_bytes / ram_total_bytes * 100
+  ) |>
+  ggplot(
+    aes(
+      x = reorder(node, ram_pct),
+      y = ram_pct
+    )
+  ) +
+  geom_col(width = 0.62) +
+  coord_flip() +
+  scale_y_continuous(
+    limits = c(0, 100),
+    labels = label_percent(scale = 1),
+    expand = expansion(
+      mult = c(0, 0.02)
+    )
+  ) +
+  labs(
+    x = NULL,
+    y = NULL
+  ) +
+  theme_beagle()
+```
+
+## Row {height=215}
+
+```{r}
+#| title: "Almacenamiento /home/ib"
+
+tibble(
+  categoria = c(
+    "Utilizado",
+    "Disponible"
+  ),
+  tib = c(
+    storage_used,
+    storage_available
+  )
+) |>
+  ggplot(
+    aes(
+      x = "",
+      y = tib,
+      fill = categoria
+    )
+  ) +
+  geom_col(width = 0.45) +
+  coord_flip() +
+  labs(
+    x = NULL,
+    y = "TiB",
+    fill = NULL
+  ) +
+  theme_beagle() +
+  theme(
+    axis.text.y = element_blank(),
+    axis.ticks.y = element_blank()
+  )
+```
+
+```{r}
+#| title: "GPU V100 — estado actual"
+
+gpu_current |>
+  mutate(
+    gpu = paste("GPU", gpu)
+  ) |>
+  ggplot(
+    aes(
+      x = gpu,
+      y = utilization_pct
+    )
+  ) +
+  geom_col(width = 0.60) +
+  scale_y_continuous(
+    limits = c(0, 100),
+    labels = label_percent(scale = 1),
+    expand = expansion(
+      mult = c(0, 0.02)
+    )
+  ) +
+  labs(
+    x = NULL,
+    y = "Utilización"
+  ) +
+  theme_beagle()
+```
+
+::: {.card title="Última actualización"}
+
+**Última medición recibida**
+
+`r format(last_update, "%d/%m/%Y %H:%M")`
+
+**Almacenamiento**
+
+`r sprintf("%.1f TiB utilizados de %.1f TiB", storage_used, storage_total)`
+
+**Disponible**
+
+`r sprintf("%.1f TiB", storage_available)`
+
+:::
+
+# Nodos
+
+## Row {height=260}
+
+```{r}
+#| title: "CPU — últimas 24 horas"
+
+nodes_24h |>
+  ggplot(
+    aes(
+      x = timestamp,
+      y = cpu_used_pct,
+      group = node,
+      linetype = node
+    )
+  ) +
+  geom_line(linewidth = 0.62) +
+  scale_y_continuous(
+    limits = c(0, 100),
+    labels = label_percent(scale = 1),
+    expand = expansion(
+      mult = c(0, 0.02)
+    )
+  ) +
+  labs(
+    x = NULL,
+    y = "CPU",
+    linetype = "Nodo"
+  ) +
+  theme_beagle()
+```
+
+## Row {height=230}
+
+```{r}
+#| title: "RAM — últimas 24 horas"
+
+nodes_24h |>
+  mutate(
+    ram_pct =
+      ram_used_bytes / ram_total_bytes * 100
+  ) |>
+  ggplot(
+    aes(
+      x = timestamp,
+      y = ram_pct,
+      group = node,
+      linetype = node
+    )
+  ) +
+  geom_line(linewidth = 0.62) +
+  scale_y_continuous(
+    limits = c(0, 100),
+    labels = label_percent(scale = 1),
+    expand = expansion(
+      mult = c(0, 0.02)
+    )
+  ) +
+  labs(
+    x = NULL,
+    y = "RAM",
+    linetype = "Nodo"
+  ) +
+  theme_beagle()
+```
+
+```{r}
+#| title: "Load average"
+
+nodes_24h |>
+  ggplot(
+    aes(
+      x = timestamp,
+      y = load1,
+      group = node,
+      linetype = node
+    )
+  ) +
+  geom_line(linewidth = 0.62) +
+  labs(
+    x = NULL,
+    y = "Load 1 min",
+    linetype = "Nodo"
+  ) +
+  theme_beagle()
+```
+
+```{r}
+#| title: "CPU asignadas por Slurm"
+
+node_current |>
+  select(
+    node,
+    cpu_alloc,
+    cpu_idle
+  ) |>
+  pivot_longer(
+    cols = c(
+      cpu_alloc,
+      cpu_idle
+    ),
+    names_to = "estado",
+    values_to = "cpu"
+  ) |>
+  ggplot(
+    aes(
+      x = node,
+      y = cpu,
+      fill = estado
+    )
+  ) +
+  geom_col(width = 0.60) +
+  labs(
+    x = NULL,
+    y = "CPU",
+    fill = NULL
+  ) +
+  theme_beagle()
+```
+
+# GPU
+
+## Row {height=150}
+
+```{r}
+#| content: valuebox
+#| title: "GPU 0"
+#| icon: speedometer
+
+g <- gpu_current |>
+  filter(gpu == 0)
+
+list(
+  color = if (
+    g$utilization_pct > 0
+  ) {
+    "success"
+  } else {
+    "light"
+  },
+  value = paste0(
+    g$utilization_pct,
+    "%"
+  )
+)
+```
+
+```{r}
+#| content: valuebox
+#| title: "GPU 1"
+#| icon: speedometer
+
+g <- gpu_current |>
+  filter(gpu == 1)
+
+list(
+  color = if (
+    g$utilization_pct > 0
+  ) {
+    "success"
+  } else {
+    "light"
+  },
+  value = paste0(
+    g$utilization_pct,
+    "%"
+  )
+)
+```
+
+```{r}
+#| content: valuebox
+#| title: "GPU 2"
+#| icon: speedometer
+
+g <- gpu_current |>
+  filter(gpu == 2)
+
+list(
+  color = if (
+    g$utilization_pct > 0
+  ) {
+    "success"
+  } else {
+    "light"
+  },
+  value = paste0(
+    g$utilization_pct,
+    "%"
+  )
+)
+```
+
+## Row {height=245}
+
+```{r}
+#| title: "Utilización actual"
+
+gpu_current |>
+  mutate(
+    gpu = paste("GPU", gpu)
+  ) |>
+  ggplot(
+    aes(
+      x = gpu,
+      y = utilization_pct
+    )
+  ) +
+  geom_col(width = 0.60) +
+  scale_y_continuous(
+    limits = c(0, 100),
+    labels = label_percent(scale = 1),
+    expand = expansion(
+      mult = c(0, 0.02)
+    )
+  ) +
+  labs(
+    x = NULL,
+    y = NULL
+  ) +
+  theme_beagle()
+```
+
+```{r}
+#| title: "VRAM utilizada"
+
+gpu_current |>
+  mutate(
+    gpu = paste("GPU", gpu),
+    memory_pct =
+      memory_used_mib / memory_total_mib * 100
+  ) |>
+  ggplot(
+    aes(
+      x = gpu,
+      y = memory_pct
+    )
+  ) +
+  geom_col(width = 0.60) +
+  scale_y_continuous(
+    limits = c(0, 100),
+    labels = label_percent(scale = 1),
+    expand = expansion(
+      mult = c(0, 0.02)
+    )
+  ) +
+  labs(
+    x = NULL,
+    y = NULL
+  ) +
+  theme_beagle()
+```
+
+## Row {height=255}
+
+```{r}
+#| title: "Utilización — últimas 24 horas"
+
+gpu_24h |>
+  mutate(
+    gpu = paste("GPU", gpu)
+  ) |>
+  ggplot(
+    aes(
+      x = timestamp,
+      y = utilization_pct,
+      group = gpu,
+      linetype = gpu
+    )
+  ) +
+  geom_line(linewidth = 0.62) +
+  scale_y_continuous(
+    limits = c(0, 100),
+    labels = label_percent(scale = 1),
+    expand = expansion(
+      mult = c(0, 0.02)
+    )
+  ) +
+  labs(
+    x = NULL,
+    y = "GPU",
+    linetype = NULL
+  ) +
+  theme_beagle()
+```
+
+```{r}
+#| title: "VRAM — últimas 24 horas"
+
+gpu_24h |>
+  mutate(
+    gpu = paste("GPU", gpu),
+    memory_pct =
+      memory_used_mib / memory_total_mib * 100
+  ) |>
+  ggplot(
+    aes(
+      x = timestamp,
+      y = memory_pct,
+      group = gpu,
+      linetype = gpu
+    )
+  ) +
+  geom_line(linewidth = 0.62) +
+  scale_y_continuous(
+    limits = c(0, 100),
+    labels = label_percent(scale = 1),
+    expand = expansion(
+      mult = c(0, 0.02)
+    )
+  ) +
+  labs(
+    x = NULL,
+    y = "VRAM",
+    linetype = NULL
+  ) +
+  theme_beagle()
+```
+
+```{r}
+#| title: "Temperatura — últimas 24 horas"
+
+gpu_24h |>
+  mutate(
+    gpu = paste("GPU", gpu)
+  ) |>
+  ggplot(
+    aes(
+      x = timestamp,
+      y = temperature_c,
+      group = gpu,
+      linetype = gpu
+    )
+  ) +
+  geom_line(linewidth = 0.62) +
+  labs(
+    x = NULL,
+    y = "°C",
+    linetype = NULL
+  ) +
+  theme_beagle()
+```
+
+# Histórico
+
+## Row {height=230}
+
+```{r}
+#| title: "Uso de almacenamiento"
+
+cluster_history |>
+  mutate(
+    storage_tib =
+      storage_used_bytes / 1024^4
+  ) |>
+  ggplot(
+    aes(
+      x = timestamp,
+      y = storage_tib
+    )
+  ) +
+  geom_line(linewidth = 0.65) +
+  labs(
+    x = NULL,
+    y = "TiB utilizados"
+  ) +
+  theme_beagle()
+```
+
+## Row {height=215}
+
+```{r}
+#| title: "Usuarios activos"
+
+cluster_history |>
+  ggplot(
+    aes(
+      x = timestamp,
+      y = active_users
+    )
+  ) +
+  geom_step(linewidth = 0.62) +
+  labs(
+    x = NULL,
+    y = "Usuarios"
+  ) +
+  theme_beagle()
+```
+
+```{r}
+#| title: "Jobs"
+
+cluster_history |>
+  select(
+    timestamp,
+    jobs_running,
+    jobs_pending
+  ) |>
+  pivot_longer(
+    cols = -timestamp,
+    names_to = "estado",
+    values_to = "jobs"
+  ) |>
+  ggplot(
+    aes(
+      x = timestamp,
+      y = jobs,
+      linetype = estado
+    )
+  ) +
+  geom_step(linewidth = 0.62) +
+  labs(
+    x = NULL,
+    y = "Jobs",
+    linetype = NULL
+  ) +
+  theme_beagle()
+```
+
+## Row {height=220}
+
+```{r}
+#| title: "CPU — promedio diario"
+
+nodes_daily |>
+  ggplot(
+    aes(
+      x = date,
+      y = cpu_mean,
+      group = node,
+      linetype = node
+    )
+  ) +
+  geom_line(linewidth = 0.65) +
+  scale_y_continuous(
+    limits = c(0, 100),
+    labels = label_percent(scale = 1),
+    expand = expansion(
+      mult = c(0, 0.02)
+    )
+  ) +
+  labs(
+    x = NULL,
+    y = "CPU promedio",
+    linetype = NULL
+  ) +
+  theme_beagle()
+```
+
+```{r}
+#| title: "RAM — promedio diario"
+
+nodes_daily |>
+  ggplot(
+    aes(
+      x = date,
+      y = ram_mean,
+      group = node,
+      linetype = node
+    )
+  ) +
+  geom_line(linewidth = 0.65) +
+  scale_y_continuous(
+    limits = c(0, 100),
+    labels = label_percent(scale = 1),
+    expand = expansion(
+      mult = c(0, 0.02)
+    )
+  ) +
+  labs(
+    x = NULL,
+    y = "RAM promedio",
+    linetype = NULL
+  ) +
+  theme_beagle()
+```
+
+## Row {height=220}
+
+```{r}
+#| title: "GPU — utilización promedio diaria"
+
+gpu_daily |>
+  ggplot(
+    aes(
+      x = date,
+      y = utilization_mean,
+      group = gpu,
+      linetype = gpu
+    )
+  ) +
+  geom_line(linewidth = 0.65) +
+  scale_y_continuous(
+    limits = c(0, 100),
+    labels = label_percent(scale = 1),
+    expand = expansion(
+      mult = c(0, 0.02)
+    )
+  ) +
+  labs(
+    x = NULL,
+    y = "GPU promedio",
+    linetype = NULL
+  ) +
+  theme_beagle()
+```
+
+```{r}
+#| title: "GPU — VRAM promedio diaria"
+
+gpu_daily |>
+  ggplot(
+    aes(
+      x = date,
+      y = memory_mean,
+      group = gpu,
+      linetype = gpu
+    )
+  ) +
+  geom_line(linewidth = 0.65) +
+  scale_y_continuous(
+    limits = c(0, 100),
+    labels = label_percent(scale = 1),
+    expand = expansion(
+      mult = c(0, 0.02)
+    )
+  ) +
+  labs(
+    x = NULL,
+    y = "VRAM promedio",
+    linetype = NULL
+  ) +
+  theme_beagle()
+```
+
+## Row {height=220}
+
+```{r}
+#| title: "GPU — temperatura promedio diaria"
+
+gpu_daily |>
+  ggplot(
+    aes(
+      x = date,
+      y = temperature_mean,
+      group = gpu,
+      linetype = gpu
+    )
+  ) +
+  geom_line(linewidth = 0.65) +
+  labs(
+    x = NULL,
+    y = "Temperatura (°C)",
+    linetype = NULL
+  ) +
+  theme_beagle()
+```
+
+```{r}
+#| title: "GPU — potencia promedio diaria"
+
+gpu_daily |>
+  ggplot(
+    aes(
+      x = date,
+      y = power_mean,
+      group = gpu,
+      linetype = gpu
+    )
+  ) +
+  geom_line(linewidth = 0.65) +
+  labs(
+    x = NULL,
+    y = "Potencia (W)",
+    linetype = NULL
+  ) +
+  theme_beagle()
+```

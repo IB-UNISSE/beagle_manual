@@ -1,0 +1,2 @@
+timestamp,node,partition,state,cpu_alloc,cpu_idle,cpu_other,cpu_total,cpu_used_pct,ram_used_bytes,ram_total_bytes,load1,load5,load15,uptime_seconds
+2026-09-04T14:15:01-06:00,beagle-gpu-01,gpu_V100,mix,42,38,0,80,48.2,57835102208,809615593472,57.07,55.92,55.22,1455108
