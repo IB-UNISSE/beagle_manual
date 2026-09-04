@@ -1,20 +1,24 @@
 ---
 title: "Métricas BEAGLE"
 author: "IB-UNISSE"
+number-sections: false
 
 format:
   dashboard:
-    logo: ../images/logo_beagle_2.png
-    theme: cosmo
+    logo: ../images/beagle_logo_blanco.png
+    logo-href: https://beagle.ib.unam.mx/
+    theme: litera
     css: ../styles/dashboard.css
     scrolling: true
     expandable: true
+    embed-resources: true
     nav-buttons:
-      - icon: house
+      - icon: journal-bookmark
         href: https://ib-unisse.github.io/beagle_manual/
         aria-label: "Manual BEAGLE"
+
       - icon: github
-        href: https://github.com/IB-UNISSE/beagle_manual
+        href: https://github.com/IB-UNISSE/
         aria-label: "GitHub"
 
 execute:
@@ -291,6 +295,10 @@ gpu_daily <- gpu_history |>
       utilization_pct,
       na.rm = TRUE
     ),
+    utilization_max = max(
+      utilization_pct,
+      na.rm = TRUE
+    ),
     memory_mean = mean(
       memory_pct,
       na.rm = TRUE
@@ -557,7 +565,7 @@ gpu_current |>
 
 # Nodos
 
-## Row {height=260}
+## Row {height=280}
 
 ```{r}
 #| title: "CPU — últimas 24 horas"
@@ -586,8 +594,6 @@ nodes_24h |>
   ) +
   theme_beagle()
 ```
-
-## Row {height=230}
 
 ```{r}
 #| title: "RAM — últimas 24 horas"
@@ -620,6 +626,8 @@ nodes_24h |>
   ) +
   theme_beagle()
 ```
+
+## Row {height=260}
 
 ```{r}
 #| title: "Load average"
@@ -900,7 +908,7 @@ gpu_24h |>
 
 # Histórico
 
-## Row {height=230}
+## Row {height=260}
 
 ```{r}
 #| title: "Uso de almacenamiento"
@@ -924,8 +932,6 @@ cluster_history |>
   theme_beagle()
 ```
 
-## Row {height=215}
-
 ```{r}
 #| title: "Usuarios activos"
 
@@ -943,6 +949,8 @@ cluster_history |>
   ) +
   theme_beagle()
 ```
+
+## Row {height=250}
 
 ```{r}
 #| title: "Jobs"
@@ -974,8 +982,6 @@ cluster_history |>
   theme_beagle()
 ```
 
-## Row {height=220}
-
 ```{r}
 #| title: "CPU — promedio diario"
 
@@ -1003,6 +1009,8 @@ nodes_daily |>
   ) +
   theme_beagle()
 ```
+
+## Row {height=250}
 
 ```{r}
 #| title: "RAM — promedio diario"
@@ -1032,8 +1040,6 @@ nodes_daily |>
   theme_beagle()
 ```
 
-## Row {height=220}
-
 ```{r}
 #| title: "GPU — utilización promedio diaria"
 
@@ -1061,6 +1067,8 @@ gpu_daily |>
   ) +
   theme_beagle()
 ```
+
+## Row {height=250}
 
 ```{r}
 #| title: "GPU — VRAM promedio diaria"
@@ -1090,8 +1098,6 @@ gpu_daily |>
   theme_beagle()
 ```
 
-## Row {height=220}
-
 ```{r}
 #| title: "GPU — temperatura promedio diaria"
 
@@ -1113,6 +1119,8 @@ gpu_daily |>
   theme_beagle()
 ```
 
+## Row {height=250}
+
 ```{r}
 #| title: "GPU — potencia promedio diaria"
 
@@ -1129,6 +1137,34 @@ gpu_daily |>
   labs(
     x = NULL,
     y = "Potencia (W)",
+    linetype = NULL
+  ) +
+  theme_beagle()
+```
+
+```{r}
+#| title: "GPU — utilización máxima diaria"
+
+gpu_daily |>
+  ggplot(
+    aes(
+      x = date,
+      y = utilization_max,
+      group = gpu,
+      linetype = gpu
+    )
+  ) +
+  geom_line(linewidth = 0.65) +
+  scale_y_continuous(
+    limits = c(0, 100),
+    labels = label_percent(scale = 1),
+    expand = expansion(
+      mult = c(0, 0.02)
+    )
+  ) +
+  labs(
+    x = NULL,
+    y = "GPU máxima",
     linetype = NULL
   ) +
   theme_beagle()

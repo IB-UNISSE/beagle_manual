@@ -11,25 +11,35 @@ book:
   author: "IB-UNISSE"
   date: today
   favicon: images/logo_beagle_2.png
+
   page-navigation: true
   search: true
+
   sidebar:
     logo: images/beagle_logo_blanco.png
     title: "BEAGLE"
     collapse-level: 1
     pinned: true
+
   repo-url: https://github.com/IB-UNISSE/beagle_manual
   repo-actions: [edit, issue]
+
   chapters:
     - index.qmd
     - chapters/acceso.qmd
-    - chapters/terminal_linux.qmd 
-    #- chapters/software.qmd
-    #- chapters/micromamba.qmd
+    - chapters/terminal_linux.qmd
+
+    # - chapters/software.qmd
+    # - chapters/micromamba.qmd
+
     - chapters/apptainer.qmd
     - chapters/slurm.qmd
     - chapters/bots.qmd
     - chapters/ejercicios.qmd
+
+    # Capítulo puente que aparece en el menú y redirige al dashboard
+    - chapters/metricas.qmd
+
     - contacto.qmd
 
 format:
@@ -37,13 +47,16 @@ format:
     theme:
       light: litera
     css: styles/styles.css
+
     toc: true
     toc-depth: 3
     number-sections: false
+
     code-copy: true
     code-overflow: wrap
     smooth-scroll: true
     link-external-newwindow: true
+
     include-in-header:
       text: |
         <meta name="description" content="Manual de usuario del servidor BEAGLE: acceso por SSH, transferencia de archivos, Apptainer y envío de trabajos con Slurm.">

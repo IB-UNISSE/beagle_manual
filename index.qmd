@@ -9,7 +9,7 @@ subtitle: "Servidor de cómputo para bioinformática"
 Guía práctica para ingresar al servidor, organizar archivos, usar software bioinformático mediante **Apptainer** y enviar análisis al sistema de colas con **Slurm**.
 :::
 
-![](images/baner_beagle.png){fig-align="center" width="550"}
+[![](images/baner_beagle.png){fig-align="center" width="550"}](https://beagle.ib.unam.mx/)
 
 ## Bienvenida
 
@@ -87,7 +87,7 @@ Al enviar trabajos con Slurm, pide una cantidad razonable de CPUs, memoria RAM y
 
 Una buena organización de carpetas evita confusiones y facilita encontrar errores. Para cada proyecto o análisis se recomienda usar una estructura similar a:
 
-```bash
+``` bash
 mi_proyecto/
 ├── datos/
 ├── scripts/
@@ -117,4 +117,3 @@ Cuando reportes un problema, incluye la mayor cantidad posible de información p
 -   programa, ambiente o contenedor utilizado.
 
 Para dudas generales, consulta la sección de [contacto y soporte](contacto.qmd).
-

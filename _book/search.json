@@ -14,7 +14,7 @@
     "href": "index.html#bienvenida",
     "title": "Manual de usuario BEAGLE",
     "section": "Bienvenida",
-    "text": "Bienvenida\nBEAGLE es una infraestructura de cómputo compartida para apoyar análisis bioinformáticos, filogenómicos y otros procesos computacionales utilizados por la comunidad académica del Instituto de Biología, UNAM.\nEste manual está diseñado como una guía rápida de uso práctico de BEAGLE. Su objetivo es que las personas usuarias puedan comenzar a trabajar en el servidor de forma ordenada, segura y reproducible, desde el acceso inicial por SSH hasta el envío de trabajos mediante Slurm.\n\n\n\n\n\n\nNoteAlcance de este manual\n\n\n\nEste manual no pretende ser un curso completo de programación, Linux o Bash. Su propósito es servir como una guía práctica para el uso cotidiano de BEAGLE.\nSi te interesa una formación más completa, puedes consultar el curso de posgrado en Ciencias Biológicas Introducción a la programación para bioinformática con Bash, impartido por el Dr. Cristian Cervantes y el M. en I. Mauricio Morgado.\nSitio del curso: https://ib-unisse.github.io/intro_bash_bioinfo/\n\n\nNo es necesario leer todo el manual de una sola vez. Puedes avanzar por secciones según lo que necesites hacer: conectarte al servidor, transferir archivos, usar la terminal, cargar software, trabajar con contenedores o enviar análisis a la cola de cómputo.",
+    "text": "Bienvenida\nBEAGLE es una infraestructura de cómputo compartida para apoyar análisis bioinformáticos, filogenómicos y otros procesos computacionales utilizados por la comunidad académica del Instituto de Biología, UNAM.\nEste manual está diseñado como una guía rápida de uso práctico de BEAGLE. Su objetivo es que las personas usuarias puedan comenzar a trabajar en el servidor de forma ordenada, segura y reproducible, desde el acceso inicial por SSH hasta el envío de trabajos mediante Slurm.\n\n\n\n\n\n\nAlcance de este manual\n\n\n\nEste manual no pretende ser un curso completo de programación, Linux o Bash. Su propósito es servir como una guía práctica para el uso cotidiano de BEAGLE.\nSi te interesa una formación más completa, puedes consultar el curso de posgrado en Ciencias Biológicas Introducción a la programación para bioinformática con Bash, impartido por el Dr. Cristian Cervantes y el M. en I. Mauricio Morgado.\nSitio del curso: https://ib-unisse.github.io/intro_bash_bioinfo/\n\n\nNo es necesario leer todo el manual de una sola vez. Puedes avanzar por secciones según lo que necesites hacer: conectarte al servidor, transferir archivos, usar la terminal, cargar software, trabajar con contenedores o enviar análisis a la cola de cómputo.",
     "crumbs": [
       "<span class='chapter-number'>1</span>  <span class='chapter-title'>Manual de usuario BEAGLE</span>"
     ]
@@ -44,7 +44,7 @@
     "href": "index.html#reglas-generales-de-uso",
     "title": "Manual de usuario BEAGLE",
     "section": "Reglas generales de uso",
-    "text": "Reglas generales de uso\n\n\n\n\n\n\nCautionLas cuentas son personales e intransferibles\n\n\n\nLas cuentas de usuario en BEAGLE son personales e intransferibles. No compartas tu contraseña, llaves SSH ni accesos con otras personas, incluso si pertenecen al mismo laboratorio o grupo de trabajo. Cada persona debe ingresar con su propia cuenta, ya que el uso del servidor queda asociado al usuario registrado.\n\n\n\n\n\n\n\n\nImportantBEAGLE es un recurso compartido\n\n\n\nEvita ejecutar análisis pesados directamente en la terminal de acceso. Los análisis que consumen muchos recursos deben enviarse mediante Slurm usando sbatch.\n\n\n\n\n\n\n\n\nWarningNo instales software en el sistema principal\n\n\n\nEn BEAGLE no se debe modificar el sistema operativo ni instalar programas globalmente con sudo. Para usar software especializado, utiliza Apptainer.\n\n\n\n\n\n\n\n\nNoteSolicita solo los recursos necesarios\n\n\n\nAl enviar trabajos con Slurm, pide una cantidad razonable de CPUs, memoria RAM y tiempo. Solicitar muchos recursos sin necesitarlos puede retrasar tus trabajos y afectar a otras personas usuarias.",
+    "text": "Reglas generales de uso\n\n\n\n\n\n\nLas cuentas son personales e intransferibles\n\n\n\nLas cuentas de usuario en BEAGLE son personales e intransferibles. No compartas tu contraseña, llaves SSH ni accesos con otras personas, incluso si pertenecen al mismo laboratorio o grupo de trabajo. Cada persona debe ingresar con su propia cuenta, ya que el uso del servidor queda asociado al usuario registrado.\n\n\n\n\n\n\n\n\nBEAGLE es un recurso compartido\n\n\n\nEvita ejecutar análisis pesados directamente en la terminal de acceso. Los análisis que consumen muchos recursos deben enviarse mediante Slurm usando sbatch.\n\n\n\n\n\n\n\n\nNo instales software en el sistema principal\n\n\n\nEn BEAGLE no se debe modificar el sistema operativo ni instalar programas globalmente con sudo. Para usar software especializado, utiliza Apptainer.\n\n\n\n\n\n\n\n\nSolicita solo los recursos necesarios\n\n\n\nAl enviar trabajos con Slurm, pide una cantidad razonable de CPUs, memoria RAM y tiempo. Solicitar muchos recursos sin necesitarlos puede retrasar tus trabajos y afectar a otras personas usuarias.",
     "crumbs": [
       "<span class='chapter-number'>1</span>  <span class='chapter-title'>Manual de usuario BEAGLE</span>"
     ]
@@ -1137,6 +1137,166 @@
     "text": "Para consultas generales, dudas sobre el uso del clúster de cómputo BEAGLE, comentarios sobre este manual o solicitudes de orientación, puedes contactar a:\nDr. Cristian Cervantes\nTécnico Académico\nUnidad de Síntesis en Sistemática y Evolución (UniSSE)\nInstituto de Biología, UNAM\n📧 cristian.cervantes@ib.unam.mx\n\nAntes de solicitar ayuda\nPara poder atender mejor tu duda, incluye la siguiente información en tu mensaje:\n\nNombre completo.\nAdscripción, laboratorio o grupo de trabajo.\nNombre de usuario en BEAGLE, si ya cuentas con uno.\nDescripción breve del problema.\nComando que ejecutaste.\nMensaje de error completo, si aplica.\n\n\n\nReportar errores o sugerencias del manual\nSi encontraste un error en este manual, una instrucción incompleta, un enlace que no funciona o tienes una sugerencia para mejorarlo, puedes reportarlo mediante la sección de Issues del repositorio en GitHub.\nTambién puedes enviar tus comentarios directamente por correo electrónico, especialmente si se trata de una duda particular o de una solicitud que requiera seguimiento personalizado.\n📧 cristian.cervantes@ib.unam.mx",
     "crumbs": [
       "<span class='chapter-number'>8</span>  <span class='chapter-title'>Contacto y soporte</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/dashboard.html",
+    "href": "chapters/dashboard.html",
+    "title": "Métricas BEAGLE",
+    "section": "",
+    "text": "Resumen",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Métricas BEAGLE</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/dashboard.html#row",
+    "href": "chapters/dashboard.html#row",
+    "title": "Métricas BEAGLE",
+    "section": "Row",
+    "text": "Row\n\n\n$icon\n[1] \"check-circle\"\n\n$color\n[1] \"success\"\n\n$value\n[1] \"OK\"\n\n\n\n\n$value\n[1] 17\n\n\n\n\n$value\n[1] 4",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Métricas BEAGLE</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/dashboard.html#row-1",
+    "href": "chapters/dashboard.html#row-1",
+    "title": "Métricas BEAGLE",
+    "section": "Row",
+    "text": "Row\n\n\n$value\n[1] 6\n\n\n\n\n$value\n[1] 0\n\n\n\n\n$color\n[1] \"primary\"\n\n$value\n[1] \"28%\"",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Métricas BEAGLE</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/dashboard.html#row-2",
+    "href": "chapters/dashboard.html#row-2",
+    "title": "Métricas BEAGLE",
+    "section": "Row",
+    "text": "Row\n\n\n\n\n\n\n\n\n\n\n\n\n\nNodo\nPartición\nEstado\nCPU asignadas\nCPU real (%)\nRAM (%)\n\n\n\n\nbeagle-01\nib\nMIX\n16/32\n0.9\n5.6\n\n\nbeagle-02\nib\nIDLE\n0/20\n0.3\n1.6\n\n\nbeagle-gpu-01\ngpu_V100\nMIX\n42/80\n48.2\n7.1",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Métricas BEAGLE</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/dashboard.html#row-3",
+    "href": "chapters/dashboard.html#row-3",
+    "title": "Métricas BEAGLE",
+    "section": "Row",
+    "text": "Row\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nÚltima medición recibida\n04/09/2026 14:15\nAlmacenamiento\n40.7 TiB utilizados de 149.5 TiB\nDisponible\n108.8 TiB",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Métricas BEAGLE</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/dashboard.html#row-4",
+    "href": "chapters/dashboard.html#row-4",
+    "title": "Métricas BEAGLE",
+    "section": "Row",
+    "text": "Row",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Métricas BEAGLE</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/dashboard.html#row-5",
+    "href": "chapters/dashboard.html#row-5",
+    "title": "Métricas BEAGLE",
+    "section": "Row",
+    "text": "Row",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Métricas BEAGLE</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/dashboard.html#row-6",
+    "href": "chapters/dashboard.html#row-6",
+    "title": "Métricas BEAGLE",
+    "section": "Row",
+    "text": "Row\n\n\n$color\n[1] \"success\"\n\n$value\n[1] \"43%\"\n\n\n\n\n$color\n[1] \"light\"\n\n$value\n[1] \"0%\"\n\n\n\n\n$color\n[1] \"light\"\n\n$value\n[1] \"0%\"",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Métricas BEAGLE</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/dashboard.html#row-7",
+    "href": "chapters/dashboard.html#row-7",
+    "title": "Métricas BEAGLE",
+    "section": "Row",
+    "text": "Row",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Métricas BEAGLE</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/dashboard.html#row-8",
+    "href": "chapters/dashboard.html#row-8",
+    "title": "Métricas BEAGLE",
+    "section": "Row",
+    "text": "Row",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Métricas BEAGLE</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/dashboard.html#row-9",
+    "href": "chapters/dashboard.html#row-9",
+    "title": "Métricas BEAGLE",
+    "section": "Row",
+    "text": "Row",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Métricas BEAGLE</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/dashboard.html#row-10",
+    "href": "chapters/dashboard.html#row-10",
+    "title": "Métricas BEAGLE",
+    "section": "Row",
+    "text": "Row",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Métricas BEAGLE</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/dashboard.html#row-11",
+    "href": "chapters/dashboard.html#row-11",
+    "title": "Métricas BEAGLE",
+    "section": "Row",
+    "text": "Row",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Métricas BEAGLE</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/dashboard.html#row-12",
+    "href": "chapters/dashboard.html#row-12",
+    "title": "Métricas BEAGLE",
+    "section": "Row",
+    "text": "Row",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Métricas BEAGLE</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/dashboard.html#row-13",
+    "href": "chapters/dashboard.html#row-13",
+    "title": "Métricas BEAGLE",
+    "section": "Row",
+    "text": "Row",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Métricas BEAGLE</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/metricas.html",
+    "href": "chapters/metricas.html",
+    "title": "Métricas BEAGLE",
+    "section": "",
+    "text": "Abrir Métricas BEAGLE",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Métricas BEAGLE</span>"
     ]
   }
 ]

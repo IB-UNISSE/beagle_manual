@@ -67,5 +67,11 @@
   },
   "chapters/ejercicios.qmd": {
     "ejercicios.html": "2788cc93"
+  },
+  "chapters/dashboard.qmd": {
+    "dashboard.html": "02ee8bb8"
+  },
+  "chapters/metricas.qmd": {
+    "metricas.html": "a0920ffb"
   }
 }

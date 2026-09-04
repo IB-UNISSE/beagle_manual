@@ -1,0 +1,14 @@
+---
+title: "Métricas BEAGLE"
+toc: false
+page-navigation: false
+---
+
+```{=html}
+<script>
+  window.location.replace("dashboard.html");
+</script>
+
+<noscript>
+  <p><a href="dashboard.html">Abrir Métricas BEAGLE</a></p>
+</noscript>
